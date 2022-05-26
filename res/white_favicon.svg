@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="white_favicon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.69664703"
+     inkscape:cx="-48.08748"
+     inkscape:cy="675.37789"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g1026" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1026"
+       transform="matrix(0.26458333,0,0,0.26458333,315.37829,134.43181)">
+      <g
+         id="g1138"
+         transform="translate(191.0686,3.3928525)"
+         inkscape:export-filename="D:\Desktop\favicon.png"
+         inkscape:export-xdpi="325.23233"
+         inkscape:export-ydpi="325.23233">
+        <path
+           d="m -936.90515,-2.08034 v 24.8945 h -46.1558 v 15.8885 h 42.2668 v 22.4893 h -42.2668 v 16.5022 h 46.1558 v 25.1758 h -74.93875 V -2.08034 Z"
+           style="fill:#ffffff;fill-rule:evenodd"
+           id="path889" />
+        <g
+           id="Layer1007"
+           transform="translate(663.90075,-330.64754)"
+           style="fill:#f7d117;fill-opacity:1">
+          <path
+             d="m -1699.3939,442.537 v 13.8658 h 98.4531 V 442.537 Z"
+             style="fill:#f7d117;fill-opacity:1;fill-rule:evenodd"
+             id="path937" />
+          <path
+             d="m -1699.3939,304.4488 v 13.8658 h 98.4531 v -13.8658 z"
+             style="fill:#f7d117;fill-opacity:1;fill-rule:evenodd"
+             id="path939" />
+          <path
+             d="m -1667.2067,367.3894 v -11.7665 h -32.1872 v 11.7665 z"
+             style="fill:#f7d117;fill-opacity:1;fill-rule:evenodd"
+             id="path941" />
+          <path
+             d="M -1667.2067,348.5034 V 336.737 h -32.1872 v 11.7664 z"
+             style="fill:#f7d117;fill-opacity:1;fill-rule:evenodd"
+             id="path943" />
+          <path
+             d="m -1667.2067,386.2752 v -11.7665 h -32.1872 v 11.7665 z"
+             style="fill:#f7d117;fill-opacity:1;fill-rule:evenodd"
+             id="path945" />
+          <path
+             d="m -1667.2067,405.7672 v -11.7664 h -32.1872 v 11.7664 z"
+             style="fill:#f7d117;fill-opacity:1;fill-rule:evenodd"
+             id="path947" />
+          <path
+             d="m -1667.2067,424.6526 v -11.7664 h -32.1872 v 11.7664 z"
+             style="fill:#f7d117;fill-opacity:1;fill-rule:evenodd"
+             id="path949" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
