@@ -58,7 +58,7 @@ public class ComunicacionesBajaIFrame extends JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Comunicaciones de baja");
-        setFrameIcon(FontIcon.of(RemixiconAL.CALENDAR_2_LINE, 16, Color.decode("#FACADE")));
+        setFrameIcon(FontIcon.of(RemixiconAL.CALENDAR_2_LINE, 16, Color.decode("#f7d117")));
         setMaximumSize(null);
         setMinimumSize(new Dimension(800, 600));
         setPreferredSize(new Dimension(800, 600));
