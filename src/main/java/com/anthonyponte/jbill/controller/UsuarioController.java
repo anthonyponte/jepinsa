@@ -95,12 +95,14 @@ public class UsuarioController {
             iFrame.dispose();
             frame.menuNuevo.setEnabled(true);
             frame.menuVer.setEnabled(true);
+            frame.menuWebService.setEnabled(true);
             frame.menuBillService.setEnabled(true);
             frame.miComunicacionBaja.setEnabled(true);
             frame.miResumenDiario.setEnabled(true);
             frame.miComunicacionesBaja.setEnabled(true);
             frame.miResumenesDiario.setEnabled(true);
             frame.miSummary.setEnabled(true);
+            frame.miBillConsultService.setEnabled(true);
           } catch (BackingStoreException ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
           }

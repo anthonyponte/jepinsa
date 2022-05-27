@@ -57,8 +57,10 @@ public class MainFrame extends JFrame {
         menuVer = new JMenu();
         miComunicacionesBaja = new JMenuItem();
         miResumenesDiario = new JMenuItem();
+        menuWebService = new JMenu();
         menuBillService = new JMenu();
         miSummary = new JMenuItem();
+        miBillConsultService = new JMenuItem();
         menuSalir = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -108,6 +110,9 @@ public class MainFrame extends JFrame {
 
         menuMain.add(menuVer);
 
+        menuWebService.setText("WebService");
+        menuWebService.setEnabled(false);
+
         menuBillService.setText("BillService");
         menuBillService.setEnabled(false);
 
@@ -115,7 +120,13 @@ public class MainFrame extends JFrame {
         miSummary.setEnabled(false);
         menuBillService.add(miSummary);
 
-        menuMain.add(menuBillService);
+        menuWebService.add(menuBillService);
+
+        miBillConsultService.setText("BillConsultService");
+        miBillConsultService.setEnabled(false);
+        menuWebService.add(miBillConsultService);
+
+        menuMain.add(menuWebService);
 
         menuSalir.setText("Salir");
         menuMain.add(menuSalir);
@@ -153,6 +164,8 @@ public class MainFrame extends JFrame {
     public JMenu menuNuevo;
     public JMenuItem menuSalir;
     public JMenu menuVer;
+    public JMenu menuWebService;
+    public JMenuItem miBillConsultService;
     public JMenuItem miComunicacionBaja;
     public JMenuItem miComunicacionesBaja;
     public JMenuItem miResumenDiario;

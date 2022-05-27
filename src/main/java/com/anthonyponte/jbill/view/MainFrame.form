@@ -69,15 +69,29 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <Menu class="javax.swing.JMenu" name="menuBillService">
+            <Menu class="javax.swing.JMenu" name="menuWebService">
               <Properties>
-                <Property name="text" type="java.lang.String" value="BillService"/>
+                <Property name="text" type="java.lang.String" value="WebService"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="miSummary">
+                <Menu class="javax.swing.JMenu" name="menuBillService">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Summary"/>
+                    <Property name="text" type="java.lang.String" value="BillService"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <SubComponents>
+                    <MenuItem class="javax.swing.JMenuItem" name="miSummary">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Summary"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </MenuItem>
+                  </SubComponents>
+                </Menu>
+                <MenuItem class="javax.swing.JMenuItem" name="miBillConsultService">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="BillConsultService"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </MenuItem>

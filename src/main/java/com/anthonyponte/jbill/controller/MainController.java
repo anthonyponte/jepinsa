@@ -4,6 +4,7 @@
  */
 package com.anthonyponte.jbill.controller;
 
+import com.anthonyponte.jbill.view.BillConsultServiceIFrame;
 import com.anthonyponte.jbill.view.SummaryIFrame;
 import com.anthonyponte.jbill.view.MainFrame;
 import com.anthonyponte.jbill.view.UsuarioIFrame;
@@ -34,9 +35,10 @@ public class MainController {
   private UsuarioIFrame usuarioIFrame;
   private ComunicacionBajaIFrame comunicacionBajaIFrame;
   private ResumenDiarioIFrame resumenDiarioIFrame;
-  private SummaryIFrame summaryIFrame;
   private ComunicacionesBajaIFrame comunicacionesBajaIFrame;
   private ResumenesDiarioIFrame resumenesDiarioIFrame;
+  private SummaryIFrame summaryIFrame;
+  private BillConsultServiceIFrame billConsultServiceIFrame;
   private LoadingDialog dialog;
   private Server server = null;
   private final String ALIAS = "jbs";
@@ -113,12 +115,25 @@ public class MainController {
           }
         });
 
+    frame.miBillConsultService.addActionListener(
+        (ActionEvent arg0) -> {
+          if (isIframeClosed(billConsultServiceIFrame)) {
+            billConsultServiceIFrame = new BillConsultServiceIFrame();
+            frame.dpane.add(billConsultServiceIFrame);
+            billConsultServiceIFrame.setLocation(centerIFrame(billConsultServiceIFrame));
+            new BillConsultServiceController(billConsultServiceIFrame, dialog).init();
+          } else {
+            iframeClosed(summaryIFrame);
+          }
+        });
+
     frame.menuSalir.addActionListener(
         (ActionEvent arg0) -> {
           finnish();
         });
 
-    frame.addWindowListener(new WindowListener() {
+    frame.addWindowListener(
+        new WindowListener() {
           @Override
           public void windowOpened(WindowEvent e) {
             try {
