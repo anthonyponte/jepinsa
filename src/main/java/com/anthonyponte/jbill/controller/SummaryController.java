@@ -41,6 +41,7 @@ import com.anthonyponte.jbill.model.Summary;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.google.common.util.concurrent.Uninterruptibles;
 import efact.pe.BillService;
+import efact.pe.StatusResponse;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -78,7 +79,8 @@ public class SummaryController {
   }
 
   public void init() {
-    iFrame.btnEnviar.addActionListener((var e) -> {
+    iFrame.btnEnviar.addActionListener(
+        (var e) -> {
           int seleccionados = selectionModel.getSelected().size();
           int input =
               JOptionPane.showOptionDialog(
@@ -104,29 +106,23 @@ public class SummaryController {
                       EventList<Summary> selected = selectionModel.getSelected();
                       list = new ArrayList<>();
                       for (Summary next : selected) {
-                        DataSource source =
-                            new ByteArrayDataSource(next.getZip(), "application/zip");
-                        DataHandler handler = new DataHandler(source);
+                        String ticket = service.sendSummary(next.getNombreZip(), next.getZip());
 
-//                        String ticket =
-//                            service.sendSummary(
-//                                next.getNombreZip(), handler, next.getTipoDocumento().getCodigo());
-//
-//                        if (ticket != null) {
-//                          Uninterruptibles.sleepUninterruptibly(10, TimeUnit.SECONDS);
-//                          StatusResponse response = service.getStatus(ticket);
-//
-//                          if (response.getStatusCode().equals("0")) {
-//                            next.setTicket(ticket);
-//                            next.setStatusCode(response.getStatusCode());
-//                            next.setNombreContent("R-" + next.getNombreZip());
-//                            next.setContent(response.getContent());
-//
-//                            summaryDao.update(next.getId(), next);
-//
-//                            list.add(next);
-//                          }
-//                        }
+                        if (ticket != null) {
+                          Uninterruptibles.sleepUninterruptibly(10, TimeUnit.SECONDS);
+                          StatusResponse response = service.getStatus(ticket);
+
+                          if (response.getStatusCode().equals("0")) {
+                            next.setTicket(ticket);
+                            next.setStatusCode(response.getStatusCode());
+                            next.setNombreContent("R-" + next.getNombreZip());
+                            next.setContent(response.getContent());
+
+                            summaryDao.update(next.getId(), next);
+
+                            list.add(next);
+                          }
+                        }
                       }
                     }
                     return list;
@@ -216,7 +212,8 @@ public class SummaryController {
     iFrame
         .table
         .getActionMap()
-        .put("DELETE",
+        .put(
+            "DELETE",
             new AbstractAction() {
               @Override
               public void actionPerformed(ActionEvent ae) {
