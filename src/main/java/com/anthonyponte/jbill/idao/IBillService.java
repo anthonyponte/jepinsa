@@ -26,8 +26,7 @@ public class IBillService implements BillService {
   private static final Preferences PREFERENCES =
       Preferences.userRoot().node(MainController.class.getPackageName());
   private final String RUC = PREFERENCES.get(UsuarioController.RUC, "");
-  private final String USUARIO = PREFERENCES.get(UsuarioController.CLAVE_SOL_USUARIO, "");
-  private final String CONTRASENA = PREFERENCES.get(UsuarioController.CLAVE_SOL_CONTRASENA, "");
+  private final String CONTRASENA = PREFERENCES.get(UsuarioController.EFACT_CONTRASENA, "");
 
   @Override
   public String sendSummary(String fileName, byte[] contentFile) {
@@ -48,15 +47,13 @@ public class IBillService implements BillService {
       Logger.getLogger(IBillService.class.getName()).log(Level.SEVERE, null, ex);
       JOptionPane.showMessageDialog(null, ex.getMessage(), fileName, JOptionPane.ERROR_MESSAGE);
     }
-
     return ticket;
   }
 
   @Override
   public String sendPack(String fileName, byte[] contentFile) {
-    throw new UnsupportedOperationException(
-        "Not supported yet."); // Generated from
-                               // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    throw new UnsupportedOperationException("Not supported yet."); // Generated from
+    // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
   }
 
   @Override
@@ -65,16 +62,14 @@ public class IBillService implements BillService {
       String tipoComprobante,
       String serieComprobante,
       int numeroComprobante) {
-    throw new UnsupportedOperationException(
-        "Not supported yet."); // Generated from
-                               // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    throw new UnsupportedOperationException("Not supported yet."); // Generated from
+    // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
   }
 
   @Override
   public byte[] sendBill(String fileName, byte[] contentFile) {
-    throw new UnsupportedOperationException(
-        "Not supported yet."); // Generated from
-                               // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    throw new UnsupportedOperationException("Not supported yet."); // Generated from
+    // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
   }
 
   @Override
@@ -87,7 +82,7 @@ public class IBillService implements BillService {
 
       @SuppressWarnings("rawtypes")
       List<Handler> handlers = new ArrayList<>();
-      SOAPHandler<SOAPMessageContext> handler = new ISOAPHanlder(RUC + USUARIO, CONTRASENA);
+      SOAPHandler<SOAPMessageContext> handler = new ISOAPHanlder(RUC, CONTRASENA);
       handlers.add(handler);
       binding.getBinding().setHandlerChain(handlers);
 
@@ -96,7 +91,6 @@ public class IBillService implements BillService {
       Logger.getLogger(IBillService.class.getName()).log(Level.SEVERE, null, ex);
       JOptionPane.showMessageDialog(null, ex.getMessage(), ticket, JOptionPane.ERROR_MESSAGE);
     }
-
     return statusResponse;
   }
 }

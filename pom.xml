@@ -204,6 +204,61 @@
                     <catalog>${basedir}/src/jax-ws-catalog.xml</catalog>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.sun.xml.ws</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <extension>true</extension>
+                            <wsdlFiles>
+                                <wsdlFile>e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService.wsdl</wsdlFile>
+                            </wsdlFiles>
+                            <packageName>pe.gob.sunat</packageName>
+                            <vmArgs>
+                                <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
+                            </vmArgs>
+                            <wsdlLocation>https://e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService?wsdl</wsdlLocation>
+                            <staleFile>${project.build.directory}/jaxws/stale/billConsultService.stale</staleFile>
+                        </configuration>
+                        <id>wsimport-generate-billConsultService</id>
+                        <phase>generate-sources</phase>
+                    </execution>
+                </executions>                
+                <dependencies>
+                    <dependency>
+                        <groupId>jakarta.annotation</groupId>
+                        <artifactId>jakarta.annotation-api</artifactId>
+                        <version>2.0.0</version>
+                    </dependency>                    
+                    <dependency>
+                        <groupId>jakarta.xml.bind</groupId>
+                        <artifactId>jakarta.xml.bind-api</artifactId>
+                        <version>3.0.1</version>
+                    </dependency>                    
+                    <dependency>
+                        <groupId>jakarta.xml.ws</groupId>
+                        <artifactId>jakarta.xml.ws-api</artifactId>
+                        <version>3.0.1</version>
+                    </dependency>                    
+                    <dependency>
+                        <groupId>jakarta.jws</groupId>
+                        <artifactId>jakarta.jws-api</artifactId>
+                        <version>3.0.0</version>
+                    </dependency>
+                </dependencies>                
+                <configuration>
+                    <sourceDestDir>${project.build.directory}/generated-sources/jaxws-wsimport</sourceDestDir>
+                    <xnocompile>true</xnocompile>
+                    <verbose>true</verbose>
+                    <extension>true</extension>
+                    <catalog>${basedir}/src/jax-ws-catalog.xml</catalog>
+                </configuration>
+            </plugin>  
         </plugins>
     </build>
     

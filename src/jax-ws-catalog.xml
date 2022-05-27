@@ -3,4 +3,7 @@
     <system systemId="https://ose-gw1.efact.pe/ol-ti-itcpe/billService?wsdl" uri="wsdl/ose-gw1.efact.pe/ol-ti-itcpe/billService.wsdl"/>
     <system systemId="http://ose-gw1.efact.pe:80/ol-ti-itcpe/billService?wsdl=1" uri="wsdl/ose-gw1.efact.pe_80/ol-ti-itcpe/billService.wsdl_1.wsdl"/>
     <system systemId="http://ose-gw1.efact.pe:80/ol-ti-itcpe/billService?xsd=1" uri="wsdl/ose-gw1.efact.pe_80/ol-ti-itcpe/billService.xsd_1.xsd"/>
+    <system systemId="https://e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService?wsdl" uri="wsdl/e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService.wsdl"/>
+    <system systemId="https://e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService?wsdl=1" uri="wsdl/e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService.wsdl_1.wsdl"/>
+    <system systemId="https://e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService?xsd=1" uri="wsdl/e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService.xsd_1.xsd"/>
 </catalog>

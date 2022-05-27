@@ -61,6 +61,9 @@ public class UsuarioIFrame extends JInternalFrame {
         lblClaveSolContrasena = new JLabel();
         tfClaveSolContrasena = new JPasswordField();
         tfRuc = new JTextField();
+        jPanel1 = new JPanel();
+        lblEfactContrasena = new JLabel();
+        tfEfactContrasena = new JPasswordField();
         separator = new JSeparator();
         cbRecordar = new JCheckBox();
         btnEntrar = new JButton();
@@ -213,6 +216,36 @@ public class UsuarioIFrame extends JInternalFrame {
 
         tabbed.addTab("Clave SOL",  FontIcon.of(RemixiconAL.LOCK_PASSWORD_LINE, 16, Color.decode("#FFFFFF")), pnlClaveSol);
 
+        lblEfactContrasena.setFont(lblEfactContrasena.getFont().deriveFont(lblEfactContrasena.getFont().getStyle() | Font.BOLD, lblEfactContrasena.getFont().getSize()-2));
+        lblEfactContrasena.setLabelFor(tfClaveSolContrasena);
+        lblEfactContrasena.setText("Contraseña");
+
+        tfEfactContrasena.setMaximumSize(null);
+        tfEfactContrasena.setMinimumSize(null);
+        tfEfactContrasena.setName(""); // NOI18N
+        tfEfactContrasena.setPreferredSize(new Dimension(300, 30));
+
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(lblEfactContrasena)
+                    .addComponent(tfEfactContrasena, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblEfactContrasena)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfEfactContrasena, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        tabbed.addTab("efact", jPanel1);
+
         cbRecordar.setText("Recordar");
         cbRecordar.setMaximumSize(new Dimension(150, 30));
         cbRecordar.setMinimumSize(new Dimension(150, 30));
@@ -256,8 +289,10 @@ public class UsuarioIFrame extends JInternalFrame {
     public JButton btnEntrar;
     public JButton btnFirmaJks;
     public JCheckBox cbRecordar;
+    public JPanel jPanel1;
     public JLabel lblClaveSolContrasena;
     public JLabel lblClaveSolUsuario;
+    public JLabel lblEfactContrasena;
     public JLabel lblFirmaContrasena;
     public JLabel lblFirmaJks;
     public JLabel lblFirmaUsuario;
@@ -269,6 +304,7 @@ public class UsuarioIFrame extends JInternalFrame {
     public JTabbedPane tabbed;
     public JPasswordField tfClaveSolContrasena;
     public JTextField tfClaveSolUsuario;
+    public JPasswordField tfEfactContrasena;
     public JPasswordField tfFirmaContrasena;
     public JTextField tfFirmaJks;
     public JTextField tfFirmaUsuario;

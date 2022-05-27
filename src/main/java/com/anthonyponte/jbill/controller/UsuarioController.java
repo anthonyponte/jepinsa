@@ -29,6 +29,7 @@ public class UsuarioController {
   public static final String RAZON_SOCIAL = "RAZON_SOCIAL";
   public static final String CLAVE_SOL_USUARIO = "CLAVE_SOL_USUARIO";
   public static final String CLAVE_SOL_CONTRASENA = "CLAVE_SOL_CONTRASENA";
+  public static final String EFACT_CONTRASENA = "EFACT_CONTRASENA";
   private Preferences preferences;
   private String firmaJks;
   private String firmaUsuario;
@@ -37,6 +38,7 @@ public class UsuarioController {
   private String razonSocial;
   private String claveSolUsuario;
   private String claveSolContrasena;
+  private String efactContrasena;
 
   public UsuarioController(MainFrame frame, UsuarioIFrame iFrame) {
     this.frame = frame;
@@ -85,6 +87,8 @@ public class UsuarioController {
               preferences.put(CLAVE_SOL_USUARIO, iFrame.tfClaveSolUsuario.getText());
               preferences.put(
                   CLAVE_SOL_CONTRASENA, String.valueOf(iFrame.tfClaveSolContrasena.getPassword()));
+              preferences.put(
+                  EFACT_CONTRASENA, String.valueOf(iFrame.tfEfactContrasena.getPassword()));
             } else {
               preferences.clear();
             }
@@ -109,6 +113,7 @@ public class UsuarioController {
     iFrame.tfRazonSocial.getDocument().addDocumentListener(dl);
     iFrame.tfClaveSolUsuario.getDocument().addDocumentListener(dl);
     iFrame.tfClaveSolContrasena.getDocument().addDocumentListener(dl);
+    iFrame.tfEfactContrasena.getDocument().addDocumentListener(dl);
   }
 
   private void initComponents() {
@@ -120,6 +125,7 @@ public class UsuarioController {
     razonSocial = preferences.get(RAZON_SOCIAL, "");
     claveSolUsuario = preferences.get(CLAVE_SOL_USUARIO, "");
     claveSolContrasena = preferences.get(CLAVE_SOL_CONTRASENA, "");
+    efactContrasena = preferences.get(EFACT_CONTRASENA, "");
 
     iFrame.show();
 
@@ -145,6 +151,7 @@ public class UsuarioController {
       iFrame.tfRazonSocial.setText(razonSocial);
       iFrame.tfClaveSolUsuario.setText(claveSolUsuario);
       iFrame.tfClaveSolContrasena.setText(claveSolContrasena);
+      iFrame.tfEfactContrasena.setText(efactContrasena);
       iFrame.cbRecordar.setSelected(true);
       iFrame.btnEntrar.setEnabled(true);
       iFrame.btnEntrar.requestFocus();
@@ -176,7 +183,8 @@ public class UsuarioController {
         || iFrame.tfRuc.getText().length() < 11
         || iFrame.tfRazonSocial.getText().length() < 11
         || iFrame.tfClaveSolUsuario.getText().length() < 7
-        || iFrame.tfClaveSolContrasena.getPassword().length < 7) {
+        || iFrame.tfClaveSolContrasena.getPassword().length < 7
+        || iFrame.tfEfactContrasena.getPassword().length < 7) {
       iFrame.btnEntrar.setEnabled(false);
     } else {
       iFrame.btnEntrar.setEnabled(true);
