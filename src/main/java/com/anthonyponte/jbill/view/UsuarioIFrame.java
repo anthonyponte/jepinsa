@@ -43,30 +43,30 @@ public class UsuarioIFrame extends JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tabbed = new JTabbedPane();
-        pnlFirmaDigital = new JPanel();
-        lblFirmaJks = new JLabel();
-        btnFirmaJks = new JButton();
-        tfFirmaJks = new JTextField();
-        lblFirmaUsuario = new JLabel();
-        tfFirmaUsuario = new JTextField();
-        lblFirmaContrasena = new JLabel();
-        tfFirmaContrasena = new JPasswordField();
-        pnlClaveSol = new JPanel();
-        lblRuc = new JLabel();
-        lblRazonSocial = new JLabel();
-        tfRazonSocial = new JTextField();
-        lblClaveSolUsuario = new JLabel();
-        tfClaveSolUsuario = new JTextField();
-        lblClaveSolContrasena = new JLabel();
-        tfClaveSolContrasena = new JPasswordField();
-        tfRuc = new JTextField();
-        jPanel1 = new JPanel();
-        lblEfactContrasena = new JLabel();
-        tfEfactContrasena = new JPasswordField();
-        separator = new JSeparator();
-        cbRecordar = new JCheckBox();
-        btnEntrar = new JButton();
+        tabbed = new javax.swing.JTabbedPane();
+        pnlFirmaDigital = new javax.swing.JPanel();
+        lblFirmaJks = new javax.swing.JLabel();
+        btnFirmaJks = new javax.swing.JButton();
+        tfFirmaJks = new javax.swing.JTextField();
+        lblFirmaUsuario = new javax.swing.JLabel();
+        tfFirmaUsuario = new javax.swing.JTextField();
+        lblFirmaContrasena = new javax.swing.JLabel();
+        tfFirmaContrasena = new javax.swing.JPasswordField();
+        pnlClaveSol = new javax.swing.JPanel();
+        lblRuc = new javax.swing.JLabel();
+        lblRazonSocial = new javax.swing.JLabel();
+        tfRazonSocial = new javax.swing.JTextField();
+        lblClaveSolUsuario = new javax.swing.JLabel();
+        tfClaveSolUsuario = new javax.swing.JTextField();
+        lblClaveSolContrasena = new javax.swing.JLabel();
+        tfClaveSolContrasena = new javax.swing.JPasswordField();
+        tfRuc = new javax.swing.JTextField();
+        pnlEfact = new javax.swing.JPanel();
+        lblEfactContrasena = new javax.swing.JLabel();
+        tfEfactContrasena = new javax.swing.JPasswordField();
+        separator = new javax.swing.JSeparator();
+        cbRecordar = new javax.swing.JCheckBox();
+        btnEntrar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -76,209 +76,217 @@ public class UsuarioIFrame extends JInternalFrame {
         setMinimumSize(null);
         setName(""); // NOI18N
 
-        lblFirmaJks.setFont(lblFirmaJks.getFont().deriveFont(lblFirmaJks.getFont().getStyle() | Font.BOLD, lblFirmaJks.getFont().getSize()-2));
+        lblFirmaJks.setFont(lblFirmaJks.getFont().deriveFont(lblFirmaJks.getFont().getStyle() | java.awt.Font.BOLD, lblFirmaJks.getFont().getSize()-2));
         lblFirmaJks.setText("JKS");
 
         btnFirmaJks.setIcon(FontIcon.of(RemixiconAL.FOLDER_2_LINE, 16, Color.decode("#FFFFFF")));
-        btnFirmaJks.setMaximumSize(new Dimension(30, 30));
-        btnFirmaJks.setMinimumSize(new Dimension(30, 30));
-        btnFirmaJks.setPreferredSize(new Dimension(30, 30));
+        btnFirmaJks.setMaximumSize(new java.awt.Dimension(30, 30));
+        btnFirmaJks.setMinimumSize(new java.awt.Dimension(30, 30));
+        btnFirmaJks.setPreferredSize(new java.awt.Dimension(30, 30));
 
         tfFirmaJks.setMaximumSize(null);
         tfFirmaJks.setMinimumSize(null);
         tfFirmaJks.setName(""); // NOI18N
-        tfFirmaJks.setPreferredSize(new Dimension(300, 30));
+        tfFirmaJks.setPreferredSize(new java.awt.Dimension(300, 30));
         tfFirmaJks.setEditable(false);
 
-        lblFirmaUsuario.setFont(lblFirmaUsuario.getFont().deriveFont(lblFirmaUsuario.getFont().getStyle() | Font.BOLD, lblFirmaUsuario.getFont().getSize()-2));
+        lblFirmaUsuario.setFont(lblFirmaUsuario.getFont().deriveFont(lblFirmaUsuario.getFont().getStyle() | java.awt.Font.BOLD, lblFirmaUsuario.getFont().getSize()-2));
         lblFirmaUsuario.setText("Usuario");
 
         tfFirmaUsuario.setMaximumSize(null);
         tfFirmaUsuario.setMinimumSize(null);
         tfFirmaUsuario.setName(""); // NOI18N
-        tfFirmaUsuario.setPreferredSize(new Dimension(300, 30));
+        tfFirmaUsuario.setPreferredSize(new java.awt.Dimension(300, 30));
 
-        lblFirmaContrasena.setFont(lblFirmaContrasena.getFont().deriveFont(lblFirmaContrasena.getFont().getStyle() | Font.BOLD, lblFirmaContrasena.getFont().getSize()-2));
+        lblFirmaContrasena.setFont(lblFirmaContrasena.getFont().deriveFont(lblFirmaContrasena.getFont().getStyle() | java.awt.Font.BOLD, lblFirmaContrasena.getFont().getSize()-2));
         lblFirmaContrasena.setLabelFor(tfClaveSolContrasena);
         lblFirmaContrasena.setText("Contraseña");
 
         tfFirmaContrasena.setMaximumSize(null);
         tfFirmaContrasena.setMinimumSize(null);
         tfFirmaContrasena.setName(""); // NOI18N
-        tfFirmaContrasena.setPreferredSize(new Dimension(300, 30));
+        tfFirmaContrasena.setPreferredSize(new java.awt.Dimension(300, 30));
 
-        GroupLayout pnlFirmaDigitalLayout = new GroupLayout(pnlFirmaDigital);
+        javax.swing.GroupLayout pnlFirmaDigitalLayout = new javax.swing.GroupLayout(pnlFirmaDigital);
         pnlFirmaDigital.setLayout(pnlFirmaDigitalLayout);
-        pnlFirmaDigitalLayout.setHorizontalGroup(pnlFirmaDigitalLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        pnlFirmaDigitalLayout.setHorizontalGroup(
+            pnlFirmaDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFirmaDigitalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlFirmaDigitalLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(pnlFirmaDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFirmaDigitalLayout.createSequentialGroup()
-                        .addComponent(btnFirmaJks, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfFirmaJks, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(tfFirmaUsuario, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfFirmaContrasena, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnFirmaJks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfFirmaJks, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(tfFirmaUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfFirmaContrasena, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblFirmaJks)
                     .addComponent(lblFirmaContrasena)
                     .addComponent(lblFirmaUsuario))
                 .addContainerGap())
         );
-        pnlFirmaDigitalLayout.setVerticalGroup(pnlFirmaDigitalLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        pnlFirmaDigitalLayout.setVerticalGroup(
+            pnlFirmaDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFirmaDigitalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblFirmaJks)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlFirmaDigitalLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(btnFirmaJks, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfFirmaJks, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlFirmaDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnFirmaJks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfFirmaJks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblFirmaUsuario)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfFirmaUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfFirmaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblFirmaContrasena)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfFirmaContrasena, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfFirmaContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         tabbed.addTab("Firma Digital", FontIcon.of(RemixiconAL.FILE_LOCK_LINE, 16, Color.decode("#FFFFFF")), pnlFirmaDigital);
 
-        lblRuc.setFont(lblRuc.getFont().deriveFont(lblRuc.getFont().getStyle() | Font.BOLD, lblRuc.getFont().getSize()-2));
+        lblRuc.setFont(lblRuc.getFont().deriveFont(lblRuc.getFont().getStyle() | java.awt.Font.BOLD, lblRuc.getFont().getSize()-2));
         lblRuc.setText("RUC");
 
-        lblRazonSocial.setFont(lblRazonSocial.getFont().deriveFont(lblRazonSocial.getFont().getStyle() | Font.BOLD, lblRazonSocial.getFont().getSize()-2));
+        lblRazonSocial.setFont(lblRazonSocial.getFont().deriveFont(lblRazonSocial.getFont().getStyle() | java.awt.Font.BOLD, lblRazonSocial.getFont().getSize()-2));
         lblRazonSocial.setText("Razon Social");
 
         tfRazonSocial.setMaximumSize(null);
         tfRazonSocial.setMinimumSize(null);
         tfRazonSocial.setName(""); // NOI18N
-        tfRazonSocial.setPreferredSize(new Dimension(300, 30));
+        tfRazonSocial.setPreferredSize(new java.awt.Dimension(300, 30));
 
-        lblClaveSolUsuario.setFont(lblClaveSolUsuario.getFont().deriveFont(lblClaveSolUsuario.getFont().getStyle() | Font.BOLD, lblClaveSolUsuario.getFont().getSize()-2));
+        lblClaveSolUsuario.setFont(lblClaveSolUsuario.getFont().deriveFont(lblClaveSolUsuario.getFont().getStyle() | java.awt.Font.BOLD, lblClaveSolUsuario.getFont().getSize()-2));
         lblClaveSolUsuario.setText("Usuario");
 
         tfClaveSolUsuario.setMaximumSize(null);
         tfClaveSolUsuario.setMinimumSize(null);
         tfClaveSolUsuario.setName(""); // NOI18N
-        tfClaveSolUsuario.setPreferredSize(new Dimension(300, 30));
+        tfClaveSolUsuario.setPreferredSize(new java.awt.Dimension(300, 30));
 
-        lblClaveSolContrasena.setFont(lblClaveSolContrasena.getFont().deriveFont(lblClaveSolContrasena.getFont().getStyle() | Font.BOLD, lblClaveSolContrasena.getFont().getSize()-2));
+        lblClaveSolContrasena.setFont(lblClaveSolContrasena.getFont().deriveFont(lblClaveSolContrasena.getFont().getStyle() | java.awt.Font.BOLD, lblClaveSolContrasena.getFont().getSize()-2));
         lblClaveSolContrasena.setLabelFor(tfClaveSolContrasena);
         lblClaveSolContrasena.setText("Contraseña");
 
         tfClaveSolContrasena.setMaximumSize(null);
         tfClaveSolContrasena.setMinimumSize(null);
         tfClaveSolContrasena.setName(""); // NOI18N
-        tfClaveSolContrasena.setPreferredSize(new Dimension(300, 30));
+        tfClaveSolContrasena.setPreferredSize(new java.awt.Dimension(300, 30));
 
         tfRuc.setMaximumSize(null);
         tfRuc.setMinimumSize(null);
-        tfRuc.setPreferredSize(new Dimension(300, 30));
+        tfRuc.setPreferredSize(new java.awt.Dimension(300, 30));
 
-        GroupLayout pnlClaveSolLayout = new GroupLayout(pnlClaveSol);
+        javax.swing.GroupLayout pnlClaveSolLayout = new javax.swing.GroupLayout(pnlClaveSol);
         pnlClaveSol.setLayout(pnlClaveSolLayout);
-        pnlClaveSolLayout.setHorizontalGroup(pnlClaveSolLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        pnlClaveSolLayout.setHorizontalGroup(
+            pnlClaveSolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlClaveSolLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlClaveSolLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(pnlClaveSolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblRazonSocial)
                     .addComponent(lblRuc)
                     .addComponent(lblClaveSolContrasena)
                     .addComponent(lblClaveSolUsuario)
-                    .addComponent(tfRuc, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfRazonSocial, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfClaveSolUsuario, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfClaveSolContrasena, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tfRuc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfRazonSocial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfClaveSolUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfClaveSolContrasena, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        pnlClaveSolLayout.setVerticalGroup(pnlClaveSolLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        pnlClaveSolLayout.setVerticalGroup(
+            pnlClaveSolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlClaveSolLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblRuc)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfRuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfRuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblRazonSocial)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfRazonSocial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblClaveSolUsuario)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfClaveSolUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfClaveSolUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblClaveSolContrasena)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfClaveSolContrasena, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfClaveSolContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         tabbed.addTab("Clave SOL",  FontIcon.of(RemixiconAL.LOCK_PASSWORD_LINE, 16, Color.decode("#FFFFFF")), pnlClaveSol);
 
-        lblEfactContrasena.setFont(lblEfactContrasena.getFont().deriveFont(lblEfactContrasena.getFont().getStyle() | Font.BOLD, lblEfactContrasena.getFont().getSize()-2));
+        lblEfactContrasena.setFont(lblEfactContrasena.getFont().deriveFont(lblEfactContrasena.getFont().getStyle() | java.awt.Font.BOLD, lblEfactContrasena.getFont().getSize()-2));
         lblEfactContrasena.setLabelFor(tfClaveSolContrasena);
         lblEfactContrasena.setText("Contraseña");
 
         tfEfactContrasena.setMaximumSize(null);
         tfEfactContrasena.setMinimumSize(null);
         tfEfactContrasena.setName(""); // NOI18N
-        tfEfactContrasena.setPreferredSize(new Dimension(300, 30));
+        tfEfactContrasena.setPreferredSize(new java.awt.Dimension(300, 30));
 
-        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlEfactLayout = new javax.swing.GroupLayout(pnlEfact);
+        pnlEfact.setLayout(pnlEfactLayout);
+        pnlEfactLayout.setHorizontalGroup(
+            pnlEfactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEfactLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(pnlEfactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblEfactContrasena)
-                    .addComponent(tfEfactContrasena, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tfEfactContrasena, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlEfactLayout.setVerticalGroup(
+            pnlEfactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEfactLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblEfactContrasena)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfEfactContrasena, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfEfactContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        tabbed.addTab("efact", jPanel1);
+        tabbed.addTab("efact", pnlEfact);
 
         cbRecordar.setText("Recordar");
-        cbRecordar.setMaximumSize(new Dimension(150, 30));
-        cbRecordar.setMinimumSize(new Dimension(150, 30));
+        cbRecordar.setMaximumSize(new java.awt.Dimension(150, 30));
+        cbRecordar.setMinimumSize(new java.awt.Dimension(150, 30));
         cbRecordar.setName(""); // NOI18N
-        cbRecordar.setPreferredSize(new Dimension(150, 30));
+        cbRecordar.setPreferredSize(new java.awt.Dimension(150, 30));
 
         btnEntrar.setIcon(FontIcon.of(RemixiconAL.LOGIN_BOX_LINE, 16, Color.decode("#FFFFFF")));
         btnEntrar.setText("Entrar");
         btnEntrar.setName(""); // NOI18N
-        btnEntrar.setPreferredSize(new Dimension(300, 30));
+        btnEntrar.setPreferredSize(new java.awt.Dimension(300, 30));
 
-        GroupLayout layout = new GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(cbRecordar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEntrar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tabbed, GroupLayout.Alignment.TRAILING)
-                    .addComponent(separator, GroupLayout.Alignment.TRAILING))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbRecordar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tabbed, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(separator, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
-        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbRecordar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEntrar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabbed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(separator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbRecordar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -286,29 +294,29 @@ public class UsuarioIFrame extends JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public JButton btnEntrar;
-    public JButton btnFirmaJks;
-    public JCheckBox cbRecordar;
-    public JPanel jPanel1;
-    public JLabel lblClaveSolContrasena;
-    public JLabel lblClaveSolUsuario;
-    public JLabel lblEfactContrasena;
-    public JLabel lblFirmaContrasena;
-    public JLabel lblFirmaJks;
-    public JLabel lblFirmaUsuario;
-    public JLabel lblRazonSocial;
-    public JLabel lblRuc;
-    public JPanel pnlClaveSol;
-    public JPanel pnlFirmaDigital;
-    public JSeparator separator;
-    public JTabbedPane tabbed;
-    public JPasswordField tfClaveSolContrasena;
-    public JTextField tfClaveSolUsuario;
-    public JPasswordField tfEfactContrasena;
-    public JPasswordField tfFirmaContrasena;
-    public JTextField tfFirmaJks;
-    public JTextField tfFirmaUsuario;
-    public JTextField tfRazonSocial;
-    public JTextField tfRuc;
+    public javax.swing.JButton btnEntrar;
+    public javax.swing.JButton btnFirmaJks;
+    public javax.swing.JCheckBox cbRecordar;
+    public javax.swing.JLabel lblClaveSolContrasena;
+    public javax.swing.JLabel lblClaveSolUsuario;
+    public javax.swing.JLabel lblEfactContrasena;
+    public javax.swing.JLabel lblFirmaContrasena;
+    public javax.swing.JLabel lblFirmaJks;
+    public javax.swing.JLabel lblFirmaUsuario;
+    public javax.swing.JLabel lblRazonSocial;
+    public javax.swing.JLabel lblRuc;
+    public javax.swing.JPanel pnlClaveSol;
+    public javax.swing.JPanel pnlEfact;
+    public javax.swing.JPanel pnlFirmaDigital;
+    public javax.swing.JSeparator separator;
+    public javax.swing.JTabbedPane tabbed;
+    public javax.swing.JPasswordField tfClaveSolContrasena;
+    public javax.swing.JTextField tfClaveSolUsuario;
+    public javax.swing.JPasswordField tfEfactContrasena;
+    public javax.swing.JPasswordField tfFirmaContrasena;
+    public javax.swing.JTextField tfFirmaJks;
+    public javax.swing.JTextField tfFirmaUsuario;
+    public javax.swing.JTextField tfRazonSocial;
+    public javax.swing.JTextField tfRuc;
     // End of variables declaration//GEN-END:variables
 }
