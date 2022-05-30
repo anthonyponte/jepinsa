@@ -9,7 +9,7 @@ import com.anthonyponte.jbill.custom.MyFileCreator;
 import com.anthonyponte.jbill.idao.IComunicacionBajaDao;
 import com.anthonyponte.jbill.model.ComunicacionBaja;
 import com.anthonyponte.jbill.model.ComunicacionBajaDetalle;
-import com.anthonyponte.jbill.model.Documento;
+import com.anthonyponte.jbill.model.Bill;
 import com.anthonyponte.jbill.view.ComunicacionBajaIFrame;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -259,7 +259,7 @@ public class ComunicacionBajaController {
                             for (int i = 0; i < model.getRowCount(); i++) {
                                 ComunicacionBajaDetalle comunicacionBajaDetalle
                                         = new ComunicacionBajaDetalle();
-                                Documento documento = new Documento();
+                                Bill documento = new Bill();
                                 String tipo = model.getValueAt(i, 0).toString();
                                 String serie = model.getValueAt(i, 1).toString();
                                 int correlativo = Integer.parseInt(model.getValueAt(i, 2).toString());

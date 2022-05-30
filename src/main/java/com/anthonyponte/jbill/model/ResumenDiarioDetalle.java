@@ -17,14 +17,16 @@
 
 package com.anthonyponte.jbill.model;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class ResumenDiarioDetalle {
   private int id;
   private ResumenDiario resumenDiario;
   private int numero;
-  private Documento documento;
+  private Bill documento;
   private Empresa adquiriente;
-  private Documento documentoReferencia;
+  private Bill documentoReferencia;
   private Percepcion percepcion;
   private Estado estado;
   private double importeTotal;
@@ -46,9 +48,9 @@ public class ResumenDiarioDetalle {
       int id,
       ResumenDiario resumenDiario,
       int numero,
-      Documento documento,
+      Bill documento,
       Empresa adquiriente,
-      Documento documentoReferencia,
+      Bill documentoReferencia,
       Percepcion percepcion,
       Estado estado,
       double importeTotal,
@@ -109,11 +111,11 @@ public class ResumenDiarioDetalle {
     this.numero = numero;
   }
 
-  public Documento getDocumento() {
+  public Bill getDocumento() {
     return documento;
   }
 
-  public void setDocumento(Documento documento) {
+  public void setDocumento(Bill documento) {
     this.documento = documento;
   }
 
@@ -125,11 +127,11 @@ public class ResumenDiarioDetalle {
     this.adquiriente = adquiriente;
   }
 
-  public Documento getDocumentoReferencia() {
+  public Bill getDocumentoReferencia() {
     return documentoReferencia;
   }
 
-  public void setDocumentoReferencia(Documento documentoReferencia) {
+  public void setDocumentoReferencia(Bill documentoReferencia) {
     this.documentoReferencia = documentoReferencia;
   }
 

@@ -33,7 +33,7 @@ import com.anthonyponte.jbill.filter.IntegerFilter;
 import com.anthonyponte.jbill.idao.IResumenDiarioDao;
 import com.anthonyponte.jbill.idao.ISummaryDao;
 import com.anthonyponte.jbill.maindoc.SummaryDocuments;
-import com.anthonyponte.jbill.model.Documento;
+import com.anthonyponte.jbill.model.Bill;
 import com.anthonyponte.jbill.model.TipoDocumentoIdentidad;
 import com.anthonyponte.jbill.model.Empresa;
 import com.anthonyponte.jbill.model.Estado;
@@ -487,12 +487,11 @@ public class ResumenDiarioController {
           }
         });
 
-    iFrame.btnAgregar.addActionListener(
-        (arg0) -> {
+    iFrame.btnAgregar.addActionListener((arg0) -> {
           try {
             ResumenDiarioDetalle detalle = new ResumenDiarioDetalle();
 
-            Documento documento = new Documento();
+            Bill documento = new Bill();
             documento.setSerie(iFrame.tfDocumentoSerie.getText());
             documento.setCorrelativo(Integer.valueOf(iFrame.tfDocumentoCorrelativo.getText()));
             documento.setTipoDocumento((TipoDocumento) iFrame.cbxDocumentoTipo.getSelectedItem());
@@ -510,7 +509,7 @@ public class ResumenDiarioController {
             if (iFrame.cbxDocumentoReferenciaTipo.getSelectedIndex() >= 0
                 && !iFrame.tfDocumentoReferenciaSerie.getText().isEmpty()
                 && !iFrame.tfDocumentoReferenciaCorrelativo.getText().isEmpty()) {
-              Documento documentoReferencia = new Documento();
+              Bill documentoReferencia = new Bill();
               documentoReferencia.setSerie(iFrame.tfDocumentoReferenciaSerie.getText());
               documentoReferencia.setCorrelativo(
                   Integer.valueOf(iFrame.tfDocumentoReferenciaCorrelativo.getText()));
