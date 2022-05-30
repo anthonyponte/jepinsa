@@ -5,14 +5,22 @@
 
 package com.anthonyponte.jbill.model;
 
+import com.poiji.annotation.ExcelCellName;
+import com.poiji.annotation.ExcelCellRange;
+
 /**
  * @author anthony
  */
 public class Bill {
-  private Empresa emisor;
-  private TipoDocumento tipoDocumento;
+  @ExcelCellRange private Empresa emisor;
+  @ExcelCellRange private TipoDocumento tipoDocumento;
+
+  @ExcelCellName("Serie")
   private String serie;
+
+  @ExcelCellName("Correlativo")
   private int correlativo;
+
   private String statusCode;
   private String statusMessage;
   private byte[] content;

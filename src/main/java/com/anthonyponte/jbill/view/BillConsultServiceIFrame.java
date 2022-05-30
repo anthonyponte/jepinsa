@@ -84,7 +84,6 @@ public class BillConsultServiceIFrame extends JInternalFrame {
 
         btnImportar.setIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#FFFFFF")));
         btnImportar.setText("Importar");
-        btnImportar.setEnabled(false);
         btnImportar.setMinimumSize(new Dimension(150, 30));
         btnImportar.setPreferredSize(new Dimension(150, 30));
 

@@ -119,7 +119,6 @@
           <Connection code="FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode(&quot;#FFFFFF&quot;))" type="code"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Importar"/>
-        <Property name="enabled" type="boolean" value="false"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[150, 30]"/>
         </Property>

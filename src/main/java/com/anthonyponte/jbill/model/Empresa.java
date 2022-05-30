@@ -5,11 +5,18 @@
 
 package com.anthonyponte.jbill.model;
 
-/** @author AnthonyPonte */
+import com.poiji.annotation.ExcelCellName;
+
+/**
+ * @author AnthonyPonte
+ */
 public class Empresa {
   private int tipo;
   private TipoDocumentoIdentidad tipoDocumentoIdentidad;
+
+  @ExcelCellName("RUC")
   private String numeroDocumentoIdentidad;
+
   private String nombre;
 
   public Empresa() {}

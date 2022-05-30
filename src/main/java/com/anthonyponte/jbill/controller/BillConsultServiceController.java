@@ -28,6 +28,8 @@ import java.io.File;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
@@ -68,9 +70,9 @@ public class BillConsultServiceController {
           int result = chooser.showOpenDialog(iFrame);
           if (result == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
-
-            dialog.setVisible(true);
-            dialog.setLocationRelativeTo(iFrame);
+            //
+            //            dialog.setVisible(true);
+            //            dialog.setLocationRelativeTo(iFrame);
 
             SwingWorker worker =
                 new SwingWorker<List<Bill>, Void>() {
@@ -89,31 +91,37 @@ public class BillConsultServiceController {
 
                       list.get(i).setStatusCode(statusResponse.getStatusCode());
                       list.get(i).setStatusMessage(statusResponse.getStatusMessage());
+
+                      System.out.println(".doInBackground() " + list.get(i));
                     }
                     return list;
                   }
 
                   @Override
                   protected void done() {
-                    try {
-                      dialog.dispose();
-
-                      List<Bill> get = get();
-
-                      eventList.clear();
-                      eventList.addAll(get);
-
-                      MyTableResize.resize(iFrame.table);
-
-                      iFrame.tfFiltrar.requestFocus();
-
-                    } catch (InterruptedException | ExecutionException ex) {
-                      JOptionPane.showMessageDialog(
-                          null,
-                          ex.getMessage(),
-                          BillConsultServiceController.class.getName(),
-                          JOptionPane.ERROR_MESSAGE);
-                    }
+                    //                    try {
+                    //                      dialog.dispose();
+                    //
+                    //                      List<Bill> get = get();
+                    //
+                    //                      eventList.clear();
+                    //                      eventList.addAll(get);
+                    //
+                    //                      MyTableResize.resize(iFrame.table);
+                    //
+                    //                      iFrame.tfFiltrar.requestFocus();
+                    //
+                    //                    } catch (InterruptedException | ExecutionException ex) {
+                    //
+                    // Logger.getLogger(BillConsultServiceController.class.getName())
+                    //                          .log(Level.SEVERE, null, ex);
+                    //                      //                      JOptionPane.showMessageDialog(
+                    //                      //                          null,
+                    //                      //                          ex.getMessage(),
+                    //                      //
+                    // BillConsultServiceController.class.getName(),
+                    //                      //                          JOptionPane.ERROR_MESSAGE);
+                    //                    }
                   }
                 };
 
