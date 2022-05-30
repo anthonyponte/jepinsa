@@ -6,16 +6,20 @@ package com.anthonyponte.jbill.view;
 
 import com.anthonyponte.jbill.filter.IntegerFilter;
 import com.anthonyponte.jbill.filter.SerieFilter;
+import com.anthonyponte.jbill.model.TipoDocumento;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -56,7 +60,7 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
         tabbed = new JTabbedPane();
         pnlEncabezado = new JPanel();
         lblFecha = new JLabel();
-        tfFecha = new JTextField();
+        dpFecha = new JXDatePicker();
         lblTipo = new JLabel();
         cbxTipo = new JComboBox<>();
         lblCorrelativo = new JLabel();
@@ -97,20 +101,35 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
         lblFecha.setFont(lblFecha.getFont().deriveFont(lblFecha.getFont().getStyle() | Font.BOLD, lblFecha.getFont().getSize()-2));
         lblFecha.setText("Fecha");
 
-        tfFecha.setEnabled(false);
-        tfFecha.setMaximumSize(null);
-        tfFecha.setMinimumSize(null);
-        tfFecha.setPreferredSize(new Dimension(150, 30));
-        tfFecha.setEditable(false);
+        dpFecha.setEditable(false);
+        dpFecha.setEnabled(false);
+        dpFecha.setFormats(new SimpleDateFormat("d MMMM y"));
+        dpFecha.setMaximumSize(null);
+        dpFecha.setMinimumSize(null);
+        dpFecha.setPreferredSize(new Dimension(150, 30));
 
         lblTipo.setFont(lblTipo.getFont().deriveFont(lblTipo.getFont().getStyle() | Font.BOLD, lblTipo.getFont().getSize()-2));
         lblTipo.setText("Tipo");
 
-        cbxTipo.setModel(new DefaultComboBoxModel<>(new String[] { "Comunicación de baja", "Resumen de reversiones" }));
-        cbxTipo.setSelectedIndex(-1);
+        cbxTipo.setModel(new DefaultComboBoxModel(new TipoDocumento[] {
+            new TipoDocumento("RA", "Comunicación de baja"),
+            new TipoDocumento("RR", "Resumen de reversiones")
+        }));
         cbxTipo.setEnabled(false);
         cbxTipo.setMaximumSize(null);
         cbxTipo.setPreferredSize(new Dimension(150, 30));
+        cbxTipo.setRenderer(new DefaultListCellRenderer(){
+            @Override
+            public Component getListCellRendererComponent(
+                JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (value instanceof TipoDocumento) {
+                    TipoDocumento tipoDocumento = (TipoDocumento) value;
+                    setText(tipoDocumento.getDescripcion());
+                }
+                return this;
+            }
+        });
 
         lblCorrelativo.setFont(lblCorrelativo.getFont().deriveFont(lblCorrelativo.getFont().getStyle() | Font.BOLD, lblCorrelativo.getFont().getSize()-2));
         lblCorrelativo.setText("Correlativo");
@@ -140,14 +159,14 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
             .addGroup(pnlEncabezadoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlEncabezadoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(tfFecha, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-                    .addComponent(cbxTipo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxTipo, 0, 450, Short.MAX_VALUE)
                     .addComponent(tfSerie, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblTipo)
                     .addComponent(lblFecha)
                     .addComponent(lblSerie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCorrelativo)
-                    .addComponent(tfCorrelativo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tfCorrelativo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dpFecha, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlEncabezadoLayout.setVerticalGroup(pnlEncabezadoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -155,7 +174,7 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
                 .addContainerGap()
                 .addComponent(lblFecha)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(dpFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblTipo)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -188,11 +207,26 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
         lblDocumentoTipo.setFont(lblDocumentoTipo.getFont().deriveFont(lblDocumentoTipo.getFont().getStyle() | Font.BOLD, lblDocumentoTipo.getFont().getSize()-2));
         lblDocumentoTipo.setText("Tipo Documento");
 
-        cbxDocumentoTipo.setModel(new DefaultComboBoxModel<>(new String[] { "Factura", "Nota de crédito", "Nota de débito" }));
-        cbxDocumentoTipo.setSelectedIndex(-1);
+        cbxDocumentoTipo.setModel(new DefaultComboBoxModel(new TipoDocumento[] {
+            new TipoDocumento("01", "Factura"),
+            new TipoDocumento("07", "Nota de crédito"),
+            new TipoDocumento("08", "Nota de débito")
+        }));
         cbxDocumentoTipo.setEnabled(false);
         cbxDocumentoTipo.setMaximumSize(null);
         cbxDocumentoTipo.setPreferredSize(new Dimension(150, 30));
+        cbxDocumentoTipo.setRenderer(new DefaultListCellRenderer(){
+            @Override
+            public Component getListCellRendererComponent(
+                JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (value instanceof TipoDocumento) {
+                    TipoDocumento tipoDocumento = (TipoDocumento) value;
+                    setText(tipoDocumento.getDescripcion());
+                }
+                return this;
+            }
+        });
 
         lblDocumentoSerie.setFont(lblDocumentoSerie.getFont().deriveFont(lblDocumentoSerie.getFont().getStyle() | Font.BOLD, lblDocumentoSerie.getFont().getSize()-2));
         lblDocumentoSerie.setText("Serie Documento");
@@ -230,32 +264,16 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
 
             },
             new String [] {
-                "Tipo", "Serie", "Numero", "Motivo"
-            }
-        ) {
-            Class[] types = new Class [] {
-                Object.class, String.class, Integer.class, String.class
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-        });
+        ));
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         table.setColumnSelectionAllowed(true);
         table.setEnabled(false);
-        table.setMaximumSize(null);
-        table.setMinimumSize(null);
         table.setName(""); // NOI18N
-        table.setPreferredSize(null);
         table.getTableHeader().setReorderingAllowed(false);
         spane.setViewportView(table);
         table.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        if (table.getColumnModel().getColumnCount() > 0) {
-            table.getColumnModel().getColumn(0).setResizable(false);
-            table.getColumnModel().getColumn(1).setResizable(false);
-            table.getColumnModel().getColumn(2).setResizable(false);
-            table.getColumnModel().getColumn(3).setResizable(false);
-        }
 
         tfDocumentoCorrelativo.setEnabled(false);
         tfDocumentoCorrelativo.setMaximumSize(null);
@@ -395,6 +413,7 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
     public JComboBox<String> cbxDocumentoTipo;
     public JComboBox<String> cbxTipo;
     public JXDatePicker dpDocumentoFecha;
+    public JXDatePicker dpFecha;
     public JLabel lblCorrelativo;
     public JLabel lblDocumentoFecha;
     public JLabel lblDocumentoMotivo;
@@ -414,7 +433,6 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
     public JTextField tfDocumentoCorrelativo;
     public JTextField tfDocumentoMotivo;
     public JTextField tfDocumentoSerie;
-    public JTextField tfFecha;
     public JTextField tfSerie;
     // End of variables declaration//GEN-END:variables
 }
