@@ -12,6 +12,7 @@ import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
 import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThreadProxyList;
 import com.anthonyponte.jbill.custom.MyDateFormat;
 import com.anthonyponte.jbill.custom.MyFileCreator;
+import com.anthonyponte.jbill.custom.MyTableResize;
 import com.anthonyponte.jbill.idao.IComunicacionBajaDao;
 import com.anthonyponte.jbill.model.ComunicacionBajaDetalle;
 import com.anthonyponte.jbill.model.Bill;
@@ -40,7 +41,6 @@ import com.anthonyponte.jbill.model.Empresa;
 import com.anthonyponte.jbill.model.TipoDocumento;
 import com.anthonyponte.jbill.tableformat.ComunicacionBajaDetalleTableFormat;
 import com.anthonyponte.jbill.view.LoadingDialog;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -173,6 +173,8 @@ public class ComunicacionBajaController {
             detalle.setMotivo(iFrame.tfDocumentoMotivo.getText());
 
             eventList.add(detalle);
+
+            MyTableResize.resize(iFrame.table);
 
             iFrame.cbxDocumentoTipo.setSelectedIndex(0);
 

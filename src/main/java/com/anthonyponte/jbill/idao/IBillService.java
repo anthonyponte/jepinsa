@@ -42,7 +42,7 @@ public class IBillService implements BillService {
       handlers.add(handler);
       binding.getBinding().setHandlerChain(handlers);
 
-      port.sendSummary(fileName, contentFile);
+      ticket = port.sendSummary(fileName, contentFile);
     } catch (Exception ex) {
       Logger.getLogger(IBillService.class.getName()).log(Level.SEVERE, null, ex);
       JOptionPane.showMessageDialog(null, ex.getMessage(), fileName, JOptionPane.ERROR_MESSAGE);
