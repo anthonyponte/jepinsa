@@ -64,7 +64,7 @@ public class MainFrame extends JFrame {
         menuSalir = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("JBillService");
+        setTitle("JBill");
         setIconImages(list);
         setMinimumSize(new Dimension(1024, 768));
 

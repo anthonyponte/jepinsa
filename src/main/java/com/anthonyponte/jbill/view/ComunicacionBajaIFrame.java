@@ -61,6 +61,8 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
         pnlEncabezado = new JPanel();
         lblFecha = new JLabel();
         dpFecha = new JXDatePicker();
+        dpDocumentoFecha = new JXDatePicker();
+        lblDocumentoFecha = new JLabel();
         lblTipo = new JLabel();
         cbxTipo = new JComboBox<>();
         lblCorrelativo = new JLabel();
@@ -68,8 +70,6 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
         lblSerie = new JLabel();
         tfSerie = new JTextField();
         pnlDetalle = new JPanel();
-        lblDocumentoFecha = new JLabel();
-        dpDocumentoFecha = new JXDatePicker();
         lblDocumentoTipo = new JLabel();
         cbxDocumentoTipo = new JComboBox<>();
         lblDocumentoSerie = new JLabel();
@@ -99,7 +99,7 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
         pnlEncabezado.setMaximumSize(null);
 
         lblFecha.setFont(lblFecha.getFont().deriveFont(lblFecha.getFont().getStyle() | Font.BOLD, lblFecha.getFont().getSize()-2));
-        lblFecha.setText("Fecha");
+        lblFecha.setText("Fecha emision comunicacion baja");
 
         dpFecha.setEditable(false);
         dpFecha.setEnabled(false);
@@ -108,6 +108,16 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
         dpFecha.setMinimumSize(null);
         dpFecha.setPreferredSize(new Dimension(150, 30));
 
+        dpDocumentoFecha.setEnabled(false);
+        dpDocumentoFecha.setFormats(new SimpleDateFormat("d MMMM y"));
+        dpDocumentoFecha.setMaximumSize(null);
+        dpDocumentoFecha.setMinimumSize(null);
+        dpDocumentoFecha.setPreferredSize(new Dimension(150, 30));
+        dpDocumentoFecha.getEditor().setEditable(false);
+
+        lblDocumentoFecha.setFont(lblDocumentoFecha.getFont().deriveFont(lblDocumentoFecha.getFont().getStyle() | Font.BOLD, lblDocumentoFecha.getFont().getSize()-2));
+        lblDocumentoFecha.setText("Fecha emision documentos");
+
         lblTipo.setFont(lblTipo.getFont().deriveFont(lblTipo.getFont().getStyle() | Font.BOLD, lblTipo.getFont().getSize()-2));
         lblTipo.setText("Tipo");
 
@@ -115,6 +125,7 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
             new TipoDocumento("RA", "Comunicación de baja"),
             new TipoDocumento("RR", "Resumen de reversiones")
         }));
+        cbxTipo.setSelectedIndex(-1);
         cbxTipo.setEnabled(false);
         cbxTipo.setMaximumSize(null);
         cbxTipo.setPreferredSize(new Dimension(150, 30));
@@ -161,12 +172,14 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
                 .addGroup(pnlEncabezadoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(cbxTipo, 0, 450, Short.MAX_VALUE)
                     .addComponent(tfSerie, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfCorrelativo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dpFecha, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblTipo)
                     .addComponent(lblFecha)
                     .addComponent(lblSerie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCorrelativo)
-                    .addComponent(tfCorrelativo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dpFecha, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblDocumentoFecha)
+                    .addComponent(dpDocumentoFecha, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlEncabezadoLayout.setVerticalGroup(pnlEncabezadoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -175,6 +188,10 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
                 .addComponent(lblFecha)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dpFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblDocumentoFecha)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dpDocumentoFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblTipo)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -194,24 +211,15 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
 
         pnlDetalle.setMaximumSize(null);
 
-        lblDocumentoFecha.setFont(lblDocumentoFecha.getFont().deriveFont(lblDocumentoFecha.getFont().getStyle() | Font.BOLD, lblDocumentoFecha.getFont().getSize()-2));
-        lblDocumentoFecha.setText("Fecha Documento");
-
-        dpDocumentoFecha.setEnabled(false);
-        dpDocumentoFecha.setFormats(new SimpleDateFormat("d MMMM y"));
-        dpDocumentoFecha.setMaximumSize(null);
-        dpDocumentoFecha.setMinimumSize(null);
-        dpDocumentoFecha.setPreferredSize(new Dimension(150, 30));
-        dpDocumentoFecha.getEditor().setEditable(false);
-
         lblDocumentoTipo.setFont(lblDocumentoTipo.getFont().deriveFont(lblDocumentoTipo.getFont().getStyle() | Font.BOLD, lblDocumentoTipo.getFont().getSize()-2));
-        lblDocumentoTipo.setText("Tipo Documento");
+        lblDocumentoTipo.setText("Tipo documento");
 
         cbxDocumentoTipo.setModel(new DefaultComboBoxModel(new TipoDocumento[] {
             new TipoDocumento("01", "Factura"),
             new TipoDocumento("07", "Nota de crédito"),
             new TipoDocumento("08", "Nota de débito")
         }));
+        cbxDocumentoTipo.setSelectedIndex(-1);
         cbxDocumentoTipo.setEnabled(false);
         cbxDocumentoTipo.setMaximumSize(null);
         cbxDocumentoTipo.setPreferredSize(new Dimension(150, 30));
@@ -229,13 +237,13 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
         });
 
         lblDocumentoSerie.setFont(lblDocumentoSerie.getFont().deriveFont(lblDocumentoSerie.getFont().getStyle() | Font.BOLD, lblDocumentoSerie.getFont().getSize()-2));
-        lblDocumentoSerie.setText("Serie Documento");
+        lblDocumentoSerie.setText("Serie documento");
 
         lblDocumentoNumero.setFont(lblDocumentoNumero.getFont().deriveFont(lblDocumentoNumero.getFont().getStyle() | Font.BOLD, lblDocumentoNumero.getFont().getSize()-2));
-        lblDocumentoNumero.setText("Correlativo Documento");
+        lblDocumentoNumero.setText("Correlativo documento");
 
         lblDocumentoMotivo.setFont(lblDocumentoMotivo.getFont().deriveFont(lblDocumentoMotivo.getFont().getStyle() | Font.BOLD, lblDocumentoMotivo.getFont().getSize()-2));
-        lblDocumentoMotivo.setText("Motivo Baja");
+        lblDocumentoMotivo.setText("Motivo baja");
 
         tfDocumentoMotivo.setEnabled(false);
         tfDocumentoMotivo.setMaximumSize(null);
@@ -295,35 +303,24 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
             .addGroup(pnlDetalleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlDetalleLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(spane, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxDocumentoTipo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfDocumentoMotivo, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(tfDocumentoCorrelativo, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfDocumentoSerie, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlDetalleLayout.createSequentialGroup()
-                        .addGroup(pnlDetalleLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlDetalleLayout.createSequentialGroup()
-                                .addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblDocumentoMotivo)
-                            .addComponent(lblDocumentoNumero)
-                            .addComponent(lblDocumentoSerie)
-                            .addComponent(lblDocumentoTipo)
-                            .addComponent(lblDocumentoFecha))
-                        .addGap(150, 150, 150))
-                    .addGroup(pnlDetalleLayout.createSequentialGroup()
-                        .addGroup(pnlDetalleLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(spane, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbxDocumentoTipo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(dpDocumentoFecha, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfDocumentoMotivo, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(tfDocumentoCorrelativo, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfDocumentoSerie, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                        .addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDocumentoMotivo)
+                    .addComponent(lblDocumentoNumero)
+                    .addComponent(lblDocumentoSerie)
+                    .addComponent(lblDocumentoTipo))
+                .addContainerGap())
         );
         pnlDetalleLayout.setVerticalGroup(pnlDetalleLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(pnlDetalleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblDocumentoFecha)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dpDocumentoFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblDocumentoTipo)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxDocumentoTipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)

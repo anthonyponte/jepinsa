@@ -40,6 +40,7 @@ import com.anthonyponte.jbill.model.Empresa;
 import com.anthonyponte.jbill.model.TipoDocumento;
 import com.anthonyponte.jbill.tableformat.ComunicacionBajaDetalleTableFormat;
 import com.anthonyponte.jbill.view.LoadingDialog;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -58,9 +59,7 @@ import javax.xml.transform.TransformerException;
 import org.jdom2.Document;
 import org.xml.sax.SAXException;
 
-/**
- * @author anthony
- */
+/** @author anthony */
 public class ComunicacionBajaController {
 
   private final ComunicacionBajaIFrame iFrame;
@@ -93,6 +92,7 @@ public class ComunicacionBajaController {
                     try {
                       TipoDocumento tipoDocumento =
                           (TipoDocumento) iFrame.cbxTipo.getSelectedItem();
+
                       Date fechaGeneracion = iFrame.dpFecha.getDate();
 
                       count = summaryDao.count(tipoDocumento, fechaGeneracion);
@@ -116,8 +116,6 @@ public class ComunicacionBajaController {
 
                       int count = get();
                       iFrame.tfCorrelativo.setText(String.valueOf(count));
-
-                      iFrame.dpDocumentoFecha.setDate(new Date());
 
                       iFrame
                           .tfDocumentoSerie
@@ -216,11 +214,13 @@ public class ComunicacionBajaController {
 
     iFrame.btnNuevo.addActionListener(
         (ActionEvent arg0) -> {
+          iFrame.dpFecha.setDate(new Date());
+
+          iFrame.dpDocumentoFecha.setDate(new Date());
+
           iFrame.cbxTipo.setEnabled(true);
           iFrame.cbxTipo.setSelectedIndex(0);
           iFrame.cbxTipo.requestFocus();
-
-          iFrame.dpFecha.setDate(new Date());
 
           iFrame.tfSerie.setEnabled(true);
 
@@ -254,12 +254,12 @@ public class ComunicacionBajaController {
         (arg0) -> {
           File jks = new File(preferences.get(UsuarioController.FIRMA_JKS, ""));
           if (jks.exists()) {
+            TipoDocumento tipoDocumento = (TipoDocumento) iFrame.cbxTipo.getSelectedItem();
+
             int input =
                 JOptionPane.showOptionDialog(
                     iFrame,
-                    "Seguro que desea guardar esta "
-                        + iFrame.cbxTipo.getSelectedItem().toString()
-                        + "?",
+                    "Seguro que desea guardar esta " + tipoDocumento.getDescripcion() + "?",
                     "Guardar",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
@@ -274,9 +274,7 @@ public class ComunicacionBajaController {
                   new SwingWorker<ComunicacionBaja, Void>() {
                     @Override
                     protected ComunicacionBaja doInBackground() throws Exception {
-                      ComunicacionBaja comunicacionBaja = null;
-
-                      comunicacionBaja = new ComunicacionBaja();
+                      ComunicacionBaja comunicacionBaja = new ComunicacionBaja();
                       comunicacionBaja.setUbl("2.0");
                       comunicacionBaja.setVersion("1.0");
                       comunicacionBaja.setTipoDocumento(
@@ -476,9 +474,7 @@ public class ComunicacionBajaController {
       iFrame.btnEliminar.setEnabled(false);
 
       iFrame.table.setEnabled(false);
-      DefaultTableModel model = (DefaultTableModel) iFrame.table.getModel();
-      model.getDataVector().removeAllElements();
-      model.fireTableDataChanged();
+      eventList.clear();
 
       iFrame.btnNuevo.setEnabled(true);
       iFrame.btnNuevo.requestFocus();
