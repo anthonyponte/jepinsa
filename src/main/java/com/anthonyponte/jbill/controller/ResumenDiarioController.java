@@ -76,7 +76,9 @@ import javax.xml.transform.TransformerException;
 import org.jdom2.Document;
 import org.xml.sax.SAXException;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class ResumenDiarioController {
   private final ResumenDiarioIFrame iFrame;
   private final LoadingDialog dialog;
@@ -94,7 +96,8 @@ public class ResumenDiarioController {
   }
 
   void init() {
-    iFrame.btnNuevo.addActionListener((ActionEvent arg0) -> {
+    iFrame.btnNuevo.addActionListener(
+        (ActionEvent arg0) -> {
           iFrame.cbxTipo.setSelectedIndex(0);
           iFrame.dpFechaGeneracion.setDate(new Date());
 
@@ -203,7 +206,8 @@ public class ResumenDiarioController {
           worker.execute();
         });
 
-    iFrame.btnGuardar.addActionListener((ActionEvent arg0) -> {
+    iFrame.btnGuardar.addActionListener(
+        (ActionEvent arg0) -> {
           File jks = new File(preferences.get(UsuarioController.FIRMA_JKS, ""));
           if (jks.exists()) {
             TipoDocumento tipoDocumento = (TipoDocumento) iFrame.cbxTipo.getSelectedItem();
@@ -487,7 +491,8 @@ public class ResumenDiarioController {
           }
         });
 
-    iFrame.btnAgregar.addActionListener((arg0) -> {
+    iFrame.btnAgregar.addActionListener(
+        (arg0) -> {
           try {
             ResumenDiarioDetalle detalle = new ResumenDiarioDetalle();
 

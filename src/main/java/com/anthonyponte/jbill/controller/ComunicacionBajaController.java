@@ -13,7 +13,6 @@ import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThr
 import com.anthonyponte.jbill.custom.MyDateFormat;
 import com.anthonyponte.jbill.custom.MyFileCreator;
 import com.anthonyponte.jbill.idao.IComunicacionBajaDao;
-import com.anthonyponte.jbill.model.ComunicacionBaja;
 import com.anthonyponte.jbill.model.ComunicacionBajaDetalle;
 import com.anthonyponte.jbill.model.Bill;
 import com.anthonyponte.jbill.view.ComunicacionBajaIFrame;
@@ -30,7 +29,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import com.anthonyponte.jbill.maindoc.VoidedDocuments;
-import com.anthonyponte.jbill.model.Empresa;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.prefs.Preferences;
@@ -39,7 +37,9 @@ import com.anthonyponte.jbill.dao.SummaryDao;
 import com.anthonyponte.jbill.idao.ISummaryDao;
 import com.anthonyponte.jbill.dao.ComunicacionBajaDao;
 import com.anthonyponte.jbill.filter.SerieFilter;
-import com.anthonyponte.jbill.model.ResumenDiarioDetalle;
+import com.anthonyponte.jbill.model.ComunicacionBaja;
+import com.anthonyponte.jbill.model.Empresa;
+import com.anthonyponte.jbill.model.ResumenDiario;
 import com.anthonyponte.jbill.model.TipoDocumento;
 import com.anthonyponte.jbill.tableformat.ComunicacionBajaDetalleTableFormat;
 import com.anthonyponte.jbill.view.LoadingDialog;
@@ -61,7 +61,9 @@ import javax.xml.transform.TransformerException;
 import org.jdom2.Document;
 import org.xml.sax.SAXException;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class ComunicacionBajaController {
 
   private final ComunicacionBajaIFrame iFrame;
@@ -272,32 +274,31 @@ public class ComunicacionBajaController {
               dialog.setVisible(true);
               dialog.setLocationRelativeTo(iFrame);
               SwingWorker worker =
-                  new SwingWorker<Void, Void>() {
+                  new SwingWorker<ComunicacionBaja, Void>() {
                     @Override
-                    protected Void doInBackground() throws Exception {
-                      DefaultTableModel model = (DefaultTableModel) iFrame.table.getModel();
-                      List<ComunicacionBajaDetalle> comunicacionBajaDetalles = new ArrayList<>();
-                      for (int i = 0; i < model.getRowCount(); i++) {
-                        ComunicacionBajaDetalle comunicacionBajaDetalle =
-                            new ComunicacionBajaDetalle();
-                        Bill documento = new Bill();
-                        String tipo = model.getValueAt(i, 0).toString();
-                        String serie = model.getValueAt(i, 1).toString();
-                        int correlativo = Integer.parseInt(model.getValueAt(i, 2).toString());
-                        String motivo = model.getValueAt(i, 3).toString();
-                        comunicacionBajaDetalle.setNumero(i + 1);
+                    protected ComunicacionBaja doInBackground() throws Exception {
+                      ComunicacionBaja comunicacionBaja = null;
 
-                        TipoDocumento tipoDocumento = new TipoDocumento();
-                        tipoDocumento.setDescripcion(tipo);
-                        documento.setTipoDocumento(tipoDocumento);
+                      comunicacionBaja = new ComunicacionBaja();
+                      comunicacionBaja.setUbl("2.0");
+                      comunicacionBaja.setVersion("1.0");
+                      comunicacionBaja.setTipoDocumento(
+                          (TipoDocumento) iFrame.cbxTipo.getSelectedItem());
+                      comunicacionBaja.setSerie(MyDateFormat.yyyyMMdd(iFrame.dpFecha.getDate()));
+                      comunicacionBaja.setCorrelativo(
+                          Integer.valueOf(iFrame.tfCorrelativo.getText()));
 
-                        documento.setSerie(serie);
-                        documento.setCorrelativo(correlativo);
-                        comunicacionBajaDetalle.setDocumento(documento);
-                        comunicacionBajaDetalle.setMotivo(motivo);
-                        comunicacionBajaDetalles.add(comunicacionBajaDetalle);
-                      }
-                      comunicacionBaja.setComunicacionBajaDetalles(comunicacionBajaDetalles);
+                      comunicacionBaja.setFechaEmision(iFrame.dpFecha.getDate());
+                      comunicacionBaja.setFechaReferencia(iFrame.dpDocumentoFecha.getDate());
+
+                      Empresa emisor = new Empresa();
+                      emisor.setNumeroDocumentoIdentidad(
+                          preferences.get(UsuarioController.RUC, ""));
+                      emisor.setTipo(preferences.getInt(UsuarioController.RUC_TIPO, 0));
+                      emisor.setNombre(preferences.get(UsuarioController.RAZON_SOCIAL, ""));
+                      comunicacionBaja.setEmisor(emisor);
+
+                      comunicacionBaja.setComunicacionBajaDetalles(eventList);
 
                       VoidedDocuments voided = new VoidedDocuments();
                       Document document = voided.getStructure(comunicacionBaja);
@@ -328,7 +329,7 @@ public class ComunicacionBajaController {
                         comunicacionBaja.setNombreZip(zip.getName());
                         comunicacionBaja.setZip(byteArray);
                         int id = summaryDao.create(comunicacionBaja);
-                        comunicacionBajaDao.create(id, comunicacionBajaDetalles);
+                        comunicacionBajaDao.create(id, eventList);
 
                         sign.delete();
                         zip.delete();
@@ -353,7 +354,7 @@ public class ComunicacionBajaController {
                             JOptionPane.ERROR_MESSAGE);
                       }
 
-                      return null;
+                      return comunicacionBaja;
                     }
 
                     @Override
@@ -363,13 +364,23 @@ public class ComunicacionBajaController {
                       if (isCancelled()) {
                         start();
                       } else {
-                        start();
+                        try {
+                          start();
 
-                        JOptionPane.showMessageDialog(
-                            iFrame,
-                            comunicacionBaja.getNombreZip() + " guardado",
-                            "Guardado",
-                            JOptionPane.INFORMATION_MESSAGE);
+                          ComunicacionBaja get = get();
+
+                          JOptionPane.showMessageDialog(
+                              iFrame,
+                              get.getNombreZip() + " guardado",
+                              "Guardado",
+                              JOptionPane.INFORMATION_MESSAGE);
+                        } catch (InterruptedException | ExecutionException ex) {
+                          JOptionPane.showMessageDialog(
+                              null,
+                              ex.getMessage(),
+                              ComunicacionBajaController.class.getName(),
+                              JOptionPane.ERROR_MESSAGE);
+                        }
                       }
                     }
                   };
@@ -431,8 +442,8 @@ public class ComunicacionBajaController {
     try {
       iFrame.tabbed.setSelectedIndex(0);
 
-      iFrame.tfFecha.setEnabled(false);
-      iFrame.tfFecha.setText("");
+      iFrame.dpFecha.setEnabled(false);
+      iFrame.dpFecha.setDate(null);
 
       iFrame.cbxTipo.setEnabled(false);
       iFrame.cbxTipo.setSelectedIndex(-1);
