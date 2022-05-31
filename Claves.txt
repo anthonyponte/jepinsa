@@ -1,0 +1,17 @@
+3258242
+16/Febrero/2022
+
+EPINSA
+16/Febrero/2022
+
+Produccion
+URL SOAP: https://ose.efact.pe/ol-ti-itcpe/billService?wsdl
+RUC: 20513066431
+PASSACCESSKEY: BVnTIYKTkq
+
+Prueba
+URL SOAP: https://ose-gw1.efact.pe/ol-ti-itcpe/billService?wsdl
+RUC: 20513066431
+PASSACCESSKEY: 4coi0DGJ5u
+
+https://e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService?wsdl

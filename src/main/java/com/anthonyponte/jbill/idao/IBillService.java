@@ -6,9 +6,9 @@ package com.anthonyponte.jbill.idao;
 
 import com.anthonyponte.jbill.controller.MainController;
 import com.anthonyponte.jbill.controller.UsuarioController;
-import efact.pe.BillService;
-import efact.pe.BillServiceImplService;
-import efact.pe.StatusResponse;
+import gw1.efact.pe.BillService;
+import gw1.efact.pe.BillServiceImplService;
+import gw1.efact.pe.StatusResponse;
 import jakarta.xml.ws.BindingProvider;
 import jakarta.xml.ws.handler.Handler;
 import jakarta.xml.ws.handler.soap.SOAPHandler;

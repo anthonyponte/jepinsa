@@ -55,7 +55,7 @@
             <version>2.0.2</version>
             <type>jar</type>
         </dependency>
-          <dependency>
+        <dependency>
             <groupId>com.github.ozlerhakan</groupId>
             <artifactId>poiji</artifactId>
             <version>3.1.7</version>
@@ -153,7 +153,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>  
+            </plugin>
             <plugin>
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
@@ -166,16 +166,54 @@
                         <configuration>
                             <extension>true</extension>
                             <wsdlFiles>
-                                <wsdlFile>ose-gw1.efact.pe/ol-ti-itcpe/billService.wsdl</wsdlFile>
+                                <wsdlFile>ose.efact.pe/ol-ti-itcpe/billService.wsdl</wsdlFile>
                             </wsdlFiles>
                             <packageName>efact.pe</packageName>
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
                             </vmArgs>
-                            <wsdlLocation>https://ose-gw1.efact.pe/ol-ti-itcpe/billService?wsdl</wsdlLocation>
+                            <wsdlLocation>https://ose.efact.pe/ol-ti-itcpe/billService?wsdl</wsdlLocation>
                             <staleFile>${project.build.directory}/jaxws/stale/billService.stale</staleFile>
                         </configuration>
                         <id>wsimport-generate-billService</id>
+                        <phase>generate-sources</phase>
+                    </execution>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <extension>true</extension>
+                            <wsdlFiles>
+                                <wsdlFile>ose-gw1.efact.pe/ol-ti-itcpe/billService.wsdl</wsdlFile>
+                            </wsdlFiles>
+                            <packageName>gw1.efact.pe</packageName>
+                            <vmArgs>
+                                <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
+                            </vmArgs>
+                            <wsdlLocation>https://ose-gw1.efact.pe/ol-ti-itcpe/billService?wsdl</wsdlLocation>
+                            <staleFile>${project.build.directory}/jaxws/stale/billService_1.stale</staleFile>
+                        </configuration>
+                        <id>wsimport-generate-billService_1</id>
+                        <phase>generate-sources</phase>
+                    </execution>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <extension>true</extension>
+                            <wsdlFiles>
+                                <wsdlFile>e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService.wsdl</wsdlFile>
+                            </wsdlFiles>
+                            <packageName>billconsultservice.sunat.gob.pe</packageName>
+                            <vmArgs>
+                                <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
+                            </vmArgs>
+                            <wsdlLocation>https://e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService?wsdl</wsdlLocation>
+                            <staleFile>${project.build.directory}/jaxws/stale/billConsultService.stale</staleFile>
+                        </configuration>
+                        <id>wsimport-generate-billConsultService</id>
                         <phase>generate-sources</phase>
                     </execution>
                 </executions>
@@ -200,7 +238,7 @@
                         <artifactId>jakarta.jws-api</artifactId>
                         <version>3.0.0</version>
                     </dependency>
-                </dependencies>   
+                </dependencies>
                 <configuration>
                     <sourceDestDir>${project.build.directory}/generated-sources/jaxws-wsimport</sourceDestDir>
                     <xnocompile>true</xnocompile>
@@ -209,61 +247,6 @@
                     <catalog>${basedir}/src/jax-ws-catalog.xml</catalog>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.sun.xml.ws</groupId>
-                <artifactId>jaxws-maven-plugin</artifactId>
-                <version>3.0.2</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>wsimport</goal>
-                        </goals>
-                        <configuration>
-                            <extension>true</extension>
-                            <wsdlFiles>
-                                <wsdlFile>e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService.wsdl</wsdlFile>
-                            </wsdlFiles>
-                            <packageName>pe.gob.sunat</packageName>
-                            <vmArgs>
-                                <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
-                            </vmArgs>
-                            <wsdlLocation>https://e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService?wsdl</wsdlLocation>
-                            <staleFile>${project.build.directory}/jaxws/stale/billConsultService.stale</staleFile>
-                        </configuration>
-                        <id>wsimport-generate-billConsultService</id>
-                        <phase>generate-sources</phase>
-                    </execution>
-                </executions>                
-                <dependencies>
-                    <dependency>
-                        <groupId>jakarta.annotation</groupId>
-                        <artifactId>jakarta.annotation-api</artifactId>
-                        <version>2.0.0</version>
-                    </dependency>                    
-                    <dependency>
-                        <groupId>jakarta.xml.bind</groupId>
-                        <artifactId>jakarta.xml.bind-api</artifactId>
-                        <version>3.0.1</version>
-                    </dependency>                    
-                    <dependency>
-                        <groupId>jakarta.xml.ws</groupId>
-                        <artifactId>jakarta.xml.ws-api</artifactId>
-                        <version>3.0.1</version>
-                    </dependency>                    
-                    <dependency>
-                        <groupId>jakarta.jws</groupId>
-                        <artifactId>jakarta.jws-api</artifactId>
-                        <version>3.0.0</version>
-                    </dependency>
-                </dependencies>                
-                <configuration>
-                    <sourceDestDir>${project.build.directory}/generated-sources/jaxws-wsimport</sourceDestDir>
-                    <xnocompile>true</xnocompile>
-                    <verbose>true</verbose>
-                    <extension>true</extension>
-                    <catalog>${basedir}/src/jax-ws-catalog.xml</catalog>
-                </configuration>
-            </plugin>  
         </plugins>
     </build>
     

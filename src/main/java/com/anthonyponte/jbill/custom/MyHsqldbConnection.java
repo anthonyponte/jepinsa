@@ -20,7 +20,6 @@ public class MyHsqldbConnection {
 
   public void connect() {
     try {
-
       connection = DriverManager.getConnection(URL, USER, PASS);
     } catch (SQLException ex) {
       JOptionPane.showMessageDialog(

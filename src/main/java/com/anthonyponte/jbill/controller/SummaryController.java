@@ -37,8 +37,6 @@ import com.anthonyponte.jbill.idao.ISummaryDao;
 import com.anthonyponte.jbill.model.Summary;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.google.common.util.concurrent.Uninterruptibles;
-import efact.pe.BillService;
-import efact.pe.StatusResponse;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -54,6 +52,8 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import gw1.efact.pe.BillService;
+import gw1.efact.pe.StatusResponse;
 
 /** @author anthony */
 public class SummaryController {

@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.Preferences;
 import javax.swing.JOptionPane;
-import pe.gob.sunat.BillConsultService;
-import pe.gob.sunat.BillService;
-import pe.gob.sunat.StatusResponse;
+import billconsultservice.sunat.gob.pe.BillConsultService;
+import billconsultservice.sunat.gob.pe.BillService;
+import billconsultservice.sunat.gob.pe.StatusResponse;
 
 /** @author AnthonyPonte */
 public class IBillConsultService implements BillService {

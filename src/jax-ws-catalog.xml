@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="https://ose.efact.pe/ol-ti-itcpe/billService?wsdl" uri="wsdl/ose.efact.pe/ol-ti-itcpe/billService.wsdl"/>
+    <system systemId="http://ose.efact.pe:80/ol-ti-itcpe/billService?wsdl=1" uri="wsdl/ose.efact.pe_80/ol-ti-itcpe/billService.wsdl_1.wsdl"/>
+    <system systemId="http://ose.efact.pe:80/ol-ti-itcpe/billService?xsd=1" uri="wsdl/ose.efact.pe_80/ol-ti-itcpe/billService.xsd_1.xsd"/>
     <system systemId="https://ose-gw1.efact.pe/ol-ti-itcpe/billService?wsdl" uri="wsdl/ose-gw1.efact.pe/ol-ti-itcpe/billService.wsdl"/>
     <system systemId="http://ose-gw1.efact.pe:80/ol-ti-itcpe/billService?wsdl=1" uri="wsdl/ose-gw1.efact.pe_80/ol-ti-itcpe/billService.wsdl_1.wsdl"/>
     <system systemId="http://ose-gw1.efact.pe:80/ol-ti-itcpe/billService?xsd=1" uri="wsdl/ose-gw1.efact.pe_80/ol-ti-itcpe/billService.xsd_1.xsd"/>

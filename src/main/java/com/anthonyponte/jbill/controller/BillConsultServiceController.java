@@ -17,7 +17,6 @@ import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
 import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThreadProxyList;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
-import com.anthonyponte.jbill.custom.MyTableResize;
 import com.anthonyponte.jbill.idao.IBillConsultService;
 import com.anthonyponte.jbill.model.Bill;
 import com.anthonyponte.jbill.view.BillConsultServiceIFrame;
@@ -27,19 +26,13 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import pe.gob.sunat.BillService;
-import pe.gob.sunat.StatusResponse;
+import billconsultservice.sunat.gob.pe.BillService;
+import billconsultservice.sunat.gob.pe.StatusResponse;
 
-/**
- * @author AnthonyPonte
- */
+/** @author AnthonyPonte */
 public class BillConsultServiceController {
 
   private final BillConsultServiceIFrame iFrame;
