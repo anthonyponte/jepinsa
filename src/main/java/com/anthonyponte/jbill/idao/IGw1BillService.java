@@ -2,14 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package com.anthonyponte.jbill.idao;
 
 import com.anthonyponte.jbill.controller.MainController;
 import com.anthonyponte.jbill.controller.UsuarioController;
-import efact.pe.BillService;
-import efact.pe.BillServiceImplService;
-import efact.pe.StatusResponse;
+import gw1.efact.pe.BillService;
+import gw1.efact.pe.BillServiceImplService;
+import gw1.efact.pe.StatusResponse;
 import jakarta.xml.ws.BindingProvider;
 import jakarta.xml.ws.handler.Handler;
 import jakarta.xml.ws.handler.soap.SOAPHandler;
@@ -21,8 +20,9 @@ import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 import javax.swing.JOptionPane;
 
-/** @author AnthonyPonte */
-public class IBillService implements BillService {
+/** @author anthony */
+public class IGw1BillService implements BillService {
+
   private static final Preferences PREFERENCES =
       Preferences.userRoot().node(MainController.class.getPackageName());
   private final String RUC = PREFERENCES.get(UsuarioController.RUC, "");
@@ -45,8 +45,7 @@ public class IBillService implements BillService {
       ticket = port.sendSummary(fileName, contentFile);
     } catch (Exception ex) {
       Logger.getLogger(IGw1BillService.class.getName()).log(Level.SEVERE, null, ex);
-      JOptionPane.showMessageDialog(
-          null, ex.getMessage(), IGw1BillService.class.getName(), JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(null, ex.getMessage(), IGw1BillService.class.getName(), JOptionPane.ERROR_MESSAGE);
     }
     return ticket;
   }
@@ -68,8 +67,7 @@ public class IBillService implements BillService {
       ticket = port.sendPack(fileName, contentFile);
     } catch (Exception ex) {
       Logger.getLogger(IGw1BillService.class.getName()).log(Level.SEVERE, null, ex);
-      JOptionPane.showMessageDialog(
-          null, ex.getMessage(), IGw1BillService.class.getName(), JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(null, ex.getMessage(), IGw1BillService.class.getName(), JOptionPane.ERROR_MESSAGE);
     }
     return ticket;
   }
@@ -96,8 +94,7 @@ public class IBillService implements BillService {
           port.getStatusCdr(rucComprobante, tipoComprobante, serieComprobante, numeroComprobante);
     } catch (Exception ex) {
       Logger.getLogger(IGw1BillService.class.getName()).log(Level.SEVERE, null, ex);
-      JOptionPane.showMessageDialog(
-          null, ex.getMessage(), IGw1BillService.class.getName(), JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(null, ex.getMessage(), IGw1BillService.class.getName(), JOptionPane.ERROR_MESSAGE);
     }
     return content;
   }
@@ -119,8 +116,7 @@ public class IBillService implements BillService {
       content = port.sendBill(fileName, contentFile);
     } catch (Exception ex) {
       Logger.getLogger(IGw1BillService.class.getName()).log(Level.SEVERE, null, ex);
-      JOptionPane.showMessageDialog(
-          null, ex.getMessage(), IGw1BillService.class.getName(), JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(null, ex.getMessage(), IGw1BillService.class.getName(), JOptionPane.ERROR_MESSAGE);
     }
     return content;
   }

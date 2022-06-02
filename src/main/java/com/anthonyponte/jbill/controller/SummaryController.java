@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import com.anthonyponte.jbill.dao.SummaryDao;
-import com.anthonyponte.jbill.idao.IBillService;
+import com.anthonyponte.jbill.idao.IGw1BillService;
 import com.anthonyponte.jbill.idao.IComunicacionBajaDao;
 import com.anthonyponte.jbill.idao.IResumenDiarioDao;
 import com.anthonyponte.jbill.idao.ISummaryDao;
@@ -290,7 +290,7 @@ public class SummaryController {
     summaryDao = new ISummaryDao();
     comunicacionBajaDao = new IComunicacionBajaDao();
     resumenDiarioDao = new IResumenDiarioDao();
-    service = new IBillService();
+    service = new IGw1BillService();
     eventList = new BasicEventList<>();
 
     Comparator comparator =
