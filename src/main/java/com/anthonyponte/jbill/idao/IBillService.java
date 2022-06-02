@@ -45,15 +45,33 @@ public class IBillService implements BillService {
       ticket = port.sendSummary(fileName, contentFile);
     } catch (Exception ex) {
       Logger.getLogger(IBillService.class.getName()).log(Level.SEVERE, null, ex);
-      JOptionPane.showMessageDialog(null, ex.getMessage(), fileName, JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(
+          null, ex.getMessage(), IBillService.class.getName(), JOptionPane.ERROR_MESSAGE);
     }
     return ticket;
   }
 
   @Override
   public String sendPack(String fileName, byte[] contentFile) {
-    throw new UnsupportedOperationException("Not supported yet."); // Generated from
-    // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    String ticket = null;
+    try {
+      BillServiceImplService service = new BillServiceImplService();
+      BillService port = service.getBillServiceImplPort();
+      BindingProvider binding = (BindingProvider) port;
+
+      @SuppressWarnings("rawtypes")
+      List<Handler> handlers = new ArrayList<>();
+      SOAPHandler<SOAPMessageContext> handler = new ISOAPHanlder(RUC, CONTRASENA);
+      handlers.add(handler);
+      binding.getBinding().setHandlerChain(handlers);
+
+      ticket = port.sendPack(fileName, contentFile);
+    } catch (Exception ex) {
+      Logger.getLogger(IBillService.class.getName()).log(Level.SEVERE, null, ex);
+      JOptionPane.showMessageDialog(
+          null, ex.getMessage(), IBillService.class.getName(), JOptionPane.ERROR_MESSAGE);
+    }
+    return ticket;
   }
 
   @Override
@@ -62,14 +80,49 @@ public class IBillService implements BillService {
       String tipoComprobante,
       String serieComprobante,
       int numeroComprobante) {
-    throw new UnsupportedOperationException("Not supported yet."); // Generated from
-    // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    byte[] content = null;
+    try {
+      BillServiceImplService service = new BillServiceImplService();
+      BillService port = service.getBillServiceImplPort();
+      BindingProvider binding = (BindingProvider) port;
+
+      @SuppressWarnings("rawtypes")
+      List<Handler> handlers = new ArrayList<>();
+      SOAPHandler<SOAPMessageContext> handler = new ISOAPHanlder(RUC, CONTRASENA);
+      handlers.add(handler);
+      binding.getBinding().setHandlerChain(handlers);
+
+      content =
+          port.getStatusCdr(rucComprobante, tipoComprobante, serieComprobante, numeroComprobante);
+    } catch (Exception ex) {
+      Logger.getLogger(IBillService.class.getName()).log(Level.SEVERE, null, ex);
+      JOptionPane.showMessageDialog(
+          null, ex.getMessage(), IBillService.class.getName(), JOptionPane.ERROR_MESSAGE);
+    }
+    return content;
   }
 
   @Override
   public byte[] sendBill(String fileName, byte[] contentFile) {
-    throw new UnsupportedOperationException("Not supported yet."); // Generated from
-    // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    byte[] content = null;
+    try {
+      BillServiceImplService service = new BillServiceImplService();
+      BillService port = service.getBillServiceImplPort();
+      BindingProvider binding = (BindingProvider) port;
+
+      @SuppressWarnings("rawtypes")
+      List<Handler> handlers = new ArrayList<>();
+      SOAPHandler<SOAPMessageContext> handler = new ISOAPHanlder(RUC, CONTRASENA);
+      handlers.add(handler);
+      binding.getBinding().setHandlerChain(handlers);
+
+      content = port.sendBill(fileName, contentFile);
+    } catch (Exception ex) {
+      Logger.getLogger(IBillService.class.getName()).log(Level.SEVERE, null, ex);
+      JOptionPane.showMessageDialog(
+          null, ex.getMessage(), IBillService.class.getName(), JOptionPane.ERROR_MESSAGE);
+    }
+    return content;
   }
 
   @Override
