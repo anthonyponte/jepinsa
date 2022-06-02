@@ -25,8 +25,6 @@ import com.anthonyponte.jbill.view.SummaryIFrame;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import com.anthonyponte.jbill.dao.SummaryDao;
@@ -141,10 +139,7 @@ public class SummaryController {
                           "Enviados",
                           JOptionPane.INFORMATION_MESSAGE);
                     } catch (InterruptedException | ExecutionException ex) {
-                      Logger.getLogger(SummaryController.class.getName())
-                          .log(Level.SEVERE, null, ex);
-
-                      JOptionPane.showMessageDialog(
+                       JOptionPane.showMessageDialog(
                           null,
                           ex.getMessage(),
                           SummaryController.class.getName(),
@@ -179,11 +174,17 @@ public class SummaryController {
 
                     fos.flush();
                   } catch (FileNotFoundException ex) {
-                    Logger.getLogger(ComunicacionesBajaController.class.getName())
-                        .log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(
+                          null,
+                          ex.getMessage(),
+                          SummaryController.class.getName(),
+                          JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
-                    Logger.getLogger(ComunicacionesBajaController.class.getName())
-                        .log(Level.SEVERE, null, ex);
+                  JOptionPane.showMessageDialog(
+                          null,
+                          ex.getMessage(),
+                          SummaryController.class.getName(),
+                          JOptionPane.ERROR_MESSAGE);
                   }
                 }
               }
