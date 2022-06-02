@@ -17,8 +17,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.LayoutStyle;
 import org.kordamp.ikonli.remixicon.RemixiconAL;
+import org.kordamp.ikonli.remixicon.RemixiconMZ;
 import org.kordamp.ikonli.swing.FontIcon;
 
 /**
@@ -64,6 +66,7 @@ public class UsuarioIFrame extends JInternalFrame {
         pnlEfact = new JPanel();
         lblEfactContrasena = new JLabel();
         tfEfactContrasena = new JPasswordField();
+        btnWebService = new JToggleButton();
         separator = new JSeparator();
         cbRecordar = new JCheckBox();
         btnEntrar = new JButton();
@@ -225,19 +228,28 @@ public class UsuarioIFrame extends JInternalFrame {
         tfEfactContrasena.setName(""); // NOI18N
         tfEfactContrasena.setPreferredSize(new Dimension(300, 30));
 
+        btnWebService.setIcon(FontIcon.of(RemixiconMZ.TOGGLE_LINE, 16, Color.decode("#FFFFFF")));
+        btnWebService.setText("Prueba");
+        btnWebService.setPreferredSize(new Dimension(300, 30));
+
         GroupLayout pnlEfactLayout = new GroupLayout(pnlEfact);
         pnlEfact.setLayout(pnlEfactLayout);
         pnlEfactLayout.setHorizontalGroup(pnlEfactLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(pnlEfactLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlEfactLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEfactContrasena)
-                    .addComponent(tfEfactContrasena, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlEfactLayout.createSequentialGroup()
+                        .addComponent(lblEfactContrasena)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(tfEfactContrasena, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnWebService, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlEfactLayout.setVerticalGroup(pnlEfactLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(pnlEfactLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(btnWebService, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblEfactContrasena)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfEfactContrasena, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -288,6 +300,7 @@ public class UsuarioIFrame extends JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public JButton btnEntrar;
     public JButton btnFirmaJks;
+    public JToggleButton btnWebService;
     public JCheckBox cbRecordar;
     public JLabel lblClaveSolContrasena;
     public JLabel lblClaveSolUsuario;

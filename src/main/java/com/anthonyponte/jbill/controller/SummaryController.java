@@ -30,6 +30,7 @@ import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import com.anthonyponte.jbill.dao.SummaryDao;
+import com.anthonyponte.jbill.factory.BillServiceFactory;
 import com.anthonyponte.jbill.idao.IGw1BillService;
 import com.anthonyponte.jbill.idao.IComunicacionBajaDao;
 import com.anthonyponte.jbill.idao.IResumenDiarioDao;
@@ -68,6 +69,7 @@ public class SummaryController {
   private SortedList<Summary> sortedList;
   private AdvancedListSelectionModel<Summary> selectionModel;
   private AdvancedTableModel<Summary> tableModel;
+  private BillServiceFactory factory;
 
   public SummaryController(SummaryIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
@@ -268,9 +270,6 @@ public class SummaryController {
                                   "Eliminados",
                                   JOptionPane.INFORMATION_MESSAGE);
                             } catch (InterruptedException | ExecutionException ex) {
-                              Logger.getLogger(SummaryController.class.getName())
-                                  .log(Level.SEVERE, null, ex);
-
                               JOptionPane.showMessageDialog(
                                   null,
                                   ex.getMessage(),
@@ -292,6 +291,7 @@ public class SummaryController {
     resumenDiarioDao = new IResumenDiarioDao();
     service = new IGw1BillService();
     eventList = new BasicEventList<>();
+    factory = new BillServiceFactory();
 
     Comparator comparator =
         (Comparator<Summary>)
@@ -400,8 +400,6 @@ public class SummaryController {
 
               if (!get.isEmpty()) iFrame.tfFiltrar.requestFocus();
             } catch (InterruptedException | ExecutionException ex) {
-              Logger.getLogger(SummaryController.class.getName()).log(Level.SEVERE, null, ex);
-
               JOptionPane.showMessageDialog(
                   null,
                   ex.getMessage(),
