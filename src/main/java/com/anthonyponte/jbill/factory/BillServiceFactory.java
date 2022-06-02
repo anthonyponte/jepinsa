@@ -9,7 +9,7 @@ import com.anthonyponte.jbill.controller.MainController;
 import com.anthonyponte.jbill.controller.UsuarioController;
 import com.anthonyponte.jbill.idao.IBillService;
 import com.anthonyponte.jbill.idao.IGw1BillService;
-import com.anthonyponte.jbill.model.StatusResponde;
+import com.anthonyponte.jbill.model.StatusResponse;
 import java.util.prefs.Preferences;
 
 /** @author AnthonyPonte */
@@ -35,13 +35,13 @@ public class BillServiceFactory {
     return ticket;
   }
 
-  public StatusResponde getStatus(String ticket) {
-    StatusResponde responde;
+  public StatusResponse getStatus(String ticket) {
+    StatusResponse responde;
 
     if (WEB_SERVICE) {
       efact.pe.StatusResponse statusResponse = service.getStatus(ticket);
 
-      responde = new StatusResponde();
+      responde = new StatusResponse();
       responde.setStatusCode(statusResponse.getStatusCode());
       responde.setContentMessage(statusResponse.getContentMessage());
       responde.setContent(statusResponse.getContent());
@@ -50,7 +50,7 @@ public class BillServiceFactory {
 
       gw1.efact.pe.StatusResponse statusResponse = gw1Service.getStatus(ticket);
 
-      responde = new StatusResponde();
+      responde = new StatusResponse();
       responde.setStatusCode(statusResponse.getStatusCode());
       responde.setContentMessage(statusResponse.getContentMessage());
       responde.setContent(statusResponse.getContent());

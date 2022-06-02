@@ -33,6 +33,7 @@ import com.anthonyponte.jbill.idao.IGw1BillService;
 import com.anthonyponte.jbill.idao.IComunicacionBajaDao;
 import com.anthonyponte.jbill.idao.IResumenDiarioDao;
 import com.anthonyponte.jbill.idao.ISummaryDao;
+import com.anthonyponte.jbill.model.StatusResponse;
 import com.anthonyponte.jbill.model.Summary;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.google.common.util.concurrent.Uninterruptibles;
@@ -51,8 +52,6 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
-import gw1.efact.pe.BillService;
-import gw1.efact.pe.StatusResponse;
 
 /** @author anthony */
 public class SummaryController {
@@ -62,7 +61,6 @@ public class SummaryController {
   private SummaryDao summaryDao;
   private ComunicacionBajaDao comunicacionBajaDao;
   private ResumenDiarioDao resumenDiarioDao;
-  private BillService service;
   private EventList<Summary> eventList;
   private SortedList<Summary> sortedList;
   private AdvancedListSelectionModel<Summary> selectionModel;
@@ -76,8 +74,7 @@ public class SummaryController {
   }
 
   public void init() {
-    iFrame.btnEnviar.addActionListener(
-        (var e) -> {
+    iFrame.btnEnviar.addActionListener((var e) -> {
           int seleccionados = selectionModel.getSelected().size();
           int input =
               JOptionPane.showOptionDialog(
@@ -103,11 +100,11 @@ public class SummaryController {
                       EventList<Summary> selected = selectionModel.getSelected();
                       list = new ArrayList<>();
                       for (Summary next : selected) {
-                        String ticket = service.sendSummary(next.getNombreZip(), next.getZip());
+                        String ticket = factory.sendSummary(next.getNombreZip(), next.getZip());
 
                         if (ticket != null) {
                           Uninterruptibles.sleepUninterruptibly(10, TimeUnit.SECONDS);
-                          StatusResponse response = service.getStatus(ticket);
+                          StatusResponse response = factory.getStatus(ticket);
 
                           if (response.getStatusCode().equals("0")) {
                             next.setTicket(ticket);
@@ -290,7 +287,6 @@ public class SummaryController {
     summaryDao = new ISummaryDao();
     comunicacionBajaDao = new IComunicacionBajaDao();
     resumenDiarioDao = new IResumenDiarioDao();
-    service = new IGw1BillService();
     eventList = new BasicEventList<>();
     factory = new BillServiceFactory();
 

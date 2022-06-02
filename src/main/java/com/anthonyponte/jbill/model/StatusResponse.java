@@ -6,7 +6,7 @@
 package com.anthonyponte.jbill.model;
 
 /** @author AnthonyPonte */
-public class StatusResponde {
+public class StatusResponse {
   protected byte[] content;
   protected String contentMessage;
   protected String statusCode;
