@@ -19,8 +19,6 @@ import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
 import com.anthonyponte.jbill.custom.MyDateFormat;
 import com.anthonyponte.jbill.custom.MyTableResize;
-import com.anthonyponte.jbill.dao.ComunicacionBajaDao;
-import com.anthonyponte.jbill.dao.ResumenDiarioDao;
 import com.anthonyponte.jbill.view.SummaryIFrame;
 import java.util.Comparator;
 import java.util.List;
@@ -29,9 +27,7 @@ import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import com.anthonyponte.jbill.dao.SummaryDao;
 import com.anthonyponte.jbill.factory.BillServiceFactory;
-import com.anthonyponte.jbill.idao.IGw1BillService;
-import com.anthonyponte.jbill.idao.IComunicacionBajaDao;
-import com.anthonyponte.jbill.idao.IResumenDiarioDao;
+import com.anthonyponte.jbill.factory.SummaryFactory;
 import com.anthonyponte.jbill.idao.ISummaryDao;
 import com.anthonyponte.jbill.model.StatusResponse;
 import com.anthonyponte.jbill.model.Summary;
@@ -58,14 +54,13 @@ public class SummaryController {
 
   private final SummaryIFrame iFrame;
   private final LoadingDialog dialog;
-  private SummaryDao summaryDao;
-  private ComunicacionBajaDao comunicacionBajaDao;
-  private ResumenDiarioDao resumenDiarioDao;
+  private SummaryDao dao;
+  private SummaryFactory summaryFactory;
+  private BillServiceFactory billServiceFactory;
   private EventList<Summary> eventList;
   private SortedList<Summary> sortedList;
   private AdvancedListSelectionModel<Summary> selectionModel;
   private AdvancedTableModel<Summary> tableModel;
-  private BillServiceFactory factory;
 
   public SummaryController(SummaryIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
@@ -74,7 +69,8 @@ public class SummaryController {
   }
 
   public void init() {
-    iFrame.btnEnviar.addActionListener((var e) -> {
+    iFrame.btnEnviar.addActionListener(
+        (var e) -> {
           int seleccionados = selectionModel.getSelected().size();
           int input =
               JOptionPane.showOptionDialog(
@@ -100,11 +96,12 @@ public class SummaryController {
                       EventList<Summary> selected = selectionModel.getSelected();
                       list = new ArrayList<>();
                       for (Summary next : selected) {
-                        String ticket = factory.sendSummary(next.getNombreZip(), next.getZip());
+                        String ticket =
+                            billServiceFactory.sendSummary(next.getNombreZip(), next.getZip());
 
                         if (ticket != null) {
                           Uninterruptibles.sleepUninterruptibly(10, TimeUnit.SECONDS);
-                          StatusResponse response = factory.getStatus(ticket);
+                          StatusResponse response = billServiceFactory.getStatus(ticket);
 
                           if (response.getStatusCode().equals("0")) {
                             next.setTicket(ticket);
@@ -112,7 +109,7 @@ public class SummaryController {
                             next.setNombreContent("R-" + next.getNombreZip());
                             next.setContent(response.getContent());
 
-                            summaryDao.update(next.getId(), next);
+                            dao.update(next.getId(), next);
 
                             list.add(next);
                           }
@@ -136,7 +133,7 @@ public class SummaryController {
                           "Enviados",
                           JOptionPane.INFORMATION_MESSAGE);
                     } catch (InterruptedException | ExecutionException ex) {
-                       JOptionPane.showMessageDialog(
+                      JOptionPane.showMessageDialog(
                           null,
                           ex.getMessage(),
                           SummaryController.class.getName(),
@@ -172,16 +169,16 @@ public class SummaryController {
                     fos.flush();
                   } catch (FileNotFoundException ex) {
                     JOptionPane.showMessageDialog(
-                          null,
-                          ex.getMessage(),
-                          SummaryController.class.getName(),
-                          JOptionPane.ERROR_MESSAGE);
+                        null,
+                        ex.getMessage(),
+                        SummaryController.class.getName(),
+                        JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
-                  JOptionPane.showMessageDialog(
-                          null,
-                          ex.getMessage(),
-                          SummaryController.class.getName(),
-                          JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(
+                        null,
+                        ex.getMessage(),
+                        SummaryController.class.getName(),
+                        JOptionPane.ERROR_MESSAGE);
                   }
                 }
               }
@@ -240,15 +237,7 @@ public class SummaryController {
                             List<Summary> list = new ArrayList<>();
                             for (int i = 0; i < selected.size(); i++) {
                               Summary get = selected.get(i);
-
-                              if (get.getTipoDocumento().getCodigo().equals("RA")
-                                  || get.getTipoDocumento().getCodigo().equals("RR")) {
-                                comunicacionBajaDao.delete(get.getId());
-                              } else if (get.getTipoDocumento().getCodigo().equals("RC")) {
-                                resumenDiarioDao.delete(get.getId());
-                              }
-
-                              summaryDao.delete(get.getId());
+                              summaryFactory.delete(get);
                               list.add(get);
                             }
                             return list;
@@ -284,11 +273,10 @@ public class SummaryController {
   }
 
   private void initComponents() {
-    summaryDao = new ISummaryDao();
-    comunicacionBajaDao = new IComunicacionBajaDao();
-    resumenDiarioDao = new IResumenDiarioDao();
+    dao = new ISummaryDao();
+    summaryFactory = new SummaryFactory();
+    billServiceFactory = new BillServiceFactory();
     eventList = new BasicEventList<>();
-    factory = new BillServiceFactory();
 
     Comparator comparator =
         (Comparator<Summary>)
@@ -380,7 +368,7 @@ public class SummaryController {
         new SwingWorker<List<Summary>, Void>() {
           @Override
           protected List<Summary> doInBackground() throws Exception {
-            List<Summary> list = summaryDao.read();
+            List<Summary> list = dao.read();
             return list;
           }
 
