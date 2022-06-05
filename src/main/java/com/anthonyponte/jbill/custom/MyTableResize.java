@@ -22,7 +22,9 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class MyTableResize {
   public static void resize(JTable table) {
     TableColumnModel columnModel = table.getColumnModel();

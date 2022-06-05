@@ -94,6 +94,8 @@ public class BillConsultServiceController {
                         list.get(i).setStatusMessage(statusResponse.getStatusMessage());
                       }
                     } catch (Exception ex) {
+                      cancel(true);
+
                       JOptionPane.showMessageDialog(
                           null,
                           ex.getMessage(),
@@ -105,24 +107,26 @@ public class BillConsultServiceController {
 
                   @Override
                   protected void done() {
-                    try {
-                      dialog.dispose();
+                    dialog.dispose();
 
-                      List<Bill> get = get();
+                    if (!isCancelled()) {
+                      try {
+                        List<Bill> get = get();
 
-                      eventList.clear();
-                      eventList.addAll(get);
+                        eventList.clear();
+                        eventList.addAll(get);
 
-                      MyTableResize.resize(iFrame.table);
+                        MyTableResize.resize(iFrame.table);
 
-                      iFrame.tfFiltrar.requestFocus();
+                        iFrame.tfFiltrar.requestFocus();
 
-                    } catch (InterruptedException | ExecutionException ex) {
-                      JOptionPane.showMessageDialog(
-                          null,
-                          ex.getMessage(),
-                          BillConsultServiceController.class.getName(),
-                          JOptionPane.ERROR_MESSAGE);
+                      } catch (InterruptedException | ExecutionException ex) {
+                        JOptionPane.showMessageDialog(
+                            null,
+                            ex.getMessage(),
+                            BillConsultServiceController.class.getName(),
+                            JOptionPane.ERROR_MESSAGE);
+                      }
                     }
                   }
                 };
