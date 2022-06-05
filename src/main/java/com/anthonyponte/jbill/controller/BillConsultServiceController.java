@@ -31,8 +31,13 @@ import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import billconsultservice.sunat.gob.pe.BillService;
 import billconsultservice.sunat.gob.pe.StatusResponse;
+import com.anthonyponte.jbill.custom.MyTableResize;
+import java.util.concurrent.ExecutionException;
+import javax.swing.JOptionPane;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class BillConsultServiceController {
 
   private final BillConsultServiceIFrame iFrame;
@@ -63,58 +68,62 @@ public class BillConsultServiceController {
           int result = chooser.showOpenDialog(iFrame);
           if (result == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
-            //
-            //            dialog.setVisible(true);
-            //            dialog.setLocationRelativeTo(iFrame);
+
+            dialog.setVisible(true);
+            dialog.setLocationRelativeTo(iFrame);
 
             SwingWorker worker =
                 new SwingWorker<List<Bill>, Void>() {
                   @Override
                   protected List<Bill> doInBackground() throws Exception {
-                    List<Bill> list = Poiji.fromExcel(file, Bill.class);
-                    for (int i = 0; i < list.size(); i++) {
-                      Bill bill = (Bill) list.get(i);
+                    List<Bill> list = null;
+                    try {
+                      list = Poiji.fromExcel(file, Bill.class);
 
-                      StatusResponse statusResponse =
-                          service.getStatus(
-                              bill.getEmisor().getNumeroDocumentoIdentidad(),
-                              bill.getTipoDocumento().getCodigo(),
-                              bill.getSerie(),
-                              bill.getCorrelativo());
+                      for (int i = 0; i < list.size(); i++) {
+                        Bill bill = (Bill) list.get(i);
 
-                      list.get(i).setStatusCode(statusResponse.getStatusCode());
-                      list.get(i).setStatusMessage(statusResponse.getStatusMessage());
+                        StatusResponse statusResponse =
+                            service.getStatus(
+                                bill.getEmisor().getNumeroDocumentoIdentidad(),
+                                bill.getTipoDocumento().getCodigo(),
+                                bill.getSerie(),
+                                bill.getCorrelativo());
 
-                      System.out.println(".doInBackground() " + list.get(i));
+                        list.get(i).setStatusCode(statusResponse.getStatusCode());
+                        list.get(i).setStatusMessage(statusResponse.getStatusMessage());
+                      }
+                    } catch (Exception ex) {
+                      JOptionPane.showMessageDialog(
+                          null,
+                          ex.getMessage(),
+                          BillConsultServiceController.class.getName(),
+                          JOptionPane.ERROR_MESSAGE);
                     }
                     return list;
                   }
 
                   @Override
                   protected void done() {
-                    //                    try {
-                    //                      dialog.dispose();
-                    //
-                    //                      List<Bill> get = get();
-                    //
-                    //                      eventList.clear();
-                    //                      eventList.addAll(get);
-                    //
-                    //                      MyTableResize.resize(iFrame.table);
-                    //
-                    //                      iFrame.tfFiltrar.requestFocus();
-                    //
-                    //                    } catch (InterruptedException | ExecutionException ex) {
-                    //
-                    // Logger.getLogger(BillConsultServiceController.class.getName())
-                    //                          .log(Level.SEVERE, null, ex);
-                    //                      //                      JOptionPane.showMessageDialog(
-                    //                      //                          null,
-                    //                      //                          ex.getMessage(),
-                    //                      //
-                    // BillConsultServiceController.class.getName(),
-                    //                      //                          JOptionPane.ERROR_MESSAGE);
-                    //                    }
+                    try {
+                      dialog.dispose();
+
+                      List<Bill> get = get();
+
+                      eventList.clear();
+                      eventList.addAll(get);
+
+                      MyTableResize.resize(iFrame.table);
+
+                      iFrame.tfFiltrar.requestFocus();
+
+                    } catch (InterruptedException | ExecutionException ex) {
+                      JOptionPane.showMessageDialog(
+                          null,
+                          ex.getMessage(),
+                          BillConsultServiceController.class.getName(),
+                          JOptionPane.ERROR_MESSAGE);
+                    }
                   }
                 };
 
