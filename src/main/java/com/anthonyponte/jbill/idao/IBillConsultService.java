@@ -45,8 +45,9 @@ public class IBillConsultService implements BillService {
       binding.getBinding().setHandlerChain(handlers);
 
       statusResponse =
-          port.getStatus(rucComprobante, tipoComprobante, serieComprobante, numeroComprobante);
+          port.getStatusCdr(rucComprobante, tipoComprobante, serieComprobante, numeroComprobante);
     } catch (Exception ex) {
+      System.out.println("com.anthonyponte.jbill.idao.IBillConsultService.getStatusCdr() "+ex);
       JOptionPane.showMessageDialog(
           null, ex.getMessage(), IBillConsultService.class.getName(), JOptionPane.ERROR_MESSAGE);
     }
@@ -72,7 +73,7 @@ public class IBillConsultService implements BillService {
       binding.getBinding().setHandlerChain(handlers);
 
       statusResponse =
-          port.getStatusCdr(rucComprobante, tipoComprobante, serieComprobante, numeroComprobante);
+          port.getStatus(rucComprobante, tipoComprobante, serieComprobante, numeroComprobante);
 
     } catch (Exception ex) {
       JOptionPane.showMessageDialog(

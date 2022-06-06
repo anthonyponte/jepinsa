@@ -32,6 +32,17 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import billconsultservice.sunat.gob.pe.BillService;
 import billconsultservice.sunat.gob.pe.StatusResponse;
 import com.anthonyponte.jbill.custom.MyTableResize;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JOptionPane;
 
@@ -68,70 +79,149 @@ public class BillConsultServiceController {
           int result = chooser.showOpenDialog(iFrame);
           if (result == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
+            setToTable(file);
+          }
+        });
 
-            dialog.setVisible(true);
-            dialog.setLocationRelativeTo(iFrame);
+    iFrame.scroll.setDropTarget(
+        new DropTarget() {
+          @Override
+          public synchronized void drop(DropTargetDropEvent dtde) {
+            if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+              try {
+                dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
+                Transferable t = dtde.getTransferable();
+                List fileList = (List) t.getTransferData(DataFlavor.javaFileListFlavor);
 
-            SwingWorker worker =
-                new SwingWorker<List<Bill>, Void>() {
-                  @Override
-                  protected List<Bill> doInBackground() throws Exception {
-                    List<Bill> list = null;
-                    try {
-                      list = Poiji.fromExcel(file, Bill.class);
+                if (fileList != null && !fileList.isEmpty()) {
+                  for (Object value : fileList) {
+                    if (value instanceof File) {
+                      File file = (File) value;
+                      setToTable(file);
+                    }
+                  }
+                }
+              } catch (UnsupportedFlavorException | IOException ex) {
+                JOptionPane.showMessageDialog(
+                    null,
+                    ex.getMessage(),
+                    BillConsultServiceController.class.getName(),
+                    JOptionPane.ERROR_MESSAGE);
+              }
+            } else {
+              dtde.rejectDrop();
+            }
+          }
+        });
 
-                      for (int i = 0; i < list.size(); i++) {
-                        Bill bill = (Bill) list.get(i);
+    iFrame.table.addMouseListener(
+        new MouseAdapter() {
+          @Override
+          public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2) {
+              Bill selected = selectionModel.getSelected().get(0);
+              System.out.println(".mouseClicked() " + selected);
+
+              if (selected.getStatusCode().equals("0001")
+                  || selected.getStatusCode().equals("0002")
+                  || selected.getStatusCode().equals("0003")) {
+
+                System.out.println(".mouseClicked() " + selected);
+
+                SwingWorker worker =
+                    new SwingWorker<Bill, Integer>() {
+                      @Override
+                      protected Bill doInBackground() throws Exception {
+                        dialog.setVisible(true);
+                        dialog.setLocationRelativeTo(iFrame);
+
+                        System.out.println(".mouseClicked() " + selected);
 
                         StatusResponse statusResponse =
-                            service.getStatus(
-                                bill.getEmisor().getNumeroDocumentoIdentidad(),
-                                bill.getTipoDocumento().getCodigo(),
-                                bill.getSerie(),
-                                bill.getCorrelativo());
+                            service.getStatusCdr(
+                                selected.getEmisor().getNumeroDocumentoIdentidad(),
+                                selected.getTipoDocumento().getCodigo(),
+                                selected.getSerie(),
+                                selected.getCorrelativo());
 
-                        list.get(i).setStatusCode(statusResponse.getStatusCode());
-                        list.get(i).setStatusMessage(statusResponse.getStatusMessage());
+                        selected.setCdrStatusCode(statusResponse.getStatusCode());
+                        selected.setCdrStatusMessage(statusResponse.getStatusMessage());
+                        selected.setCdrContent(statusResponse.getContent());
+
+                        System.out.println(".mouseClicked() " + selected);
+
+                        return selected;
                       }
-                    } catch (Exception ex) {
-                      cancel(true);
 
-                      JOptionPane.showMessageDialog(
-                          null,
-                          ex.getMessage(),
-                          BillConsultServiceController.class.getName(),
-                          JOptionPane.ERROR_MESSAGE);
-                    }
-                    return list;
-                  }
+                      @Override
+                      protected void done() {
+                        try {
+                          dialog.dispose();
 
-                  @Override
-                  protected void done() {
-                    dialog.dispose();
+                          Bill get = get();
 
-                    if (!isCancelled()) {
-                      try {
-                        List<Bill> get = get();
+                          if (get.getCdrStatusCode().equals("0004")) {
+                            JFileChooser chooser = new JFileChooser();
+                            chooser.setDialogTitle("Guardar");
+                            chooser.setApproveButtonText("Guardar");
+                            chooser.setAcceptAllFileFilterUsed(false);
+                            chooser.addChoosableFileFilter(
+                                new FileNameExtensionFilter("Archivo Zip", "zip"));
+                            chooser.setCurrentDirectory(new File("."));
+                            chooser.setSelectedFile(
+                                new File(
+                                    "R-"
+                                        + get.getEmisor().getNumeroDocumentoIdentidad()
+                                        + "-"
+                                        + get.getTipoDocumento().getCodigo()
+                                        + "-"
+                                        + get.getSerie()
+                                        + "-"
+                                        + get.getCorrelativo()
+                                        + ".zip"));
 
-                        eventList.clear();
-                        eventList.addAll(get);
-
-                        MyTableResize.resize(iFrame.table);
-
-                        iFrame.tfFiltrar.requestFocus();
-
-                      } catch (InterruptedException | ExecutionException ex) {
-                        JOptionPane.showMessageDialog(
-                            null,
-                            ex.getMessage(),
-                            BillConsultServiceController.class.getName(),
-                            JOptionPane.ERROR_MESSAGE);
+                            int result = chooser.showSaveDialog(iFrame);
+                            if (result == JFileChooser.APPROVE_OPTION) {
+                              File file = chooser.getSelectedFile().getAbsoluteFile();
+                              try (FileOutputStream fout =
+                                  new FileOutputStream(file.getParent() + "//" + file.getName())) {
+                                fout.write(get.getCdrContent());
+                                fout.flush();
+                                fout.close();
+                              } catch (FileNotFoundException ex) {
+                                JOptionPane.showMessageDialog(
+                                    null,
+                                    ex.getMessage(),
+                                    BillConsultServiceController.class.getName(),
+                                    JOptionPane.ERROR_MESSAGE);
+                              } catch (IOException ex) {
+                                JOptionPane.showMessageDialog(
+                                    null,
+                                    ex.getMessage(),
+                                    BillConsultServiceController.class.getName(),
+                                    JOptionPane.ERROR_MESSAGE);
+                              }
+                            }
+                          } else {
+                            JOptionPane.showMessageDialog(
+                                iFrame,
+                                get.getCdrStatusMessage(),
+                                get.getCdrStatusCode(),
+                                JOptionPane.ERROR_MESSAGE);
+                          }
+                        } catch (InterruptedException | ExecutionException ex) {
+                          JOptionPane.showMessageDialog(
+                              null,
+                              ex.getMessage(),
+                              BillConsultServiceController.class.getName(),
+                              JOptionPane.ERROR_MESSAGE);
+                        }
                       }
-                    }
-                  }
-                };
+                    };
 
-            worker.execute();
+                worker.execute();
+              }
+            }
           }
         });
   }
@@ -224,5 +314,73 @@ public class BillConsultServiceController {
     iFrame.setVisible(true);
 
     iFrame.table.requestFocus();
+  }
+
+  private void setToTable(File file) {
+    dialog.setVisible(true);
+    dialog.setLocationRelativeTo(iFrame);
+
+    SwingWorker worker =
+        new SwingWorker<List<Bill>, Void>() {
+          @Override
+          protected List<Bill> doInBackground() throws Exception {
+            List<Bill> list = null;
+            try {
+              list = Poiji.fromExcel(file, Bill.class);
+
+              for (int i = 0; i < list.size(); i++) {
+                Bill bill = (Bill) list.get(i);
+
+                StatusResponse statusResponse =
+                    service.getStatus(
+                        bill.getEmisor().getNumeroDocumentoIdentidad(),
+                        bill.getTipoDocumento().getCodigo(),
+                        bill.getSerie(),
+                        bill.getCorrelativo());
+
+                list.get(i).setStatusCode(statusResponse.getStatusCode());
+                list.get(i).setStatusMessage(statusResponse.getStatusMessage());
+
+                System.out.println(".doInBackground() " + bill);
+              }
+            } catch (Exception ex) {
+              cancel(true);
+
+              JOptionPane.showMessageDialog(
+                  null,
+                  ex.getMessage(),
+                  BillConsultServiceController.class.getName(),
+                  JOptionPane.ERROR_MESSAGE);
+            }
+            return list;
+          }
+
+          @Override
+          protected void done() {
+            dialog.dispose();
+
+            if (!isCancelled()) {
+              try {
+                List<Bill> get = get();
+
+                eventList.clear();
+                eventList.addAll(get);
+
+                MyTableResize.resize(iFrame.table);
+
+                iFrame.tfFiltrar.requestFocus();
+
+              } catch (InterruptedException | ExecutionException ex) {
+                JOptionPane.showMessageDialog(
+                    null,
+                    ex.getMessage(),
+                    BillConsultServiceController.class.getName(),
+                    JOptionPane.ERROR_MESSAGE);
+              }
+            }
+          }
+        };
+
+    worker.execute();
   }
 }

@@ -45,7 +45,7 @@ public class BillConsultServiceIFrame extends JInternalFrame {
 
         separator = new JSeparator();
         tfFiltrar = new JTextField();
-        scrllPane = new JScrollPane();
+        scroll = new JScrollPane();
         table = new JTable();
         btnImportar = new JButton();
 
@@ -77,9 +77,8 @@ public class BillConsultServiceIFrame extends JInternalFrame {
             }
         ));
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        table.setColumnSelectionAllowed(true);
         table.getTableHeader().setReorderingAllowed(false);
-        scrllPane.setViewportView(table);
+        scroll.setViewportView(table);
         table.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         btnImportar.setIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#FFFFFF")));
@@ -93,7 +92,7 @@ public class BillConsultServiceIFrame extends JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(scrllPane, GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                    .addComponent(scroll, GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
                     .addComponent(tfFiltrar, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(separator, GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -111,7 +110,7 @@ public class BillConsultServiceIFrame extends JInternalFrame {
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfFiltrar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrllPane, GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                .addComponent(scroll, GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -120,7 +119,7 @@ public class BillConsultServiceIFrame extends JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public JButton btnImportar;
-    public JScrollPane scrllPane;
+    public JScrollPane scroll;
     public JSeparator separator;
     public JTable table;
     public JTextField tfFiltrar;
