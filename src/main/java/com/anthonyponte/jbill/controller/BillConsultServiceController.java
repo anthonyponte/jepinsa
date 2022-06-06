@@ -43,12 +43,16 @@ import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JOptionPane;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-/**
- * @author AnthonyPonte
- */
+/** @author AnthonyPonte */
 public class BillConsultServiceController {
 
   private final BillConsultServiceIFrame iFrame;
@@ -79,7 +83,107 @@ public class BillConsultServiceController {
           int result = chooser.showOpenDialog(iFrame);
           if (result == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
-            setToTable(file);
+            setData(file);
+          }
+        });
+
+    iFrame.btnExportar.addActionListener(
+        (ActionEvent e) -> {
+          SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+          String dateString = format.format(new Date());
+
+          JFileChooser chooser = new JFileChooser();
+          chooser.setDialogTitle("Exportar");
+          chooser.setApproveButtonText("Exportar");
+          chooser.setAcceptAllFileFilterUsed(false);
+          chooser.addChoosableFileFilter(new FileNameExtensionFilter("Archivo Excel", "xlsx"));
+          chooser.setSelectedFile(new File(dateString.concat(".xlsx")));
+          chooser.setCurrentDirectory(new File("."));
+
+          int result = chooser.showSaveDialog(iFrame);
+          if (result == JFileChooser.APPROVE_OPTION) {
+
+            SwingWorker worker =
+                new SwingWorker<XSSFWorkbook, Integer>() {
+                  @Override
+                  protected XSSFWorkbook doInBackground() throws Exception {
+
+                    dialog.setVisible(true);
+                    dialog.setLocationRelativeTo(iFrame);
+
+                    XSSFWorkbook workbook = new XSSFWorkbook();
+                    XSSFSheet sheet = workbook.createSheet("Comprobantes");
+
+                    for (int r = 0; r < model.getRowCount(); r++) {
+                      XSSFRow row = sheet.createRow(r);
+                      for (int c = 0; c < model.getColumnCount(); c++) {
+                        XSSFCell cell = row.createCell(c);
+                        if (r == 0) {
+                          cell.setCellValue(model.getColumnName(c));
+                        }
+                      }
+                    }
+
+                    for (int r = 0; r < model.getRowCount(); r++) {
+                      XSSFRow row = sheet.createRow(r + 1);
+                      Bill bill = model.getElementAt(r);
+                      publish(r);
+
+                      for (int c = 0; c < model.getColumnCount(); c++) {
+                        XSSFCell cell = row.createCell(c);
+                        sheet.autoSizeColumn(c);
+
+                        switch (cell.getColumnIndex()) {
+                          case 0:
+                            cell.setCellValue(bill.getEmisor().getNumeroDocumentoIdentidad());
+                            break;
+                          case 1:
+                            cell.setCellValue(bill.getTipoDocumento().getCodigo());
+                            break;
+                          case 2:
+                            cell.setCellValue(bill.getSerie());
+                            break;
+                          case 3:
+                            cell.setCellValue(bill.getCorrelativo());
+                            break;
+                          case 4:
+                            cell.setCellValue(bill.getCdrStatusCode());
+                            break;
+                          case 5:
+                            cell.setCellValue(bill.getStatusMessage());
+                            break;
+                          default:
+                            break;
+                        }
+                      }
+                    }
+
+                    return workbook;
+                  }
+
+                  @Override
+                  protected void done() {
+                    try {
+                      XSSFWorkbook get = get();
+                      File file = chooser.getSelectedFile();
+
+                      try (FileOutputStream out = new FileOutputStream(file)) {
+                        get.write(out);
+                      }
+
+                      dialog.dispose();
+
+                    } catch (InterruptedException | ExecutionException | IOException ex) {
+                      JOptionPane.showMessageDialog(
+                          null,
+                          ex.getMessage(),
+                          BillConsultServiceController.class.getName(),
+                          JOptionPane.ERROR_MESSAGE);
+                    }
+                  }
+                };
+
+            worker.execute();
           }
         });
 
@@ -97,7 +201,7 @@ public class BillConsultServiceController {
                   for (Object value : fileList) {
                     if (value instanceof File) {
                       File file = (File) value;
-                      setToTable(file);
+                      setData(file);
                     }
                   }
                 }
@@ -120,13 +224,10 @@ public class BillConsultServiceController {
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
               Bill selected = selectionModel.getSelected().get(0);
-              System.out.println(".mouseClicked() " + selected);
 
               if (selected.getStatusCode().equals("0001")
                   || selected.getStatusCode().equals("0002")
                   || selected.getStatusCode().equals("0003")) {
-
-                System.out.println(".mouseClicked() " + selected);
 
                 SwingWorker worker =
                     new SwingWorker<Bill, Integer>() {
@@ -316,7 +417,7 @@ public class BillConsultServiceController {
     iFrame.table.requestFocus();
   }
 
-  private void setToTable(File file) {
+  private void setData(File file) {
     dialog.setVisible(true);
     dialog.setLocationRelativeTo(iFrame);
 
@@ -369,6 +470,7 @@ public class BillConsultServiceController {
                 MyTableResize.resize(iFrame.table);
 
                 iFrame.tfFiltrar.requestFocus();
+                iFrame.btnExportar.setEnabled(true);
 
               } catch (InterruptedException | ExecutionException ex) {
                 JOptionPane.showMessageDialog(
