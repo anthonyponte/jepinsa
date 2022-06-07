@@ -236,8 +236,6 @@ public class BillConsultServiceController {
                         dialog.setVisible(true);
                         dialog.setLocationRelativeTo(iFrame);
 
-                        System.out.println(".mouseClicked() " + selected);
-
                         StatusResponse statusResponse =
                             service.getStatusCdr(
                                 selected.getEmisor().getNumeroDocumentoIdentidad(),
@@ -248,8 +246,6 @@ public class BillConsultServiceController {
                         selected.setCdrStatusCode(statusResponse.getStatusCode());
                         selected.setCdrStatusMessage(statusResponse.getStatusMessage());
                         selected.setCdrContent(statusResponse.getContent());
-
-                        System.out.println(".mouseClicked() " + selected);
 
                         return selected;
                       }
@@ -441,8 +437,6 @@ public class BillConsultServiceController {
 
                 list.get(i).setStatusCode(statusResponse.getStatusCode());
                 list.get(i).setStatusMessage(statusResponse.getStatusMessage());
-
-                System.out.println(".doInBackground() " + bill);
               }
             } catch (Exception ex) {
               cancel(true);
