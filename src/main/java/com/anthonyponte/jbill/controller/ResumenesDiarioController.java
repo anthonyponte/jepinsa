@@ -61,7 +61,7 @@ public class ResumenesDiarioController {
   private final ResumenesDiarioIFrame iFrame;
   private final LoadingDialog dialog;
   private ResumenDiarioDao dao;
-  private EventList<ResumenDiario> eventList;
+  private EventList<ResumenDiario> elEncabezado;
   private EventList<ResumenDiarioDetalle> elDetalle;
   private SortedList<ResumenDiario> sortedList;
   private AdvancedListSelectionModel<ResumenDiario> selectionModel;
@@ -148,7 +148,7 @@ public class ResumenesDiarioController {
 
   private void initComponents() {
     dao = new IResumenDiarioDao();
-    eventList = new BasicEventList<>();
+    elEncabezado = new BasicEventList<>();
     elDetalle = new BasicEventList<>();
 
     Comparator comparator =
@@ -156,7 +156,7 @@ public class ResumenesDiarioController {
             (ResumenDiario o1, ResumenDiario o2) ->
                 o1.getFechaEmision().compareTo(o2.getFechaEmision());
 
-    sortedList = new SortedList<>(eventList, comparator.reversed());
+    sortedList = new SortedList<>(elEncabezado, comparator.reversed());
 
     TextFilterator<ResumenDiario> filterator =
         (List<String> list, ResumenDiario resumenDiario) -> {
@@ -249,9 +249,9 @@ public class ResumenesDiarioController {
     TableComparatorChooser.install(
         iFrame.tblEncabezado, sortedList, TableComparatorChooser.SINGLE_COLUMN);
 
-    AdvancedTableModel<ResumenDiarioDetalle> ttmDetalle =
+    AdvancedTableModel<ResumenDiarioDetalle> tmDetalle =
         eventTableModelWithThreadProxyList(elDetalle, new ResumenDiarioDetalleTableFormat());
-    iFrame.tblDetalle.setModel(ttmDetalle);
+    iFrame.tblDetalle.setModel(tmDetalle);
 
     iFrame.show();
 
@@ -280,8 +280,8 @@ public class ResumenesDiarioController {
               dialog.dispose();
 
               List<ResumenDiario> get = get();
-              eventList.clear();
-              eventList.addAll(get);
+              elEncabezado.clear();
+              elEncabezado.addAll(get);
 
               MyTableResize.resize(iFrame.tblEncabezado);
 

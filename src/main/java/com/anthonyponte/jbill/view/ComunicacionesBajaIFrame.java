@@ -102,26 +102,12 @@ public class ComunicacionesBajaIFrame extends JInternalFrame {
 
             },
             new String [] {
-                "Tipo Codigo", "Tipo Descripcion", "Serie", "Correlativo", "Motivo"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
+        tblDetalle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblDetalle.getTableHeader().setReorderingAllowed(false);
         scrllDetalle.setViewportView(tblDetalle);
-        if (tblDetalle.getColumnModel().getColumnCount() > 0) {
-            tblDetalle.getColumnModel().getColumn(0).setResizable(false);
-            tblDetalle.getColumnModel().getColumn(1).setResizable(false);
-            tblDetalle.getColumnModel().getColumn(2).setResizable(false);
-            tblDetalle.getColumnModel().getColumn(3).setResizable(false);
-            tblDetalle.getColumnModel().getColumn(4).setResizable(false);
-        }
 
         spltPane.setRightComponent(scrllDetalle);
 
