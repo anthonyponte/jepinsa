@@ -5,7 +5,7 @@
 
 package com.anthonyponte.jbill.idao;
 
-import com.anthonyponte.jbill.custom.MyHsqldbConnection;
+import com.anthonyponte.jbill.custom.MyHsqldb;
 import com.anthonyponte.jbill.model.ComunicacionBaja;
 import com.anthonyponte.jbill.model.ComunicacionBajaDetalle;
 import java.sql.PreparedStatement;
@@ -22,10 +22,10 @@ import com.anthonyponte.jbill.model.TipoDocumento;
 /** @author anthony */
 public class IComunicacionBajaDao implements ComunicacionBajaDao {
 
-  private final MyHsqldbConnection database;
+  private final MyHsqldb database;
 
   public IComunicacionBajaDao() {
-    this.database = new MyHsqldbConnection();
+    this.database = new MyHsqldb();
   }
 
   @Override

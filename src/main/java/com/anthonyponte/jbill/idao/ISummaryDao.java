@@ -17,7 +17,7 @@
 
 package com.anthonyponte.jbill.idao;
 
-import com.anthonyponte.jbill.custom.MyHsqldbConnection;
+import com.anthonyponte.jbill.custom.MyHsqldb;
 import com.anthonyponte.jbill.dao.SummaryDao;
 import com.anthonyponte.jbill.model.Empresa;
 import com.anthonyponte.jbill.model.Summary;
@@ -32,10 +32,10 @@ import java.util.List;
 /** @author AnthonyPonte */
 public class ISummaryDao implements SummaryDao {
 
-  private final MyHsqldbConnection database;
+  private final MyHsqldb database;
 
   public ISummaryDao() {
-    this.database = new MyHsqldbConnection();
+    this.database = new MyHsqldb();
   }
 
   @Override

@@ -17,7 +17,7 @@
 
 package com.anthonyponte.jbill.idao;
 
-import com.anthonyponte.jbill.custom.MyHsqldbConnection;
+import com.anthonyponte.jbill.custom.MyHsqldb;
 import com.anthonyponte.jbill.dao.ResumenDiarioDao;
 import com.anthonyponte.jbill.model.Bill;
 import com.anthonyponte.jbill.model.Empresa;
@@ -43,10 +43,10 @@ import org.joda.time.DateTime;
 /** @author anthony */
 public class IResumenDiarioDao implements ResumenDiarioDao {
 
-  private final MyHsqldbConnection database;
+  private final MyHsqldb database;
 
   public IResumenDiarioDao() {
-    this.database = new MyHsqldbConnection();
+    this.database = new MyHsqldb();
   }
 
   @Override

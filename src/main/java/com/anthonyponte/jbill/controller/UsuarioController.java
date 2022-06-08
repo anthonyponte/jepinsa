@@ -1,5 +1,6 @@
 package com.anthonyponte.jbill.controller;
 
+import com.anthonyponte.jbill.custom.MyHsqldb;
 import com.anthonyponte.jbill.filter.IntegerFilter;
 import com.anthonyponte.jbill.filter.UpperCaseFilter;
 import com.anthonyponte.jbill.view.MainFrame;
@@ -8,11 +9,10 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -36,6 +36,7 @@ public class UsuarioController {
   public static final String EFACT_WEB_SERVICE = "EFACT_WEB_SERVICE";
   public static final String EFACT_CONTRASENA = "EFACT_CONTRASENA";
   private Preferences preferences;
+  private MyHsqldb server;
   private String firmaJks;
   private String firmaUsuario;
   private String firmaContrasena;
@@ -111,19 +112,36 @@ public class UsuarioController {
             } else {
               preferences.clear();
             }
+
             iFrame.dispose();
+
             frame.menuNuevo.setEnabled(true);
+
             frame.menuVer.setEnabled(true);
+
             frame.menuWebService.setEnabled(true);
+
             frame.menuBillService.setEnabled(true);
+
             frame.miComunicacionBaja.setEnabled(true);
+
             frame.miResumenDiario.setEnabled(true);
+
             frame.miComunicacionesBaja.setEnabled(true);
+
             frame.miResumenesDiario.setEnabled(true);
+
             frame.miSummary.setEnabled(true);
+
             frame.miBillConsultService.setEnabled(true);
+
+            server.start();
           } catch (BackingStoreException ex) {
-            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(
+                null,
+                ex.getMessage(),
+                UsuarioController.class.getName(),
+                JOptionPane.ERROR_MESSAGE);
           }
         });
 
@@ -138,6 +156,7 @@ public class UsuarioController {
   }
 
   private void initComponents() {
+    server = new MyHsqldb();
     preferences = Preferences.userRoot().node(MainController.class.getPackageName());
     firmaJks = preferences.get(FIRMA_JKS, "");
     firmaUsuario = preferences.get(FIRMA_USUARIO, "");
