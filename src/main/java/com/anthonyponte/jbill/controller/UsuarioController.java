@@ -25,6 +25,7 @@ public class UsuarioController {
 
   private final MainFrame frame;
   private final UsuarioIFrame iFrame;
+  private final boolean isNotRunning;
   public static final String FIRMA_JKS = "FIRMA_JKS";
   public static final String FIRMA_USUARIO = "FIRMA_USUARIO";
   public static final String FIRMA_CONTRASENA = "FIRMA_CONTRASENA";
@@ -36,7 +37,6 @@ public class UsuarioController {
   public static final String EFACT_WEB_SERVICE = "EFACT_WEB_SERVICE";
   public static final String EFACT_CONTRASENA = "EFACT_CONTRASENA";
   private Preferences preferences;
-  private MyHsqldb server;
   private String firmaJks;
   private String firmaUsuario;
   private String firmaContrasena;
@@ -46,9 +46,10 @@ public class UsuarioController {
   private String claveSolContrasena;
   private String efactContrasena;
 
-  public UsuarioController(MainFrame frame, UsuarioIFrame iFrame) {
+  public UsuarioController(MainFrame frame, UsuarioIFrame iFrame, boolean isNotRunning) {
     this.frame = frame;
     this.iFrame = iFrame;
+    this.isNotRunning = isNotRunning;
     initComponents();
   }
 
@@ -134,8 +135,6 @@ public class UsuarioController {
             frame.miSummary.setEnabled(true);
 
             frame.miBillConsultService.setEnabled(true);
-
-            server.start();
           } catch (BackingStoreException ex) {
             JOptionPane.showMessageDialog(
                 null,
@@ -156,7 +155,6 @@ public class UsuarioController {
   }
 
   private void initComponents() {
-    server = new MyHsqldb();
     preferences = Preferences.userRoot().node(MainController.class.getPackageName());
     firmaJks = preferences.get(FIRMA_JKS, "");
     firmaUsuario = preferences.get(FIRMA_USUARIO, "");
@@ -169,32 +167,35 @@ public class UsuarioController {
 
     iFrame.show();
 
-    AbstractDocument docRuc = (AbstractDocument) iFrame.tfRuc.getDocument();
-    docRuc.setDocumentFilter(new IntegerFilter(11));
+    if (!isNotRunning) {
+      AbstractDocument docRuc = (AbstractDocument) iFrame.tfRuc.getDocument();
+      docRuc.setDocumentFilter(new IntegerFilter(11));
 
-    AbstractDocument douRazonSocial = (AbstractDocument) iFrame.tfRazonSocial.getDocument();
-    douRazonSocial.setDocumentFilter(new UpperCaseFilter());
+      AbstractDocument douRazonSocial = (AbstractDocument) iFrame.tfRazonSocial.getDocument();
+      douRazonSocial.setDocumentFilter(new UpperCaseFilter());
 
-    AbstractDocument docClaveSolUsuario = (AbstractDocument) iFrame.tfClaveSolUsuario.getDocument();
-    docClaveSolUsuario.setDocumentFilter(new UpperCaseFilter());
+      AbstractDocument docClaveSolUsuario =
+          (AbstractDocument) iFrame.tfClaveSolUsuario.getDocument();
+      docClaveSolUsuario.setDocumentFilter(new UpperCaseFilter());
 
-    if (isEmpty()) {
-      iFrame.tfFirmaJks.requestFocus();
-      iFrame.cbRecordar.setSelected(false);
-      iFrame.btnEntrar.setEnabled(false);
-    } else {
-      File file = new File(firmaJks);
-      if (file.exists()) iFrame.tfFirmaJks.setText(firmaJks);
-      iFrame.tfFirmaUsuario.setText(firmaUsuario);
-      iFrame.tfFirmaContrasena.setText(firmaContrasena);
-      iFrame.tfRuc.setText(ruc);
-      iFrame.tfRazonSocial.setText(razonSocial);
-      iFrame.tfClaveSolUsuario.setText(claveSolUsuario);
-      iFrame.tfClaveSolContrasena.setText(claveSolContrasena);
-      iFrame.tfEfactContrasena.setText(efactContrasena);
-      iFrame.cbRecordar.setSelected(true);
-      iFrame.btnEntrar.setEnabled(true);
-      iFrame.btnEntrar.requestFocus();
+      if (isEmpty()) {
+        iFrame.tfFirmaJks.requestFocus();
+        iFrame.cbRecordar.setSelected(false);
+        iFrame.btnEntrar.setEnabled(false);
+      } else {
+        File file = new File(firmaJks);
+        if (file.exists()) iFrame.tfFirmaJks.setText(firmaJks);
+        iFrame.tfFirmaUsuario.setText(firmaUsuario);
+        iFrame.tfFirmaContrasena.setText(firmaContrasena);
+        iFrame.tfRuc.setText(ruc);
+        iFrame.tfRazonSocial.setText(razonSocial);
+        iFrame.tfClaveSolUsuario.setText(claveSolUsuario);
+        iFrame.tfClaveSolContrasena.setText(claveSolContrasena);
+        iFrame.tfEfactContrasena.setText(efactContrasena);
+        iFrame.cbRecordar.setSelected(true);
+        iFrame.btnEntrar.setEnabled(true);
+        iFrame.btnEntrar.requestFocus();
+      }
     }
   }
 

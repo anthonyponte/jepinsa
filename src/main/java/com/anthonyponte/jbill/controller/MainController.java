@@ -4,7 +4,6 @@
  */
 package com.anthonyponte.jbill.controller;
 
-import com.anthonyponte.jbill.custom.MyHsqldb;
 import com.anthonyponte.jbill.view.BillConsultServiceIFrame;
 import com.anthonyponte.jbill.view.SummaryIFrame;
 import com.anthonyponte.jbill.view.MainFrame;
@@ -20,15 +19,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.beans.PropertyVetoException;
+import java.io.IOException;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import org.hsqldb.Server;
+import org.hsqldb.persist.HsqlProperties;
+import org.hsqldb.server.ServerAcl;
 
-/**
- * @author anthony
- */
+/** @author anthony */
 public class MainController {
 
   private final MainFrame frame;
+  private final String DATABASE = "jbill";
+  private final String ALIAS = "jb";
   private UsuarioIFrame usuarioIFrame;
   private ComunicacionBajaIFrame comunicacionBajaIFrame;
   private ResumenDiarioIFrame resumenDiarioIFrame;
@@ -37,7 +40,7 @@ public class MainController {
   private SummaryIFrame summaryIFrame;
   private BillConsultServiceIFrame billConsultServiceIFrame;
   private LoadingDialog dialog;
-  private MyHsqldb server;
+  private Server server;
 
   public MainController(MainFrame frame) {
     this.frame = frame;
@@ -47,7 +50,14 @@ public class MainController {
   public void init() {
     frame.menuEntrar.addActionListener(
         (ActionEvent arg0) -> {
-          start();
+          if (isIframeClosed(usuarioIFrame)) {
+            usuarioIFrame = new UsuarioIFrame();
+            frame.dpane.add(usuarioIFrame);
+            usuarioIFrame.setLocation(centerIFrame(usuarioIFrame));
+            new UsuarioController(frame, usuarioIFrame, server.isNotRunning()).init();
+          } else {
+            iframeClosed(usuarioIFrame);
+          }
         });
 
     frame.miComunicacionBaja.addActionListener(
@@ -157,7 +167,6 @@ public class MainController {
   }
 
   private void initComponents() {
-    server = new MyHsqldb();
     dialog = new LoadingDialog(frame, false);
 
     frame.setVisible(true);
@@ -166,13 +175,18 @@ public class MainController {
   }
 
   private void start() {
-    if (isIframeClosed(usuarioIFrame)) {
-      usuarioIFrame = new UsuarioIFrame();
-      frame.dpane.add(usuarioIFrame);
-      usuarioIFrame.setLocation(centerIFrame(usuarioIFrame));
-      new UsuarioController(frame, usuarioIFrame).init();
-    } else {
-      iframeClosed(usuarioIFrame);
+    try {
+      HsqlProperties properties = new HsqlProperties();
+      properties.setProperty("server.database.0", "file:./hsqldb/" + DATABASE);
+      properties.setProperty("server.dbname.0", ALIAS);
+
+      server = new Server();
+      server.setProperties(properties);
+      server.setTrace(true);
+      server.start();
+    } catch (IOException | ServerAcl.AclFormatException ex) {
+      JOptionPane.showMessageDialog(
+          null, ex.getMessage(), MainController.class.getName(), JOptionPane.ERROR_MESSAGE);
     }
   }
 
