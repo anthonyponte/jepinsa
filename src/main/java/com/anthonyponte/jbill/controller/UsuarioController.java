@@ -44,6 +44,7 @@ public class UsuarioController {
   private String razonSocial;
   private String claveSolUsuario;
   private String claveSolContrasena;
+  private boolean efactWebService;
   private String efactContrasena;
 
   public UsuarioController(MainFrame frame, UsuarioIFrame iFrame, boolean isNotRunning) {
@@ -86,10 +87,12 @@ public class UsuarioController {
             iFrame.btnWebService.setIcon(
                 FontIcon.of(RemixiconMZ.TOGGLE_FILL, 16, Color.decode("#FFFFFF")));
             iFrame.btnWebService.setText("Produccion");
+            iFrame.tfEfactContrasena.setText("");
           } else if (e.getStateChange() == ItemEvent.DESELECTED) {
             iFrame.btnWebService.setIcon(
                 FontIcon.of(RemixiconMZ.TOGGLE_LINE, 16, Color.decode("#FFFFFF")));
             iFrame.btnWebService.setText("Prueba");
+            iFrame.tfEfactContrasena.setText("");
           }
         });
 
@@ -163,6 +166,7 @@ public class UsuarioController {
     razonSocial = preferences.get(RAZON_SOCIAL, "");
     claveSolUsuario = preferences.get(CLAVE_SOL_USUARIO, "");
     claveSolContrasena = preferences.get(CLAVE_SOL_CONTRASENA, "");
+    efactWebService = preferences.getBoolean(EFACT_WEB_SERVICE, false);
     efactContrasena = preferences.get(EFACT_CONTRASENA, "");
 
     iFrame.show();
@@ -181,6 +185,10 @@ public class UsuarioController {
       if (isEmpty()) {
         iFrame.tfFirmaJks.requestFocus();
         iFrame.cbRecordar.setSelected(false);
+        iFrame.btnWebService.setIcon(
+            FontIcon.of(RemixiconMZ.TOGGLE_LINE, 16, Color.decode("#FFFFFF")));
+        iFrame.btnWebService.setText("Prueba");
+        iFrame.btnWebService.setSelected(efactWebService);
         iFrame.btnEntrar.setEnabled(false);
       } else {
         File file = new File(firmaJks);
@@ -191,6 +199,10 @@ public class UsuarioController {
         iFrame.tfRazonSocial.setText(razonSocial);
         iFrame.tfClaveSolUsuario.setText(claveSolUsuario);
         iFrame.tfClaveSolContrasena.setText(claveSolContrasena);
+        iFrame.btnWebService.setIcon(
+            FontIcon.of(RemixiconMZ.TOGGLE_FILL, 16, Color.decode("#FFFFFF")));
+        iFrame.btnWebService.setText("Produccion");
+        iFrame.btnWebService.setSelected(efactWebService);
         iFrame.tfEfactContrasena.setText(efactContrasena);
         iFrame.cbRecordar.setSelected(true);
         iFrame.btnEntrar.setEnabled(true);
