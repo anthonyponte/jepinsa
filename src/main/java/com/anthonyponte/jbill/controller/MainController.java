@@ -26,7 +26,9 @@ import org.hsqldb.Server;
 import org.hsqldb.persist.HsqlProperties;
 import org.hsqldb.server.ServerAcl;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class MainController {
 
   private final MainFrame frame;
