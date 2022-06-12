@@ -1,6 +1,5 @@
 package com.anthonyponte.jbill.controller;
 
-import com.anthonyponte.jbill.custom.MyHsqldb;
 import com.anthonyponte.jbill.filter.IntegerFilter;
 import com.anthonyponte.jbill.filter.UpperCaseFilter;
 import com.anthonyponte.jbill.view.MainFrame;
@@ -184,11 +183,11 @@ public class UsuarioController {
 
       if (isEmpty()) {
         iFrame.tfFirmaJks.requestFocus();
-        iFrame.cbRecordar.setSelected(false);
         iFrame.btnWebService.setIcon(
             FontIcon.of(RemixiconMZ.TOGGLE_LINE, 16, Color.decode("#FFFFFF")));
         iFrame.btnWebService.setText("Prueba");
         iFrame.btnWebService.setSelected(efactWebService);
+        iFrame.cbRecordar.setSelected(false);
         iFrame.btnEntrar.setEnabled(false);
       } else {
         File file = new File(firmaJks);
