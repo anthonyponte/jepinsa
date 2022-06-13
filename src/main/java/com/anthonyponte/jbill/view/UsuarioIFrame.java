@@ -4,6 +4,8 @@
  */
 package com.anthonyponte.jbill.view;
 
+import com.anthonyponte.jbill.filter.IntegerFilter;
+import com.anthonyponte.jbill.filter.UpperCaseFilter;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -19,6 +21,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.LayoutStyle;
+import javax.swing.text.AbstractDocument;
 import org.kordamp.ikonli.remixicon.RemixiconAL;
 import org.kordamp.ikonli.remixicon.RemixiconMZ;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -216,6 +219,14 @@ public class UsuarioIFrame extends JInternalFrame {
                 .addComponent(tfClaveSolContrasena, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        AbstractDocument douRazonSocial = (AbstractDocument) tfRazonSocial.getDocument();
+        douRazonSocial.setDocumentFilter(new UpperCaseFilter());
+        AbstractDocument docClaveSolUsuario =
+        (AbstractDocument) tfClaveSolUsuario.getDocument();
+        docClaveSolUsuario.setDocumentFilter(new UpperCaseFilter());
+        AbstractDocument docRuc = (AbstractDocument) tfRuc.getDocument();
+        docRuc.setDocumentFilter(new IntegerFilter(11));
 
         tabbed.addTab("Clave SOL",  FontIcon.of(RemixiconAL.LOCK_PASSWORD_LINE, 16, Color.decode("#FFFFFF")), pnlClaveSol);
 

@@ -335,6 +335,7 @@
                 </Property>
               </Properties>
               <AuxValues>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="AbstractDocument douRazonSocial = (AbstractDocument) tfRazonSocial.getDocument();&#xa;douRazonSocial.setDocumentFilter(new UpperCaseFilter());"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
             </Component>
@@ -365,6 +366,7 @@
                 </Property>
               </Properties>
               <AuxValues>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="AbstractDocument docClaveSolUsuario =&#xa;(AbstractDocument) tfClaveSolUsuario.getDocument();&#xa;docClaveSolUsuario.setDocumentFilter(new UpperCaseFilter());"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
             </Component>
@@ -414,6 +416,7 @@
                 </Property>
               </Properties>
               <AuxValues>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="AbstractDocument docRuc = (AbstractDocument) tfRuc.getDocument();&#xa;docRuc.setDocumentFilter(new IntegerFilter(11));"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
             </Component>
