@@ -28,12 +28,12 @@ import org.kordamp.ikonli.swing.FontIcon;
  *
  * @author anthony
  */
-public class BillConsultServiceIFrame extends JInternalFrame {
+public class BulkIFrame extends JInternalFrame {
 
     /**
      * Creates new form BillServiceIFrame
      */
-    public BillConsultServiceIFrame() {
+    public BulkIFrame() {
         initComponents();
     }
 
@@ -57,7 +57,7 @@ public class BillConsultServiceIFrame extends JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("BillConsultService");
+        setTitle("Bulk");
         setFrameIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#f7d117")));
         setMaximumSize(null);
         setMinimumSize(new Dimension(800, 600));

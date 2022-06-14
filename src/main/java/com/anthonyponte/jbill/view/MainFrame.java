@@ -60,7 +60,9 @@ public class MainFrame extends JFrame {
         menuWebService = new JMenu();
         menuBillService = new JMenu();
         miSummary = new JMenuItem();
-        miBillConsultService = new JMenuItem();
+        menuBillConsultService = new JMenu();
+        miStatus = new JMenuItem();
+        miBulk = new JMenuItem();
         menuSalir = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -122,9 +124,18 @@ public class MainFrame extends JFrame {
 
         menuWebService.add(menuBillService);
 
-        miBillConsultService.setText("BillConsultService");
-        miBillConsultService.setEnabled(false);
-        menuWebService.add(miBillConsultService);
+        menuBillConsultService.setText("BillConsultService");
+        menuBillConsultService.setEnabled(false);
+
+        miStatus.setText("Status");
+        miStatus.setEnabled(false);
+        menuBillConsultService.add(miStatus);
+
+        miBulk.setText("Bulk");
+        miBulk.setEnabled(false);
+        menuBillConsultService.add(miBulk);
+
+        menuWebService.add(menuBillConsultService);
 
         menuMain.add(menuWebService);
 
@@ -158,6 +169,7 @@ public class MainFrame extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public JDesktopPane dpane;
     public JMenuBar mbar;
+    public JMenu menuBillConsultService;
     public JMenu menuBillService;
     public JMenuItem menuEntrar;
     public JMenu menuMain;
@@ -165,11 +177,12 @@ public class MainFrame extends JFrame {
     public JMenuItem menuSalir;
     public JMenu menuVer;
     public JMenu menuWebService;
-    public JMenuItem miBillConsultService;
+    public JMenuItem miBulk;
     public JMenuItem miComunicacionBaja;
     public JMenuItem miComunicaciones;
     public JMenuItem miResumenDiario;
     public JMenuItem miResumenes;
+    public JMenuItem miStatus;
     public JMenuItem miSummary;
     // End of variables declaration//GEN-END:variables
 }

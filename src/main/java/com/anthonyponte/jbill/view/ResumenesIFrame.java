@@ -57,7 +57,7 @@ public class ResumenesIFrame extends JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Comunicaciones de baja");
+        setTitle("Resumenes");
         setFrameIcon(FontIcon.of(RemixiconAL.CALENDAR_2_LINE, 16, Color.decode("#f7d117")));
         setMaximumSize(null);
         setMinimumSize(new Dimension(800, 600));

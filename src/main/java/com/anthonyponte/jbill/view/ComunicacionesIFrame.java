@@ -44,44 +44,44 @@ public class ComunicacionesIFrame extends JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dpMesAno = new JXDatePicker();
-        separator = new JSeparator();
-        tfFiltrar = new JTextField();
-        spltPane = new JSplitPane();
-        scrllEncabezado = new JScrollPane();
-        tblEncabezado = new JTable();
-        scrllDetalle = new JScrollPane();
-        tblDetalle = new JTable();
+        dpMesAno = new org.jdesktop.swingx.JXDatePicker();
+        separator = new javax.swing.JSeparator();
+        tfFiltrar = new javax.swing.JTextField();
+        spltPane = new javax.swing.JSplitPane();
+        scrllEncabezado = new javax.swing.JScrollPane();
+        tblEncabezado = new javax.swing.JTable();
+        scrllDetalle = new javax.swing.JScrollPane();
+        tblDetalle = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Comunicaciones de baja");
+        setTitle("Comunicaciones");
         setFrameIcon(FontIcon.of(RemixiconAL.CALENDAR_2_LINE, 16, Color.decode("#f7d117")));
         setMaximumSize(null);
-        setMinimumSize(new Dimension(800, 600));
-        setPreferredSize(new Dimension(800, 600));
+        setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         dpMesAno.setDate(new Date());
         dpMesAno.setFormats(new SimpleDateFormat("MMMM y"));
         dpMesAno.setMaximumSize(null);
         dpMesAno.setMinimumSize(null);
-        dpMesAno.setPreferredSize(new Dimension(125, 30));
+        dpMesAno.setPreferredSize(new java.awt.Dimension(125, 30));
         dpMesAno.getEditor().setEditable(false);
 
-        tfFiltrar.setMinimumSize(new Dimension(300, 30));
-        tfFiltrar.setPreferredSize(new Dimension(300, 30));
+        tfFiltrar.setMinimumSize(new java.awt.Dimension(300, 30));
+        tfFiltrar.setPreferredSize(new java.awt.Dimension(300, 30));
         tfFiltrar.putClientProperty("JTextField.leadingIcon", FontIcon.of(RemixiconAL.FILTER_LINE, 16, Color.decode("#FFFFFF")));
         tfFiltrar.putClientProperty("JTextField.placeholderText", "Filtrar");
         tfFiltrar.putClientProperty("JTextField.showClearButton", true);
 
         spltPane.setDividerLocation(300);
         spltPane.setDividerSize(6);
-        spltPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        spltPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         spltPane.setResizeWeight(1.0);
 
-        tblEncabezado.setModel(new DefaultTableModel(
+        tblEncabezado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -89,15 +89,15 @@ public class ComunicacionesIFrame extends JInternalFrame {
 
             }
         ));
-        tblEncabezado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tblEncabezado.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tblEncabezado.setColumnSelectionAllowed(true);
         tblEncabezado.getTableHeader().setReorderingAllowed(false);
         scrllEncabezado.setViewportView(tblEncabezado);
-        tblEncabezado.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tblEncabezado.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         spltPane.setLeftComponent(scrllEncabezado);
 
-        tblDetalle.setModel(new DefaultTableModel(
+        tblDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -105,37 +105,39 @@ public class ComunicacionesIFrame extends JInternalFrame {
 
             }
         ));
-        tblDetalle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tblDetalle.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tblDetalle.getTableHeader().setReorderingAllowed(false);
         scrllDetalle.setViewportView(tblDetalle);
 
         spltPane.setRightComponent(scrllDetalle);
 
-        GroupLayout layout = new GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(tfFiltrar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(spltPane, GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(spltPane, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
                     .addComponent(separator)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(dpMesAno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dpMesAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(dpMesAno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfFiltrar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spltPane, GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                .addComponent(dpMesAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(separator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spltPane, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -143,13 +145,13 @@ public class ComunicacionesIFrame extends JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public JXDatePicker dpMesAno;
-    public JScrollPane scrllDetalle;
-    public JScrollPane scrllEncabezado;
-    public JSeparator separator;
-    public JSplitPane spltPane;
-    public JTable tblDetalle;
-    public JTable tblEncabezado;
-    public JTextField tfFiltrar;
+    public org.jdesktop.swingx.JXDatePicker dpMesAno;
+    public javax.swing.JScrollPane scrllDetalle;
+    public javax.swing.JScrollPane scrllEncabezado;
+    public javax.swing.JSeparator separator;
+    public javax.swing.JSplitPane spltPane;
+    public javax.swing.JTable tblDetalle;
+    public javax.swing.JTable tblEncabezado;
+    public javax.swing.JTextField tfFiltrar;
     // End of variables declaration//GEN-END:variables
 }

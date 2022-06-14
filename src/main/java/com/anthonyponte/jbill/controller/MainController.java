@@ -4,7 +4,7 @@
  */
 package com.anthonyponte.jbill.controller;
 
-import com.anthonyponte.jbill.view.BillConsultServiceIFrame;
+import com.anthonyponte.jbill.view.BulkIFrame;
 import com.anthonyponte.jbill.view.SummaryIFrame;
 import com.anthonyponte.jbill.view.MainFrame;
 import com.anthonyponte.jbill.view.UsuarioIFrame;
@@ -13,6 +13,7 @@ import com.anthonyponte.jbill.view.ComunicacionesIFrame;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.anthonyponte.jbill.view.ResumenDiarioIFrame;
 import com.anthonyponte.jbill.view.ResumenesIFrame;
+import com.anthonyponte.jbill.view.StatusIFrame;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -38,7 +39,8 @@ public class MainController {
   private ComunicacionesIFrame comunicacionesIFrame;
   private ResumenesIFrame resumenesIFrame;
   private SummaryIFrame summaryIFrame;
-  private BillConsultServiceIFrame billConsultServiceIFrame;
+  private StatusIFrame statusIFrame;
+  private BulkIFrame bulkIFrame;
   private LoadingDialog dialog;
   private Server server;
 
@@ -120,15 +122,27 @@ public class MainController {
           }
         });
 
-    frame.miBillConsultService.addActionListener(
+    frame.miStatus.addActionListener(
         (ActionEvent arg0) -> {
-          if (isIframeClosed(billConsultServiceIFrame)) {
-            billConsultServiceIFrame = new BillConsultServiceIFrame();
-            frame.dpane.add(billConsultServiceIFrame);
-            billConsultServiceIFrame.setLocation(centerIFrame(billConsultServiceIFrame));
-            new BillConsultServiceController(billConsultServiceIFrame, dialog).init();
+          if (isIframeClosed(statusIFrame)) {
+            statusIFrame = new StatusIFrame();
+            frame.dpane.add(statusIFrame);
+            statusIFrame.setLocation(centerIFrame(statusIFrame));
+            new StatusController(statusIFrame, dialog).init();
           } else {
-            iframeClosed(summaryIFrame);
+            iframeClosed(statusIFrame);
+          }
+        });
+
+    frame.miBulk.addActionListener(
+        (ActionEvent arg0) -> {
+          if (isIframeClosed(bulkIFrame)) {
+            bulkIFrame = new BulkIFrame();
+            frame.dpane.add(bulkIFrame);
+            bulkIFrame.setLocation(centerIFrame(bulkIFrame));
+            new BulkController(bulkIFrame, dialog).init();
+          } else {
+            iframeClosed(bulkIFrame);
           }
         });
 

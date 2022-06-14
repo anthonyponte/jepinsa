@@ -89,12 +89,26 @@
                     </MenuItem>
                   </SubComponents>
                 </Menu>
-                <MenuItem class="javax.swing.JMenuItem" name="miBillConsultService">
+                <Menu class="javax.swing.JMenu" name="menuBillConsultService">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="BillConsultService"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
-                </MenuItem>
+                  <SubComponents>
+                    <MenuItem class="javax.swing.JMenuItem" name="miStatus">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Status"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="miBulk">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Bulk"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </MenuItem>
+                  </SubComponents>
+                </Menu>
               </SubComponents>
             </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="menuSalir">

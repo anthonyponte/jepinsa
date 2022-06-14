@@ -123,6 +123,8 @@ public class UsuarioController {
 
             frame.menuBillService.setEnabled(true);
 
+            frame.menuBillConsultService.setEnabled(true);
+
             frame.miComunicacionBaja.setEnabled(true);
 
             frame.miResumenDiario.setEnabled(true);
@@ -133,7 +135,9 @@ public class UsuarioController {
 
             frame.miSummary.setEnabled(true);
 
-            frame.miBillConsultService.setEnabled(true);
+            frame.miBulk.setEnabled(true);
+
+            frame.miStatus.setEnabled(true);
           } catch (BackingStoreException ex) {
             JOptionPane.showMessageDialog(
                 null,

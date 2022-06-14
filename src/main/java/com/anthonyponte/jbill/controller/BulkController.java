@@ -19,7 +19,7 @@ import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
 import com.anthonyponte.jbill.idao.IBillConsultService;
 import com.anthonyponte.jbill.model.Bill;
-import com.anthonyponte.jbill.view.BillConsultServiceIFrame;
+import com.anthonyponte.jbill.view.BulkIFrame;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.poiji.bind.Poiji;
 import java.awt.event.ActionEvent;
@@ -53,9 +53,9 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /** @author AnthonyPonte */
-public class BillConsultServiceController {
+public class BulkController {
 
-  private final BillConsultServiceIFrame iFrame;
+  private final BulkIFrame iFrame;
   private final LoadingDialog dialog;
   private BillService service;
   private EventList<Bill> eventList;
@@ -63,7 +63,7 @@ public class BillConsultServiceController {
   private AdvancedListSelectionModel<Bill> selectionModel;
   private AdvancedTableModel<Bill> model;
 
-  public BillConsultServiceController(BillConsultServiceIFrame iFrame, LoadingDialog dialog) {
+  public BulkController(BulkIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();
@@ -87,8 +87,7 @@ public class BillConsultServiceController {
           }
         });
 
-    iFrame.btnExportar.addActionListener(
-        (ActionEvent e) -> {
+    iFrame.btnExportar.addActionListener((ActionEvent e) -> {
           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
           String dateString = format.format(new Date());
 
@@ -174,10 +173,9 @@ public class BillConsultServiceController {
                       dialog.dispose();
 
                     } catch (InterruptedException | ExecutionException | IOException ex) {
-                      JOptionPane.showMessageDialog(
-                          null,
+                      JOptionPane.showMessageDialog(null,
                           ex.getMessage(),
-                          BillConsultServiceController.class.getName(),
+                          BulkController.class.getName(),
                           JOptionPane.ERROR_MESSAGE);
                     }
                   }
@@ -187,8 +185,7 @@ public class BillConsultServiceController {
           }
         });
 
-    iFrame.scroll.setDropTarget(
-        new DropTarget() {
+    iFrame.scroll.setDropTarget(new DropTarget() {
           @Override
           public synchronized void drop(DropTargetDropEvent dtde) {
             if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
@@ -206,10 +203,9 @@ public class BillConsultServiceController {
                   }
                 }
               } catch (UnsupportedFlavorException | IOException ex) {
-                JOptionPane.showMessageDialog(
-                    null,
+                JOptionPane.showMessageDialog(null,
                     ex.getMessage(),
-                    BillConsultServiceController.class.getName(),
+                    BulkController.class.getName(),
                     JOptionPane.ERROR_MESSAGE);
               }
             } else {
@@ -218,8 +214,7 @@ public class BillConsultServiceController {
           }
         });
 
-    iFrame.table.addMouseListener(
-        new MouseAdapter() {
+    iFrame.table.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
@@ -286,16 +281,14 @@ public class BillConsultServiceController {
                                 fout.flush();
                                 fout.close();
                               } catch (FileNotFoundException ex) {
-                                JOptionPane.showMessageDialog(
-                                    null,
+                                JOptionPane.showMessageDialog(null,
                                     ex.getMessage(),
-                                    BillConsultServiceController.class.getName(),
+                                    BulkController.class.getName(),
                                     JOptionPane.ERROR_MESSAGE);
                               } catch (IOException ex) {
-                                JOptionPane.showMessageDialog(
-                                    null,
+                                JOptionPane.showMessageDialog(null,
                                     ex.getMessage(),
-                                    BillConsultServiceController.class.getName(),
+                                    BulkController.class.getName(),
                                     JOptionPane.ERROR_MESSAGE);
                               }
                             }
@@ -307,10 +300,9 @@ public class BillConsultServiceController {
                                 JOptionPane.ERROR_MESSAGE);
                           }
                         } catch (InterruptedException | ExecutionException ex) {
-                          JOptionPane.showMessageDialog(
-                              null,
+                          JOptionPane.showMessageDialog(null,
                               ex.getMessage(),
-                              BillConsultServiceController.class.getName(),
+                              BulkController.class.getName(),
                               JOptionPane.ERROR_MESSAGE);
                         }
                       }
@@ -441,10 +433,9 @@ public class BillConsultServiceController {
             } catch (Exception ex) {
               cancel(true);
 
-              JOptionPane.showMessageDialog(
-                  null,
+              JOptionPane.showMessageDialog(null,
                   ex.getMessage(),
-                  BillConsultServiceController.class.getName(),
+                  BulkController.class.getName(),
                   JOptionPane.ERROR_MESSAGE);
             }
             return list;
@@ -467,10 +458,9 @@ public class BillConsultServiceController {
                 iFrame.btnExportar.setEnabled(true);
 
               } catch (InterruptedException | ExecutionException ex) {
-                JOptionPane.showMessageDialog(
-                    null,
+                JOptionPane.showMessageDialog(null,
                     ex.getMessage(),
-                    BillConsultServiceController.class.getName(),
+                    BulkController.class.getName(),
                     JOptionPane.ERROR_MESSAGE);
               }
             }
