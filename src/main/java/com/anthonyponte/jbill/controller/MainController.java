@@ -9,10 +9,10 @@ import com.anthonyponte.jbill.view.SummaryIFrame;
 import com.anthonyponte.jbill.view.MainFrame;
 import com.anthonyponte.jbill.view.UsuarioIFrame;
 import com.anthonyponte.jbill.view.ComunicacionBajaIFrame;
-import com.anthonyponte.jbill.view.ComunicacionesBajaIFrame;
+import com.anthonyponte.jbill.view.ComunicacionesIFrame;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.anthonyponte.jbill.view.ResumenDiarioIFrame;
-import com.anthonyponte.jbill.view.ResumenesDiarioIFrame;
+import com.anthonyponte.jbill.view.ResumenesIFrame;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -26,9 +26,7 @@ import org.hsqldb.Server;
 import org.hsqldb.persist.HsqlProperties;
 import org.hsqldb.server.ServerAcl;
 
-/**
- * @author anthony
- */
+/** @author anthony */
 public class MainController {
 
   private final MainFrame frame;
@@ -37,8 +35,8 @@ public class MainController {
   private UsuarioIFrame usuarioIFrame;
   private ComunicacionBajaIFrame comunicacionBajaIFrame;
   private ResumenDiarioIFrame resumenDiarioIFrame;
-  private ComunicacionesBajaIFrame comunicacionesBajaIFrame;
-  private ResumenesDiarioIFrame resumenesDiarioIFrame;
+  private ComunicacionesIFrame comunicacionesIFrame;
+  private ResumenesIFrame resumenesIFrame;
   private SummaryIFrame summaryIFrame;
   private BillConsultServiceIFrame billConsultServiceIFrame;
   private LoadingDialog dialog;
@@ -86,27 +84,27 @@ public class MainController {
           }
         });
 
-    frame.miComunicacionesBaja.addActionListener(
+    frame.miComunicaciones.addActionListener(
         (ActionEvent arg0) -> {
-          if (isIframeClosed(comunicacionesBajaIFrame)) {
-            comunicacionesBajaIFrame = new ComunicacionesBajaIFrame();
-            frame.dpane.add(comunicacionesBajaIFrame);
-            comunicacionesBajaIFrame.setLocation(centerIFrame(comunicacionesBajaIFrame));
-            new ComunicacionesBajaController(comunicacionesBajaIFrame, dialog).init();
+          if (isIframeClosed(comunicacionesIFrame)) {
+            comunicacionesIFrame = new ComunicacionesIFrame();
+            frame.dpane.add(comunicacionesIFrame);
+            comunicacionesIFrame.setLocation(centerIFrame(comunicacionesIFrame));
+            new ComunicacionesController(comunicacionesIFrame, dialog).init();
           } else {
-            iframeClosed(comunicacionesBajaIFrame);
+            iframeClosed(comunicacionesIFrame);
           }
         });
 
-    frame.miResumenesDiario.addActionListener(
+    frame.miResumenes.addActionListener(
         (ActionEvent arg0) -> {
-          if (isIframeClosed(resumenesDiarioIFrame)) {
-            resumenesDiarioIFrame = new ResumenesDiarioIFrame();
-            frame.dpane.add(resumenesDiarioIFrame);
-            resumenesDiarioIFrame.setLocation(centerIFrame(resumenesDiarioIFrame));
-            new ResumenesDiarioController(resumenesDiarioIFrame, dialog).init();
+          if (isIframeClosed(resumenesIFrame)) {
+            resumenesIFrame = new ResumenesIFrame();
+            frame.dpane.add(resumenesIFrame);
+            resumenesIFrame.setLocation(centerIFrame(resumenesIFrame));
+            new ResumenesController(resumenesIFrame, dialog).init();
           } else {
-            iframeClosed(resumenesDiarioIFrame);
+            iframeClosed(resumenesIFrame);
           }
         });
 

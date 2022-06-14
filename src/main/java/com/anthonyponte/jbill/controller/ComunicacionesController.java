@@ -23,7 +23,7 @@ import com.anthonyponte.jbill.custom.MyTableResize;
 import com.anthonyponte.jbill.idao.IComunicacionBajaDao;
 import com.anthonyponte.jbill.model.ComunicacionBaja;
 import com.anthonyponte.jbill.model.ComunicacionBajaDetalle;
-import com.anthonyponte.jbill.view.ComunicacionesBajaIFrame;
+import com.anthonyponte.jbill.view.ComunicacionesIFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -44,9 +44,9 @@ import com.anthonyponte.jbill.view.LoadingDialog;
 import javax.swing.JOptionPane;
 
 /** @author AnthonyPonte */
-public class ComunicacionesBajaController {
+public class ComunicacionesController {
 
-  private final ComunicacionesBajaIFrame iFrame;
+  private final ComunicacionesIFrame iFrame;
   private final LoadingDialog dialog;
   private ComunicacionBajaDao dao;
   private EventList<ComunicacionBaja> elEncabezado;
@@ -55,7 +55,7 @@ public class ComunicacionesBajaController {
   private AdvancedListSelectionModel<ComunicacionBaja> selectionModel;
   private AdvancedTableModel<ComunicacionBaja> tableModel;
 
-  public ComunicacionesBajaController(ComunicacionesBajaIFrame iFrame, LoadingDialog dialog) {
+  public ComunicacionesController(ComunicacionesIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();
@@ -68,8 +68,7 @@ public class ComunicacionesBajaController {
           start(date);
         });
 
-    iFrame.tblEncabezado.addMouseListener(
-        new MouseAdapter() {
+    iFrame.tblEncabezado.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
@@ -100,16 +99,14 @@ public class ComunicacionesBajaController {
 
                     fos.flush();
                   } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        ComunicacionesBajaController.class.getName(),
+                        ComunicacionesController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        ComunicacionesBajaController.class.getName(),
+                        ComunicacionesController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }
@@ -140,10 +137,9 @@ public class ComunicacionesBajaController {
                           MyTableResize.resize(iFrame.tblEncabezado);
 
                         } catch (InterruptedException | ExecutionException ex) {
-                          JOptionPane.showMessageDialog(
-                              null,
+                          JOptionPane.showMessageDialog(null,
                               ex.getMessage(),
-                              ComunicacionesBajaController.class.getName(),
+                              ComunicacionesController.class.getName(),
                               JOptionPane.ERROR_MESSAGE);
                         }
                       }
@@ -298,10 +294,9 @@ public class ComunicacionesBajaController {
               if (!get.isEmpty()) iFrame.tfFiltrar.requestFocus();
               else iFrame.dpMesAno.requestFocus();
             } catch (InterruptedException | ExecutionException ex) {
-              JOptionPane.showMessageDialog(
-                  null,
+              JOptionPane.showMessageDialog(null,
                   ex.getMessage(),
-                  ComunicacionesBajaController.class.getName(),
+                  ComunicacionesController.class.getName(),
                   JOptionPane.ERROR_MESSAGE);
             }
           }

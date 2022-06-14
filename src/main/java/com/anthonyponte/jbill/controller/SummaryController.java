@@ -101,9 +101,11 @@ public class SummaryController {
 
                         if (ticket != null) {
                           Uninterruptibles.sleepUninterruptibly(10, TimeUnit.SECONDS);
+
                           StatusResponse response = billServiceFactory.getStatus(ticket);
 
-                          if (response.getStatusCode().equals("0")) {
+                          if (response.getStatusCode().equals("0")
+                              || response.getStatusCode().equals("99")) {
                             next.setTicket(ticket);
                             next.setStatusCode(response.getStatusCode());
                             next.setNombreContent("R-" + next.getNombreZip());

@@ -1,7 +1,5 @@
 package com.anthonyponte.jbill.controller;
 
-import com.anthonyponte.jbill.filter.IntegerFilter;
-import com.anthonyponte.jbill.filter.UpperCaseFilter;
 import com.anthonyponte.jbill.view.MainFrame;
 import com.anthonyponte.jbill.view.UsuarioIFrame;
 import java.awt.Color;
@@ -16,7 +14,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.text.AbstractDocument;
 import org.kordamp.ikonli.remixicon.RemixiconMZ;
 import org.kordamp.ikonli.swing.FontIcon;
 
@@ -130,9 +127,9 @@ public class UsuarioController {
 
             frame.miResumenDiario.setEnabled(true);
 
-            frame.miComunicacionesBaja.setEnabled(true);
+            frame.miComunicaciones.setEnabled(true);
 
-            frame.miResumenesDiario.setEnabled(true);
+            frame.miResumenes.setEnabled(true);
 
             frame.miSummary.setEnabled(true);
 

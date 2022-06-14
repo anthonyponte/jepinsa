@@ -26,12 +26,12 @@ import org.kordamp.ikonli.swing.FontIcon;
  *
  * @author AnthonyPonte
  */
-public class ComunicacionesBajaIFrame extends JInternalFrame {
+public class ComunicacionesIFrame extends JInternalFrame {
 
     /**
      * Creates new form TablaIFrame
      */
-    public ComunicacionesBajaIFrame() {
+    public ComunicacionesIFrame() {
         initComponents();
     }
 

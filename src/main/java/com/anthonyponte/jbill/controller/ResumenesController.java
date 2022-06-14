@@ -38,7 +38,7 @@ import com.anthonyponte.jbill.model.ResumenDiario;
 import com.anthonyponte.jbill.model.ResumenDiarioDetalle;
 import com.anthonyponte.jbill.tableformat.ResumenDiarioDetalleTableFormat;
 import com.anthonyponte.jbill.view.LoadingDialog;
-import com.anthonyponte.jbill.view.ResumenesDiarioIFrame;
+import com.anthonyponte.jbill.view.ResumenesIFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -57,8 +57,8 @@ import javax.swing.SwingWorker;
 import org.joda.time.DateTime;
 
 /** @author AnthonyPonte */
-public class ResumenesDiarioController {
-  private final ResumenesDiarioIFrame iFrame;
+public class ResumenesController {
+  private final ResumenesIFrame iFrame;
   private final LoadingDialog dialog;
   private ResumenDiarioDao dao;
   private EventList<ResumenDiario> elEncabezado;
@@ -67,7 +67,7 @@ public class ResumenesDiarioController {
   private AdvancedListSelectionModel<ResumenDiario> selectionModel;
   private AdvancedTableModel<ResumenDiario> tableModel;
 
-  public ResumenesDiarioController(ResumenesDiarioIFrame iFrame, LoadingDialog dialog) {
+  public ResumenesController(ResumenesIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();
@@ -111,16 +111,14 @@ public class ResumenesDiarioController {
 
                     fos.flush();
                   } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        ResumenesDiarioController.class.getName(),
+                        ResumenesController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        ResumenesDiarioController.class.getName(),
+                        ResumenesController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }
@@ -134,10 +132,9 @@ public class ResumenesDiarioController {
 
                   MyTableResize.resize(iFrame.tblEncabezado);
                 } catch (SQLException ex) {
-                  JOptionPane.showMessageDialog(
-                      null,
+                  JOptionPane.showMessageDialog(null,
                       ex.getMessage(),
-                      ResumenesDiarioController.class.getName(),
+                      ResumenesController.class.getName(),
                       JOptionPane.ERROR_MESSAGE);
                 }
               }
@@ -288,10 +285,9 @@ public class ResumenesDiarioController {
               if (!get.isEmpty()) iFrame.tfFiltrar.requestFocus();
               else iFrame.dpMesAno.requestFocus();
             } catch (InterruptedException | ExecutionException ex) {
-              JOptionPane.showMessageDialog(
-                  null,
+              JOptionPane.showMessageDialog(null,
                   ex.getMessage(),
-                  ResumenesDiarioController.class.getName(),
+                  ResumenesController.class.getName(),
                   JOptionPane.ERROR_MESSAGE);
             }
           }
