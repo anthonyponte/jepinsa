@@ -57,8 +57,10 @@ public class StatusIFrame extends JInternalFrame {
         lblEstado = new JLabel();
         tfEstado = new JTextField();
         separator = new JSeparator();
-        btnNuevo = new JButton();
-        btnLimpiar = new JButton();
+        btnGetStatus = new JButton();
+        btnGetStatusCdr = new JButton();
+        tfRuc = new JTextField();
+        lblRuc = new JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -76,7 +78,7 @@ public class StatusIFrame extends JInternalFrame {
             new TipoDocumento("07", "Nota de crédito"),
             new TipoDocumento("08", "Nota de débito")
         }));
-        cbxTipo.setSelectedIndex(-1);
+        cbxTipo.setSelectedIndex(0);
         cbxTipo.setMaximumSize(null);
         cbxTipo.setPreferredSize(new Dimension(150, 30));
         cbxTipo.setRenderer(new DefaultListCellRenderer(){
@@ -98,8 +100,6 @@ public class StatusIFrame extends JInternalFrame {
         tfSerie.setMaximumSize(null);
         tfSerie.setMinimumSize(null);
         tfSerie.setPreferredSize(new Dimension(150, 30));
-        AbstractDocument docSerie = (AbstractDocument) tfSerie.getDocument();
-        docSerie.setDocumentFilter(new SerieFilter('F'));
 
         lblCorrelativo.setFont(lblCorrelativo.getFont().deriveFont(lblCorrelativo.getFont().getStyle() | Font.BOLD, lblCorrelativo.getFont().getSize()-2));
         lblCorrelativo.setText("Correlativo");
@@ -107,8 +107,6 @@ public class StatusIFrame extends JInternalFrame {
         tfCorrelativo.setMaximumSize(null);
         tfCorrelativo.setMinimumSize(null);
         tfCorrelativo.setPreferredSize(new Dimension(150, 30));
-        AbstractDocument docRuc = (AbstractDocument) tfCorrelativo.getDocument();
-        docRuc.setDocumentFilter(new IntegerFilter(8));
 
         lblEstado.setFont(lblEstado.getFont().deriveFont(lblEstado.getFont().getStyle() | Font.BOLD, lblEstado.getFont().getSize()-2));
         lblEstado.setText("Estado");
@@ -121,16 +119,24 @@ public class StatusIFrame extends JInternalFrame {
         separator.setMinimumSize(null);
         separator.setPreferredSize(new Dimension(5, 5));
 
-        btnNuevo.setIcon(FontIcon.of(RemixiconAL.CHECK_LINE, 16, Color.decode("#FFFFFF")));
-        btnNuevo.setText("getStatus");
-        btnNuevo.setMinimumSize(new Dimension(150, 30));
-        btnNuevo.setPreferredSize(new Dimension(150, 30));
+        btnGetStatus.setIcon(FontIcon.of(RemixiconAL.CHECK_LINE, 16, Color.decode("#FFFFFF")));
+        btnGetStatus.setText("getStatus");
+        btnGetStatus.setEnabled(false);
+        btnGetStatus.setMinimumSize(new Dimension(150, 30));
+        btnGetStatus.setPreferredSize(new Dimension(150, 30));
 
-        btnLimpiar.setIcon(FontIcon.of(RemixiconAL.FILE_ZIP_LINE, 16, Color.decode("#FFFFFF")));
-        btnLimpiar.setText("getStatusCdr");
-        btnLimpiar.setEnabled(false);
-        btnLimpiar.setMinimumSize(new Dimension(150, 30));
-        btnLimpiar.setPreferredSize(new Dimension(150, 30));
+        btnGetStatusCdr.setIcon(FontIcon.of(RemixiconAL.FILE_ZIP_LINE, 16, Color.decode("#FFFFFF")));
+        btnGetStatusCdr.setText("getStatusCdr");
+        btnGetStatusCdr.setEnabled(false);
+        btnGetStatusCdr.setMinimumSize(new Dimension(150, 30));
+        btnGetStatusCdr.setPreferredSize(new Dimension(150, 30));
+
+        tfRuc.setMaximumSize(null);
+        tfRuc.setMinimumSize(null);
+        tfRuc.setPreferredSize(new Dimension(300, 30));
+
+        lblRuc.setFont(lblRuc.getFont().deriveFont(lblRuc.getFont().getStyle() | Font.BOLD, lblRuc.getFont().getSize()-2));
+        lblRuc.setText("RUC");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -143,22 +149,28 @@ public class StatusIFrame extends JInternalFrame {
                     .addComponent(tfSerie, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cbxTipo, GroupLayout.Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tfEstado, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfRuc, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnNuevo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnGetStatus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLimpiar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnGetStatusCdr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblCorrelativo)
                             .addComponent(lblSerie)
                             .addComponent(lblTipo)
-                            .addComponent(lblEstado))
+                            .addComponent(lblEstado)
+                            .addComponent(lblRuc))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(lblRuc)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfRuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblTipo)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxTipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -170,35 +182,43 @@ public class StatusIFrame extends JInternalFrame {
                 .addComponent(lblCorrelativo)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfCorrelativo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblEstado)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLimpiar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNuevo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGetStatusCdr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGetStatus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
+        AbstractDocument docSerie = (AbstractDocument) tfSerie.getDocument();
+        docSerie.setDocumentFilter(new SerieFilter('F'));
+        AbstractDocument docCorrelativo = (AbstractDocument) tfCorrelativo.getDocument();
+        docCorrelativo.setDocumentFilter(new IntegerFilter(8));
         tfEstado.setEditable(false);
+        AbstractDocument docRuc = (AbstractDocument) tfRuc.getDocument();
+        docRuc.setDocumentFilter(new IntegerFilter(11));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public JButton btnLimpiar;
-    public JButton btnNuevo;
+    public JButton btnGetStatus;
+    public JButton btnGetStatusCdr;
     public JComboBox<String> cbxTipo;
     public JLabel lblCorrelativo;
     public JLabel lblEstado;
+    public JLabel lblRuc;
     public JLabel lblSerie;
     public JLabel lblTipo;
     public JSeparator separator;
     public JTextField tfCorrelativo;
     public JTextField tfEstado;
+    public JTextField tfRuc;
     public JTextField tfSerie;
     // End of variables declaration//GEN-END:variables
 }
