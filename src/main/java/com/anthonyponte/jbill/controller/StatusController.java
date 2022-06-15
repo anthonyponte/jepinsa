@@ -15,6 +15,7 @@ import com.anthonyponte.jbill.view.StatusIFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.util.concurrent.ExecutionException;
+import java.util.prefs.Preferences;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.event.DocumentEvent;
@@ -22,13 +23,12 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.BadLocationException;
 
-/**
- * @author AnthonyPonte
- */
+/** @author AnthonyPonte */
 public class StatusController {
 
   private final StatusIFrame iFrame;
   private final LoadingDialog dialog;
+  private Preferences preferences;
   private BillService service;
 
   public StatusController(StatusIFrame iFrame, LoadingDialog dialog) {
@@ -95,7 +95,6 @@ public class StatusController {
                         StatusController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
-                  
                 }
               };
 
@@ -110,9 +109,12 @@ public class StatusController {
   }
 
   private void initComponents() {
+    preferences = Preferences.userRoot().node(MainController.class.getPackageName());
     service = new IBillConsultService();
 
     iFrame.show();
+
+    iFrame.tfRuc.setText(preferences.get(UsuarioController.RUC, ""));
   }
 
   private final DocumentListener dl =
