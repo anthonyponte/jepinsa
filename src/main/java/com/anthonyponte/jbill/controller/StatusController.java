@@ -237,6 +237,10 @@ public class StatusController {
 
         @Override
         public void removeUpdate(DocumentEvent arg0) {
+          iFrame.tfEstado.setText("");
+
+          iFrame.btnGetStatusCdr.setEnabled(false);
+
           enabled();
         }
 
