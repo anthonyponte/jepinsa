@@ -9,17 +9,24 @@ import billconsultservice.sunat.gob.pe.BillService;
 import billconsultservice.sunat.gob.pe.StatusResponse;
 import com.anthonyponte.jbill.filter.SerieFilter;
 import com.anthonyponte.jbill.idao.IBillConsultService;
+import com.anthonyponte.jbill.model.Bill;
 import com.anthonyponte.jbill.model.TipoDocumento;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.anthonyponte.jbill.view.StatusIFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.prefs.Preferences;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.BadLocationException;
 
@@ -88,6 +95,15 @@ public class StatusController {
                     StatusResponse get = get();
 
                     iFrame.tfEstado.setText(get.getStatusMessage());
+
+                    if (get.getStatusCode().equals("0001")
+                        || get.getStatusCode().equals("0002")
+                        || get.getStatusCode().equals("0003")) {
+                      iFrame.btnGetStatusCdr.setEnabled(true);
+                    } else {
+                      iFrame.btnGetStatusCdr.setEnabled(false);
+                    }
+
                   } catch (InterruptedException | ExecutionException ex) {
                     JOptionPane.showMessageDialog(
                         null,
@@ -101,7 +117,102 @@ public class StatusController {
           worker.execute();
         });
 
-    iFrame.btnGetStatusCdr.addActionListener((ActionEvent e) -> {});
+    iFrame.btnGetStatusCdr.addActionListener(
+        (ActionEvent e) -> {
+          dialog.setVisible(true);
+          dialog.setLocationRelativeTo(iFrame);
+
+          SwingWorker worker =
+              new SwingWorker<StatusResponse, Integer>() {
+                @Override
+                protected StatusResponse doInBackground() throws Exception {
+                  String ruc = iFrame.tfRuc.getText();
+                  TipoDocumento tipoDocumento = (TipoDocumento) iFrame.cbxTipo.getSelectedItem();
+                  String serie = iFrame.tfSerie.getText();
+                  int correlativo = Integer.parseInt(iFrame.tfCorrelativo.getText());
+
+                  StatusResponse statusResponse =
+                      service.getStatusCdr(ruc, tipoDocumento.getCodigo(), serie, correlativo);
+
+                  return statusResponse;
+                }
+
+                @Override
+                protected void done() {
+                  try {
+                    dialog.dispose();
+
+                    StatusResponse get = get();
+
+                    if (get.getStatusCode().equals("0004")) {
+                      String ruc = iFrame.tfRuc.getText();
+                      TipoDocumento tipoDocumento =
+                          (TipoDocumento) iFrame.cbxTipo.getSelectedItem();
+                      String serie = iFrame.tfSerie.getText();
+                      int correlativo = Integer.parseInt(iFrame.tfCorrelativo.getText());
+
+                      JFileChooser chooser = new JFileChooser();
+                      chooser.setDialogTitle("Guardar");
+                      chooser.setApproveButtonText("Guardar");
+                      chooser.setAcceptAllFileFilterUsed(false);
+                      chooser.addChoosableFileFilter(
+                          new FileNameExtensionFilter("Archivo Zip", "zip"));
+                      chooser.setCurrentDirectory(new File("."));
+                      chooser.setSelectedFile(
+                          new File(
+                              "R-"
+                                  + ruc
+                                  + "-"
+                                  + tipoDocumento.getCodigo()
+                                  + "-"
+                                  + serie
+                                  + "-"
+                                  + correlativo
+                                  + ".zip"));
+
+                      int result = chooser.showSaveDialog(iFrame);
+                      if (result == JFileChooser.APPROVE_OPTION) {
+                        File file = chooser.getSelectedFile().getAbsoluteFile();
+                        try (FileOutputStream fout =
+                            new FileOutputStream(file.getParent() + "//" + file.getName())) {
+                          fout.write(get.getContent());
+                          fout.flush();
+                          fout.close();
+                        } catch (FileNotFoundException ex) {
+                          JOptionPane.showMessageDialog(
+                              null,
+                              ex.getMessage(),
+                              StatusController.class.getName(),
+                              JOptionPane.ERROR_MESSAGE);
+                        } catch (IOException ex) {
+                          JOptionPane.showMessageDialog(
+                              null,
+                              ex.getMessage(),
+                              StatusController.class.getName(),
+                              JOptionPane.ERROR_MESSAGE);
+                        }
+                      }
+                    } else {
+                      JOptionPane.showMessageDialog(
+                          iFrame,
+                          get.getStatusMessage(),
+                          get.getStatusCode(),
+                          JOptionPane.ERROR_MESSAGE);
+                    }
+                  } catch (InterruptedException | ExecutionException ex) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        ex.getMessage(),
+                        StatusController.class.getName(),
+                        JOptionPane.ERROR_MESSAGE);
+                  }
+                }
+              };
+
+          worker.execute();
+        });
+
+    iFrame.tfRuc.getDocument().addDocumentListener(dl);
 
     iFrame.tfSerie.getDocument().addDocumentListener(dl);
 
@@ -135,7 +246,9 @@ public class StatusController {
         }
 
         private void enabled() {
-          if (iFrame.tfSerie.getText().length() < 4 || iFrame.tfCorrelativo.getText().isEmpty()) {
+          if (iFrame.tfRuc.getText().length() < 11
+              || iFrame.tfSerie.getText().length() < 4
+              || iFrame.tfCorrelativo.getText().isEmpty()) {
             iFrame.btnGetStatus.setEnabled(false);
           } else {
             iFrame.btnGetStatus.setEnabled(true);

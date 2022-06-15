@@ -48,6 +48,8 @@ public class StatusIFrame extends JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblRuc = new JLabel();
+        tfRuc = new JTextField();
         lblTipo = new JLabel();
         cbxTipo = new JComboBox<>();
         lblSerie = new JLabel();
@@ -59,8 +61,6 @@ public class StatusIFrame extends JInternalFrame {
         separator = new JSeparator();
         btnGetStatus = new JButton();
         btnGetStatusCdr = new JButton();
-        tfRuc = new JTextField();
-        lblRuc = new JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -68,6 +68,13 @@ public class StatusIFrame extends JInternalFrame {
         setFrameIcon(FontIcon.of(RemixiconAL.CHECK_LINE, 16, Color.decode("#f7d117")));
         setMaximumSize(null);
         setMinimumSize(null);
+
+        lblRuc.setFont(lblRuc.getFont().deriveFont(lblRuc.getFont().getStyle() | Font.BOLD, lblRuc.getFont().getSize()-2));
+        lblRuc.setText("RUC");
+
+        tfRuc.setMaximumSize(null);
+        tfRuc.setMinimumSize(null);
+        tfRuc.setPreferredSize(new Dimension(300, 30));
 
         lblTipo.setFont(lblTipo.getFont().deriveFont(lblTipo.getFont().getStyle() | Font.BOLD, lblTipo.getFont().getSize()-2));
         lblTipo.setText("Tipo");
@@ -131,13 +138,6 @@ public class StatusIFrame extends JInternalFrame {
         btnGetStatusCdr.setMinimumSize(new Dimension(150, 30));
         btnGetStatusCdr.setPreferredSize(new Dimension(150, 30));
 
-        tfRuc.setMaximumSize(null);
-        tfRuc.setMinimumSize(null);
-        tfRuc.setPreferredSize(new Dimension(300, 30));
-
-        lblRuc.setFont(lblRuc.getFont().deriveFont(lblRuc.getFont().getStyle() | Font.BOLD, lblRuc.getFont().getSize()-2));
-        lblRuc.setText("RUC");
-
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -195,13 +195,13 @@ public class StatusIFrame extends JInternalFrame {
                 .addContainerGap())
         );
 
+        AbstractDocument docRuc = (AbstractDocument) tfRuc.getDocument();
+        docRuc.setDocumentFilter(new IntegerFilter(11));
         AbstractDocument docSerie = (AbstractDocument) tfSerie.getDocument();
         docSerie.setDocumentFilter(new SerieFilter('F'));
         AbstractDocument docCorrelativo = (AbstractDocument) tfCorrelativo.getDocument();
         docCorrelativo.setDocumentFilter(new IntegerFilter(8));
         tfEstado.setEditable(false);
-        AbstractDocument docRuc = (AbstractDocument) tfRuc.getDocument();
-        docRuc.setDocumentFilter(new IntegerFilter(11));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
