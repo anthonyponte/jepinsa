@@ -236,7 +236,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="tfEstado.setEditable(false);"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="tfEstado.setEditable(false);&#xa;FontIcon icon = FontIcon.of(RemixiconAL.CHECKBOX_BLANK_CIRCLE_LINE, 16, Color.decode(&quot;#FFFFFF&quot;));&#xa;tfEstado.putClientProperty(&quot;JTextField.leadingIcon&quot;, icon);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JSeparator" name="separator">

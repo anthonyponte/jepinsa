@@ -202,6 +202,8 @@ public class StatusIFrame extends JInternalFrame {
         AbstractDocument docCorrelativo = (AbstractDocument) tfCorrelativo.getDocument();
         docCorrelativo.setDocumentFilter(new IntegerFilter(8));
         tfEstado.setEditable(false);
+        FontIcon icon = FontIcon.of(RemixiconAL.CHECKBOX_BLANK_CIRCLE_LINE, 16, Color.decode("#FFFFFF"));
+        tfEstado.putClientProperty("JTextField.leadingIcon", icon);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

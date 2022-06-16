@@ -13,6 +13,7 @@ import com.anthonyponte.jbill.model.Bill;
 import com.anthonyponte.jbill.model.TipoDocumento;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.anthonyponte.jbill.view.StatusIFrame;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.io.File;
@@ -29,8 +30,12 @@ import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.BadLocationException;
+import org.kordamp.ikonli.remixicon.RemixiconAL;
+import org.kordamp.ikonli.swing.FontIcon;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class StatusController {
 
   private final StatusIFrame iFrame;
@@ -95,6 +100,21 @@ public class StatusController {
                     StatusResponse get = get();
 
                     iFrame.tfEstado.setText(get.getStatusMessage());
+
+                    if (get.getStatusCode().equals("0001")) {
+                      FontIcon icon =
+                          FontIcon.of(
+                              RemixiconAL.CHECKBOX_CIRCLE_LINE, 16, Color.decode("#FFFFFF"));
+                      iFrame.tfEstado.putClientProperty("JTextField.leadingIcon", icon);
+                    } else if (get.getStatusCode().equals("0002")) {
+                      FontIcon icon =
+                          FontIcon.of(RemixiconAL.INFORMATION_LINE, 16, Color.decode("#FFFFFF"));
+                      iFrame.tfEstado.putClientProperty("JTextField.leadingIcon", icon);
+                    } else if (get.getStatusCode().equals("0003")) {
+                      FontIcon icon =
+                          FontIcon.of(RemixiconAL.CLOSE_CIRCLE_LINE, 16, Color.decode("#FFFFFF"));
+                      iFrame.tfEstado.putClientProperty("JTextField.leadingIcon", icon);
+                    }
 
                     if (get.getStatusCode().equals("0001")
                         || get.getStatusCode().equals("0002")
@@ -238,6 +258,9 @@ public class StatusController {
         @Override
         public void removeUpdate(DocumentEvent arg0) {
           iFrame.tfEstado.setText("");
+          FontIcon icon =
+              FontIcon.of(RemixiconAL.CHECKBOX_BLANK_CIRCLE_LINE, 16, Color.decode("#FFFFFF"));
+          iFrame.tfEstado.putClientProperty("JTextField.leadingIcon", icon);
 
           iFrame.btnGetStatusCdr.setEnabled(false);
 
