@@ -104,15 +104,20 @@ public class StatusController {
                     if (get.getStatusCode().equals("0001")) {
                       FontIcon icon =
                           FontIcon.of(
-                              RemixiconAL.CHECKBOX_CIRCLE_LINE, 16, Color.decode("#FFFFFF"));
+                              RemixiconAL.CHECKBOX_CIRCLE_LINE, 16, Color.decode("#7cdf5f"));
                       iFrame.tfEstado.putClientProperty("JTextField.leadingIcon", icon);
                     } else if (get.getStatusCode().equals("0002")) {
                       FontIcon icon =
-                          FontIcon.of(RemixiconAL.INFORMATION_LINE, 16, Color.decode("#FFFFFF"));
+                          FontIcon.of(RemixiconAL.INFORMATION_LINE, 16, Color.decode("#dcca3e"));
                       iFrame.tfEstado.putClientProperty("JTextField.leadingIcon", icon);
                     } else if (get.getStatusCode().equals("0003")) {
                       FontIcon icon =
-                          FontIcon.of(RemixiconAL.CLOSE_CIRCLE_LINE, 16, Color.decode("#FFFFFF"));
+                          FontIcon.of(RemixiconAL.CLOSE_CIRCLE_LINE, 16, Color.decode("#e97070"));
+                      iFrame.tfEstado.putClientProperty("JTextField.leadingIcon", icon);
+                    } else {
+                      FontIcon icon =
+                          FontIcon.of(
+                              RemixiconAL.CHECKBOX_BLANK_CIRCLE_LINE, 16, Color.decode("#FFFFFF"));
                       iFrame.tfEstado.putClientProperty("JTextField.leadingIcon", icon);
                     }
 
