@@ -72,7 +72,7 @@ public class StatusController {
           }
         });
 
-    iFrame.btnGetStatus.addActionListener(
+    iFrame.btnEstado.addActionListener(
         (ActionEvent e) -> {
           dialog.setVisible(true);
           dialog.setLocationRelativeTo(iFrame);
@@ -124,9 +124,9 @@ public class StatusController {
                     if (get.getStatusCode().equals("0001")
                         || get.getStatusCode().equals("0002")
                         || get.getStatusCode().equals("0003")) {
-                      iFrame.btnGetStatusCdr.setEnabled(true);
+                      iFrame.btnCdr.setEnabled(true);
                     } else {
-                      iFrame.btnGetStatusCdr.setEnabled(false);
+                      iFrame.btnCdr.setEnabled(false);
                     }
 
                   } catch (InterruptedException | ExecutionException ex) {
@@ -142,7 +142,7 @@ public class StatusController {
           worker.execute();
         });
 
-    iFrame.btnGetStatusCdr.addActionListener(
+    iFrame.btnCdr.addActionListener(
         (ActionEvent e) -> {
           dialog.setVisible(true);
           dialog.setLocationRelativeTo(iFrame);
@@ -267,7 +267,7 @@ public class StatusController {
               FontIcon.of(RemixiconAL.CHECKBOX_BLANK_CIRCLE_LINE, 16, Color.decode("#FFFFFF"));
           iFrame.tfEstado.putClientProperty("JTextField.leadingIcon", icon);
 
-          iFrame.btnGetStatusCdr.setEnabled(false);
+          iFrame.btnCdr.setEnabled(false);
 
           enabled();
         }
@@ -281,9 +281,9 @@ public class StatusController {
           if (iFrame.tfRuc.getText().length() < 11
               || iFrame.tfSerie.getText().length() < 4
               || iFrame.tfCorrelativo.getText().isEmpty()) {
-            iFrame.btnGetStatus.setEnabled(false);
+            iFrame.btnEstado.setEnabled(false);
           } else {
-            iFrame.btnGetStatus.setEnabled(true);
+            iFrame.btnEstado.setEnabled(true);
           }
         }
       };

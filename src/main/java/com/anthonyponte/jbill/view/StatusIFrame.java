@@ -59,13 +59,13 @@ public class StatusIFrame extends JInternalFrame {
         lblEstado = new JLabel();
         tfEstado = new JTextField();
         separator = new JSeparator();
-        btnGetStatus = new JButton();
-        btnGetStatusCdr = new JButton();
+        btnEstado = new JButton();
+        btnCdr = new JButton();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("Status");
-        setFrameIcon(FontIcon.of(RemixiconAL.CHECK_LINE, 16, Color.decode("#f7d117")));
+        setFrameIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#FFFFFF")));
         setMaximumSize(null);
         setMinimumSize(null);
 
@@ -126,17 +126,17 @@ public class StatusIFrame extends JInternalFrame {
         separator.setMinimumSize(null);
         separator.setPreferredSize(new Dimension(5, 5));
 
-        btnGetStatus.setIcon(FontIcon.of(RemixiconAL.CHECK_LINE, 16, Color.decode("#FFFFFF")));
-        btnGetStatus.setText("getStatus");
-        btnGetStatus.setEnabled(false);
-        btnGetStatus.setMinimumSize(new Dimension(150, 30));
-        btnGetStatus.setPreferredSize(new Dimension(150, 30));
+        btnEstado.setIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#FFFFFF")));
+        btnEstado.setText("Estado");
+        btnEstado.setEnabled(false);
+        btnEstado.setMinimumSize(new Dimension(150, 30));
+        btnEstado.setPreferredSize(new Dimension(150, 30));
 
-        btnGetStatusCdr.setIcon(FontIcon.of(RemixiconAL.FILE_ZIP_LINE, 16, Color.decode("#FFFFFF")));
-        btnGetStatusCdr.setText("getStatusCdr");
-        btnGetStatusCdr.setEnabled(false);
-        btnGetStatusCdr.setMinimumSize(new Dimension(150, 30));
-        btnGetStatusCdr.setPreferredSize(new Dimension(150, 30));
+        btnCdr.setIcon(FontIcon.of(RemixiconAL.FILE_ZIP_LINE, 16, Color.decode("#FFFFFF")));
+        btnCdr.setText("Cdr");
+        btnCdr.setEnabled(false);
+        btnCdr.setMinimumSize(new Dimension(150, 30));
+        btnCdr.setPreferredSize(new Dimension(150, 30));
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,9 +153,9 @@ public class StatusIFrame extends JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnGetStatus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnGetStatusCdr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnCdr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblCorrelativo)
                             .addComponent(lblSerie)
                             .addComponent(lblTipo)
@@ -190,8 +190,8 @@ public class StatusIFrame extends JInternalFrame {
                 .addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGetStatusCdr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGetStatus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCdr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -209,8 +209,8 @@ public class StatusIFrame extends JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public JButton btnGetStatus;
-    public JButton btnGetStatusCdr;
+    public JButton btnCdr;
+    public JButton btnEstado;
     public JComboBox<String> cbxTipo;
     public JLabel lblCorrelativo;
     public JLabel lblEstado;
