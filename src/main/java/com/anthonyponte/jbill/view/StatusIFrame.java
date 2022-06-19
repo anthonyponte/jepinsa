@@ -48,35 +48,35 @@ public class StatusIFrame extends JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblRuc = new JLabel();
-        tfRuc = new JTextField();
-        lblTipo = new JLabel();
-        cbxTipo = new JComboBox<>();
-        lblSerie = new JLabel();
-        tfSerie = new JTextField();
-        lblCorrelativo = new JLabel();
-        tfCorrelativo = new JTextField();
-        lblEstado = new JLabel();
-        tfEstado = new JTextField();
-        separator = new JSeparator();
-        btnEstado = new JButton();
-        btnCdr = new JButton();
+        lblRuc = new javax.swing.JLabel();
+        tfRuc = new javax.swing.JTextField();
+        lblTipo = new javax.swing.JLabel();
+        cbxTipo = new javax.swing.JComboBox<>();
+        lblSerie = new javax.swing.JLabel();
+        tfSerie = new javax.swing.JTextField();
+        lblCorrelativo = new javax.swing.JLabel();
+        tfCorrelativo = new javax.swing.JTextField();
+        lblEstado = new javax.swing.JLabel();
+        tfEstado = new javax.swing.JTextField();
+        separator = new javax.swing.JSeparator();
+        btnEstado = new javax.swing.JButton();
+        btnCdr = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("Status");
-        setFrameIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#FFFFFF")));
+        setFrameIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#f7d117")));
         setMaximumSize(null);
         setMinimumSize(null);
 
-        lblRuc.setFont(lblRuc.getFont().deriveFont(lblRuc.getFont().getStyle() | Font.BOLD, lblRuc.getFont().getSize()-2));
+        lblRuc.setFont(lblRuc.getFont().deriveFont(lblRuc.getFont().getStyle() | java.awt.Font.BOLD, lblRuc.getFont().getSize()-2));
         lblRuc.setText("RUC");
 
         tfRuc.setMaximumSize(null);
         tfRuc.setMinimumSize(null);
-        tfRuc.setPreferredSize(new Dimension(300, 30));
+        tfRuc.setPreferredSize(new java.awt.Dimension(300, 30));
 
-        lblTipo.setFont(lblTipo.getFont().deriveFont(lblTipo.getFont().getStyle() | Font.BOLD, lblTipo.getFont().getSize()-2));
+        lblTipo.setFont(lblTipo.getFont().deriveFont(lblTipo.getFont().getStyle() | java.awt.Font.BOLD, lblTipo.getFont().getSize()-2));
         lblTipo.setText("Tipo");
 
         cbxTipo.setModel(new DefaultComboBoxModel(new TipoDocumento[] {
@@ -87,7 +87,7 @@ public class StatusIFrame extends JInternalFrame {
         }));
         cbxTipo.setSelectedIndex(0);
         cbxTipo.setMaximumSize(null);
-        cbxTipo.setPreferredSize(new Dimension(150, 30));
+        cbxTipo.setPreferredSize(new java.awt.Dimension(150, 30));
         cbxTipo.setRenderer(new DefaultListCellRenderer(){
             @Override
             public Component getListCellRendererComponent(
@@ -101,61 +101,62 @@ public class StatusIFrame extends JInternalFrame {
             }
         });
 
-        lblSerie.setFont(lblSerie.getFont().deriveFont(lblSerie.getFont().getStyle() | Font.BOLD, lblSerie.getFont().getSize()-2));
+        lblSerie.setFont(lblSerie.getFont().deriveFont(lblSerie.getFont().getStyle() | java.awt.Font.BOLD, lblSerie.getFont().getSize()-2));
         lblSerie.setText("Serie");
 
         tfSerie.setMaximumSize(null);
         tfSerie.setMinimumSize(null);
-        tfSerie.setPreferredSize(new Dimension(150, 30));
+        tfSerie.setPreferredSize(new java.awt.Dimension(150, 30));
 
-        lblCorrelativo.setFont(lblCorrelativo.getFont().deriveFont(lblCorrelativo.getFont().getStyle() | Font.BOLD, lblCorrelativo.getFont().getSize()-2));
+        lblCorrelativo.setFont(lblCorrelativo.getFont().deriveFont(lblCorrelativo.getFont().getStyle() | java.awt.Font.BOLD, lblCorrelativo.getFont().getSize()-2));
         lblCorrelativo.setText("Correlativo");
 
         tfCorrelativo.setMaximumSize(null);
         tfCorrelativo.setMinimumSize(null);
-        tfCorrelativo.setPreferredSize(new Dimension(150, 30));
+        tfCorrelativo.setPreferredSize(new java.awt.Dimension(150, 30));
 
-        lblEstado.setFont(lblEstado.getFont().deriveFont(lblEstado.getFont().getStyle() | Font.BOLD, lblEstado.getFont().getSize()-2));
+        lblEstado.setFont(lblEstado.getFont().deriveFont(lblEstado.getFont().getStyle() | java.awt.Font.BOLD, lblEstado.getFont().getSize()-2));
         lblEstado.setText("Estado");
 
         tfEstado.setMaximumSize(null);
         tfEstado.setMinimumSize(null);
-        tfEstado.setPreferredSize(new Dimension(150, 30));
+        tfEstado.setPreferredSize(new java.awt.Dimension(150, 30));
 
         separator.setMaximumSize(null);
         separator.setMinimumSize(null);
-        separator.setPreferredSize(new Dimension(5, 5));
+        separator.setPreferredSize(new java.awt.Dimension(5, 5));
 
         btnEstado.setIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#FFFFFF")));
         btnEstado.setText("Estado");
         btnEstado.setEnabled(false);
-        btnEstado.setMinimumSize(new Dimension(150, 30));
-        btnEstado.setPreferredSize(new Dimension(150, 30));
+        btnEstado.setMinimumSize(new java.awt.Dimension(150, 30));
+        btnEstado.setPreferredSize(new java.awt.Dimension(150, 30));
 
         btnCdr.setIcon(FontIcon.of(RemixiconAL.FILE_ZIP_LINE, 16, Color.decode("#FFFFFF")));
         btnCdr.setText("Cdr");
         btnCdr.setEnabled(false);
-        btnCdr.setMinimumSize(new Dimension(150, 30));
-        btnCdr.setPreferredSize(new Dimension(150, 30));
+        btnCdr.setMinimumSize(new java.awt.Dimension(150, 30));
+        btnCdr.setPreferredSize(new java.awt.Dimension(150, 30));
 
-        GroupLayout layout = new GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(separator, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfCorrelativo, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfSerie, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbxTipo, GroupLayout.Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfEstado, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfRuc, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(separator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfCorrelativo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfSerie, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxTipo, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfRuc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCdr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCdr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblCorrelativo)
                             .addComponent(lblSerie)
                             .addComponent(lblTipo)
@@ -164,34 +165,35 @@ public class StatusIFrame extends JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblRuc)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfRuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfRuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblTipo)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxTipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblSerie)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfSerie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblCorrelativo)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfCorrelativo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfCorrelativo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblEstado)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCdr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(separator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCdr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -209,18 +211,18 @@ public class StatusIFrame extends JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public JButton btnCdr;
-    public JButton btnEstado;
-    public JComboBox<String> cbxTipo;
-    public JLabel lblCorrelativo;
-    public JLabel lblEstado;
-    public JLabel lblRuc;
-    public JLabel lblSerie;
-    public JLabel lblTipo;
-    public JSeparator separator;
-    public JTextField tfCorrelativo;
-    public JTextField tfEstado;
-    public JTextField tfRuc;
-    public JTextField tfSerie;
+    public javax.swing.JButton btnCdr;
+    public javax.swing.JButton btnEstado;
+    public javax.swing.JComboBox<String> cbxTipo;
+    public javax.swing.JLabel lblCorrelativo;
+    public javax.swing.JLabel lblEstado;
+    public javax.swing.JLabel lblRuc;
+    public javax.swing.JLabel lblSerie;
+    public javax.swing.JLabel lblTipo;
+    public javax.swing.JSeparator separator;
+    public javax.swing.JTextField tfCorrelativo;
+    public javax.swing.JTextField tfEstado;
+    public javax.swing.JTextField tfRuc;
+    public javax.swing.JTextField tfSerie;
     // End of variables declaration//GEN-END:variables
 }
