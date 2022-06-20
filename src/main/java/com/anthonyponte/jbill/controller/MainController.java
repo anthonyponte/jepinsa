@@ -10,6 +10,7 @@ import com.anthonyponte.jbill.view.MainFrame;
 import com.anthonyponte.jbill.view.UsuarioIFrame;
 import com.anthonyponte.jbill.view.ComunicacionBajaIFrame;
 import com.anthonyponte.jbill.view.ComunicacionesIFrame;
+import com.anthonyponte.jbill.view.FacturaIFrame;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.anthonyponte.jbill.view.ResumenDiarioIFrame;
 import com.anthonyponte.jbill.view.ResumenesIFrame;
@@ -27,13 +28,16 @@ import org.hsqldb.Server;
 import org.hsqldb.persist.HsqlProperties;
 import org.hsqldb.server.ServerAcl;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class MainController {
 
   private final MainFrame frame;
   private final String DATABASE = "jbill";
   private final String ALIAS = "jb";
   private UsuarioIFrame usuarioIFrame;
+  private FacturaIFrame facturaIFrame;
   private ComunicacionBajaIFrame comunicacionBajaIFrame;
   private ResumenDiarioIFrame resumenDiarioIFrame;
   private ComunicacionesIFrame comunicacionesIFrame;
@@ -59,6 +63,18 @@ public class MainController {
             new UsuarioController(frame, usuarioIFrame, server.isNotRunning()).init();
           } else {
             iframeClosed(usuarioIFrame);
+          }
+        });
+
+    frame.miFactura.addActionListener(
+        (ActionEvent arg0) -> {
+          if (isIframeClosed(facturaIFrame)) {
+            facturaIFrame = new FacturaIFrame();
+            frame.dpane.add(facturaIFrame);
+            facturaIFrame.setLocation(centerIFrame(facturaIFrame));
+            new FacturaController(facturaIFrame, dialog).init();
+          } else {
+            iframeClosed(facturaIFrame);
           }
         });
 

@@ -125,6 +125,8 @@ public class UsuarioController {
 
             frame.menuBillConsultService.setEnabled(true);
 
+            frame.miFactura.setEnabled(true);
+            
             frame.miComunicacionBaja.setEnabled(true);
 
             frame.miResumenDiario.setEnabled(true);

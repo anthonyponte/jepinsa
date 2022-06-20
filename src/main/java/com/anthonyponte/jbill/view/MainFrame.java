@@ -52,6 +52,7 @@ public class MainFrame extends JFrame {
         menuMain = new JMenu();
         menuEntrar = new JMenuItem();
         menuNuevo = new JMenu();
+        miFactura = new JMenuItem();
         miComunicacionBaja = new JMenuItem();
         miResumenDiario = new JMenuItem();
         menuVer = new JMenu();
@@ -88,6 +89,10 @@ public class MainFrame extends JFrame {
 
         menuNuevo.setText("Nuevo");
         menuNuevo.setEnabled(false);
+
+        miFactura.setText("Factura");
+        miFactura.setEnabled(false);
+        menuNuevo.add(miFactura);
 
         miComunicacionBaja.setText("Comunicacion de baja");
         miComunicacionBaja.setEnabled(false);
@@ -180,6 +185,7 @@ public class MainFrame extends JFrame {
     public JMenuItem miBulk;
     public JMenuItem miComunicacionBaja;
     public JMenuItem miComunicaciones;
+    public JMenuItem miFactura;
     public JMenuItem miResumenDiario;
     public JMenuItem miResumenes;
     public JMenuItem miStatus;
