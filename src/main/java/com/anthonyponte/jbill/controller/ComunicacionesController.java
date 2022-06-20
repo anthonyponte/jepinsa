@@ -43,7 +43,9 @@ import com.anthonyponte.jbill.tableformat.ComunicacionBajaDetalleTableFormat;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import javax.swing.JOptionPane;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class ComunicacionesController {
 
   private final ComunicacionesIFrame iFrame;
@@ -68,7 +70,8 @@ public class ComunicacionesController {
           start(date);
         });
 
-    iFrame.tblEncabezado.addMouseListener(new MouseAdapter() {
+    iFrame.tblEncabezado.addMouseListener(
+        new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
@@ -99,12 +102,14 @@ public class ComunicacionesController {
 
                     fos.flush();
                   } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(null,
+                    JOptionPane.showMessageDialog(
+                        null,
                         ex.getMessage(),
                         ComunicacionesController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null,
+                    JOptionPane.showMessageDialog(
+                        null,
                         ex.getMessage(),
                         ComunicacionesController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
@@ -137,7 +142,8 @@ public class ComunicacionesController {
                           MyTableResize.resize(iFrame.tblEncabezado);
 
                         } catch (InterruptedException | ExecutionException ex) {
-                          JOptionPane.showMessageDialog(null,
+                          JOptionPane.showMessageDialog(
+                              null,
                               ex.getMessage(),
                               ComunicacionesController.class.getName(),
                               JOptionPane.ERROR_MESSAGE);
@@ -230,7 +236,7 @@ public class ComunicacionesController {
               case 5:
                 return MyDateFormat.d_MMMM_Y(comunicacionBaja.getFechaReferencia());
               case 6:
-                return comunicacionBaja.getEmisor().getNumeroDocumentoIdentidad();
+                return comunicacionBaja.getEmisor().getDocumentoIdentidad().getNumero();
               case 7:
                 return comunicacionBaja.getEmisor().getNombre();
               case 8:
@@ -294,7 +300,8 @@ public class ComunicacionesController {
               if (!get.isEmpty()) iFrame.tfFiltrar.requestFocus();
               else iFrame.dpMesAno.requestFocus();
             } catch (InterruptedException | ExecutionException ex) {
-              JOptionPane.showMessageDialog(null,
+              JOptionPane.showMessageDialog(
+                  null,
                   ex.getMessage(),
                   ComunicacionesController.class.getName(),
                   JOptionPane.ERROR_MESSAGE);

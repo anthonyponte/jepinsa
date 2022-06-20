@@ -52,7 +52,9 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class BulkController {
 
   private final BulkIFrame iFrame;
@@ -87,7 +89,8 @@ public class BulkController {
           }
         });
 
-    iFrame.btnExportar.addActionListener((ActionEvent e) -> {
+    iFrame.btnExportar.addActionListener(
+        (ActionEvent e) -> {
           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
           String dateString = format.format(new Date());
 
@@ -134,7 +137,7 @@ public class BulkController {
 
                         switch (cell.getColumnIndex()) {
                           case 0:
-                            cell.setCellValue(bill.getEmisor().getNumeroDocumentoIdentidad());
+                            cell.setCellValue(bill.getEmisor().getDocumentoIdentidad().getNumero());
                             break;
                           case 1:
                             cell.setCellValue(bill.getTipoDocumento().getCodigo());
@@ -173,7 +176,8 @@ public class BulkController {
                       dialog.dispose();
 
                     } catch (InterruptedException | ExecutionException | IOException ex) {
-                      JOptionPane.showMessageDialog(null,
+                      JOptionPane.showMessageDialog(
+                          null,
                           ex.getMessage(),
                           BulkController.class.getName(),
                           JOptionPane.ERROR_MESSAGE);
@@ -185,7 +189,8 @@ public class BulkController {
           }
         });
 
-    iFrame.scroll.setDropTarget(new DropTarget() {
+    iFrame.scroll.setDropTarget(
+        new DropTarget() {
           @Override
           public synchronized void drop(DropTargetDropEvent dtde) {
             if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
@@ -203,7 +208,8 @@ public class BulkController {
                   }
                 }
               } catch (UnsupportedFlavorException | IOException ex) {
-                JOptionPane.showMessageDialog(null,
+                JOptionPane.showMessageDialog(
+                    null,
                     ex.getMessage(),
                     BulkController.class.getName(),
                     JOptionPane.ERROR_MESSAGE);
@@ -214,7 +220,8 @@ public class BulkController {
           }
         });
 
-    iFrame.table.addMouseListener(new MouseAdapter() {
+    iFrame.table.addMouseListener(
+        new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
@@ -233,7 +240,7 @@ public class BulkController {
 
                         StatusResponse statusResponse =
                             service.getStatusCdr(
-                                selected.getEmisor().getNumeroDocumentoIdentidad(),
+                                selected.getEmisor().getDocumentoIdentidad().getNumero(),
                                 selected.getTipoDocumento().getCodigo(),
                                 selected.getSerie(),
                                 selected.getCorrelativo());
@@ -263,7 +270,7 @@ public class BulkController {
                             chooser.setSelectedFile(
                                 new File(
                                     "R-"
-                                        + get.getEmisor().getNumeroDocumentoIdentidad()
+                                        + get.getEmisor().getDocumentoIdentidad().getNumero()
                                         + "-"
                                         + get.getTipoDocumento().getCodigo()
                                         + "-"
@@ -281,12 +288,14 @@ public class BulkController {
                                 fout.flush();
                                 fout.close();
                               } catch (FileNotFoundException ex) {
-                                JOptionPane.showMessageDialog(null,
+                                JOptionPane.showMessageDialog(
+                                    null,
                                     ex.getMessage(),
                                     BulkController.class.getName(),
                                     JOptionPane.ERROR_MESSAGE);
                               } catch (IOException ex) {
-                                JOptionPane.showMessageDialog(null,
+                                JOptionPane.showMessageDialog(
+                                    null,
                                     ex.getMessage(),
                                     BulkController.class.getName(),
                                     JOptionPane.ERROR_MESSAGE);
@@ -300,7 +309,8 @@ public class BulkController {
                                 JOptionPane.ERROR_MESSAGE);
                           }
                         } catch (InterruptedException | ExecutionException ex) {
-                          JOptionPane.showMessageDialog(null,
+                          JOptionPane.showMessageDialog(
+                              null,
                               ex.getMessage(),
                               BulkController.class.getName(),
                               JOptionPane.ERROR_MESSAGE);
@@ -326,7 +336,7 @@ public class BulkController {
 
     TextFilterator<Bill> textFilterator =
         (List<String> baseList, Bill element) -> {
-          baseList.add(element.getEmisor().getNumeroDocumentoIdentidad());
+          baseList.add(element.getEmisor().getDocumentoIdentidad().getNumero());
           baseList.add(element.getTipoDocumento().getCodigo());
           baseList.add(element.getSerie());
           baseList.add(String.valueOf(element.getCorrelativo()));
@@ -371,7 +381,7 @@ public class BulkController {
           public Object getColumnValue(Bill baseObject, int column) {
             switch (column) {
               case 0:
-                return baseObject.getEmisor().getNumeroDocumentoIdentidad();
+                return baseObject.getEmisor().getDocumentoIdentidad().getNumero();
               case 1:
                 return baseObject.getTipoDocumento().getCodigo();
               case 2:
@@ -422,7 +432,7 @@ public class BulkController {
 
                 StatusResponse statusResponse =
                     service.getStatus(
-                        bill.getEmisor().getNumeroDocumentoIdentidad(),
+                        bill.getEmisor().getDocumentoIdentidad().getNumero(),
                         bill.getTipoDocumento().getCodigo(),
                         bill.getSerie(),
                         bill.getCorrelativo());
@@ -433,10 +443,8 @@ public class BulkController {
             } catch (Exception ex) {
               cancel(true);
 
-              JOptionPane.showMessageDialog(null,
-                  ex.getMessage(),
-                  BulkController.class.getName(),
-                  JOptionPane.ERROR_MESSAGE);
+              JOptionPane.showMessageDialog(
+                  null, ex.getMessage(), BulkController.class.getName(), JOptionPane.ERROR_MESSAGE);
             }
             return list;
           }
@@ -458,7 +466,8 @@ public class BulkController {
                 iFrame.btnExportar.setEnabled(true);
 
               } catch (InterruptedException | ExecutionException ex) {
-                JOptionPane.showMessageDialog(null,
+                JOptionPane.showMessageDialog(
+                    null,
                     ex.getMessage(),
                     BulkController.class.getName(),
                     JOptionPane.ERROR_MESSAGE);

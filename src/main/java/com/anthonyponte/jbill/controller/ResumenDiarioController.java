@@ -34,6 +34,7 @@ import com.anthonyponte.jbill.idao.IResumenDiarioDao;
 import com.anthonyponte.jbill.idao.ISummaryDao;
 import com.anthonyponte.jbill.maindoc.SummaryDocuments;
 import com.anthonyponte.jbill.model.Bill;
+import com.anthonyponte.jbill.model.DocumentoIdentidad;
 import com.anthonyponte.jbill.model.TipoDocumentoIdentidad;
 import com.anthonyponte.jbill.model.Empresa;
 import com.anthonyponte.jbill.model.Estado;
@@ -247,10 +248,17 @@ public class ResumenDiarioController {
                         resumenDiario.setFechaEmision(iFrame.dpFechaGeneracion.getDate());
                         resumenDiario.setFechaReferencia(iFrame.dpFechaEmision.getDate());
 
+                        TipoDocumentoIdentidad tipoDocumentoIdentidad =
+                            new TipoDocumentoIdentidad();
+                        tipoDocumentoIdentidad.setCodigo(
+                            preferences.get(UsuarioController.RUC_TIPO, ""));
+
+                        DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
+                        documentoIdentidad.setTipo(tipoDocumentoIdentidad);
+                        documentoIdentidad.setNumero(preferences.get(UsuarioController.RUC, ""));
+
                         Empresa emisor = new Empresa();
-                        emisor.setNumeroDocumentoIdentidad(
-                            preferences.get(UsuarioController.RUC, ""));
-                        emisor.setTipo(preferences.getInt(UsuarioController.RUC_TIPO, 0));
+                        emisor.setDocumentoIdentidad(documentoIdentidad);
                         emisor.setNombre(preferences.get(UsuarioController.RAZON_SOCIAL, ""));
                         resumenDiario.setEmisor(emisor);
 
@@ -504,10 +512,14 @@ public class ResumenDiarioController {
 
             if (iFrame.cbxDocumentoIdentidadTipo.getSelectedIndex() >= 0
                 && !iFrame.tfDocumentoIdentidadNumero.getText().isEmpty()) {
-              Empresa adquiriente = new Empresa();
-              adquiriente.setNumeroDocumentoIdentidad(iFrame.tfDocumentoIdentidadNumero.getText());
-              adquiriente.setTipoDocumentoIdentidad(
+              DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
+              documentoIdentidad.setTipo(
                   (TipoDocumentoIdentidad) iFrame.cbxDocumentoIdentidadTipo.getSelectedItem());
+              documentoIdentidad.setNumero(iFrame.tfDocumentoIdentidadNumero.getText());
+
+              Empresa adquiriente = new Empresa();
+              adquiriente.setDocumentoIdentidad(documentoIdentidad);
+              
               detalle.setAdquiriente(adquiriente);
             }
 
@@ -816,7 +828,7 @@ public class ResumenDiarioController {
                 return detalle.getDocumento().getTipoDocumento().getDescripcion();
               case 3:
                 if (detalle.getAdquiriente() != null)
-                  return detalle.getAdquiriente().getNumeroDocumentoIdentidad();
+                  return detalle.getAdquiriente().getDocumentoIdentidad().getNumero();
                 else return "";
               case 4:
                 if (detalle.getDocumentoReferencia() != null)

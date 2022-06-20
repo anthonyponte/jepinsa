@@ -29,7 +29,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class ISummaryDao implements SummaryDao {
 
   private final MyHsqldb database;
@@ -61,8 +63,8 @@ public class ISummaryDao implements SummaryDao {
       ps.setInt(6, summary.getCorrelativo());
       ps.setDate(7, new Date(summary.getFechaEmision().getTime()));
       ps.setDate(8, new Date(summary.getFechaReferencia().getTime()));
-      ps.setString(9, summary.getEmisor().getNumeroDocumentoIdentidad());
-      ps.setInt(10, summary.getEmisor().getTipo());
+      ps.setString(9, summary.getEmisor().getDocumentoIdentidad().getNumero());
+      ps.setString(10, summary.getEmisor().getDocumentoIdentidad().getTipo().getCodigo());
       ps.setString(11, summary.getEmisor().getNombre());
       ps.setString(12, summary.getNombreZip());
       ps.setBytes(13, summary.getZip());

@@ -7,19 +7,31 @@ package com.anthonyponte.jbill.model;
 
 import com.poiji.annotation.ExcelCellName;
 import com.poiji.annotation.ExcelCellRange;
+import java.util.Date;
 
 /**
  * @author anthony
  */
 public class Bill {
-  @ExcelCellRange private Empresa emisor;
-  @ExcelCellRange private TipoDocumento tipoDocumento;
+  private String ubl;
+  private String version;
 
   @ExcelCellName("Serie")
   private String serie;
 
   @ExcelCellName("Correlativo")
   private int correlativo;
+
+  private Date fechaEmision;
+  private Date horaEmision;
+
+  @ExcelCellRange private TipoDocumento tipoDocumento;
+
+  private Moneda moneda;
+
+  private Date fechaVencimiento;
+
+  @ExcelCellRange private Empresa emisor;
 
   private String statusCode;
   private String statusMessage;

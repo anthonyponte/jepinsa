@@ -37,8 +37,10 @@ import com.anthonyponte.jbill.idao.ISummaryDao;
 import com.anthonyponte.jbill.dao.ComunicacionBajaDao;
 import com.anthonyponte.jbill.filter.SerieFilter;
 import com.anthonyponte.jbill.model.ComunicacionBaja;
+import com.anthonyponte.jbill.model.DocumentoIdentidad;
 import com.anthonyponte.jbill.model.Empresa;
 import com.anthonyponte.jbill.model.TipoDocumento;
+import com.anthonyponte.jbill.model.TipoDocumentoIdentidad;
 import com.anthonyponte.jbill.tableformat.ComunicacionBajaDetalleTableFormat;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import java.awt.event.ItemEvent;
@@ -59,7 +61,9 @@ import javax.xml.transform.TransformerException;
 import org.jdom2.Document;
 import org.xml.sax.SAXException;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class ComunicacionBajaController {
 
   private final ComunicacionBajaIFrame iFrame;
@@ -288,10 +292,16 @@ public class ComunicacionBajaController {
                       comunicacionBaja.setFechaEmision(iFrame.dpFecha.getDate());
                       comunicacionBaja.setFechaReferencia(iFrame.dpDocumentoFecha.getDate());
 
+                      TipoDocumentoIdentidad tipoDocumentoIdentidad = new TipoDocumentoIdentidad();
+                      tipoDocumentoIdentidad.setCodigo(
+                          preferences.get(UsuarioController.RUC_TIPO, ""));
+
+                      DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
+                      documentoIdentidad.setTipo(tipoDocumentoIdentidad);
+                      documentoIdentidad.setNumero(preferences.get(UsuarioController.RUC, ""));
+
                       Empresa emisor = new Empresa();
-                      emisor.setNumeroDocumentoIdentidad(
-                          preferences.get(UsuarioController.RUC, ""));
-                      emisor.setTipo(preferences.getInt(UsuarioController.RUC_TIPO, 0));
+                      emisor.setDocumentoIdentidad(documentoIdentidad);
                       emisor.setNombre(preferences.get(UsuarioController.RAZON_SOCIAL, ""));
                       comunicacionBaja.setEmisor(emisor);
 

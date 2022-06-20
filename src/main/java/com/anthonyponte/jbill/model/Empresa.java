@@ -5,55 +5,54 @@
 
 package com.anthonyponte.jbill.model;
 
-import com.poiji.annotation.ExcelCellName;
+import com.poiji.annotation.ExcelCellRange;
 
 /**
  * @author AnthonyPonte
  */
 public class Empresa {
-  private int tipo;
-  private TipoDocumentoIdentidad tipoDocumentoIdentidad;
 
-  @ExcelCellName("RUC")
-  private String numeroDocumentoIdentidad;
-
+  @ExcelCellRange private DocumentoIdentidad documentoIdentidad;
+  private String nombreComercial;
   private String nombre;
+  private Direccion domicilioFiscal;
+  private Direccion direccionEntrega;
+  private String codigoPais;
+  private String codigoSUNAT;
 
   public Empresa() {}
 
   public Empresa(
-      int tipo,
-      TipoDocumentoIdentidad tipoDocumentoIdentidad,
-      String numeroDocumentoIdentidad,
-      String nombre) {
-    this.tipo = tipo;
-    this.tipoDocumentoIdentidad = tipoDocumentoIdentidad;
-    this.numeroDocumentoIdentidad = numeroDocumentoIdentidad;
+      DocumentoIdentidad documentoIdentidad,
+      String nombreComercial,
+      String nombre,
+      Direccion domicilioFiscal,
+      Direccion direccionEntrega,
+      String codigoPais,
+      String codigoSUNAT) {
+    this.documentoIdentidad = documentoIdentidad;
+    this.nombreComercial = nombreComercial;
     this.nombre = nombre;
+    this.domicilioFiscal = domicilioFiscal;
+    this.direccionEntrega = direccionEntrega;
+    this.codigoPais = codigoPais;
+    this.codigoSUNAT = codigoSUNAT;
   }
 
-  public int getTipo() {
-    return tipo;
+  public DocumentoIdentidad getDocumentoIdentidad() {
+    return documentoIdentidad;
   }
 
-  public void setTipo(int tipo) {
-    this.tipo = tipo;
+  public void setDocumentoIdentidad(DocumentoIdentidad documentoIdentidad) {
+    this.documentoIdentidad = documentoIdentidad;
   }
 
-  public TipoDocumentoIdentidad getTipoDocumentoIdentidad() {
-    return tipoDocumentoIdentidad;
+  public String getNombreComercial() {
+    return nombreComercial;
   }
 
-  public void setTipoDocumentoIdentidad(TipoDocumentoIdentidad tipoDocumentoIdentidad) {
-    this.tipoDocumentoIdentidad = tipoDocumentoIdentidad;
-  }
-
-  public String getNumeroDocumentoIdentidad() {
-    return numeroDocumentoIdentidad;
-  }
-
-  public void setNumeroDocumentoIdentidad(String numeroDocumentoIdentidad) {
-    this.numeroDocumentoIdentidad = numeroDocumentoIdentidad;
+  public void setNombreComercial(String nombreComercial) {
+    this.nombreComercial = nombreComercial;
   }
 
   public String getNombre() {
@@ -64,17 +63,55 @@ public class Empresa {
     this.nombre = nombre;
   }
 
+  public Direccion getDomicilioFiscal() {
+    return domicilioFiscal;
+  }
+
+  public void setDomicilioFiscal(Direccion domicilioFiscal) {
+    this.domicilioFiscal = domicilioFiscal;
+  }
+
+  public Direccion getDireccionEntrega() {
+    return direccionEntrega;
+  }
+
+  public void setDireccionEntrega(Direccion direccionEntrega) {
+    this.direccionEntrega = direccionEntrega;
+  }
+
+  public String getCodigoPais() {
+    return codigoPais;
+  }
+
+  public void setCodigoPais(String codigoPais) {
+    this.codigoPais = codigoPais;
+  }
+
+  public String getCodigoSUNAT() {
+    return codigoSUNAT;
+  }
+
+  public void setCodigoSUNAT(String codigoSUNAT) {
+    this.codigoSUNAT = codigoSUNAT;
+  }
+
   @Override
   public String toString() {
     return "Empresa{"
-        + "tipo="
-        + tipo
-        + ", tipoDocumentoIdentidad="
-        + tipoDocumentoIdentidad
-        + ", numeroDocumentoIdentidad="
-        + numeroDocumentoIdentidad
+        + "documentoIdentidad="
+        + documentoIdentidad
+        + ", nombreComercial="
+        + nombreComercial
         + ", nombre="
         + nombre
+        + ", domicilioFiscal="
+        + domicilioFiscal
+        + ", direccionEntrega="
+        + direccionEntrega
+        + ", codigoPais="
+        + codigoPais
+        + ", codigoSUNAT="
+        + codigoSUNAT
         + '}';
   }
 }

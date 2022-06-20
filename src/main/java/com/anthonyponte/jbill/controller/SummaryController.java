@@ -49,7 +49,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class SummaryController {
 
   private final SummaryIFrame iFrame;
@@ -332,7 +334,7 @@ public class SummaryController {
               case 0:
                 return MyDateFormat.d_MMMM_Y(summary.getFechaEmision());
               case 1:
-                return summary.getEmisor().getNumeroDocumentoIdentidad();
+                return summary.getEmisor().getDocumentoIdentidad().getNumero();
               case 2:
                 return summary.getTipoDocumento().getCodigo();
               case 3:

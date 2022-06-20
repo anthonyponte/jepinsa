@@ -56,7 +56,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import org.joda.time.DateTime;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class ResumenesController {
   private final ResumenesIFrame iFrame;
   private final LoadingDialog dialog;
@@ -80,7 +82,8 @@ public class ResumenesController {
           start(date);
         });
 
-    iFrame.tblEncabezado.addMouseListener(new MouseAdapter() {
+    iFrame.tblEncabezado.addMouseListener(
+        new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
@@ -111,12 +114,14 @@ public class ResumenesController {
 
                     fos.flush();
                   } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(null,
+                    JOptionPane.showMessageDialog(
+                        null,
                         ex.getMessage(),
                         ResumenesController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null,
+                    JOptionPane.showMessageDialog(
+                        null,
                         ex.getMessage(),
                         ResumenesController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
@@ -132,7 +137,8 @@ public class ResumenesController {
 
                   MyTableResize.resize(iFrame.tblEncabezado);
                 } catch (SQLException ex) {
-                  JOptionPane.showMessageDialog(null,
+                  JOptionPane.showMessageDialog(
+                      null,
                       ex.getMessage(),
                       ResumenesController.class.getName(),
                       JOptionPane.ERROR_MESSAGE);
@@ -221,7 +227,7 @@ public class ResumenesController {
               case 5:
                 return MyDateFormat.d_MMMM_Y(resumenDiario.getFechaReferencia());
               case 6:
-                return resumenDiario.getEmisor().getNumeroDocumentoIdentidad();
+                return resumenDiario.getEmisor().getDocumentoIdentidad().getNumero();
               case 7:
                 return resumenDiario.getEmisor().getNombre();
               case 8:
@@ -285,7 +291,8 @@ public class ResumenesController {
               if (!get.isEmpty()) iFrame.tfFiltrar.requestFocus();
               else iFrame.dpMesAno.requestFocus();
             } catch (InterruptedException | ExecutionException ex) {
-              JOptionPane.showMessageDialog(null,
+              JOptionPane.showMessageDialog(
+                  null,
                   ex.getMessage(),
                   ResumenesController.class.getName(),
                   JOptionPane.ERROR_MESSAGE);

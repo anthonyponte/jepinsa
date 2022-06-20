@@ -17,7 +17,9 @@
 
 package com.anthonyponte.jbill.model;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class TipoDocumentoIdentidad {
   private String codigo;
   private String descripcion;

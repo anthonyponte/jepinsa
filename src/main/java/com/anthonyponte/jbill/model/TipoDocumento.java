@@ -19,7 +19,9 @@ package com.anthonyponte.jbill.model;
 
 import com.poiji.annotation.ExcelCellName;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class TipoDocumento {
 
   @ExcelCellName("Tipo")
