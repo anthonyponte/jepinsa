@@ -17,9 +17,12 @@ import com.anthonyponte.jbill.model.Empresa;
 import java.util.ArrayList;
 import org.joda.time.DateTime;
 import com.anthonyponte.jbill.dao.ComunicacionBajaDao;
+import com.anthonyponte.jbill.model.DocumentoIdentidad;
 import com.anthonyponte.jbill.model.TipoDocumento;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class IComunicacionBajaDao implements ComunicacionBajaDao {
 
   private final MyHsqldb database;
@@ -95,9 +98,13 @@ public class IComunicacionBajaDao implements ComunicacionBajaDao {
           comunicacionBaja.setFechaEmision(rs.getDate(6));
           comunicacionBaja.setFechaReferencia(rs.getDate(7));
 
+          DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
+          documentoIdentidad.setNumero(rs.getString(8));
+
           Empresa emisor = new Empresa();
-          emisor.setNumeroDocumentoIdentidad(rs.getString(8));
+          emisor.setDocumentoIdentidad(documentoIdentidad);
           emisor.setNombre(rs.getString(9));
+          
           comunicacionBaja.setEmisor(emisor);
 
           comunicacionBaja.setNombreZip(rs.getString(10));

@@ -20,6 +20,7 @@ package com.anthonyponte.jbill.idao;
 import com.anthonyponte.jbill.custom.MyHsqldb;
 import com.anthonyponte.jbill.dao.ResumenDiarioDao;
 import com.anthonyponte.jbill.model.Bill;
+import com.anthonyponte.jbill.model.DocumentoIdentidad;
 import com.anthonyponte.jbill.model.Empresa;
 import com.anthonyponte.jbill.model.Estado;
 import com.anthonyponte.jbill.model.Impuesto;
@@ -40,7 +41,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.DateTime;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class IResumenDiarioDao implements ResumenDiarioDao {
 
   private final MyHsqldb database;
@@ -87,9 +90,9 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
         ps.setString(6, get.getDocumento().getTipoDocumento().getDescripcion());
 
         if (get.getAdquiriente() != null) {
-          ps.setString(7, get.getAdquiriente().getNumeroDocumentoIdentidad());
-          ps.setString(8, get.getAdquiriente().getTipoDocumentoIdentidad().getCodigo());
-          ps.setString(9, get.getAdquiriente().getTipoDocumentoIdentidad().getDescripcion());
+          ps.setString(7, get.getAdquiriente().getDocumentoIdentidad().getNumero());
+          ps.setString(8, get.getAdquiriente().getDocumentoIdentidad().getTipo().getCodigo());
+          ps.setString(9, get.getAdquiriente().getDocumentoIdentidad().getTipo().getDescripcion());
         } else {
           ps.setNull(7, Types.INTEGER);
           ps.setNull(8, Types.VARCHAR);
@@ -276,9 +279,13 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
           resumenDiario.setFechaEmision(rs.getDate(6));
           resumenDiario.setFechaReferencia(rs.getDate(7));
 
+          DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
+          documentoIdentidad.setNumero(rs.getString(8));
+
           Empresa emisor = new Empresa();
-          emisor.setNumeroDocumentoIdentidad(rs.getString(8));
+          emisor.setDocumentoIdentidad(documentoIdentidad);
           emisor.setNombre(rs.getString(9));
+
           resumenDiario.setEmisor(emisor);
 
           resumenDiario.setNombreZip(rs.getString(10));
@@ -348,13 +355,17 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
 
           rs.getString(7);
           if (!rs.wasNull()) {
-            Empresa adquiriente = new Empresa();
-            adquiriente.setNumeroDocumentoIdentidad(rs.getString(7));
+            DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
+            documentoIdentidad.setNumero(rs.getString(7));
 
             TipoDocumentoIdentidad tipoDocumentoIdentidad = new TipoDocumentoIdentidad();
             tipoDocumentoIdentidad.setCodigo(rs.getString(8));
             tipoDocumentoIdentidad.setDescripcion(rs.getString(9));
-            adquiriente.setTipoDocumentoIdentidad(tipoDocumentoIdentidad);
+
+            documentoIdentidad.setTipo(tipoDocumentoIdentidad);
+
+            Empresa adquiriente = new Empresa();
+            adquiriente.setDocumentoIdentidad(documentoIdentidad);
 
             resumenDiarioDetalle.setAdquiriente(adquiriente);
           }

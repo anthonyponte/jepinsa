@@ -28,7 +28,9 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class SummaryDocuments {
 
   private static final Preferences PREFS =
@@ -117,7 +119,10 @@ public class SummaryDocuments {
                             .addContent(
                                 new Element("ID", cbc)
                                     .setText(
-                                        resumenDiario.getEmisor().getNumeroDocumentoIdentidad())))
+                                        resumenDiario
+                                            .getEmisor()
+                                            .getDocumentoIdentidad()
+                                            .getNumero())))
                     .addContent(
                         new Element("PartyName", cac)
                             .addContent(
@@ -138,10 +143,11 @@ public class SummaryDocuments {
         new Element("AccountingSupplierParty", cac)
             .addContent(
                 new Element("CustomerAssignedAccountID", cbc)
-                    .setText(resumenDiario.getEmisor().getNumeroDocumentoIdentidad()))
+                    .setText(resumenDiario.getEmisor().getDocumentoIdentidad().getNumero()))
             .addContent(
                 new Element("AdditionalAccountID", cbc)
-                    .setText(String.valueOf(resumenDiario.getEmisor().getTipo())))
+                    .setText(
+                        resumenDiario.getEmisor().getDocumentoIdentidad().getTipo().getCodigo()))
             .addContent(
                 new Element("Party", cac)
                     .addContent(
@@ -172,10 +178,15 @@ public class SummaryDocuments {
             new Element("AccountingCustomerParty", cac)
                 .addContent(
                     new Element("CustomerAssignedAccountID", cbc)
-                        .setText(detalle.getAdquiriente().getNumeroDocumentoIdentidad()))
+                        .setText(detalle.getAdquiriente().getDocumentoIdentidad().getNumero()))
                 .addContent(
                     new Element("AdditionalAccountID", cbc)
-                        .setText(String.valueOf(detalle.getAdquiriente().getTipo())));
+                        .setText(
+                            detalle
+                                .getAdquiriente()
+                                .getDocumentoIdentidad()
+                                .getTipo()
+                                .getCodigo()));
         summaryDocumentsLine.addContent(accountingCustomerParty);
       }
 

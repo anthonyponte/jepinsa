@@ -19,6 +19,7 @@ package com.anthonyponte.jbill.idao;
 
 import com.anthonyponte.jbill.custom.MyHsqldb;
 import com.anthonyponte.jbill.dao.SummaryDao;
+import com.anthonyponte.jbill.model.DocumentoIdentidad;
 import com.anthonyponte.jbill.model.Empresa;
 import com.anthonyponte.jbill.model.Summary;
 import com.anthonyponte.jbill.model.TipoDocumento;
@@ -103,8 +104,13 @@ public class ISummaryDao implements SummaryDao {
           summary.setId(rs.getInt(1));
           summary.setFechaEmision(rs.getDate(2));
 
+          
+          DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
+          documentoIdentidad.setNumero(rs.getString(3));
+          
           Empresa emisor = new Empresa();
-          emisor.setNumeroDocumentoIdentidad(rs.getString(3));
+          emisor.setDocumentoIdentidad(documentoIdentidad);
+          
           summary.setEmisor(emisor);
 
           TipoDocumento tipoDocumento = new TipoDocumento();
