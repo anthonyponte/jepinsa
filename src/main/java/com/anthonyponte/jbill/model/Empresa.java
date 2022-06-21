@@ -5,14 +5,13 @@
 
 package com.anthonyponte.jbill.model;
 
-import com.poiji.annotation.ExcelCellRange;
 
 /**
  * @author AnthonyPonte
  */
 public class Empresa {
 
-  @ExcelCellRange private DocumentoIdentidad documentoIdentidad;
+private DocumentoIdentidad documentoIdentidad;
   private String nombreComercial;
   private String nombre;
   private Direccion domicilioFiscal;

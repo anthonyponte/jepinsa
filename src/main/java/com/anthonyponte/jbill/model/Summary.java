@@ -19,8 +19,11 @@ package com.anthonyponte.jbill.model;
 
 import java.util.Date;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class Summary {
+
   private int id;
   private String ubl;
   private String version;
@@ -30,12 +33,10 @@ public class Summary {
   private Date fechaEmision;
   private Date fechaReferencia;
   private Empresa emisor;
-  private String nombreZip;
-  private byte[] zip;
+  private Archivo zip;
   private String ticket;
   private String statusCode;
-  private String nombreContent;
-  private byte[] content;
+  private Archivo cdr;
   private Date fechaIngreso;
 
   public Summary() {}
@@ -50,8 +51,11 @@ public class Summary {
       Date fechaEmision,
       Date fechaReferencia,
       Empresa emisor,
-      String nombreZip,
-      byte[] zip) {
+      Archivo zip,
+      String ticket,
+      String statusCode,
+      Archivo cdr,
+      Date fechaIngreso) {
     this.id = id;
     this.ubl = ubl;
     this.version = version;
@@ -61,31 +65,11 @@ public class Summary {
     this.fechaEmision = fechaEmision;
     this.fechaReferencia = fechaReferencia;
     this.emisor = emisor;
-    this.nombreZip = nombreZip;
     this.zip = zip;
-  }
-
-  public Summary(
-      String ubl,
-      String version,
-      TipoDocumento tipoDocumento,
-      String serie,
-      int correlativo,
-      Date fechaEmision,
-      Date fechaReferencia,
-      Empresa emisor,
-      String nombreZip,
-      byte[] zip) {
-    this.ubl = ubl;
-    this.version = version;
-    this.tipoDocumento = tipoDocumento;
-    this.serie = serie;
-    this.correlativo = correlativo;
-    this.fechaEmision = fechaEmision;
-    this.fechaReferencia = fechaReferencia;
-    this.emisor = emisor;
-    this.nombreZip = nombreZip;
-    this.zip = zip;
+    this.ticket = ticket;
+    this.statusCode = statusCode;
+    this.cdr = cdr;
+    this.fechaIngreso = fechaIngreso;
   }
 
   public int getId() {
@@ -160,19 +144,11 @@ public class Summary {
     this.emisor = emisor;
   }
 
-  public String getNombreZip() {
-    return nombreZip;
-  }
-
-  public void setNombreZip(String nombreZip) {
-    this.nombreZip = nombreZip;
-  }
-
-  public byte[] getZip() {
+  public Archivo getZip() {
     return zip;
   }
 
-  public void setZip(byte[] zip) {
+  public void setZip(Archivo zip) {
     this.zip = zip;
   }
 
@@ -192,20 +168,12 @@ public class Summary {
     this.statusCode = statusCode;
   }
 
-  public String getNombreContent() {
-    return nombreContent;
+  public Archivo getCdr() {
+    return cdr;
   }
 
-  public void setNombreContent(String nombreContent) {
-    this.nombreContent = nombreContent;
-  }
-
-  public byte[] getContent() {
-    return content;
-  }
-
-  public void setContent(byte[] content) {
-    this.content = content;
+  public void setCdr(Archivo cdr) {
+    this.cdr = cdr;
   }
 
   public Date getFechaIngreso() {
@@ -237,18 +205,14 @@ public class Summary {
         + fechaReferencia
         + ", emisor="
         + emisor
-        + ", nombreZip="
-        + nombreZip
         + ", zip="
         + zip
         + ", ticket="
         + ticket
         + ", statusCode="
         + statusCode
-        + ", nombreContent="
-        + nombreContent
-        + ", content="
-        + content
+        + ", cdr="
+        + cdr
         + ", fechaIngreso="
         + fechaIngreso
         + '}';

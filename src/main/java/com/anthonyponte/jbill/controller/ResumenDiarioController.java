@@ -33,6 +33,7 @@ import com.anthonyponte.jbill.filter.IntegerFilter;
 import com.anthonyponte.jbill.idao.IResumenDiarioDao;
 import com.anthonyponte.jbill.idao.ISummaryDao;
 import com.anthonyponte.jbill.maindoc.SummaryDocuments;
+import com.anthonyponte.jbill.model.Archivo;
 import com.anthonyponte.jbill.model.Bill;
 import com.anthonyponte.jbill.model.DocumentoIdentidad;
 import com.anthonyponte.jbill.model.TipoDocumentoIdentidad;
@@ -289,8 +290,12 @@ public class ResumenDiarioController {
                                 sign);
 
                         byte[] byteArray = Files.readAllBytes(zip.toPath());
-                        resumenDiario.setNombreZip(zip.getName());
-                        resumenDiario.setZip(byteArray);
+
+                        Archivo archivo = new Archivo();
+                        archivo.setNombre(zip.getName());
+                        archivo.setContenido(byteArray);
+                        resumenDiario.setZip(archivo);
+
                         int id = summaryDao.create(resumenDiario);
                         resumenDiarioDao.create(id, eventList);
 
@@ -332,7 +337,7 @@ public class ResumenDiarioController {
 
                           JOptionPane.showMessageDialog(
                               iFrame,
-                              get.getNombreZip() + " guardado",
+                              get.getZip().getNombre() + " guardado",
                               "Guardado",
                               JOptionPane.INFORMATION_MESSAGE);
                         } catch (InterruptedException | ExecutionException ex) {
@@ -519,7 +524,7 @@ public class ResumenDiarioController {
 
               Empresa adquiriente = new Empresa();
               adquiriente.setDocumentoIdentidad(documentoIdentidad);
-              
+
               detalle.setAdquiriente(adquiriente);
             }
 

@@ -19,6 +19,7 @@ package com.anthonyponte.jbill.idao;
 
 import com.anthonyponte.jbill.custom.MyHsqldb;
 import com.anthonyponte.jbill.dao.ResumenDiarioDao;
+import com.anthonyponte.jbill.model.Archivo;
 import com.anthonyponte.jbill.model.Bill;
 import com.anthonyponte.jbill.model.DocumentoIdentidad;
 import com.anthonyponte.jbill.model.Empresa;
@@ -31,6 +32,7 @@ import com.anthonyponte.jbill.model.Percepcion;
 import com.anthonyponte.jbill.model.RegimenPercepcion;
 import com.anthonyponte.jbill.model.ResumenDiario;
 import com.anthonyponte.jbill.model.ResumenDiarioDetalle;
+import com.anthonyponte.jbill.model.StatusResponse;
 import com.anthonyponte.jbill.model.TipoDocumento;
 import com.anthonyponte.jbill.model.TipoDocumentoIdentidad;
 import java.sql.PreparedStatement;
@@ -285,15 +287,22 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
           Empresa emisor = new Empresa();
           emisor.setDocumentoIdentidad(documentoIdentidad);
           emisor.setNombre(rs.getString(9));
-
           resumenDiario.setEmisor(emisor);
 
-          resumenDiario.setNombreZip(rs.getString(10));
-          resumenDiario.setZip(rs.getBytes(11));
+          Archivo zip = new Archivo();
+          zip.setNombre(rs.getString(10));
+          zip.setContenido(rs.getBytes(11));
+          resumenDiario.setZip(zip);
+
           resumenDiario.setTicket(rs.getString(12));
+
           resumenDiario.setStatusCode(rs.getString(13));
-          resumenDiario.setNombreContent(rs.getString(14));
-          resumenDiario.setContent(rs.getBytes(15));
+
+          Archivo cdr = new Archivo();
+          cdr.setNombre(rs.getString(14));
+          cdr.setContenido(rs.getBytes(15));
+          resumenDiario.setCdr(cdr);
+
           list.add(resumenDiario);
         }
       }

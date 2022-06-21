@@ -36,6 +36,7 @@ import com.anthonyponte.jbill.dao.SummaryDao;
 import com.anthonyponte.jbill.idao.ISummaryDao;
 import com.anthonyponte.jbill.dao.ComunicacionBajaDao;
 import com.anthonyponte.jbill.filter.SerieFilter;
+import com.anthonyponte.jbill.model.Archivo;
 import com.anthonyponte.jbill.model.ComunicacionBaja;
 import com.anthonyponte.jbill.model.DocumentoIdentidad;
 import com.anthonyponte.jbill.model.Empresa;
@@ -333,8 +334,12 @@ public class ComunicacionBajaController {
                                 sign);
 
                         byte[] byteArray = Files.readAllBytes(zip.toPath());
-                        comunicacionBaja.setNombreZip(zip.getName());
-                        comunicacionBaja.setZip(byteArray);
+
+                        Archivo archivo = new Archivo();
+                        archivo.setNombre(zip.getName());
+                        archivo.setContenido(byteArray);
+                        comunicacionBaja.setZip(archivo);
+
                         int id = summaryDao.create(comunicacionBaja);
                         comunicacionBajaDao.create(id, eventList);
 
@@ -378,7 +383,7 @@ public class ComunicacionBajaController {
 
                           JOptionPane.showMessageDialog(
                               iFrame,
-                              get.getNombreZip() + " guardado",
+                              get.getZip().getNombre() + " guardado",
                               "Guardado",
                               JOptionPane.INFORMATION_MESSAGE);
                         } catch (InterruptedException | ExecutionException ex) {

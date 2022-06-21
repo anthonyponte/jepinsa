@@ -95,9 +95,9 @@ public class ResumenesController {
                 chooser.setCurrentDirectory(new File("."));
 
                 if (column == 8) {
-                  chooser.setSelectedFile(new File(selected.getNombreZip()));
+                  chooser.setSelectedFile(new File(selected.getZip().getNombre()));
                 } else if (column == 11) {
-                  chooser.setSelectedFile(new File(selected.getNombreContent()));
+                  chooser.setSelectedFile(new File(selected.getCdr().getNombre()));
                 }
 
                 int result = chooser.showSaveDialog(iFrame);
@@ -107,9 +107,9 @@ public class ResumenesController {
                       new FileOutputStream(file.getParent() + "//" + file.getName())) {
 
                     if (column == 8) {
-                      fos.write(selected.getZip());
+                      fos.write(selected.getZip().getContenido());
                     } else if (column == 11) {
-                      fos.write(selected.getContent());
+                      fos.write(selected.getCdr().getContenido());
                     }
 
                     fos.flush();
@@ -231,13 +231,13 @@ public class ResumenesController {
               case 7:
                 return resumenDiario.getEmisor().getNombre();
               case 8:
-                return resumenDiario.getNombreZip();
+                return resumenDiario.getZip().getNombre();
               case 9:
                 return resumenDiario.getTicket();
               case 10:
                 return resumenDiario.getStatusCode();
               case 11:
-                return resumenDiario.getNombreContent();
+                return resumenDiario.getCdr().getNombre();
             }
             throw new IllegalStateException("Unexpected column: " + column);
           }

@@ -18,7 +18,6 @@ import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThr
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
 import com.anthonyponte.jbill.idao.IBillConsultService;
-import com.anthonyponte.jbill.model.Bill;
 import com.anthonyponte.jbill.view.BulkIFrame;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.poiji.bind.Poiji;
@@ -32,6 +31,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import billconsultservice.sunat.gob.pe.BillService;
 import billconsultservice.sunat.gob.pe.StatusResponse;
 import com.anthonyponte.jbill.custom.MyTableResize;
+import com.anthonyponte.jbill.model.Comprobante;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -60,10 +60,10 @@ public class BulkController {
   private final BulkIFrame iFrame;
   private final LoadingDialog dialog;
   private BillService service;
-  private EventList<Bill> eventList;
-  private SortedList<Bill> sortedList;
-  private AdvancedListSelectionModel<Bill> selectionModel;
-  private AdvancedTableModel<Bill> model;
+  private EventList<Comprobante> eventList;
+  private SortedList<Comprobante> sortedList;
+  private AdvancedListSelectionModel<Comprobante> selectionModel;
+  private AdvancedTableModel<Comprobante> model;
 
   public BulkController(BulkIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
@@ -128,7 +128,7 @@ public class BulkController {
 
                     for (int r = 0; r < model.getRowCount(); r++) {
                       XSSFRow row = sheet.createRow(r + 1);
-                      Bill bill = model.getElementAt(r);
+                      Comprobante comprobante = model.getElementAt(r);
                       publish(r);
 
                       for (int c = 0; c < model.getColumnCount(); c++) {
@@ -137,22 +137,22 @@ public class BulkController {
 
                         switch (cell.getColumnIndex()) {
                           case 0:
-                            cell.setCellValue(bill.getEmisor().getDocumentoIdentidad().getNumero());
+                            cell.setCellValue(comprobante.getRuc());
                             break;
                           case 1:
-                            cell.setCellValue(bill.getTipoDocumento().getCodigo());
+                            cell.setCellValue(comprobante.getTipo());
                             break;
                           case 2:
-                            cell.setCellValue(bill.getSerie());
+                            cell.setCellValue(comprobante.getSerie());
                             break;
                           case 3:
-                            cell.setCellValue(bill.getCorrelativo());
+                            cell.setCellValue(comprobante.getCorrelativo());
                             break;
                           case 4:
-                            cell.setCellValue(bill.getCdrStatusCode());
+                            cell.setCellValue(comprobante.getStatusResponse().getStatusCode());
                             break;
                           case 5:
-                            cell.setCellValue(bill.getStatusMessage());
+                            cell.setCellValue(comprobante.getStatusResponse().getStatusMessage());
                             break;
                           default:
                             break;
@@ -225,29 +225,27 @@ public class BulkController {
           @Override
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
-              Bill selected = selectionModel.getSelected().get(0);
+              Comprobante selected = selectionModel.getSelected().get(0);
 
-              if (selected.getStatusCode().equals("0001")
-                  || selected.getStatusCode().equals("0002")
-                  || selected.getStatusCode().equals("0003")) {
+              if (selected.getStatusResponse().getStatusCode().equals("0001")
+                  || selected.getStatusResponse().getStatusCode().equals("0002")
+                  || selected.getStatusResponse().getStatusCode().equals("0003")) {
 
                 SwingWorker worker =
-                    new SwingWorker<Bill, Integer>() {
+                    new SwingWorker<Comprobante, Integer>() {
                       @Override
-                      protected Bill doInBackground() throws Exception {
+                      protected Comprobante doInBackground() throws Exception {
                         dialog.setVisible(true);
                         dialog.setLocationRelativeTo(iFrame);
 
                         StatusResponse statusResponse =
                             service.getStatusCdr(
-                                selected.getEmisor().getDocumentoIdentidad().getNumero(),
-                                selected.getTipoDocumento().getCodigo(),
+                                selected.getRuc(),
+                                selected.getTipo(),
                                 selected.getSerie(),
                                 selected.getCorrelativo());
 
-                        selected.setCdrStatusCode(statusResponse.getStatusCode());
-                        selected.setCdrStatusMessage(statusResponse.getStatusMessage());
-                        selected.setCdrContent(statusResponse.getContent());
+                        selected.setStatusResponse(statusResponse);
 
                         return selected;
                       }
@@ -257,9 +255,9 @@ public class BulkController {
                         try {
                           dialog.dispose();
 
-                          Bill get = get();
+                          Comprobante get = get();
 
-                          if (get.getCdrStatusCode().equals("0004")) {
+                          if (get.getCdrStatusResponse().getStatusCode().equals("0004")) {
                             JFileChooser chooser = new JFileChooser();
                             chooser.setDialogTitle("Guardar");
                             chooser.setApproveButtonText("Guardar");
@@ -270,9 +268,9 @@ public class BulkController {
                             chooser.setSelectedFile(
                                 new File(
                                     "R-"
-                                        + get.getEmisor().getDocumentoIdentidad().getNumero()
+                                        + get.getRuc()
                                         + "-"
-                                        + get.getTipoDocumento().getCodigo()
+                                        + get.getTipo()
                                         + "-"
                                         + get.getSerie()
                                         + "-"
@@ -284,7 +282,7 @@ public class BulkController {
                               File file = chooser.getSelectedFile().getAbsoluteFile();
                               try (FileOutputStream fout =
                                   new FileOutputStream(file.getParent() + "//" + file.getName())) {
-                                fout.write(get.getCdrContent());
+                                fout.write(get.getCdrStatusResponse().getContent());
                                 fout.flush();
                                 fout.close();
                               } catch (FileNotFoundException ex) {
@@ -304,8 +302,8 @@ public class BulkController {
                           } else {
                             JOptionPane.showMessageDialog(
                                 iFrame,
-                                get.getCdrStatusMessage(),
-                                get.getCdrStatusCode(),
+                                get.getCdrStatusResponse().getStatusMessage(),
+                                get.getCdrStatusResponse().getStatusCode(),
                                 JOptionPane.ERROR_MESSAGE);
                           }
                         } catch (InterruptedException | ExecutionException ex) {
@@ -330,27 +328,28 @@ public class BulkController {
     eventList = new BasicEventList<>();
 
     Comparator comparator =
-        (Comparator<Bill>) (Bill o1, Bill o2) -> o1.getCorrelativo() - o2.getCorrelativo();
+        (Comparator<Comprobante>)
+            (Comprobante o1, Comprobante o2) -> o1.getCorrelativo() - o2.getCorrelativo();
 
     sortedList = new SortedList<>(eventList, comparator);
 
-    TextFilterator<Bill> textFilterator =
-        (List<String> baseList, Bill element) -> {
-          baseList.add(element.getEmisor().getDocumentoIdentidad().getNumero());
-          baseList.add(element.getTipoDocumento().getCodigo());
+    TextFilterator<Comprobante> textFilterator =
+        (List<String> baseList, Comprobante element) -> {
+          baseList.add(element.getRuc());
+          baseList.add(element.getTipo());
           baseList.add(element.getSerie());
           baseList.add(String.valueOf(element.getCorrelativo()));
-          baseList.add(element.getStatusCode());
-          baseList.add(element.getStatusMessage());
+          baseList.add(element.getStatusResponse().getStatusCode());
+          baseList.add(element.getStatusResponse().getStatusMessage());
         };
 
-    MatcherEditor<Bill> matcherEditor =
+    MatcherEditor<Comprobante> matcherEditor =
         new TextComponentMatcherEditor<>(this.iFrame.tfFiltrar, textFilterator);
 
-    FilterList<Bill> filterList = new FilterList<>(sortedList, matcherEditor);
+    FilterList<Comprobante> filterList = new FilterList<>(sortedList, matcherEditor);
 
-    TableFormat<Bill> tableFormat =
-        new TableFormat<Bill>() {
+    TableFormat<Comprobante> tableFormat =
+        new TableFormat<Comprobante>() {
           @Override
           public int getColumnCount() {
             return 6;
@@ -378,20 +377,20 @@ public class BulkController {
           }
 
           @Override
-          public Object getColumnValue(Bill baseObject, int column) {
+          public Object getColumnValue(Comprobante baseObject, int column) {
             switch (column) {
               case 0:
-                return baseObject.getEmisor().getDocumentoIdentidad().getNumero();
+                return baseObject.getRuc();
               case 1:
-                return baseObject.getTipoDocumento().getCodigo();
+                return baseObject.getTipo();
               case 2:
                 return baseObject.getSerie();
               case 3:
                 return baseObject.getCorrelativo();
               case 4:
-                return baseObject.getStatusCode();
+                return baseObject.getStatusResponse().getStatusCode();
               case 5:
-                return baseObject.getStatusMessage();
+                return baseObject.getStatusResponse().getStatusMessage();
               default:
                 break;
             }
@@ -420,25 +419,21 @@ public class BulkController {
     dialog.setLocationRelativeTo(iFrame);
 
     SwingWorker worker =
-        new SwingWorker<List<Bill>, Void>() {
+        new SwingWorker<List<Comprobante>, Void>() {
           @Override
-          protected List<Bill> doInBackground() throws Exception {
-            List<Bill> list = null;
+          protected List<Comprobante> doInBackground() throws Exception {
+            List<Comprobante> list = null;
             try {
-              list = Poiji.fromExcel(file, Bill.class);
+              list = Poiji.fromExcel(file, Comprobante.class);
 
               for (int i = 0; i < list.size(); i++) {
-                Bill bill = (Bill) list.get(i);
+                Comprobante bill = (Comprobante) list.get(i);
 
                 StatusResponse statusResponse =
                     service.getStatus(
-                        bill.getEmisor().getDocumentoIdentidad().getNumero(),
-                        bill.getTipoDocumento().getCodigo(),
-                        bill.getSerie(),
-                        bill.getCorrelativo());
+                        bill.getRuc(), bill.getTipo(), bill.getSerie(), bill.getCorrelativo());
 
-                list.get(i).setStatusCode(statusResponse.getStatusCode());
-                list.get(i).setStatusMessage(statusResponse.getStatusMessage());
+                list.get(i).setStatusResponse(statusResponse);
               }
             } catch (Exception ex) {
               cancel(true);
@@ -455,7 +450,7 @@ public class BulkController {
 
             if (!isCancelled()) {
               try {
-                List<Bill> get = get();
+                List<Comprobante> get = get();
 
                 eventList.clear();
                 eventList.addAll(get);

@@ -5,11 +5,22 @@
 
 package com.anthonyponte.jbill.model;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class StatusResponse {
-  protected byte[] content;
-  protected String contentMessage;
-  protected String statusCode;
+
+  private byte[] content;
+  private String contentMessage;
+  private String statusCode;
+
+  public StatusResponse() {}
+
+  public StatusResponse(byte[] content, String contentMessage, String statusCode) {
+    this.content = content;
+    this.contentMessage = contentMessage;
+    this.statusCode = statusCode;
+  }
 
   public byte[] getContent() {
     return content;
@@ -37,7 +48,7 @@ public class StatusResponse {
 
   @Override
   public String toString() {
-    return "StatusResponde{"
+    return "StatusResponse{"
         + "content="
         + content
         + ", contentMessage="

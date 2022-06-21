@@ -29,6 +29,7 @@ import com.anthonyponte.jbill.dao.SummaryDao;
 import com.anthonyponte.jbill.factory.BillServiceFactory;
 import com.anthonyponte.jbill.factory.SummaryFactory;
 import com.anthonyponte.jbill.idao.ISummaryDao;
+import com.anthonyponte.jbill.model.Archivo;
 import com.anthonyponte.jbill.model.StatusResponse;
 import com.anthonyponte.jbill.model.Summary;
 import com.anthonyponte.jbill.view.LoadingDialog;
@@ -99,7 +100,8 @@ public class SummaryController {
                       list = new ArrayList<>();
                       for (Summary next : selected) {
                         String ticket =
-                            billServiceFactory.sendSummary(next.getNombreZip(), next.getZip());
+                            billServiceFactory.sendSummary(
+                                next.getZip().getNombre(), next.getZip().getContenido());
 
                         if (ticket != null) {
                           Uninterruptibles.sleepUninterruptibly(10, TimeUnit.SECONDS);
@@ -110,8 +112,11 @@ public class SummaryController {
                               || response.getStatusCode().equals("99")) {
                             next.setTicket(ticket);
                             next.setStatusCode(response.getStatusCode());
-                            next.setNombreContent("R-" + next.getNombreZip());
-                            next.setContent(response.getContent());
+
+                            Archivo cdr = new Archivo();
+                            cdr.setNombre("R-" + next.getZip().getNombre());
+                            cdr.setContenido(response.getContent());
+                            next.setCdr(cdr);
 
                             dao.update(next.getId(), next);
 
@@ -160,7 +165,7 @@ public class SummaryController {
 
                 JFileChooser chooser = new JFileChooser();
                 chooser.setCurrentDirectory(new File("."));
-                chooser.setSelectedFile(new File(selected.getNombreZip()));
+                chooser.setSelectedFile(new File(selected.getZip().getNombre()));
 
                 int result = chooser.showSaveDialog(iFrame);
                 if (result == JFileChooser.APPROVE_OPTION) {
@@ -168,7 +173,7 @@ public class SummaryController {
                   try (FileOutputStream fos =
                       new FileOutputStream(file.getParent() + "//" + file.getName())) {
 
-                    fos.write(selected.getZip());
+                    fos.write(selected.getZip().getContenido());
 
                     fos.flush();
                   } catch (FileNotFoundException ex) {
@@ -344,7 +349,7 @@ public class SummaryController {
               case 5:
                 return String.valueOf(summary.getCorrelativo());
               case 6:
-                return summary.getNombreZip();
+                return summary.getZip().getNombre();
             }
             throw new IllegalStateException("Unexpected column: " + column);
           }

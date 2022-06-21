@@ -5,64 +5,63 @@
 
 package com.anthonyponte.jbill.model;
 
-import com.poiji.annotation.ExcelCellName;
-import com.poiji.annotation.ExcelCellRange;
 import java.util.Date;
 
 /**
  * @author anthony
  */
 public class Bill {
+
   private String ubl;
   private String version;
-
-  @ExcelCellName("Serie")
   private String serie;
-
-  @ExcelCellName("Correlativo")
   private int correlativo;
-
   private Date fechaEmision;
   private Date horaEmision;
-
-  @ExcelCellRange private TipoDocumento tipoDocumento;
-
+  private TipoDocumento tipoDocumento;
   private Moneda moneda;
-
   private Date fechaVencimiento;
-
-  @ExcelCellRange private Empresa emisor;
-
-  private String statusCode;
-  private String statusMessage;
-  private byte[] content;
-  private String cdrStatusCode;
-  private String cdrStatusMessage;
-  private byte[] cdrContent;
+  private Empresa emisor;
 
   public Bill() {}
 
-  public Bill(Empresa emisor, TipoDocumento tipoDocumento, String serie, int correlativo) {
-    this.emisor = emisor;
-    this.tipoDocumento = tipoDocumento;
+  public Bill(
+      String ubl,
+      String version,
+      String serie,
+      int correlativo,
+      Date fechaEmision,
+      Date horaEmision,
+      TipoDocumento tipoDocumento,
+      Moneda moneda,
+      Date fechaVencimiento,
+      Empresa emisor) {
+    this.ubl = ubl;
+    this.version = version;
     this.serie = serie;
     this.correlativo = correlativo;
-  }
-
-  public Empresa getEmisor() {
-    return emisor;
-  }
-
-  public void setEmisor(Empresa emisor) {
+    this.fechaEmision = fechaEmision;
+    this.horaEmision = horaEmision;
+    this.tipoDocumento = tipoDocumento;
+    this.moneda = moneda;
+    this.fechaVencimiento = fechaVencimiento;
     this.emisor = emisor;
   }
 
-  public TipoDocumento getTipoDocumento() {
-    return tipoDocumento;
+  public String getUbl() {
+    return ubl;
   }
 
-  public void setTipoDocumento(TipoDocumento tipoDocumento) {
-    this.tipoDocumento = tipoDocumento;
+  public void setUbl(String ubl) {
+    this.ubl = ubl;
+  }
+
+  public String getVersion() {
+    return version;
+  }
+
+  public void setVersion(String version) {
+    this.version = version;
   }
 
   public String getSerie() {
@@ -81,77 +80,77 @@ public class Bill {
     this.correlativo = correlativo;
   }
 
-  public String getStatusCode() {
-    return statusCode;
+  public Date getFechaEmision() {
+    return fechaEmision;
   }
 
-  public void setStatusCode(String statusCode) {
-    this.statusCode = statusCode;
+  public void setFechaEmision(Date fechaEmision) {
+    this.fechaEmision = fechaEmision;
   }
 
-  public String getStatusMessage() {
-    return statusMessage;
+  public Date getHoraEmision() {
+    return horaEmision;
   }
 
-  public void setStatusMessage(String statusMessage) {
-    this.statusMessage = statusMessage;
+  public void setHoraEmision(Date horaEmision) {
+    this.horaEmision = horaEmision;
   }
 
-  public byte[] getContent() {
-    return content;
+  public TipoDocumento getTipoDocumento() {
+    return tipoDocumento;
   }
 
-  public void setContent(byte[] content) {
-    this.content = content;
+  public void setTipoDocumento(TipoDocumento tipoDocumento) {
+    this.tipoDocumento = tipoDocumento;
   }
 
-  public String getCdrStatusCode() {
-    return cdrStatusCode;
+  public Moneda getMoneda() {
+    return moneda;
   }
 
-  public void setCdrStatusCode(String cdrStatusCode) {
-    this.cdrStatusCode = cdrStatusCode;
+  public void setMoneda(Moneda moneda) {
+    this.moneda = moneda;
   }
 
-  public String getCdrStatusMessage() {
-    return cdrStatusMessage;
+  public Date getFechaVencimiento() {
+    return fechaVencimiento;
   }
 
-  public void setCdrStatusMessage(String cdrStatusMessage) {
-    this.cdrStatusMessage = cdrStatusMessage;
+  public void setFechaVencimiento(Date fechaVencimiento) {
+    this.fechaVencimiento = fechaVencimiento;
   }
 
-  public byte[] getCdrContent() {
-    return cdrContent;
+  public Empresa getEmisor() {
+    return emisor;
   }
 
-  public void setCdrContent(byte[] cdrContent) {
-    this.cdrContent = cdrContent;
+  public void setEmisor(Empresa emisor) {
+    this.emisor = emisor;
   }
 
   @Override
   public String toString() {
     return "Bill{"
-        + "emisor="
-        + emisor
-        + ", tipoDocumento="
-        + tipoDocumento
+        + "ubl="
+        + ubl
+        + ", version="
+        + version
         + ", serie="
         + serie
         + ", correlativo="
         + correlativo
-        + ", statusCode="
-        + statusCode
-        + ", statusMessage="
-        + statusMessage
-        + ", content="
-        + content
-        + ", cdrStatusCode="
-        + cdrStatusCode
-        + ", cdrStatusMessage="
-        + cdrStatusMessage
-        + ", cdrContent="
-        + cdrContent
+        + ", fechaEmision="
+        + fechaEmision
+        + ", horaEmision="
+        + horaEmision
+        + ", tipoDocumento="
+        + tipoDocumento
+        + ", moneda="
+        + moneda
+        + ", fechaVencimiento="
+        + fechaVencimiento
+        + ", emisor="
+        + emisor
         + '}';
   }
 }

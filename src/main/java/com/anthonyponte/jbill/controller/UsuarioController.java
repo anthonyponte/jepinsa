@@ -101,7 +101,7 @@ public class UsuarioController {
               preferences.put(
                   FIRMA_CONTRASENA, String.valueOf(iFrame.tfFirmaContrasena.getPassword()));
               preferences.put(RUC, iFrame.tfRuc.getText());
-              preferences.putInt(RUC_TIPO, 6);
+              preferences.put(RUC_TIPO, "6");
               preferences.put(RAZON_SOCIAL, iFrame.tfRazonSocial.getText());
               preferences.put(CLAVE_SOL_USUARIO, iFrame.tfClaveSolUsuario.getText());
               preferences.put(

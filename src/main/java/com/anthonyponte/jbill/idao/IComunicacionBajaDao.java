@@ -17,7 +17,9 @@ import com.anthonyponte.jbill.model.Empresa;
 import java.util.ArrayList;
 import org.joda.time.DateTime;
 import com.anthonyponte.jbill.dao.ComunicacionBajaDao;
+import com.anthonyponte.jbill.model.Archivo;
 import com.anthonyponte.jbill.model.DocumentoIdentidad;
+import com.anthonyponte.jbill.model.StatusResponse;
 import com.anthonyponte.jbill.model.TipoDocumento;
 
 /**
@@ -104,15 +106,23 @@ public class IComunicacionBajaDao implements ComunicacionBajaDao {
           Empresa emisor = new Empresa();
           emisor.setDocumentoIdentidad(documentoIdentidad);
           emisor.setNombre(rs.getString(9));
-          
+
           comunicacionBaja.setEmisor(emisor);
 
-          comunicacionBaja.setNombreZip(rs.getString(10));
-          comunicacionBaja.setZip(rs.getBytes(11));
+          Archivo zip = new Archivo();
+          zip.setNombre(rs.getString(10));
+          zip.setContenido(rs.getBytes(11));
+          comunicacionBaja.setZip(zip);
+
           comunicacionBaja.setTicket(rs.getString(12));
+
           comunicacionBaja.setStatusCode(rs.getString(13));
-          comunicacionBaja.setNombreContent(rs.getString(14));
-          comunicacionBaja.setContent(rs.getBytes(15));
+
+          Archivo cdr = new Archivo();
+          cdr.setNombre(rs.getString(14));
+          cdr.setContenido(rs.getBytes(15));
+          comunicacionBaja.setCdr(cdr);
+
           list.add(comunicacionBaja);
         }
       }
