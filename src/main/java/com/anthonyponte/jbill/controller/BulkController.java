@@ -31,7 +31,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import billconsultservice.sunat.gob.pe.BillService;
 import billconsultservice.sunat.gob.pe.StatusResponse;
 import com.anthonyponte.jbill.custom.MyTableResize;
-import com.anthonyponte.jbill.model.Comprobante;
+import com.anthonyponte.jbill.model.Documento;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -60,10 +60,10 @@ public class BulkController {
   private final BulkIFrame iFrame;
   private final LoadingDialog dialog;
   private BillService service;
-  private EventList<Comprobante> eventList;
-  private SortedList<Comprobante> sortedList;
-  private AdvancedListSelectionModel<Comprobante> selectionModel;
-  private AdvancedTableModel<Comprobante> model;
+  private EventList<Documento> eventList;
+  private SortedList<Documento> sortedList;
+  private AdvancedListSelectionModel<Documento> selectionModel;
+  private AdvancedTableModel<Documento> model;
 
   public BulkController(BulkIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
@@ -89,8 +89,7 @@ public class BulkController {
           }
         });
 
-    iFrame.btnExportar.addActionListener(
-        (ActionEvent e) -> {
+    iFrame.btnExportar.addActionListener((ActionEvent e) -> {
           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
           String dateString = format.format(new Date());
 
@@ -128,7 +127,7 @@ public class BulkController {
 
                     for (int r = 0; r < model.getRowCount(); r++) {
                       XSSFRow row = sheet.createRow(r + 1);
-                      Comprobante comprobante = model.getElementAt(r);
+                      Documento comprobante = model.getElementAt(r);
                       publish(r);
 
                       for (int c = 0; c < model.getColumnCount(); c++) {
@@ -220,21 +219,20 @@ public class BulkController {
           }
         });
 
-    iFrame.table.addMouseListener(
-        new MouseAdapter() {
+    iFrame.table.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
-              Comprobante selected = selectionModel.getSelected().get(0);
+              Documento selected = selectionModel.getSelected().get(0);
 
               if (selected.getStatusResponse().getStatusCode().equals("0001")
                   || selected.getStatusResponse().getStatusCode().equals("0002")
                   || selected.getStatusResponse().getStatusCode().equals("0003")) {
 
                 SwingWorker worker =
-                    new SwingWorker<Comprobante, Integer>() {
+                    new SwingWorker<Documento, Integer>() {
                       @Override
-                      protected Comprobante doInBackground() throws Exception {
+                      protected Documento doInBackground() throws Exception {
                         dialog.setVisible(true);
                         dialog.setLocationRelativeTo(iFrame);
 
@@ -255,7 +253,7 @@ public class BulkController {
                         try {
                           dialog.dispose();
 
-                          Comprobante get = get();
+                          Documento get = get();
 
                           if (get.getCdrStatusResponse().getStatusCode().equals("0004")) {
                             JFileChooser chooser = new JFileChooser();
@@ -328,13 +326,13 @@ public class BulkController {
     eventList = new BasicEventList<>();
 
     Comparator comparator =
-        (Comparator<Comprobante>)
-            (Comprobante o1, Comprobante o2) -> o1.getCorrelativo() - o2.getCorrelativo();
+        (Comparator<Documento>)
+            (Documento o1, Documento o2) -> o1.getCorrelativo() - o2.getCorrelativo();
 
     sortedList = new SortedList<>(eventList, comparator);
 
-    TextFilterator<Comprobante> textFilterator =
-        (List<String> baseList, Comprobante element) -> {
+    TextFilterator<Documento> textFilterator =
+        (List<String> baseList, Documento element) -> {
           baseList.add(element.getRuc());
           baseList.add(element.getTipo());
           baseList.add(element.getSerie());
@@ -343,13 +341,13 @@ public class BulkController {
           baseList.add(element.getStatusResponse().getStatusMessage());
         };
 
-    MatcherEditor<Comprobante> matcherEditor =
+    MatcherEditor<Documento> matcherEditor =
         new TextComponentMatcherEditor<>(this.iFrame.tfFiltrar, textFilterator);
 
-    FilterList<Comprobante> filterList = new FilterList<>(sortedList, matcherEditor);
+    FilterList<Documento> filterList = new FilterList<>(sortedList, matcherEditor);
 
-    TableFormat<Comprobante> tableFormat =
-        new TableFormat<Comprobante>() {
+    TableFormat<Documento> tableFormat =
+        new TableFormat<Documento>() {
           @Override
           public int getColumnCount() {
             return 6;
@@ -377,7 +375,7 @@ public class BulkController {
           }
 
           @Override
-          public Object getColumnValue(Comprobante baseObject, int column) {
+          public Object getColumnValue(Documento baseObject, int column) {
             switch (column) {
               case 0:
                 return baseObject.getRuc();
@@ -419,15 +417,15 @@ public class BulkController {
     dialog.setLocationRelativeTo(iFrame);
 
     SwingWorker worker =
-        new SwingWorker<List<Comprobante>, Void>() {
+        new SwingWorker<List<Documento>, Void>() {
           @Override
-          protected List<Comprobante> doInBackground() throws Exception {
-            List<Comprobante> list = null;
+          protected List<Documento> doInBackground() throws Exception {
+            List<Documento> list = null;
             try {
-              list = Poiji.fromExcel(file, Comprobante.class);
+              list = Poiji.fromExcel(file, Documento.class);
 
               for (int i = 0; i < list.size(); i++) {
-                Comprobante bill = (Comprobante) list.get(i);
+                Documento bill = (Documento) list.get(i);
 
                 StatusResponse statusResponse =
                     service.getStatus(
@@ -450,7 +448,7 @@ public class BulkController {
 
             if (!isCancelled()) {
               try {
-                List<Comprobante> get = get();
+                List<Documento> get = get();
 
                 eventList.clear();
                 eventList.addAll(get);

@@ -10,7 +10,7 @@ import billconsultservice.sunat.gob.pe.StatusResponse;
 /**
  * @author AnthonyPonte
  */
-public class Comprobante {
+public class Documento {
 
   @ExcelCellName("RUC")
   private String ruc;
@@ -27,9 +27,9 @@ public class Comprobante {
   private StatusResponse statusResponse;
   private StatusResponse cdrStatusResponse;
 
-  public Comprobante() {}
+  public Documento() {}
 
-  public Comprobante(String ruc, String tipo, String serie, int correlativo) {
+  public Documento(String ruc, String tipo, String serie, int correlativo) {
     this.ruc = ruc;
     this.tipo = tipo;
     this.serie = serie;

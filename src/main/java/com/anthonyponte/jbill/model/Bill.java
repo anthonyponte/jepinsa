@@ -6,6 +6,7 @@
 package com.anthonyponte.jbill.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author anthony
@@ -22,6 +23,10 @@ public class Bill {
   private Moneda moneda;
   private Date fechaVencimiento;
   private Empresa emisor;
+  private Empresa adquiriente;
+  private DocumentoIdentidad sujeto;
+  private Documento guia;
+  private List<Documento> documentosRelacionados;
 
   public Bill() {}
 
@@ -35,7 +40,11 @@ public class Bill {
       TipoDocumento tipoDocumento,
       Moneda moneda,
       Date fechaVencimiento,
-      Empresa emisor) {
+      Empresa emisor,
+      Empresa adquiriente,
+      DocumentoIdentidad sujeto,
+      Documento guia,
+      List<Documento> documentosRelacionados) {
     this.ubl = ubl;
     this.version = version;
     this.serie = serie;
@@ -46,6 +55,10 @@ public class Bill {
     this.moneda = moneda;
     this.fechaVencimiento = fechaVencimiento;
     this.emisor = emisor;
+    this.adquiriente = adquiriente;
+    this.sujeto = sujeto;
+    this.guia = guia;
+    this.documentosRelacionados = documentosRelacionados;
   }
 
   public String getUbl() {
@@ -128,6 +141,38 @@ public class Bill {
     this.emisor = emisor;
   }
 
+  public Empresa getAdquiriente() {
+    return adquiriente;
+  }
+
+  public void setAdquiriente(Empresa adquiriente) {
+    this.adquiriente = adquiriente;
+  }
+
+  public DocumentoIdentidad getSujeto() {
+    return sujeto;
+  }
+
+  public void setSujeto(DocumentoIdentidad sujeto) {
+    this.sujeto = sujeto;
+  }
+
+  public Documento getGuia() {
+    return guia;
+  }
+
+  public void setGuia(Documento guia) {
+    this.guia = guia;
+  }
+
+  public List<Documento> getDocumentosRelacionados() {
+    return documentosRelacionados;
+  }
+
+  public void setDocumentosRelacionados(List<Documento> documentosRelacionados) {
+    this.documentosRelacionados = documentosRelacionados;
+  }
+
   @Override
   public String toString() {
     return "Bill{"
@@ -151,6 +196,14 @@ public class Bill {
         + fechaVencimiento
         + ", emisor="
         + emisor
+        + ", adquiriente="
+        + adquiriente
+        + ", sujeto="
+        + sujeto
+        + ", guia="
+        + guia
+        + ", documentosRelacionados="
+        + documentosRelacionados
         + '}';
   }
 }
