@@ -8,4 +8,14 @@ package com.anthonyponte.jbill.model;
 /**
  * @author AnthonyPonte
  */
-public class FacturaDetalle {}
+public class FacturaDetalle {
+
+  private int id;
+  private Factura factura;
+  private int numero;
+  private String unidadMedida;
+  private double cantidad;
+  private String codigoProducto;
+  private int codigoProductoSUNAT;
+  private String codigoProductoGTIN;
+}
