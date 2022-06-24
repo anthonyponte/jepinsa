@@ -24,6 +24,7 @@ import java.util.List;
  * @author AnthonyPonte
  */
 public class ResumenDiario extends Summary {
+  
   private List<ResumenDiarioDetalle> resumenDiarioDetalles;
 
   public ResumenDiario() {}

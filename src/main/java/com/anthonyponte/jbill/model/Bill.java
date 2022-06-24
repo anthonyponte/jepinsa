@@ -27,6 +27,24 @@ public class Bill {
   private DocumentoIdentidad sujeto;
   private Documento guia;
   private List<Documento> documentosRelacionados;
+  private double totalTributos;
+  private Operacion totalExportacion;
+  private Operacion totalInafectas;
+  private Operacion totalExoneradas;
+  private Operacion totalGratuitas;
+  private Impuesto tributosGratuitas;
+  private Operacion totalGravadas;
+  private Impuesto igv;
+  private Impuesto isc;
+  private Impuesto otrosTributos;
+  private Impuesto icbper;
+  private OtrosCargos descuentos;
+  private double otrosDescuentos;
+  private double otrosCargos;
+  private double total;
+  private double totalValorVenta;
+  private double totalPrecioVenta;
+  private double totalRedondeado;
 
   public Bill() {}
 

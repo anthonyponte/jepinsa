@@ -17,7 +17,9 @@
 
 package com.anthonyponte.jbill.model;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class Impuesto {
   private double total;
   private String codigo;
