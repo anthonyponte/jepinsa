@@ -45,6 +45,12 @@ public class Bill {
   private double totalValorVenta;
   private double totalPrecioVenta;
   private double totalRedondeado;
+  private List<Leyenda> leyendas;
+  private String tipoOperacion;
+  private String ordenCompra;
+  private String fise;
+  private String derechosArancelarios;
+  private String incoterm;
 
   public Bill() {}
 
@@ -62,7 +68,31 @@ public class Bill {
       Empresa adquiriente,
       DocumentoIdentidad sujeto,
       Documento guia,
-      List<Documento> documentosRelacionados) {
+      List<Documento> documentosRelacionados,
+      double totalTributos,
+      Operacion totalExportacion,
+      Operacion totalInafectas,
+      Operacion totalExoneradas,
+      Operacion totalGratuitas,
+      Impuesto tributosGratuitas,
+      Operacion totalGravadas,
+      Impuesto igv,
+      Impuesto isc,
+      Impuesto otrosTributos,
+      Impuesto icbper,
+      OtrosCargos descuentos,
+      double otrosDescuentos,
+      double otrosCargos,
+      double total,
+      double totalValorVenta,
+      double totalPrecioVenta,
+      double totalRedondeado,
+      List<Leyenda> leyendas,
+      String tipoOperacion,
+      String ordenCompra,
+      String fise,
+      String derechosArancelarios,
+      String incoterm) {
     this.ubl = ubl;
     this.version = version;
     this.serie = serie;
@@ -77,6 +107,30 @@ public class Bill {
     this.sujeto = sujeto;
     this.guia = guia;
     this.documentosRelacionados = documentosRelacionados;
+    this.totalTributos = totalTributos;
+    this.totalExportacion = totalExportacion;
+    this.totalInafectas = totalInafectas;
+    this.totalExoneradas = totalExoneradas;
+    this.totalGratuitas = totalGratuitas;
+    this.tributosGratuitas = tributosGratuitas;
+    this.totalGravadas = totalGravadas;
+    this.igv = igv;
+    this.isc = isc;
+    this.otrosTributos = otrosTributos;
+    this.icbper = icbper;
+    this.descuentos = descuentos;
+    this.otrosDescuentos = otrosDescuentos;
+    this.otrosCargos = otrosCargos;
+    this.total = total;
+    this.totalValorVenta = totalValorVenta;
+    this.totalPrecioVenta = totalPrecioVenta;
+    this.totalRedondeado = totalRedondeado;
+    this.leyendas = leyendas;
+    this.tipoOperacion = tipoOperacion;
+    this.ordenCompra = ordenCompra;
+    this.fise = fise;
+    this.derechosArancelarios = derechosArancelarios;
+    this.incoterm = incoterm;
   }
 
   public String getUbl() {
@@ -191,6 +245,198 @@ public class Bill {
     this.documentosRelacionados = documentosRelacionados;
   }
 
+  public double getTotalTributos() {
+    return totalTributos;
+  }
+
+  public void setTotalTributos(double totalTributos) {
+    this.totalTributos = totalTributos;
+  }
+
+  public Operacion getTotalExportacion() {
+    return totalExportacion;
+  }
+
+  public void setTotalExportacion(Operacion totalExportacion) {
+    this.totalExportacion = totalExportacion;
+  }
+
+  public Operacion getTotalInafectas() {
+    return totalInafectas;
+  }
+
+  public void setTotalInafectas(Operacion totalInafectas) {
+    this.totalInafectas = totalInafectas;
+  }
+
+  public Operacion getTotalExoneradas() {
+    return totalExoneradas;
+  }
+
+  public void setTotalExoneradas(Operacion totalExoneradas) {
+    this.totalExoneradas = totalExoneradas;
+  }
+
+  public Operacion getTotalGratuitas() {
+    return totalGratuitas;
+  }
+
+  public void setTotalGratuitas(Operacion totalGratuitas) {
+    this.totalGratuitas = totalGratuitas;
+  }
+
+  public Impuesto getTributosGratuitas() {
+    return tributosGratuitas;
+  }
+
+  public void setTributosGratuitas(Impuesto tributosGratuitas) {
+    this.tributosGratuitas = tributosGratuitas;
+  }
+
+  public Operacion getTotalGravadas() {
+    return totalGravadas;
+  }
+
+  public void setTotalGravadas(Operacion totalGravadas) {
+    this.totalGravadas = totalGravadas;
+  }
+
+  public Impuesto getIgv() {
+    return igv;
+  }
+
+  public void setIgv(Impuesto igv) {
+    this.igv = igv;
+  }
+
+  public Impuesto getIsc() {
+    return isc;
+  }
+
+  public void setIsc(Impuesto isc) {
+    this.isc = isc;
+  }
+
+  public Impuesto getOtrosTributos() {
+    return otrosTributos;
+  }
+
+  public void setOtrosTributos(Impuesto otrosTributos) {
+    this.otrosTributos = otrosTributos;
+  }
+
+  public Impuesto getIcbper() {
+    return icbper;
+  }
+
+  public void setIcbper(Impuesto icbper) {
+    this.icbper = icbper;
+  }
+
+  public OtrosCargos getDescuentos() {
+    return descuentos;
+  }
+
+  public void setDescuentos(OtrosCargos descuentos) {
+    this.descuentos = descuentos;
+  }
+
+  public double getOtrosDescuentos() {
+    return otrosDescuentos;
+  }
+
+  public void setOtrosDescuentos(double otrosDescuentos) {
+    this.otrosDescuentos = otrosDescuentos;
+  }
+
+  public double getOtrosCargos() {
+    return otrosCargos;
+  }
+
+  public void setOtrosCargos(double otrosCargos) {
+    this.otrosCargos = otrosCargos;
+  }
+
+  public double getTotal() {
+    return total;
+  }
+
+  public void setTotal(double total) {
+    this.total = total;
+  }
+
+  public double getTotalValorVenta() {
+    return totalValorVenta;
+  }
+
+  public void setTotalValorVenta(double totalValorVenta) {
+    this.totalValorVenta = totalValorVenta;
+  }
+
+  public double getTotalPrecioVenta() {
+    return totalPrecioVenta;
+  }
+
+  public void setTotalPrecioVenta(double totalPrecioVenta) {
+    this.totalPrecioVenta = totalPrecioVenta;
+  }
+
+  public double getTotalRedondeado() {
+    return totalRedondeado;
+  }
+
+  public void setTotalRedondeado(double totalRedondeado) {
+    this.totalRedondeado = totalRedondeado;
+  }
+
+  public List<Leyenda> getLeyendas() {
+    return leyendas;
+  }
+
+  public void setLeyendas(List<Leyenda> leyendas) {
+    this.leyendas = leyendas;
+  }
+
+  public String getTipoOperacion() {
+    return tipoOperacion;
+  }
+
+  public void setTipoOperacion(String tipoOperacion) {
+    this.tipoOperacion = tipoOperacion;
+  }
+
+  public String getOrdenCompra() {
+    return ordenCompra;
+  }
+
+  public void setOrdenCompra(String ordenCompra) {
+    this.ordenCompra = ordenCompra;
+  }
+
+  public String getFise() {
+    return fise;
+  }
+
+  public void setFise(String fise) {
+    this.fise = fise;
+  }
+
+  public String getDerechosArancelarios() {
+    return derechosArancelarios;
+  }
+
+  public void setDerechosArancelarios(String derechosArancelarios) {
+    this.derechosArancelarios = derechosArancelarios;
+  }
+
+  public String getIncoterm() {
+    return incoterm;
+  }
+
+  public void setIncoterm(String incoterm) {
+    this.incoterm = incoterm;
+  }
+
   @Override
   public String toString() {
     return "Bill{"
@@ -222,6 +468,54 @@ public class Bill {
         + guia
         + ", documentosRelacionados="
         + documentosRelacionados
+        + ", totalTributos="
+        + totalTributos
+        + ", totalExportacion="
+        + totalExportacion
+        + ", totalInafectas="
+        + totalInafectas
+        + ", totalExoneradas="
+        + totalExoneradas
+        + ", totalGratuitas="
+        + totalGratuitas
+        + ", tributosGratuitas="
+        + tributosGratuitas
+        + ", totalGravadas="
+        + totalGravadas
+        + ", igv="
+        + igv
+        + ", isc="
+        + isc
+        + ", otrosTributos="
+        + otrosTributos
+        + ", icbper="
+        + icbper
+        + ", descuentos="
+        + descuentos
+        + ", otrosDescuentos="
+        + otrosDescuentos
+        + ", otrosCargos="
+        + otrosCargos
+        + ", total="
+        + total
+        + ", totalValorVenta="
+        + totalValorVenta
+        + ", totalPrecioVenta="
+        + totalPrecioVenta
+        + ", totalRedondeado="
+        + totalRedondeado
+        + ", leyendas="
+        + leyendas
+        + ", tipoOperacion="
+        + tipoOperacion
+        + ", ordenCompra="
+        + ordenCompra
+        + ", fise="
+        + fise
+        + ", derechosArancelarios="
+        + derechosArancelarios
+        + ", incoterm="
+        + incoterm
         + '}';
   }
 }

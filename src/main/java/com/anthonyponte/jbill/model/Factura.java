@@ -17,6 +17,10 @@ public class Factura extends Bill {
 
   public Factura() {}
 
+  public Factura(List<FacturaDetalle> facturaDetalles) {
+    this.facturaDetalles = facturaDetalles;
+  }
+
   public Factura(
       List<FacturaDetalle> facturaDetalles,
       String ubl,
@@ -32,7 +36,31 @@ public class Factura extends Bill {
       Empresa adquiriente,
       DocumentoIdentidad sujeto,
       Documento guia,
-      List<Documento> documentosRelacionados) {
+      List<Documento> documentosRelacionados,
+      double totalTributos,
+      Operacion totalExportacion,
+      Operacion totalInafectas,
+      Operacion totalExoneradas,
+      Operacion totalGratuitas,
+      Impuesto tributosGratuitas,
+      Operacion totalGravadas,
+      Impuesto igv,
+      Impuesto isc,
+      Impuesto otrosTributos,
+      Impuesto icbper,
+      OtrosCargos descuentos,
+      double otrosDescuentos,
+      double otrosCargos,
+      double total,
+      double totalValorVenta,
+      double totalPrecioVenta,
+      double totalRedondeado,
+      List<Leyenda> leyendas,
+      String tipoOperacion,
+      String ordenCompra,
+      String fise,
+      String derechosArancelarios,
+      String incoterm) {
     super(
         ubl,
         version,
@@ -47,7 +75,31 @@ public class Factura extends Bill {
         adquiriente,
         sujeto,
         guia,
-        documentosRelacionados);
+        documentosRelacionados,
+        totalTributos,
+        totalExportacion,
+        totalInafectas,
+        totalExoneradas,
+        totalGratuitas,
+        tributosGratuitas,
+        totalGravadas,
+        igv,
+        isc,
+        otrosTributos,
+        icbper,
+        descuentos,
+        otrosDescuentos,
+        otrosCargos,
+        total,
+        totalValorVenta,
+        totalPrecioVenta,
+        totalRedondeado,
+        leyendas,
+        tipoOperacion,
+        ordenCompra,
+        fise,
+        derechosArancelarios,
+        incoterm);
     this.facturaDetalles = facturaDetalles;
   }
 
