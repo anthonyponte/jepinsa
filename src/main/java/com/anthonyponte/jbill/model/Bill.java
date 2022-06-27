@@ -51,6 +51,7 @@ public class Bill {
   private String fise;
   private String derechosArancelarios;
   private String incoterm;
+  private Percepcion percepcion;
 
   public Bill() {}
 

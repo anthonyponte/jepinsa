@@ -17,29 +17,31 @@
 
 package com.anthonyponte.jbill.model;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class Percepcion {
-  private RegimenPercepcion regimenPercepcion;
+
+  private Regimen regimen;
   private double monto;
   private double montoTotal;
   private double base;
 
   public Percepcion() {}
 
-  public Percepcion(
-      RegimenPercepcion regimenPercepcion, double monto, double montoTotal, double base) {
-    this.regimenPercepcion = regimenPercepcion;
+  public Percepcion(Regimen regimen, double monto, double montoTotal, double base) {
+    this.regimen = regimen;
     this.monto = monto;
     this.montoTotal = montoTotal;
     this.base = base;
   }
 
-  public RegimenPercepcion getRegimenPercepcion() {
-    return regimenPercepcion;
+  public Regimen getRegimen() {
+    return regimen;
   }
 
-  public void setRegimenPercepcion(RegimenPercepcion regimenPercepcion) {
-    this.regimenPercepcion = regimenPercepcion;
+  public void setRegimen(Regimen regimen) {
+    this.regimen = regimen;
   }
 
   public double getMonto() {
@@ -69,8 +71,8 @@ public class Percepcion {
   @Override
   public String toString() {
     return "Percepcion{"
-        + "regimenPercepcion="
-        + regimenPercepcion
+        + "regimen="
+        + regimen
         + ", monto="
         + monto
         + ", montoTotal="

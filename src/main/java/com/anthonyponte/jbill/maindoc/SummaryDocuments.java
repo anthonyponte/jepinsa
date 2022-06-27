@@ -216,12 +216,11 @@ public class SummaryDocuments {
             new Element("SUNATPerceptionSummaryDocumentReference", sac)
                 .addContent(
                     new Element("SUNATPerceptionSystemCode", sac)
-                        .setText(detalle.getPercepcion().getRegimenPercepcion().getCodigo()))
+                        .setText(detalle.getPercepcion().getRegimen().getCodigo()))
                 .addContent(
                     new Element("SUNATPerceptionPercent", sac)
                         .setText(
-                            String.valueOf(
-                                detalle.getPercepcion().getRegimenPercepcion().getPorcentaje())))
+                            String.valueOf(detalle.getPercepcion().getRegimen().getPorcentaje())))
                 .addContent(
                     new Element("TotalInvoiceAmount", cbc)
                         .setAttribute("currencyID", "PEN")

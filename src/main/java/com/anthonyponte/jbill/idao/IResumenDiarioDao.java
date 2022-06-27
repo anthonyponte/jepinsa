@@ -29,10 +29,9 @@ import com.anthonyponte.jbill.model.Moneda;
 import com.anthonyponte.jbill.model.Operacion;
 import com.anthonyponte.jbill.model.OtrosCargos;
 import com.anthonyponte.jbill.model.Percepcion;
-import com.anthonyponte.jbill.model.RegimenPercepcion;
+import com.anthonyponte.jbill.model.Regimen;
 import com.anthonyponte.jbill.model.ResumenDiario;
 import com.anthonyponte.jbill.model.ResumenDiarioDetalle;
-import com.anthonyponte.jbill.model.StatusResponse;
 import com.anthonyponte.jbill.model.TipoDocumento;
 import com.anthonyponte.jbill.model.TipoDocumentoIdentidad;
 import java.sql.PreparedStatement;
@@ -114,9 +113,9 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
         }
 
         if (get.getPercepcion() != null) {
-          ps.setString(14, get.getPercepcion().getRegimenPercepcion().getCodigo());
-          ps.setString(15, get.getPercepcion().getRegimenPercepcion().getDescripcion());
-          ps.setDouble(16, get.getPercepcion().getRegimenPercepcion().getPorcentaje());
+          ps.setString(14, get.getPercepcion().getRegimen().getCodigo());
+          ps.setString(15, get.getPercepcion().getRegimen().getDescripcion());
+          ps.setDouble(16, get.getPercepcion().getRegimen().getPorcentaje());
           ps.setDouble(17, get.getPercepcion().getMonto());
           ps.setDouble(18, get.getPercepcion().getMontoTotal());
           ps.setDouble(19, get.getPercepcion().getBase());
@@ -397,11 +396,11 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
           if (!rs.wasNull()) {
             Percepcion percepcion = new Percepcion();
 
-            RegimenPercepcion regimenPercepcion = new RegimenPercepcion();
-            regimenPercepcion.setCodigo(rs.getString(14));
-            regimenPercepcion.setDescripcion(rs.getString(15));
-            regimenPercepcion.setPorcentaje(rs.getDouble(16));
-            percepcion.setRegimenPercepcion(regimenPercepcion);
+            Regimen regimen = new Regimen();
+            regimen.setCodigo(rs.getString(14));
+            regimen.setDescripcion(rs.getString(15));
+            regimen.setPorcentaje(rs.getDouble(16));
+            percepcion.setRegimen(regimen);
 
             percepcion.setMonto(rs.getDouble(17));
             percepcion.setMontoTotal(rs.getDouble(18));

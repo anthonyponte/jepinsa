@@ -112,11 +112,11 @@ public class ResumenDiarioDetalleTableFormat implements TableFormat<ResumenDiari
         else return "";
       case 7:
         if (detalle.getPercepcion() != null)
-          return detalle.getPercepcion().getRegimenPercepcion().getDescripcion();
+          return detalle.getPercepcion().getRegimen().getDescripcion();
         else return "";
       case 8:
         if (detalle.getPercepcion() != null)
-          return detalle.getPercepcion().getRegimenPercepcion().getPorcentaje();
+          return detalle.getPercepcion().getRegimen().getPorcentaje();
         else return "";
       case 9:
         if (detalle.getPercepcion() != null) return detalle.getPercepcion().getMonto();

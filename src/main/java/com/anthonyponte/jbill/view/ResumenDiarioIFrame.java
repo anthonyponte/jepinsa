@@ -9,7 +9,7 @@ import com.anthonyponte.jbill.filter.SerieFilter;
 import com.anthonyponte.jbill.model.TipoDocumentoIdentidad;
 import com.anthonyponte.jbill.model.Estado;
 import com.anthonyponte.jbill.model.Moneda;
-import com.anthonyponte.jbill.model.RegimenPercepcion;
+import com.anthonyponte.jbill.model.Regimen;
 import com.anthonyponte.jbill.model.TipoDocumento;
 import java.awt.Color;
 import java.awt.Component;
@@ -722,10 +722,10 @@ cbxMoneda.setRenderer(new DefaultListCellRenderer(){
 
     pnlPercepcion.setMaximumSize(null);
 
-    cbxPercepcionRegimen.setModel(new DefaultComboBoxModel(new RegimenPercepcion[] {
-        new RegimenPercepcion("01", "Percepción Venta Interna", 2),
-        new RegimenPercepcion("02", "Percepción a la adquisición de combustible", 1),
-        new RegimenPercepcion("03", "Percepción realizada al agente de percepción con tasa especial", 0.5)
+    cbxPercepcionRegimen.setModel(new DefaultComboBoxModel(new Regimen[] {
+        new Regimen("01", "Percepción Venta Interna", 2),
+        new Regimen("02", "Percepción a la adquisición de combustible", 1),
+        new Regimen("03", "Percepción realizada al agente de percepción con tasa especial", 0.5)
     }));
     cbxPercepcionRegimen.setEnabled(false);
     cbxPercepcionRegimen.setMaximumSize(null);
@@ -735,8 +735,8 @@ cbxMoneda.setRenderer(new DefaultListCellRenderer(){
         public Component getListCellRendererComponent(
             JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            if (value instanceof RegimenPercepcion) {
-                RegimenPercepcion regimenPercepcion = (RegimenPercepcion) value;
+            if (value instanceof Regimen) {
+                Regimen regimenPercepcion = (Regimen) value;
                 setText(regimenPercepcion.getDescripcion());
             }
             return this;

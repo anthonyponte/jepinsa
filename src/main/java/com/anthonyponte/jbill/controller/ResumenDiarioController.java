@@ -44,7 +44,7 @@ import com.anthonyponte.jbill.model.Moneda;
 import com.anthonyponte.jbill.model.Operacion;
 import com.anthonyponte.jbill.model.OtrosCargos;
 import com.anthonyponte.jbill.model.Percepcion;
-import com.anthonyponte.jbill.model.RegimenPercepcion;
+import com.anthonyponte.jbill.model.Regimen;
 import com.anthonyponte.jbill.model.ResumenDiario;
 import com.anthonyponte.jbill.model.ResumenDiarioDetalle;
 import com.anthonyponte.jbill.model.TipoDocumento;
@@ -495,17 +495,15 @@ public class ResumenDiarioController {
           }
         });
 
-    iFrame.cbxPercepcionRegimen.addItemListener(
-        (ItemEvent ie) -> {
+    iFrame.cbxPercepcionRegimen.addItemListener((ItemEvent ie) -> {
           if (ie.getStateChange() == ItemEvent.SELECTED) {
-            RegimenPercepcion regimenPercepcion =
-                (RegimenPercepcion) iFrame.cbxPercepcionRegimen.getSelectedItem();
+            Regimen regimenPercepcion =
+                (Regimen) iFrame.cbxPercepcionRegimen.getSelectedItem();
             iFrame.tfPercepcionTasa.setText(String.valueOf(regimenPercepcion.getPorcentaje()));
           }
         });
 
-    iFrame.btnAgregar.addActionListener(
-        (arg0) -> {
+    iFrame.btnAgregar.addActionListener((arg0) -> {
           try {
             ResumenDiarioDetalle detalle = new ResumenDiarioDetalle();
 
@@ -542,8 +540,7 @@ public class ResumenDiarioController {
 
             if (iFrame.cbxPercepcionRegimen.getSelectedIndex() >= 0) {
               Percepcion percepcion = new Percepcion();
-              percepcion.setRegimenPercepcion(
-                  (RegimenPercepcion) iFrame.cbxPercepcionRegimen.getSelectedItem());
+              percepcion.setRegimen((Regimen) iFrame.cbxPercepcionRegimen.getSelectedItem());
               percepcion.setMonto((Double) iFrame.tfPercepcionMonto.getValue());
               percepcion.setMontoTotal((Double) iFrame.tfPercepcionMonto.getValue());
               percepcion.setMonto((Double) iFrame.tfPercepcionMontoTotal.getValue());
@@ -849,11 +846,11 @@ public class ResumenDiarioController {
                 else return "";
               case 7:
                 if (detalle.getPercepcion() != null)
-                  return detalle.getPercepcion().getRegimenPercepcion().getDescripcion();
+                  return detalle.getPercepcion().getRegimen().getDescripcion();
                 else return "";
               case 8:
                 if (detalle.getPercepcion() != null)
-                  return detalle.getPercepcion().getRegimenPercepcion().getPorcentaje();
+                  return detalle.getPercepcion().getRegimen().getPorcentaje();
                 else return "";
               case 9:
                 if (detalle.getPercepcion() != null) return detalle.getPercepcion().getMonto();
