@@ -139,7 +139,7 @@ public class ComunicacionesController {
                           elDetalle.clear();
                           elDetalle.addAll(get);
 
-                          MyTableResize.resize(iFrame.tblEncabezado);
+                          MyTableResize.resize(iFrame.tblDetalle);
 
                         } catch (InterruptedException | ExecutionException ex) {
                           JOptionPane.showMessageDialog(

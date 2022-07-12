@@ -135,7 +135,7 @@ public class ResumenesController {
                   elDetalle.clear();
                   elDetalle.addAll(get);
 
-                  MyTableResize.resize(iFrame.tblEncabezado);
+                  MyTableResize.resize(iFrame.tblDetalle);
                 } catch (SQLException ex) {
                   JOptionPane.showMessageDialog(
                       null,
