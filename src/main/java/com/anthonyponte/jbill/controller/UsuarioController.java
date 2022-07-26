@@ -136,6 +136,8 @@ public class UsuarioController {
             frame.miResumenes.setEnabled(true);
 
             frame.miBulkSendSummary.setEnabled(true);
+            
+            frame.miSendBill.setEnabled(true);
 
             frame.miBulkGetStatus.setEnabled(true);
 

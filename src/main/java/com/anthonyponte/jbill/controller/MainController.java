@@ -15,6 +15,7 @@ import com.anthonyponte.jbill.view.LoadingDialog;
 import com.anthonyponte.jbill.view.ResumenDiarioIFrame;
 import com.anthonyponte.jbill.view.ResumenesIFrame;
 import com.anthonyponte.jbill.view.GetStatusIFrame;
+import com.anthonyponte.jbill.view.SendBillIFrame;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -42,9 +43,10 @@ public class MainController {
   private ResumenDiarioIFrame resumenDiarioIFrame;
   private ComunicacionesIFrame comunicacionesIFrame;
   private ResumenesIFrame resumenesIFrame;
-  private BulkSendSummaryIFrame summaryIFrame;
-  private GetStatusIFrame statusIFrame;
-  private BulkGetStatusIFrame bulkIFrame;
+  private BulkSendSummaryIFrame bulkSendSummaryIFrame;
+  private SendBillIFrame sendBillIFrame;
+  private GetStatusIFrame getStatusIFrame;
+  private BulkGetStatusIFrame bulkGetStatusIFrame;
   private LoadingDialog dialog;
   private Server server;
 
@@ -127,35 +129,47 @@ public class MainController {
         });
 
     frame.miBulkSendSummary.addActionListener((ActionEvent arg0) -> {
-          if (isIframeClosed(summaryIFrame)) {
-            summaryIFrame = new BulkSendSummaryIFrame();
-            frame.dpane.add(summaryIFrame);
-            summaryIFrame.setLocation(centerIFrame(summaryIFrame));
-            new BulkSendSummaryController(summaryIFrame, dialog).init();
+          if (isIframeClosed(bulkSendSummaryIFrame)) {
+            bulkSendSummaryIFrame = new BulkSendSummaryIFrame();
+            frame.dpane.add(bulkSendSummaryIFrame);
+            bulkSendSummaryIFrame.setLocation(centerIFrame(bulkSendSummaryIFrame));
+            new BulkSendSummaryController(bulkSendSummaryIFrame, dialog).init();
           } else {
-            iframeClosed(summaryIFrame);
+            iframeClosed(bulkSendSummaryIFrame);
+          }
+        });
+
+    frame.miSendBill.addActionListener(
+        (ActionEvent arg0) -> {
+          if (isIframeClosed(sendBillIFrame)) {
+            sendBillIFrame = new SendBillIFrame();
+            frame.dpane.add(sendBillIFrame);
+            sendBillIFrame.setLocation(centerIFrame(sendBillIFrame));
+            new SendBillController(sendBillIFrame, dialog).init();
+          } else {
+            iframeClosed(sendBillIFrame);
           }
         });
 
     frame.miGetStatus.addActionListener((ActionEvent arg0) -> {
-          if (isIframeClosed(statusIFrame)) {
-            statusIFrame = new GetStatusIFrame();
-            frame.dpane.add(statusIFrame);
-            statusIFrame.setLocation(centerIFrame(statusIFrame));
-            new GetStatusController(statusIFrame, dialog).init();
+          if (isIframeClosed(getStatusIFrame)) {
+            getStatusIFrame = new GetStatusIFrame();
+            frame.dpane.add(getStatusIFrame);
+            getStatusIFrame.setLocation(centerIFrame(getStatusIFrame));
+            new GetStatusController(getStatusIFrame, dialog).init();
           } else {
-            iframeClosed(statusIFrame);
+            iframeClosed(getStatusIFrame);
           }
         });
 
     frame.miBulkGetStatus.addActionListener((ActionEvent arg0) -> {
-          if (isIframeClosed(bulkIFrame)) {
-            bulkIFrame = new BulkGetStatusIFrame();
-            frame.dpane.add(bulkIFrame);
-            bulkIFrame.setLocation(centerIFrame(bulkIFrame));
-            new BulkGetStatusController(bulkIFrame, dialog).init();
+          if (isIframeClosed(bulkGetStatusIFrame)) {
+            bulkGetStatusIFrame = new BulkGetStatusIFrame();
+            frame.dpane.add(bulkGetStatusIFrame);
+            bulkGetStatusIFrame.setLocation(centerIFrame(bulkGetStatusIFrame));
+            new BulkGetStatusController(bulkGetStatusIFrame, dialog).init();
           } else {
-            iframeClosed(bulkIFrame);
+            iframeClosed(bulkGetStatusIFrame);
           }
         });
 

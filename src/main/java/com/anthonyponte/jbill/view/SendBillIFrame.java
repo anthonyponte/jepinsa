@@ -58,7 +58,7 @@ public class SendBillIFrame extends JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Status");
+        setTitle("Send Bill");
         setFrameIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#f7d117")));
         setMaximumSize(null);
         setMinimumSize(null);

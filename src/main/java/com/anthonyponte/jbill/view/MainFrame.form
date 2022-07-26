@@ -93,6 +93,12 @@
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                     </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="miSendBill">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Send Bill"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </MenuItem>
                   </SubComponents>
                 </Menu>
                 <Menu class="javax.swing.JMenu" name="menuBillConsultService">

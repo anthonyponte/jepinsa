@@ -61,6 +61,7 @@ public class MainFrame extends JFrame {
         menuWebService = new JMenu();
         menuBillService = new JMenu();
         miBulkSendSummary = new JMenuItem();
+        miSendBill = new JMenuItem();
         menuBillConsultService = new JMenu();
         miGetStatus = new JMenuItem();
         miBulkGetStatus = new JMenuItem();
@@ -127,6 +128,10 @@ public class MainFrame extends JFrame {
         miBulkSendSummary.setEnabled(false);
         menuBillService.add(miBulkSendSummary);
 
+        miSendBill.setText("Send Bill");
+        miSendBill.setEnabled(false);
+        menuBillService.add(miSendBill);
+
         menuWebService.add(menuBillService);
 
         menuBillConsultService.setText("BillConsultService");
@@ -190,5 +195,6 @@ public class MainFrame extends JFrame {
     public JMenuItem miGetStatus;
     public JMenuItem miResumenDiario;
     public JMenuItem miResumenes;
+    public JMenuItem miSendBill;
     // End of variables declaration//GEN-END:variables
 }
