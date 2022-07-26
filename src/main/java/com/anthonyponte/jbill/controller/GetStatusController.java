@@ -9,10 +9,9 @@ import billconsultservice.sunat.gob.pe.BillService;
 import billconsultservice.sunat.gob.pe.StatusResponse;
 import com.anthonyponte.jbill.filter.SerieFilter;
 import com.anthonyponte.jbill.idao.IBillConsultService;
-import com.anthonyponte.jbill.model.Bill;
 import com.anthonyponte.jbill.model.TipoDocumento;
 import com.anthonyponte.jbill.view.LoadingDialog;
-import com.anthonyponte.jbill.view.StatusIFrame;
+import com.anthonyponte.jbill.view.GetStatusIFrame;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -36,22 +35,21 @@ import org.kordamp.ikonli.swing.FontIcon;
 /**
  * @author AnthonyPonte
  */
-public class StatusController {
+public class GetStatusController {
 
-  private final StatusIFrame iFrame;
+  private final GetStatusIFrame iFrame;
   private final LoadingDialog dialog;
   private Preferences preferences;
   private BillService service;
 
-  public StatusController(StatusIFrame iFrame, LoadingDialog dialog) {
+  public GetStatusController(GetStatusIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();
   }
 
   public void init() {
-    iFrame.cbxTipo.addItemListener(
-        (ItemEvent ie) -> {
+    iFrame.cbxTipo.addItemListener((ItemEvent ie) -> {
           if (ie.getStateChange() == ItemEvent.SELECTED) {
             try {
               iFrame.tfSerie.getDocument().remove(0, iFrame.tfSerie.getText().length());
@@ -63,17 +61,15 @@ public class StatusController {
                 docSerie.setDocumentFilter(new SerieFilter('F'));
               }
             } catch (BadLocationException ex) {
-              JOptionPane.showMessageDialog(
-                  null,
+              JOptionPane.showMessageDialog(null,
                   ex.getMessage(),
-                  StatusController.class.getName(),
+                  GetStatusController.class.getName(),
                   JOptionPane.ERROR_MESSAGE);
             }
           }
         });
 
-    iFrame.btnEstado.addActionListener(
-        (ActionEvent e) -> {
+    iFrame.btnEstado.addActionListener((ActionEvent e) -> {
           dialog.setVisible(true);
           dialog.setLocationRelativeTo(iFrame);
 
@@ -130,10 +126,9 @@ public class StatusController {
                     }
 
                   } catch (InterruptedException | ExecutionException ex) {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        StatusController.class.getName(),
+                        GetStatusController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }
@@ -142,8 +137,7 @@ public class StatusController {
           worker.execute();
         });
 
-    iFrame.btnCdr.addActionListener(
-        (ActionEvent e) -> {
+    iFrame.btnCdr.addActionListener((ActionEvent e) -> {
           dialog.setVisible(true);
           dialog.setLocationRelativeTo(iFrame);
 
@@ -204,16 +198,14 @@ public class StatusController {
                           fout.flush();
                           fout.close();
                         } catch (FileNotFoundException ex) {
-                          JOptionPane.showMessageDialog(
-                              null,
+                          JOptionPane.showMessageDialog(null,
                               ex.getMessage(),
-                              StatusController.class.getName(),
+                              GetStatusController.class.getName(),
                               JOptionPane.ERROR_MESSAGE);
                         } catch (IOException ex) {
-                          JOptionPane.showMessageDialog(
-                              null,
+                          JOptionPane.showMessageDialog(null,
                               ex.getMessage(),
-                              StatusController.class.getName(),
+                              GetStatusController.class.getName(),
                               JOptionPane.ERROR_MESSAGE);
                         }
                       }
@@ -225,10 +217,9 @@ public class StatusController {
                           JOptionPane.ERROR_MESSAGE);
                     }
                   } catch (InterruptedException | ExecutionException ex) {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        StatusController.class.getName(),
+                        GetStatusController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }

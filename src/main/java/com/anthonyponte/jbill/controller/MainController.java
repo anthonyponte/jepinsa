@@ -4,8 +4,8 @@
  */
 package com.anthonyponte.jbill.controller;
 
-import com.anthonyponte.jbill.view.BulkIFrame;
-import com.anthonyponte.jbill.view.SummaryIFrame;
+import com.anthonyponte.jbill.view.BulkGetStatusIFrame;
+import com.anthonyponte.jbill.view.BulkSendSummaryIFrame;
 import com.anthonyponte.jbill.view.MainFrame;
 import com.anthonyponte.jbill.view.UsuarioIFrame;
 import com.anthonyponte.jbill.view.ComunicacionBajaIFrame;
@@ -14,7 +14,7 @@ import com.anthonyponte.jbill.view.FacturaIFrame;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.anthonyponte.jbill.view.ResumenDiarioIFrame;
 import com.anthonyponte.jbill.view.ResumenesIFrame;
-import com.anthonyponte.jbill.view.StatusIFrame;
+import com.anthonyponte.jbill.view.GetStatusIFrame;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -42,9 +42,9 @@ public class MainController {
   private ResumenDiarioIFrame resumenDiarioIFrame;
   private ComunicacionesIFrame comunicacionesIFrame;
   private ResumenesIFrame resumenesIFrame;
-  private SummaryIFrame summaryIFrame;
-  private StatusIFrame statusIFrame;
-  private BulkIFrame bulkIFrame;
+  private BulkSendSummaryIFrame summaryIFrame;
+  private GetStatusIFrame statusIFrame;
+  private BulkGetStatusIFrame bulkIFrame;
   private LoadingDialog dialog;
   private Server server;
 
@@ -126,37 +126,34 @@ public class MainController {
           }
         });
 
-    frame.miSummary.addActionListener(
-        (ActionEvent arg0) -> {
+    frame.miBulkSendSummary.addActionListener((ActionEvent arg0) -> {
           if (isIframeClosed(summaryIFrame)) {
-            summaryIFrame = new SummaryIFrame();
+            summaryIFrame = new BulkSendSummaryIFrame();
             frame.dpane.add(summaryIFrame);
             summaryIFrame.setLocation(centerIFrame(summaryIFrame));
-            new SummaryController(summaryIFrame, dialog).init();
+            new BulkSendSummaryController(summaryIFrame, dialog).init();
           } else {
             iframeClosed(summaryIFrame);
           }
         });
 
-    frame.miStatus.addActionListener(
-        (ActionEvent arg0) -> {
+    frame.miGetStatus.addActionListener((ActionEvent arg0) -> {
           if (isIframeClosed(statusIFrame)) {
-            statusIFrame = new StatusIFrame();
+            statusIFrame = new GetStatusIFrame();
             frame.dpane.add(statusIFrame);
             statusIFrame.setLocation(centerIFrame(statusIFrame));
-            new StatusController(statusIFrame, dialog).init();
+            new GetStatusController(statusIFrame, dialog).init();
           } else {
             iframeClosed(statusIFrame);
           }
         });
 
-    frame.miBulk.addActionListener(
-        (ActionEvent arg0) -> {
+    frame.miBulkGetStatus.addActionListener((ActionEvent arg0) -> {
           if (isIframeClosed(bulkIFrame)) {
-            bulkIFrame = new BulkIFrame();
+            bulkIFrame = new BulkGetStatusIFrame();
             frame.dpane.add(bulkIFrame);
             bulkIFrame.setLocation(centerIFrame(bulkIFrame));
-            new BulkController(bulkIFrame, dialog).init();
+            new BulkGetStatusController(bulkIFrame, dialog).init();
           } else {
             iframeClosed(bulkIFrame);
           }

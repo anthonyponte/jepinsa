@@ -135,11 +135,11 @@ public class UsuarioController {
 
             frame.miResumenes.setEnabled(true);
 
-            frame.miSummary.setEnabled(true);
+            frame.miBulkSendSummary.setEnabled(true);
 
-            frame.miBulk.setEnabled(true);
+            frame.miBulkGetStatus.setEnabled(true);
 
-            frame.miStatus.setEnabled(true);
+            frame.miGetStatus.setEnabled(true);
           } catch (BackingStoreException ex) {
             JOptionPane.showMessageDialog(
                 null,

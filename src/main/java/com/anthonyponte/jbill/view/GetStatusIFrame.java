@@ -30,12 +30,12 @@ import org.kordamp.ikonli.swing.FontIcon;
  *
  * @author anthony
  */
-public class StatusIFrame extends JInternalFrame {
+public class GetStatusIFrame extends JInternalFrame {
 
     /**
      * Creates new form VoidedDocumentsIFrame
      */
-    public StatusIFrame() {
+    public GetStatusIFrame() {
         initComponents();
     }
 
@@ -64,7 +64,7 @@ public class StatusIFrame extends JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Status");
+        setTitle("Get Status");
         setFrameIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#f7d117")));
         setMaximumSize(null);
         setMinimumSize(null);

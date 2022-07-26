@@ -60,10 +60,10 @@ public class MainFrame extends JFrame {
         miResumenes = new JMenuItem();
         menuWebService = new JMenu();
         menuBillService = new JMenu();
-        miSummary = new JMenuItem();
+        miBulkSendSummary = new JMenuItem();
         menuBillConsultService = new JMenu();
-        miStatus = new JMenuItem();
-        miBulk = new JMenuItem();
+        miGetStatus = new JMenuItem();
+        miBulkGetStatus = new JMenuItem();
         menuSalir = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -123,22 +123,22 @@ public class MainFrame extends JFrame {
         menuBillService.setText("BillService");
         menuBillService.setEnabled(false);
 
-        miSummary.setText("Summary");
-        miSummary.setEnabled(false);
-        menuBillService.add(miSummary);
+        miBulkSendSummary.setText("Bulk Send Summary");
+        miBulkSendSummary.setEnabled(false);
+        menuBillService.add(miBulkSendSummary);
 
         menuWebService.add(menuBillService);
 
         menuBillConsultService.setText("BillConsultService");
         menuBillConsultService.setEnabled(false);
 
-        miStatus.setText("Status");
-        miStatus.setEnabled(false);
-        menuBillConsultService.add(miStatus);
+        miGetStatus.setText("Get Status");
+        miGetStatus.setEnabled(false);
+        menuBillConsultService.add(miGetStatus);
 
-        miBulk.setText("Bulk");
-        miBulk.setEnabled(false);
-        menuBillConsultService.add(miBulk);
+        miBulkGetStatus.setText("Bulk Get Status");
+        miBulkGetStatus.setEnabled(false);
+        menuBillConsultService.add(miBulkGetStatus);
 
         menuWebService.add(menuBillConsultService);
 
@@ -182,13 +182,13 @@ public class MainFrame extends JFrame {
     public JMenuItem menuSalir;
     public JMenu menuVer;
     public JMenu menuWebService;
-    public JMenuItem miBulk;
+    public JMenuItem miBulkGetStatus;
+    public JMenuItem miBulkSendSummary;
     public JMenuItem miComunicacionBaja;
     public JMenuItem miComunicaciones;
     public JMenuItem miFactura;
+    public JMenuItem miGetStatus;
     public JMenuItem miResumenDiario;
     public JMenuItem miResumenes;
-    public JMenuItem miStatus;
-    public JMenuItem miSummary;
     // End of variables declaration//GEN-END:variables
 }

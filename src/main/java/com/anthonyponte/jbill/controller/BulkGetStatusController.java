@@ -18,7 +18,7 @@ import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThr
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
 import com.anthonyponte.jbill.idao.IBillConsultService;
-import com.anthonyponte.jbill.view.BulkIFrame;
+import com.anthonyponte.jbill.view.BulkGetStatusIFrame;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.poiji.bind.Poiji;
 import java.awt.event.ActionEvent;
@@ -55,9 +55,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  * @author AnthonyPonte
  */
-public class BulkController {
+public class BulkGetStatusController {
 
-  private final BulkIFrame iFrame;
+  private final BulkGetStatusIFrame iFrame;
   private final LoadingDialog dialog;
   private BillService service;
   private EventList<Documento> eventList;
@@ -65,7 +65,7 @@ public class BulkController {
   private AdvancedListSelectionModel<Documento> selectionModel;
   private AdvancedTableModel<Documento> model;
 
-  public BulkController(BulkIFrame iFrame, LoadingDialog dialog) {
+  public BulkGetStatusController(BulkGetStatusIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();
@@ -175,10 +175,9 @@ public class BulkController {
                       dialog.dispose();
 
                     } catch (InterruptedException | ExecutionException | IOException ex) {
-                      JOptionPane.showMessageDialog(
-                          null,
+                      JOptionPane.showMessageDialog(null,
                           ex.getMessage(),
-                          BulkController.class.getName(),
+                          BulkGetStatusController.class.getName(),
                           JOptionPane.ERROR_MESSAGE);
                     }
                   }
@@ -188,8 +187,7 @@ public class BulkController {
           }
         });
 
-    iFrame.scroll.setDropTarget(
-        new DropTarget() {
+    iFrame.scroll.setDropTarget(new DropTarget() {
           @Override
           public synchronized void drop(DropTargetDropEvent dtde) {
             if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
@@ -207,10 +205,9 @@ public class BulkController {
                   }
                 }
               } catch (UnsupportedFlavorException | IOException ex) {
-                JOptionPane.showMessageDialog(
-                    null,
+                JOptionPane.showMessageDialog(null,
                     ex.getMessage(),
-                    BulkController.class.getName(),
+                    BulkGetStatusController.class.getName(),
                     JOptionPane.ERROR_MESSAGE);
               }
             } else {
@@ -284,16 +281,14 @@ public class BulkController {
                                 fout.flush();
                                 fout.close();
                               } catch (FileNotFoundException ex) {
-                                JOptionPane.showMessageDialog(
-                                    null,
+                                JOptionPane.showMessageDialog(null,
                                     ex.getMessage(),
-                                    BulkController.class.getName(),
+                                    BulkGetStatusController.class.getName(),
                                     JOptionPane.ERROR_MESSAGE);
                               } catch (IOException ex) {
-                                JOptionPane.showMessageDialog(
-                                    null,
+                                JOptionPane.showMessageDialog(null,
                                     ex.getMessage(),
-                                    BulkController.class.getName(),
+                                    BulkGetStatusController.class.getName(),
                                     JOptionPane.ERROR_MESSAGE);
                               }
                             }
@@ -305,10 +300,9 @@ public class BulkController {
                                 JOptionPane.ERROR_MESSAGE);
                           }
                         } catch (InterruptedException | ExecutionException ex) {
-                          JOptionPane.showMessageDialog(
-                              null,
+                          JOptionPane.showMessageDialog(null,
                               ex.getMessage(),
-                              BulkController.class.getName(),
+                              BulkGetStatusController.class.getName(),
                               JOptionPane.ERROR_MESSAGE);
                         }
                       }
@@ -363,7 +357,7 @@ public class BulkController {
               case 2:
                 return "Serie";
               case 3:
-                return "Numero";
+                return "Correlativo";
               case 4:
                 return "Codigo";
               case 5:
@@ -436,8 +430,7 @@ public class BulkController {
             } catch (Exception ex) {
               cancel(true);
 
-              JOptionPane.showMessageDialog(
-                  null, ex.getMessage(), BulkController.class.getName(), JOptionPane.ERROR_MESSAGE);
+              JOptionPane.showMessageDialog(null, ex.getMessage(), BulkGetStatusController.class.getName(), JOptionPane.ERROR_MESSAGE);
             }
             return list;
           }
@@ -459,10 +452,9 @@ public class BulkController {
                 iFrame.btnExportar.setEnabled(true);
 
               } catch (InterruptedException | ExecutionException ex) {
-                JOptionPane.showMessageDialog(
-                    null,
+                JOptionPane.showMessageDialog(null,
                     ex.getMessage(),
-                    BulkController.class.getName(),
+                    BulkGetStatusController.class.getName(),
                     JOptionPane.ERROR_MESSAGE);
               }
             }
