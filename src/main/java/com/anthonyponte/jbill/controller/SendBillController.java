@@ -5,7 +5,9 @@
 
 package com.anthonyponte.jbill.controller;
 
+import billconsultservice.sunat.gob.pe.StatusResponse;
 import com.anthonyponte.jbill.factory.BillServiceFactory;
+import com.anthonyponte.jbill.model.Archivo;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.anthonyponte.jbill.view.SendBillIFrame;
 import java.awt.event.ActionEvent;
@@ -14,10 +16,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -56,6 +60,68 @@ public class SendBillController {
 
     iFrame.btnEnviar.addActionListener(
         (ActionEvent arg0) -> {
+          dialog.setVisible(true);
+          dialog.setLocationRelativeTo(iFrame);
+
+          SwingWorker worker =
+              new SwingWorker<Archivo, Void>() {
+                @Override
+                protected Archivo doInBackground() throws Exception {
+                  String path = iFrame.tfRuta.getText();
+                  File zip = new File(path);
+
+                  String nombre = zip.getName();
+                  byte[] contenido = Files.readAllBytes(zip.toPath());
+
+                  String name = "R-" + zip.getName();
+                  byte[] content = billServiceFactory.sendBill(nombre, contenido);
+
+                  return new Archivo(name, content);
+                }
+
+                @Override
+                protected void done() {
+                  try {
+                    Archivo archivo = get();
+
+                    JFileChooser chooser = new JFileChooser();
+                    chooser.setCurrentDirectory(new File("."));
+                    chooser.setSelectedFile(new File(archivo.getNombre()));
+                    int result = chooser.showSaveDialog(iFrame);
+                    if (result == JFileChooser.APPROVE_OPTION) {
+                      File file = chooser.getSelectedFile().getAbsoluteFile();
+                      try (FileOutputStream fos =
+                          new FileOutputStream(file.getParent() + "//" + file.getName())) {
+
+                        fos.write(archivo.getContenido());
+
+                        fos.flush();
+                      } catch (FileNotFoundException ex) {
+                        JOptionPane.showMessageDialog(
+                            null,
+                            ex.getMessage(),
+                            SendBillController.class.getName(),
+                            JOptionPane.ERROR_MESSAGE);
+                      } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(
+                            null,
+                            ex.getMessage(),
+                            SendBillController.class.getName(),
+                            JOptionPane.ERROR_MESSAGE);
+                      }
+                    }
+                  } catch (InterruptedException | ExecutionException ex) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        ex.getMessage(),
+                        SendBillController.class.getName(),
+                        JOptionPane.ERROR_MESSAGE);
+                  }
+                }
+              };
+
+          worker.execute();
+
           try {
             String path = iFrame.tfRuta.getText();
             File zip = new File(path);
@@ -65,34 +131,6 @@ public class SendBillController {
 
             byte[] cdr = billServiceFactory.sendBill(name, content);
 
-            if (cdr.length > 0) {
-              JFileChooser chooser = new JFileChooser();
-              chooser.setCurrentDirectory(new File("."));
-              chooser.setSelectedFile(new File("R-" + zip.getName()));
-              int result = chooser.showSaveDialog(iFrame);
-              if (result == JFileChooser.APPROVE_OPTION) {
-                File file = chooser.getSelectedFile().getAbsoluteFile();
-                try (FileOutputStream fos =
-                    new FileOutputStream(file.getParent() + "//" + file.getName())) {
-
-                  fos.write(cdr);
-
-                  fos.flush();
-                } catch (FileNotFoundException ex) {
-                  JOptionPane.showMessageDialog(
-                      null,
-                      ex.getMessage(),
-                      SendBillController.class.getName(),
-                      JOptionPane.ERROR_MESSAGE);
-                } catch (IOException ex) {
-                  JOptionPane.showMessageDialog(
-                      null,
-                      ex.getMessage(),
-                      SendBillController.class.getName(),
-                      JOptionPane.ERROR_MESSAGE);
-                }
-              }
-            }
           } catch (IOException ex) {
             JOptionPane.showMessageDialog(
                 null,

@@ -240,7 +240,7 @@ public class BulkGetStatusController {
                                 selected.getSerie(),
                                 selected.getCorrelativo());
 
-                        selected.setStatusResponse(statusResponse);
+                        selected.setCdrStatusResponse(statusResponse);
 
                         return selected;
                       }
