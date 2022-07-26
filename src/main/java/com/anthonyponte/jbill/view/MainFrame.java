@@ -63,8 +63,8 @@ public class MainFrame extends JFrame {
         miBulkSendSummary = new JMenuItem();
         miSendBill = new JMenuItem();
         menuBillConsultService = new JMenu();
-        miGetStatus = new JMenuItem();
         miBulkGetStatus = new JMenuItem();
+        miGetStatus = new JMenuItem();
         menuSalir = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -137,13 +137,13 @@ public class MainFrame extends JFrame {
         menuBillConsultService.setText("BillConsultService");
         menuBillConsultService.setEnabled(false);
 
-        miGetStatus.setText("Get Status");
-        miGetStatus.setEnabled(false);
-        menuBillConsultService.add(miGetStatus);
-
         miBulkGetStatus.setText("Bulk Get Status");
         miBulkGetStatus.setEnabled(false);
         menuBillConsultService.add(miBulkGetStatus);
+
+        miGetStatus.setText("Get Status");
+        miGetStatus.setEnabled(false);
+        menuBillConsultService.add(miGetStatus);
 
         menuWebService.add(menuBillConsultService);
 

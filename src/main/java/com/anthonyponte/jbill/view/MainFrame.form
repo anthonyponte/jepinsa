@@ -107,15 +107,15 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <SubComponents>
-                    <MenuItem class="javax.swing.JMenuItem" name="miGetStatus">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Get Status"/>
-                        <Property name="enabled" type="boolean" value="false"/>
-                      </Properties>
-                    </MenuItem>
                     <MenuItem class="javax.swing.JMenuItem" name="miBulkGetStatus">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Bulk Get Status"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="miGetStatus">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Get Status"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                     </MenuItem>

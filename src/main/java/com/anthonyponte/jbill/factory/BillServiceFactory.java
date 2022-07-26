@@ -34,6 +34,15 @@ public class BillServiceFactory {
 
     return ticket;
   }
+  
+  public byte[] sendBill(String fileName, byte[] contentFile) {
+    byte[] cdr;
+
+    if (WEB_SERVICE) cdr = service.sendBill(fileName, contentFile);
+    else cdr = gw1Service.sendBill(fileName, contentFile);
+
+    return cdr;
+  }
 
   public StatusResponse getStatus(String ticket) {
     StatusResponse responde;

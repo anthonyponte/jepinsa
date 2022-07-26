@@ -128,7 +128,8 @@ public class MainController {
           }
         });
 
-    frame.miBulkSendSummary.addActionListener((ActionEvent arg0) -> {
+    frame.miBulkSendSummary.addActionListener(
+        (ActionEvent arg0) -> {
           if (isIframeClosed(bulkSendSummaryIFrame)) {
             bulkSendSummaryIFrame = new BulkSendSummaryIFrame();
             frame.dpane.add(bulkSendSummaryIFrame);
@@ -151,7 +152,8 @@ public class MainController {
           }
         });
 
-    frame.miGetStatus.addActionListener((ActionEvent arg0) -> {
+    frame.miGetStatus.addActionListener(
+        (ActionEvent arg0) -> {
           if (isIframeClosed(getStatusIFrame)) {
             getStatusIFrame = new GetStatusIFrame();
             frame.dpane.add(getStatusIFrame);
@@ -162,7 +164,8 @@ public class MainController {
           }
         });
 
-    frame.miBulkGetStatus.addActionListener((ActionEvent arg0) -> {
+    frame.miBulkGetStatus.addActionListener(
+        (ActionEvent arg0) -> {
           if (isIframeClosed(bulkGetStatusIFrame)) {
             bulkGetStatusIFrame = new BulkGetStatusIFrame();
             frame.dpane.add(bulkGetStatusIFrame);

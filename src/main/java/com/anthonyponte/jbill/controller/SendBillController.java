@@ -5,8 +5,20 @@
 
 package com.anthonyponte.jbill.controller;
 
+import com.anthonyponte.jbill.factory.BillServiceFactory;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.anthonyponte.jbill.view.SendBillIFrame;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * @author AnthonyPonte
@@ -14,6 +26,7 @@ import com.anthonyponte.jbill.view.SendBillIFrame;
 public class SendBillController {
   private final SendBillIFrame iFrame;
   private final LoadingDialog dialog;
+  private BillServiceFactory billServiceFactory;
 
   public SendBillController(SendBillIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
@@ -21,9 +34,80 @@ public class SendBillController {
     initComponents();
   }
 
-  public void init() {}
+  public void init() {
+    iFrame.btnImportar.addActionListener(
+        (ActionEvent arg0) -> {
+          JFileChooser chooser = new JFileChooser();
+          chooser.setDialogTitle("Importar");
+          chooser.setApproveButtonText("Importar");
+          chooser.setAcceptAllFileFilterUsed(false);
+          chooser.addChoosableFileFilter(new FileNameExtensionFilter("ZIP", "zip"));
+          chooser.setCurrentDirectory(new File("."));
+          int result = chooser.showOpenDialog(iFrame);
+          if (result == JFileChooser.APPROVE_OPTION) {
+            File zip = chooser.getSelectedFile();
+
+            iFrame.tfRuta.setText(zip.getAbsolutePath());
+
+            iFrame.btnEnviar.setEnabled(true);
+            iFrame.btnEnviar.requestFocus();
+          }
+        });
+
+    iFrame.btnEnviar.addActionListener(
+        (ActionEvent arg0) -> {
+          try {
+            String path = iFrame.tfRuta.getText();
+            File zip = new File(path);
+
+            String name = zip.getName();
+            byte[] content = Files.readAllBytes(zip.toPath());
+
+            byte[] cdr = billServiceFactory.sendBill(name, content);
+
+            if (cdr.length > 0) {
+              JFileChooser chooser = new JFileChooser();
+              chooser.setCurrentDirectory(new File("."));
+              chooser.setSelectedFile(new File("R-" + zip.getName()));
+              int result = chooser.showSaveDialog(iFrame);
+              if (result == JFileChooser.APPROVE_OPTION) {
+                File file = chooser.getSelectedFile().getAbsoluteFile();
+                try (FileOutputStream fos =
+                    new FileOutputStream(file.getParent() + "//" + file.getName())) {
+
+                  fos.write(cdr);
+
+                  fos.flush();
+                } catch (FileNotFoundException ex) {
+                  JOptionPane.showMessageDialog(
+                      null,
+                      ex.getMessage(),
+                      SendBillController.class.getName(),
+                      JOptionPane.ERROR_MESSAGE);
+                } catch (IOException ex) {
+                  JOptionPane.showMessageDialog(
+                      null,
+                      ex.getMessage(),
+                      SendBillController.class.getName(),
+                      JOptionPane.ERROR_MESSAGE);
+                }
+              }
+            }
+          } catch (IOException ex) {
+            JOptionPane.showMessageDialog(
+                null,
+                ex.getMessage(),
+                SendBillController.class.getName(),
+                JOptionPane.ERROR_MESSAGE);
+          }
+        });
+  }
 
   private void initComponents() {
+    billServiceFactory = new BillServiceFactory();
+
     iFrame.show();
+
+    iFrame.btnImportar.requestFocus();
   }
 }

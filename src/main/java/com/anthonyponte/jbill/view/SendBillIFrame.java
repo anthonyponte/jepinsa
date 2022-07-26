@@ -4,26 +4,18 @@
  */
 package com.anthonyponte.jbill.view;
 
-import com.anthonyponte.jbill.filter.IntegerFilter;
-import com.anthonyponte.jbill.filter.SerieFilter;
-import com.anthonyponte.jbill.model.TipoDocumento;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-import javax.swing.text.AbstractDocument;
 import org.kordamp.ikonli.remixicon.RemixiconAL;
+import org.kordamp.ikonli.remixicon.RemixiconMZ;
 import org.kordamp.ikonli.swing.FontIcon;
 
 /**
@@ -48,51 +40,42 @@ public class SendBillIFrame extends JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblEstado = new JLabel();
-        tfEstado = new JTextField();
         separator = new JSeparator();
         btnEnviar = new JButton();
-        tfFirmaJks = new JTextField();
-        btnFirmaJks = new JButton();
-        lblFirmaJks = new JLabel();
+        tfRuta = new JTextField();
+        btnImportar = new JButton();
+        lblArchivo = new JLabel();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("Send Bill");
-        setFrameIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#f7d117")));
+        setFrameIcon(FontIcon.of(RemixiconMZ.SEND_PLANE_LINE, 16, Color.decode("#f7d117")));
         setMaximumSize(null);
         setMinimumSize(null);
-
-        lblEstado.setFont(lblEstado.getFont().deriveFont(lblEstado.getFont().getStyle() | Font.BOLD, lblEstado.getFont().getSize()-2));
-        lblEstado.setText("Estado");
-
-        tfEstado.setMaximumSize(null);
-        tfEstado.setMinimumSize(null);
-        tfEstado.setPreferredSize(new Dimension(150, 30));
 
         separator.setMaximumSize(null);
         separator.setMinimumSize(null);
         separator.setPreferredSize(new Dimension(5, 5));
 
-        btnEnviar.setIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#FFFFFF")));
+        btnEnviar.setIcon(FontIcon.of(RemixiconMZ.SEND_PLANE_LINE, 16, Color.decode("#FFFFFF")));
         btnEnviar.setText("Enviar");
         btnEnviar.setEnabled(false);
         btnEnviar.setMinimumSize(new Dimension(150, 30));
         btnEnviar.setPreferredSize(new Dimension(150, 30));
 
-        tfFirmaJks.setMaximumSize(null);
-        tfFirmaJks.setMinimumSize(null);
-        tfFirmaJks.setName(""); // NOI18N
-        tfFirmaJks.setPreferredSize(new Dimension(300, 30));
-        tfFirmaJks.setEditable(false);
+        tfRuta.setMaximumSize(null);
+        tfRuta.setMinimumSize(null);
+        tfRuta.setName(""); // NOI18N
+        tfRuta.setPreferredSize(new Dimension(300, 30));
+        tfRuta.setEditable(false);
 
-        btnFirmaJks.setIcon(FontIcon.of(RemixiconAL.FOLDER_2_LINE, 16, Color.decode("#FFFFFF")));
-        btnFirmaJks.setMaximumSize(new Dimension(30, 30));
-        btnFirmaJks.setMinimumSize(new Dimension(30, 30));
-        btnFirmaJks.setPreferredSize(new Dimension(30, 30));
+        btnImportar.setIcon(FontIcon.of(RemixiconAL.FILE_ZIP_LINE, 16, Color.decode("#FFFFFF")));
+        btnImportar.setMaximumSize(new Dimension(30, 30));
+        btnImportar.setMinimumSize(new Dimension(30, 30));
+        btnImportar.setPreferredSize(new Dimension(30, 30));
 
-        lblFirmaJks.setFont(lblFirmaJks.getFont().deriveFont(lblFirmaJks.getFont().getStyle() | Font.BOLD, lblFirmaJks.getFont().getSize()-2));
-        lblFirmaJks.setText("JKS");
+        lblArchivo.setFont(lblArchivo.getFont().deriveFont(lblArchivo.getFont().getStyle() | Font.BOLD, lblArchivo.getFont().getSize()-2));
+        lblArchivo.setText("Archivo");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,29 +83,23 @@ public class SendBillIFrame extends JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEstado)
-                    .addComponent(lblFirmaJks)
+                    .addComponent(lblArchivo)
                     .addComponent(separator, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfEstado, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnFirmaJks, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnImportar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfFirmaJks, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(tfRuta, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnEnviar, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblFirmaJks)
+                .addComponent(lblArchivo)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(btnFirmaJks, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfFirmaJks, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblEstado)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnImportar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfRuta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -130,20 +107,14 @@ public class SendBillIFrame extends JInternalFrame {
                 .addContainerGap())
         );
 
-        tfEstado.setEditable(false);
-        FontIcon icon = FontIcon.of(RemixiconAL.CHECKBOX_BLANK_CIRCLE_LINE, 16, Color.decode("#FFFFFF"));
-        tfEstado.putClientProperty("JTextField.leadingIcon", icon);
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public JButton btnEnviar;
-    public JButton btnFirmaJks;
-    public JLabel lblEstado;
-    public JLabel lblFirmaJks;
+    public JButton btnImportar;
+    public JLabel lblArchivo;
     public JSeparator separator;
-    public JTextField tfEstado;
-    public JTextField tfFirmaJks;
+    public JTextField tfRuta;
     // End of variables declaration//GEN-END:variables
 }
