@@ -72,7 +72,8 @@ public class BulkSendSummaryController {
   }
 
   public void init() {
-    iFrame.btnEnviar.addActionListener((var e) -> {
+    iFrame.btnEnviar.addActionListener(
+        (var e) -> {
           int seleccionados = selectionModel.getSelected().size();
           int input =
               JOptionPane.showOptionDialog(
@@ -141,7 +142,8 @@ public class BulkSendSummaryController {
                           "Enviados",
                           JOptionPane.INFORMATION_MESSAGE);
                     } catch (InterruptedException | ExecutionException ex) {
-                      JOptionPane.showMessageDialog(null,
+                      JOptionPane.showMessageDialog(
+                          null,
                           ex.getMessage(),
                           BulkSendSummaryController.class.getName(),
                           JOptionPane.ERROR_MESSAGE);
@@ -152,7 +154,8 @@ public class BulkSendSummaryController {
           }
         });
 
-    iFrame.table.addMouseListener(new MouseAdapter() {
+    iFrame.table.addMouseListener(
+        new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
@@ -174,12 +177,14 @@ public class BulkSendSummaryController {
 
                     fos.flush();
                   } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(null,
+                    JOptionPane.showMessageDialog(
+                        null,
                         ex.getMessage(),
                         BulkSendSummaryController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null,
+                    JOptionPane.showMessageDialog(
+                        null,
                         ex.getMessage(),
                         BulkSendSummaryController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
@@ -210,7 +215,8 @@ public class BulkSendSummaryController {
     iFrame
         .table
         .getActionMap()
-        .put("DELETE",
+        .put(
+            "DELETE",
             new AbstractAction() {
               @Override
               public void actionPerformed(ActionEvent ae) {
@@ -260,7 +266,8 @@ public class BulkSendSummaryController {
                                   "Eliminados",
                                   JOptionPane.INFORMATION_MESSAGE);
                             } catch (InterruptedException | ExecutionException ex) {
-                              JOptionPane.showMessageDialog(null,
+                              JOptionPane.showMessageDialog(
+                                  null,
                                   ex.getMessage(),
                                   BulkSendSummaryController.class.getName(),
                                   JOptionPane.ERROR_MESSAGE);
@@ -387,7 +394,8 @@ public class BulkSendSummaryController {
 
               if (!get.isEmpty()) iFrame.tfFiltrar.requestFocus();
             } catch (InterruptedException | ExecutionException ex) {
-              JOptionPane.showMessageDialog(null,
+              JOptionPane.showMessageDialog(
+                  null,
                   ex.getMessage(),
                   BulkSendSummaryController.class.getName(),
                   JOptionPane.ERROR_MESSAGE);

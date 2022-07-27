@@ -5,7 +5,6 @@
 
 package com.anthonyponte.jbill.controller;
 
-import billconsultservice.sunat.gob.pe.StatusResponse;
 import com.anthonyponte.jbill.factory.BillServiceFactory;
 import com.anthonyponte.jbill.model.Archivo;
 import com.anthonyponte.jbill.view.LoadingDialog;
@@ -67,77 +66,83 @@ public class SendBillController {
               new SwingWorker<Archivo, Void>() {
                 @Override
                 protected Archivo doInBackground() throws Exception {
-                  String path = iFrame.tfRuta.getText();
-                  File zip = new File(path);
-
-                  String nombre = zip.getName();
-                  byte[] contenido = Files.readAllBytes(zip.toPath());
-
-                  String name = "R-" + zip.getName();
-                  byte[] content = billServiceFactory.sendBill(nombre, contenido);
-
-                  return new Archivo(name, content);
-                }
-
-                @Override
-                protected void done() {
+                  Archivo archivo = null;
                   try {
-                    Archivo archivo = get();
 
-                    JFileChooser chooser = new JFileChooser();
-                    chooser.setCurrentDirectory(new File("."));
-                    chooser.setSelectedFile(new File(archivo.getNombre()));
-                    int result = chooser.showSaveDialog(iFrame);
-                    if (result == JFileChooser.APPROVE_OPTION) {
-                      File file = chooser.getSelectedFile().getAbsoluteFile();
-                      try (FileOutputStream fos =
-                          new FileOutputStream(file.getParent() + "//" + file.getName())) {
+                    String path = iFrame.tfRuta.getText();
+                    File zip = new File(path);
 
-                        fos.write(archivo.getContenido());
+                    String nombre = zip.getName();
+                    byte[] contenido = Files.readAllBytes(zip.toPath());
 
-                        fos.flush();
-                      } catch (FileNotFoundException ex) {
-                        JOptionPane.showMessageDialog(
-                            null,
-                            ex.getMessage(),
-                            SendBillController.class.getName(),
-                            JOptionPane.ERROR_MESSAGE);
-                      } catch (IOException ex) {
-                        JOptionPane.showMessageDialog(
-                            null,
-                            ex.getMessage(),
-                            SendBillController.class.getName(),
-                            JOptionPane.ERROR_MESSAGE);
-                      }
-                    }
-                  } catch (InterruptedException | ExecutionException ex) {
+                    String name = "R-" + zip.getName();
+                    byte[] content = billServiceFactory.sendBill(nombre, contenido);
+                    archivo = new Archivo(name, content);
+
+                    if (content != null) cancel(true);
+
+                  } catch (IOException ex) {
+                    System.out.println(".cancel()");
+                    cancel(true);
+
                     JOptionPane.showMessageDialog(
                         null,
                         ex.getMessage(),
                         SendBillController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
+
+                  return archivo;
+                }
+
+                @Override
+                protected void done() {
+                  dialog.dispose();
+
+                  if (!isCancelled()) {
+                    try {
+                      Archivo archivo = get();
+
+                      JFileChooser chooser = new JFileChooser();
+                      chooser.setCurrentDirectory(new File("."));
+                      chooser.setSelectedFile(new File(archivo.getNombre()));
+                      int result = chooser.showSaveDialog(iFrame);
+                      if (result == JFileChooser.APPROVE_OPTION) {
+                        File file = chooser.getSelectedFile().getAbsoluteFile();
+                        try (FileOutputStream fos =
+                            new FileOutputStream(file.getParent() + "//" + file.getName())) {
+
+                          fos.write(archivo.getContenido());
+
+                          fos.flush();
+                        } catch (FileNotFoundException ex) {
+                          JOptionPane.showMessageDialog(
+                              null,
+                              ex.getMessage(),
+                              SendBillController.class.getName(),
+                              JOptionPane.ERROR_MESSAGE);
+                        } catch (IOException ex) {
+                          JOptionPane.showMessageDialog(
+                              null,
+                              ex.getMessage(),
+                              SendBillController.class.getName(),
+                              JOptionPane.ERROR_MESSAGE);
+                        }
+                      }
+                    } catch (InterruptedException | ExecutionException ex) {
+                      JOptionPane.showMessageDialog(
+                          null,
+                          ex.getMessage(),
+                          SendBillController.class.getName(),
+                          JOptionPane.ERROR_MESSAGE);
+                    }
+                  } else {
+                    System.out.println(".done()");
+                  }
                 }
               };
 
           worker.execute();
-
-          try {
-            String path = iFrame.tfRuta.getText();
-            File zip = new File(path);
-
-            String name = zip.getName();
-            byte[] content = Files.readAllBytes(zip.toPath());
-
-            byte[] cdr = billServiceFactory.sendBill(name, content);
-
-          } catch (IOException ex) {
-            JOptionPane.showMessageDialog(
-                null,
-                ex.getMessage(),
-                SendBillController.class.getName(),
-                JOptionPane.ERROR_MESSAGE);
-          }
         });
   }
 
