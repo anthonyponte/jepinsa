@@ -16,6 +16,7 @@ import com.anthonyponte.jbill.view.ResumenDiarioIFrame;
 import com.anthonyponte.jbill.view.ResumenesIFrame;
 import com.anthonyponte.jbill.view.GetStatusIFrame;
 import com.anthonyponte.jbill.view.SendBillIFrame;
+import com.anthonyponte.jbill.view.SendSummaryIFrame;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -44,6 +45,7 @@ public class MainController {
   private ComunicacionesIFrame comunicacionesIFrame;
   private ResumenesIFrame resumenesIFrame;
   private BulkSendSummaryIFrame bulkSendSummaryIFrame;
+  private SendSummaryIFrame sendSummaryIFrame;
   private SendBillIFrame sendBillIFrame;
   private GetStatusIFrame getStatusIFrame;
   private BulkGetStatusIFrame bulkGetStatusIFrame;
@@ -137,6 +139,18 @@ public class MainController {
             new BulkSendSummaryController(bulkSendSummaryIFrame, dialog).init();
           } else {
             iframeClosed(bulkSendSummaryIFrame);
+          }
+        });
+
+    frame.miSendSummary.addActionListener(
+        (ActionEvent arg0) -> {
+          if (isIframeClosed(sendSummaryIFrame)) {
+            sendSummaryIFrame = new SendSummaryIFrame();
+            frame.dpane.add(sendSummaryIFrame);
+            sendSummaryIFrame.setLocation(centerIFrame(sendSummaryIFrame));
+            new SendSummaryController(sendSummaryIFrame, dialog).init();
+          } else {
+            iframeClosed(sendSummaryIFrame);
           }
         });
 
