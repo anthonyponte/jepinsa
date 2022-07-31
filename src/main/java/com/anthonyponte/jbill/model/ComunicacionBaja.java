@@ -8,16 +8,14 @@ package com.anthonyponte.jbill.model;
 import java.util.Date;
 import java.util.List;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class ComunicacionBaja extends Summary {
 
   private List<ComunicacionBajaDetalle> comunicacionBajaDetalles;
 
   public ComunicacionBaja() {}
-
-  public ComunicacionBaja(List<ComunicacionBajaDetalle> comunicacionBajaDetalles) {
-    this.comunicacionBajaDetalles = comunicacionBajaDetalles;
-  }
 
   public ComunicacionBaja(
       List<ComunicacionBajaDetalle> comunicacionBajaDetalles,
@@ -30,8 +28,11 @@ public class ComunicacionBaja extends Summary {
       Date fechaEmision,
       Date fechaReferencia,
       Empresa emisor,
-      String nombreZip,
-      byte[] zip) {
+      Archivo zip,
+      String ticket,
+      String statusCode,
+      Archivo cdr,
+      Date fechaIngreso) {
     super(
         id,
         ubl,
@@ -42,34 +43,11 @@ public class ComunicacionBaja extends Summary {
         fechaEmision,
         fechaReferencia,
         emisor,
-        nombreZip,
-        zip);
-    this.comunicacionBajaDetalles = comunicacionBajaDetalles;
-  }
-
-  public ComunicacionBaja(
-      List<ComunicacionBajaDetalle> comunicacionBajaDetalles,
-      String ubl,
-      String version,
-      TipoDocumento tipoDocumento,
-      String serie,
-      int correlativo,
-      Date fechaEmision,
-      Date fechaReferencia,
-      Empresa emisor,
-      String nombreZip,
-      byte[] zip) {
-    super(
-        ubl,
-        version,
-        tipoDocumento,
-        serie,
-        correlativo,
-        fechaEmision,
-        fechaReferencia,
-        emisor,
-        nombreZip,
-        zip);
+        zip,
+        ticket,
+        statusCode,
+        cdr,
+        fechaIngreso);
     this.comunicacionBajaDetalles = comunicacionBajaDetalles;
   }
 
@@ -83,12 +61,6 @@ public class ComunicacionBaja extends Summary {
 
   @Override
   public String toString() {
-    return super.toString()
-        + " ComunicacionBaja{"
-        + "comunicacionBajaDetalles="
-        + comunicacionBajaDetalles
-        + '}';
+    return "ComunicacionBaja{" + "comunicacionBajaDetalles=" + comunicacionBajaDetalles + '}';
   }
-  
-  
 }

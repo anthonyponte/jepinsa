@@ -19,7 +19,9 @@ package com.anthonyponte.jbill.idao;
 
 import com.anthonyponte.jbill.custom.MyHsqldb;
 import com.anthonyponte.jbill.dao.ResumenDiarioDao;
+import com.anthonyponte.jbill.model.Archivo;
 import com.anthonyponte.jbill.model.Bill;
+import com.anthonyponte.jbill.model.DocumentoIdentidad;
 import com.anthonyponte.jbill.model.Empresa;
 import com.anthonyponte.jbill.model.Estado;
 import com.anthonyponte.jbill.model.Impuesto;
@@ -27,7 +29,7 @@ import com.anthonyponte.jbill.model.Moneda;
 import com.anthonyponte.jbill.model.Operacion;
 import com.anthonyponte.jbill.model.OtrosCargos;
 import com.anthonyponte.jbill.model.Percepcion;
-import com.anthonyponte.jbill.model.RegimenPercepcion;
+import com.anthonyponte.jbill.model.Regimen;
 import com.anthonyponte.jbill.model.ResumenDiario;
 import com.anthonyponte.jbill.model.ResumenDiarioDetalle;
 import com.anthonyponte.jbill.model.TipoDocumento;
@@ -40,7 +42,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.DateTime;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class IResumenDiarioDao implements ResumenDiarioDao {
 
   private final MyHsqldb database;
@@ -87,9 +91,9 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
         ps.setString(6, get.getDocumento().getTipoDocumento().getDescripcion());
 
         if (get.getAdquiriente() != null) {
-          ps.setString(7, get.getAdquiriente().getNumeroDocumentoIdentidad());
-          ps.setString(8, get.getAdquiriente().getTipoDocumentoIdentidad().getCodigo());
-          ps.setString(9, get.getAdquiriente().getTipoDocumentoIdentidad().getDescripcion());
+          ps.setString(7, get.getAdquiriente().getDocumentoIdentidad().getNumero());
+          ps.setString(8, get.getAdquiriente().getDocumentoIdentidad().getTipo().getCodigo());
+          ps.setString(9, get.getAdquiriente().getDocumentoIdentidad().getTipo().getDescripcion());
         } else {
           ps.setNull(7, Types.INTEGER);
           ps.setNull(8, Types.VARCHAR);
@@ -109,9 +113,9 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
         }
 
         if (get.getPercepcion() != null) {
-          ps.setString(14, get.getPercepcion().getRegimenPercepcion().getCodigo());
-          ps.setString(15, get.getPercepcion().getRegimenPercepcion().getDescripcion());
-          ps.setDouble(16, get.getPercepcion().getRegimenPercepcion().getPorcentaje());
+          ps.setString(14, get.getPercepcion().getRegimen().getCodigo());
+          ps.setString(15, get.getPercepcion().getRegimen().getDescripcion());
+          ps.setDouble(16, get.getPercepcion().getRegimen().getPorcentaje());
           ps.setDouble(17, get.getPercepcion().getMonto());
           ps.setDouble(18, get.getPercepcion().getMontoTotal());
           ps.setDouble(19, get.getPercepcion().getBase());
@@ -276,17 +280,28 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
           resumenDiario.setFechaEmision(rs.getDate(6));
           resumenDiario.setFechaReferencia(rs.getDate(7));
 
+          DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
+          documentoIdentidad.setNumero(rs.getString(8));
+
           Empresa emisor = new Empresa();
-          emisor.setNumeroDocumentoIdentidad(rs.getString(8));
+          emisor.setDocumentoIdentidad(documentoIdentidad);
           emisor.setNombre(rs.getString(9));
           resumenDiario.setEmisor(emisor);
 
-          resumenDiario.setNombreZip(rs.getString(10));
-          resumenDiario.setZip(rs.getBytes(11));
+          Archivo zip = new Archivo();
+          zip.setNombre(rs.getString(10));
+          zip.setContenido(rs.getBytes(11));
+          resumenDiario.setZip(zip);
+
           resumenDiario.setTicket(rs.getString(12));
+
           resumenDiario.setStatusCode(rs.getString(13));
-          resumenDiario.setNombreContent(rs.getString(14));
-          resumenDiario.setContent(rs.getBytes(15));
+
+          Archivo cdr = new Archivo();
+          cdr.setNombre(rs.getString(14));
+          cdr.setContenido(rs.getBytes(15));
+          resumenDiario.setCdr(cdr);
+
           list.add(resumenDiario);
         }
       }
@@ -348,13 +363,17 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
 
           rs.getString(7);
           if (!rs.wasNull()) {
-            Empresa adquiriente = new Empresa();
-            adquiriente.setNumeroDocumentoIdentidad(rs.getString(7));
+            DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
+            documentoIdentidad.setNumero(rs.getString(7));
 
             TipoDocumentoIdentidad tipoDocumentoIdentidad = new TipoDocumentoIdentidad();
             tipoDocumentoIdentidad.setCodigo(rs.getString(8));
             tipoDocumentoIdentidad.setDescripcion(rs.getString(9));
-            adquiriente.setTipoDocumentoIdentidad(tipoDocumentoIdentidad);
+
+            documentoIdentidad.setTipo(tipoDocumentoIdentidad);
+
+            Empresa adquiriente = new Empresa();
+            adquiriente.setDocumentoIdentidad(documentoIdentidad);
 
             resumenDiarioDetalle.setAdquiriente(adquiriente);
           }
@@ -377,11 +396,11 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
           if (!rs.wasNull()) {
             Percepcion percepcion = new Percepcion();
 
-            RegimenPercepcion regimenPercepcion = new RegimenPercepcion();
-            regimenPercepcion.setCodigo(rs.getString(14));
-            regimenPercepcion.setDescripcion(rs.getString(15));
-            regimenPercepcion.setPorcentaje(rs.getDouble(16));
-            percepcion.setRegimenPercepcion(regimenPercepcion);
+            Regimen regimen = new Regimen();
+            regimen.setCodigo(rs.getString(14));
+            regimen.setDescripcion(rs.getString(15));
+            regimen.setPorcentaje(rs.getDouble(16));
+            percepcion.setRegimen(regimen);
 
             percepcion.setMonto(rs.getDouble(17));
             percepcion.setMontoTotal(rs.getDouble(18));

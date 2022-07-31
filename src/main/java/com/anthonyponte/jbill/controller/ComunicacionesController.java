@@ -43,7 +43,9 @@ import com.anthonyponte.jbill.tableformat.ComunicacionBajaDetalleTableFormat;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import javax.swing.JOptionPane;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class ComunicacionesController {
 
   private final ComunicacionesIFrame iFrame;
@@ -68,7 +70,8 @@ public class ComunicacionesController {
           start(date);
         });
 
-    iFrame.tblEncabezado.addMouseListener(new MouseAdapter() {
+    iFrame.tblEncabezado.addMouseListener(
+        new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
@@ -80,9 +83,9 @@ public class ComunicacionesController {
                 chooser.setCurrentDirectory(new File("."));
 
                 if (column == 8) {
-                  chooser.setSelectedFile(new File(selected.getNombreZip()));
+                  chooser.setSelectedFile(new File(selected.getZip().getNombre()));
                 } else if (column == 11) {
-                  chooser.setSelectedFile(new File(selected.getNombreContent()));
+                  chooser.setSelectedFile(new File(selected.getCdr().getNombre()));
                 }
 
                 int result = chooser.showSaveDialog(iFrame);
@@ -92,19 +95,21 @@ public class ComunicacionesController {
                       new FileOutputStream(file.getParent() + "//" + file.getName())) {
 
                     if (column == 8) {
-                      fos.write(selected.getZip());
+                      fos.write(selected.getZip().getContenido());
                     } else if (column == 11) {
-                      fos.write(selected.getContent());
+                      fos.write(selected.getCdr().getContenido());
                     }
 
                     fos.flush();
                   } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(null,
+                    JOptionPane.showMessageDialog(
+                        null,
                         ex.getMessage(),
                         ComunicacionesController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null,
+                    JOptionPane.showMessageDialog(
+                        null,
                         ex.getMessage(),
                         ComunicacionesController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
@@ -134,10 +139,11 @@ public class ComunicacionesController {
                           elDetalle.clear();
                           elDetalle.addAll(get);
 
-                          MyTableResize.resize(iFrame.tblEncabezado);
+                          MyTableResize.resize(iFrame.tblDetalle);
 
                         } catch (InterruptedException | ExecutionException ex) {
-                          JOptionPane.showMessageDialog(null,
+                          JOptionPane.showMessageDialog(
+                              null,
                               ex.getMessage(),
                               ComunicacionesController.class.getName(),
                               JOptionPane.ERROR_MESSAGE);
@@ -230,17 +236,17 @@ public class ComunicacionesController {
               case 5:
                 return MyDateFormat.d_MMMM_Y(comunicacionBaja.getFechaReferencia());
               case 6:
-                return comunicacionBaja.getEmisor().getNumeroDocumentoIdentidad();
+                return comunicacionBaja.getEmisor().getDocumentoIdentidad().getNumero();
               case 7:
                 return comunicacionBaja.getEmisor().getNombre();
               case 8:
-                return comunicacionBaja.getNombreZip();
+                return comunicacionBaja.getZip().getNombre();
               case 9:
                 return comunicacionBaja.getTicket();
               case 10:
                 return comunicacionBaja.getStatusCode();
               case 11:
-                return comunicacionBaja.getNombreContent();
+                return comunicacionBaja.getCdr().getNombre();
             }
             throw new IllegalStateException("Unexpected column: " + column);
           }
@@ -294,7 +300,8 @@ public class ComunicacionesController {
               if (!get.isEmpty()) iFrame.tfFiltrar.requestFocus();
               else iFrame.dpMesAno.requestFocus();
             } catch (InterruptedException | ExecutionException ex) {
-              JOptionPane.showMessageDialog(null,
+              JOptionPane.showMessageDialog(
+                  null,
                   ex.getMessage(),
                   ComunicacionesController.class.getName(),
                   JOptionPane.ERROR_MESSAGE);

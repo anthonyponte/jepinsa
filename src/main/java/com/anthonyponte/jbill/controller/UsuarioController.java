@@ -101,7 +101,7 @@ public class UsuarioController {
               preferences.put(
                   FIRMA_CONTRASENA, String.valueOf(iFrame.tfFirmaContrasena.getPassword()));
               preferences.put(RUC, iFrame.tfRuc.getText());
-              preferences.putInt(RUC_TIPO, 6);
+              preferences.put(RUC_TIPO, "6");
               preferences.put(RAZON_SOCIAL, iFrame.tfRazonSocial.getText());
               preferences.put(CLAVE_SOL_USUARIO, iFrame.tfClaveSolUsuario.getText());
               preferences.put(
@@ -125,6 +125,8 @@ public class UsuarioController {
 
             frame.menuBillConsultService.setEnabled(true);
 
+            frame.miFactura.setEnabled(true);
+            
             frame.miComunicacionBaja.setEnabled(true);
 
             frame.miResumenDiario.setEnabled(true);
@@ -133,11 +135,13 @@ public class UsuarioController {
 
             frame.miResumenes.setEnabled(true);
 
-            frame.miSummary.setEnabled(true);
+            frame.miBulkSendSummary.setEnabled(true);
+            
+            frame.miSendBill.setEnabled(true);
 
-            frame.miBulk.setEnabled(true);
+            frame.miBulkGetStatus.setEnabled(true);
 
-            frame.miStatus.setEnabled(true);
+            frame.miGetStatus.setEnabled(true);
           } catch (BackingStoreException ex) {
             JOptionPane.showMessageDialog(
                 null,

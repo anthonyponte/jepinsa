@@ -19,7 +19,7 @@ import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
 import com.anthonyponte.jbill.custom.MyDateFormat;
 import com.anthonyponte.jbill.custom.MyTableResize;
-import com.anthonyponte.jbill.view.SummaryIFrame;
+import com.anthonyponte.jbill.view.BulkSendSummaryIFrame;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -29,6 +29,7 @@ import com.anthonyponte.jbill.dao.SummaryDao;
 import com.anthonyponte.jbill.factory.BillServiceFactory;
 import com.anthonyponte.jbill.factory.SummaryFactory;
 import com.anthonyponte.jbill.idao.ISummaryDao;
+import com.anthonyponte.jbill.model.Archivo;
 import com.anthonyponte.jbill.model.StatusResponse;
 import com.anthonyponte.jbill.model.Summary;
 import com.anthonyponte.jbill.view.LoadingDialog;
@@ -49,10 +50,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-/** @author anthony */
-public class SummaryController {
+/**
+ * @author anthony
+ */
+public class BulkSendSummaryController {
 
-  private final SummaryIFrame iFrame;
+  private final BulkSendSummaryIFrame iFrame;
   private final LoadingDialog dialog;
   private SummaryDao dao;
   private SummaryFactory summaryFactory;
@@ -62,7 +65,7 @@ public class SummaryController {
   private AdvancedListSelectionModel<Summary> selectionModel;
   private AdvancedTableModel<Summary> tableModel;
 
-  public SummaryController(SummaryIFrame iFrame, LoadingDialog dialog) {
+  public BulkSendSummaryController(BulkSendSummaryIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();
@@ -97,7 +100,8 @@ public class SummaryController {
                       list = new ArrayList<>();
                       for (Summary next : selected) {
                         String ticket =
-                            billServiceFactory.sendSummary(next.getNombreZip(), next.getZip());
+                            billServiceFactory.sendSummary(
+                                next.getZip().getNombre(), next.getZip().getContenido());
 
                         if (ticket != null) {
                           Uninterruptibles.sleepUninterruptibly(10, TimeUnit.SECONDS);
@@ -108,8 +112,11 @@ public class SummaryController {
                               || response.getStatusCode().equals("99")) {
                             next.setTicket(ticket);
                             next.setStatusCode(response.getStatusCode());
-                            next.setNombreContent("R-" + next.getNombreZip());
-                            next.setContent(response.getContent());
+
+                            Archivo cdr = new Archivo();
+                            cdr.setNombre("R-" + next.getZip().getNombre());
+                            cdr.setContenido(response.getContent());
+                            next.setCdr(cdr);
 
                             dao.update(next.getId(), next);
 
@@ -138,7 +145,7 @@ public class SummaryController {
                       JOptionPane.showMessageDialog(
                           null,
                           ex.getMessage(),
-                          SummaryController.class.getName(),
+                          BulkSendSummaryController.class.getName(),
                           JOptionPane.ERROR_MESSAGE);
                     }
                   }
@@ -158,7 +165,7 @@ public class SummaryController {
 
                 JFileChooser chooser = new JFileChooser();
                 chooser.setCurrentDirectory(new File("."));
-                chooser.setSelectedFile(new File(selected.getNombreZip()));
+                chooser.setSelectedFile(new File(selected.getZip().getNombre()));
 
                 int result = chooser.showSaveDialog(iFrame);
                 if (result == JFileChooser.APPROVE_OPTION) {
@@ -166,20 +173,20 @@ public class SummaryController {
                   try (FileOutputStream fos =
                       new FileOutputStream(file.getParent() + "//" + file.getName())) {
 
-                    fos.write(selected.getZip());
+                    fos.write(selected.getZip().getContenido());
 
                     fos.flush();
                   } catch (FileNotFoundException ex) {
                     JOptionPane.showMessageDialog(
                         null,
                         ex.getMessage(),
-                        SummaryController.class.getName(),
+                        BulkSendSummaryController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
                     JOptionPane.showMessageDialog(
                         null,
                         ex.getMessage(),
-                        SummaryController.class.getName(),
+                        BulkSendSummaryController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }
@@ -262,7 +269,7 @@ public class SummaryController {
                               JOptionPane.showMessageDialog(
                                   null,
                                   ex.getMessage(),
-                                  SummaryController.class.getName(),
+                                  BulkSendSummaryController.class.getName(),
                                   JOptionPane.ERROR_MESSAGE);
                             }
                           }
@@ -332,7 +339,7 @@ public class SummaryController {
               case 0:
                 return MyDateFormat.d_MMMM_Y(summary.getFechaEmision());
               case 1:
-                return summary.getEmisor().getNumeroDocumentoIdentidad();
+                return summary.getEmisor().getDocumentoIdentidad().getNumero();
               case 2:
                 return summary.getTipoDocumento().getCodigo();
               case 3:
@@ -342,7 +349,7 @@ public class SummaryController {
               case 5:
                 return String.valueOf(summary.getCorrelativo());
               case 6:
-                return summary.getNombreZip();
+                return summary.getZip().getNombre();
             }
             throw new IllegalStateException("Unexpected column: " + column);
           }
@@ -390,7 +397,7 @@ public class SummaryController {
               JOptionPane.showMessageDialog(
                   null,
                   ex.getMessage(),
-                  SummaryController.class.getName(),
+                  BulkSendSummaryController.class.getName(),
                   JOptionPane.ERROR_MESSAGE);
             }
           }

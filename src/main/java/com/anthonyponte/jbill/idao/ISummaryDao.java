@@ -19,6 +19,8 @@ package com.anthonyponte.jbill.idao;
 
 import com.anthonyponte.jbill.custom.MyHsqldb;
 import com.anthonyponte.jbill.dao.SummaryDao;
+import com.anthonyponte.jbill.model.Archivo;
+import com.anthonyponte.jbill.model.DocumentoIdentidad;
 import com.anthonyponte.jbill.model.Empresa;
 import com.anthonyponte.jbill.model.Summary;
 import com.anthonyponte.jbill.model.TipoDocumento;
@@ -29,7 +31,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class ISummaryDao implements SummaryDao {
 
   private final MyHsqldb database;
@@ -61,11 +65,11 @@ public class ISummaryDao implements SummaryDao {
       ps.setInt(6, summary.getCorrelativo());
       ps.setDate(7, new Date(summary.getFechaEmision().getTime()));
       ps.setDate(8, new Date(summary.getFechaReferencia().getTime()));
-      ps.setString(9, summary.getEmisor().getNumeroDocumentoIdentidad());
-      ps.setInt(10, summary.getEmisor().getTipo());
+      ps.setString(9, summary.getEmisor().getDocumentoIdentidad().getNumero());
+      ps.setString(10, summary.getEmisor().getDocumentoIdentidad().getTipo().getCodigo());
       ps.setString(11, summary.getEmisor().getNombre());
-      ps.setString(12, summary.getNombreZip());
-      ps.setBytes(13, summary.getZip());
+      ps.setString(12, summary.getZip().getNombre());
+      ps.setBytes(13, summary.getZip().getContenido());
 
       ps.executeUpdate();
 
@@ -98,11 +102,14 @@ public class ISummaryDao implements SummaryDao {
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
           Summary summary = new Summary();
+
           summary.setId(rs.getInt(1));
           summary.setFechaEmision(rs.getDate(2));
 
+          DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
+          documentoIdentidad.setNumero(rs.getString(3));
           Empresa emisor = new Empresa();
-          emisor.setNumeroDocumentoIdentidad(rs.getString(3));
+          emisor.setDocumentoIdentidad(documentoIdentidad);
           summary.setEmisor(emisor);
 
           TipoDocumento tipoDocumento = new TipoDocumento();
@@ -112,8 +119,12 @@ public class ISummaryDao implements SummaryDao {
 
           summary.setSerie(rs.getString(6));
           summary.setCorrelativo(rs.getInt(7));
-          summary.setNombreZip(rs.getString(8));
-          summary.setZip(rs.getBytes(9));
+
+          Archivo archivo = new Archivo();
+          archivo.setNombre(rs.getString(8));
+          archivo.setContenido(rs.getBytes(9));
+          summary.setZip(archivo);
+
           list.add(summary);
         }
       }
@@ -136,8 +147,8 @@ public class ISummaryDao implements SummaryDao {
 
       ps.setString(1, summary.getTicket());
       ps.setString(2, summary.getStatusCode());
-      ps.setString(3, summary.getNombreContent());
-      ps.setBytes(4, summary.getContent());
+      ps.setString(3, summary.getCdr().getNombre());
+      ps.setBytes(4, summary.getCdr().getContenido());
       ps.setInt(5, id);
 
       ps.executeUpdate();

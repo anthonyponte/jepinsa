@@ -4,16 +4,18 @@
  */
 package com.anthonyponte.jbill.controller;
 
-import com.anthonyponte.jbill.view.BulkIFrame;
-import com.anthonyponte.jbill.view.SummaryIFrame;
+import com.anthonyponte.jbill.view.BulkGetStatusIFrame;
+import com.anthonyponte.jbill.view.BulkSendSummaryIFrame;
 import com.anthonyponte.jbill.view.MainFrame;
 import com.anthonyponte.jbill.view.UsuarioIFrame;
 import com.anthonyponte.jbill.view.ComunicacionBajaIFrame;
 import com.anthonyponte.jbill.view.ComunicacionesIFrame;
+import com.anthonyponte.jbill.view.FacturaIFrame;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.anthonyponte.jbill.view.ResumenDiarioIFrame;
 import com.anthonyponte.jbill.view.ResumenesIFrame;
-import com.anthonyponte.jbill.view.StatusIFrame;
+import com.anthonyponte.jbill.view.GetStatusIFrame;
+import com.anthonyponte.jbill.view.SendBillIFrame;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -27,20 +29,24 @@ import org.hsqldb.Server;
 import org.hsqldb.persist.HsqlProperties;
 import org.hsqldb.server.ServerAcl;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class MainController {
 
   private final MainFrame frame;
   private final String DATABASE = "jbill";
   private final String ALIAS = "jb";
   private UsuarioIFrame usuarioIFrame;
+  private FacturaIFrame facturaIFrame;
   private ComunicacionBajaIFrame comunicacionBajaIFrame;
   private ResumenDiarioIFrame resumenDiarioIFrame;
   private ComunicacionesIFrame comunicacionesIFrame;
   private ResumenesIFrame resumenesIFrame;
-  private SummaryIFrame summaryIFrame;
-  private StatusIFrame statusIFrame;
-  private BulkIFrame bulkIFrame;
+  private BulkSendSummaryIFrame bulkSendSummaryIFrame;
+  private SendBillIFrame sendBillIFrame;
+  private GetStatusIFrame getStatusIFrame;
+  private BulkGetStatusIFrame bulkGetStatusIFrame;
   private LoadingDialog dialog;
   private Server server;
 
@@ -59,6 +65,18 @@ public class MainController {
             new UsuarioController(frame, usuarioIFrame, server.isNotRunning()).init();
           } else {
             iframeClosed(usuarioIFrame);
+          }
+        });
+
+    frame.miFactura.addActionListener(
+        (ActionEvent arg0) -> {
+          if (isIframeClosed(facturaIFrame)) {
+            facturaIFrame = new FacturaIFrame();
+            frame.dpane.add(facturaIFrame);
+            facturaIFrame.setLocation(centerIFrame(facturaIFrame));
+            new FacturaController(facturaIFrame, dialog).init();
+          } else {
+            iframeClosed(facturaIFrame);
           }
         });
 
@@ -110,39 +128,51 @@ public class MainController {
           }
         });
 
-    frame.miSummary.addActionListener(
+    frame.miBulkSendSummary.addActionListener(
         (ActionEvent arg0) -> {
-          if (isIframeClosed(summaryIFrame)) {
-            summaryIFrame = new SummaryIFrame();
-            frame.dpane.add(summaryIFrame);
-            summaryIFrame.setLocation(centerIFrame(summaryIFrame));
-            new SummaryController(summaryIFrame, dialog).init();
+          if (isIframeClosed(bulkSendSummaryIFrame)) {
+            bulkSendSummaryIFrame = new BulkSendSummaryIFrame();
+            frame.dpane.add(bulkSendSummaryIFrame);
+            bulkSendSummaryIFrame.setLocation(centerIFrame(bulkSendSummaryIFrame));
+            new BulkSendSummaryController(bulkSendSummaryIFrame, dialog).init();
           } else {
-            iframeClosed(summaryIFrame);
+            iframeClosed(bulkSendSummaryIFrame);
           }
         });
 
-    frame.miStatus.addActionListener(
+    frame.miSendBill.addActionListener(
         (ActionEvent arg0) -> {
-          if (isIframeClosed(statusIFrame)) {
-            statusIFrame = new StatusIFrame();
-            frame.dpane.add(statusIFrame);
-            statusIFrame.setLocation(centerIFrame(statusIFrame));
-            new StatusController(statusIFrame, dialog).init();
+          if (isIframeClosed(sendBillIFrame)) {
+            sendBillIFrame = new SendBillIFrame();
+            frame.dpane.add(sendBillIFrame);
+            sendBillIFrame.setLocation(centerIFrame(sendBillIFrame));
+            new SendBillController(sendBillIFrame, dialog).init();
           } else {
-            iframeClosed(statusIFrame);
+            iframeClosed(sendBillIFrame);
           }
         });
 
-    frame.miBulk.addActionListener(
+    frame.miGetStatus.addActionListener(
         (ActionEvent arg0) -> {
-          if (isIframeClosed(bulkIFrame)) {
-            bulkIFrame = new BulkIFrame();
-            frame.dpane.add(bulkIFrame);
-            bulkIFrame.setLocation(centerIFrame(bulkIFrame));
-            new BulkController(bulkIFrame, dialog).init();
+          if (isIframeClosed(getStatusIFrame)) {
+            getStatusIFrame = new GetStatusIFrame();
+            frame.dpane.add(getStatusIFrame);
+            getStatusIFrame.setLocation(centerIFrame(getStatusIFrame));
+            new GetStatusController(getStatusIFrame, dialog).init();
           } else {
-            iframeClosed(bulkIFrame);
+            iframeClosed(getStatusIFrame);
+          }
+        });
+
+    frame.miBulkGetStatus.addActionListener(
+        (ActionEvent arg0) -> {
+          if (isIframeClosed(bulkGetStatusIFrame)) {
+            bulkGetStatusIFrame = new BulkGetStatusIFrame();
+            frame.dpane.add(bulkGetStatusIFrame);
+            bulkGetStatusIFrame.setLocation(centerIFrame(bulkGetStatusIFrame));
+            new BulkGetStatusController(bulkGetStatusIFrame, dialog).init();
+          } else {
+            iframeClosed(bulkGetStatusIFrame);
           }
         });
 

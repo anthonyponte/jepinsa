@@ -18,14 +18,14 @@
 package com.anthonyponte.jbill.model;
 
 /** @author anthony */
-public class RegimenPercepcion {
+public class Regimen {
   private String codigo;
   private String descripcion;
   private double porcentaje;
 
-  public RegimenPercepcion() {}
+  public Regimen() {}
 
-  public RegimenPercepcion(String codigo, String descripcion, double porcentaje) {
+  public Regimen(String codigo, String descripcion, double porcentaje) {
     this.codigo = codigo;
     this.descripcion = descripcion;
     this.porcentaje = porcentaje;

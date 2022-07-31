@@ -20,13 +20,17 @@ package com.anthonyponte.jbill.model;
 import java.util.Date;
 import java.util.List;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class ResumenDiario extends Summary {
+  
   private List<ResumenDiarioDetalle> resumenDiarioDetalles;
 
   public ResumenDiario() {}
 
   public ResumenDiario(
+      List<ResumenDiarioDetalle> resumenDiarioDetalles,
       int id,
       String ubl,
       String version,
@@ -36,8 +40,11 @@ public class ResumenDiario extends Summary {
       Date fechaEmision,
       Date fechaReferencia,
       Empresa emisor,
-      String nombreZip,
-      byte[] zip) {
+      Archivo zip,
+      String ticket,
+      String statusCode,
+      Archivo cdr,
+      Date fechaIngreso) {
     super(
         id,
         ubl,
@@ -48,32 +55,12 @@ public class ResumenDiario extends Summary {
         fechaEmision,
         fechaReferencia,
         emisor,
-        nombreZip,
-        zip);
-  }
-
-  public ResumenDiario(
-      String ubl,
-      String version,
-      TipoDocumento tipoDocumento,
-      String serie,
-      int correlativo,
-      Date fechaEmision,
-      Date fechaReferencia,
-      Empresa emisor,
-      String nombreZip,
-      byte[] zip) {
-    super(
-        ubl,
-        version,
-        tipoDocumento,
-        serie,
-        correlativo,
-        fechaEmision,
-        fechaReferencia,
-        emisor,
-        nombreZip,
-        zip);
+        zip,
+        ticket,
+        statusCode,
+        cdr,
+        fechaIngreso);
+    this.resumenDiarioDetalles = resumenDiarioDetalles;
   }
 
   public List<ResumenDiarioDetalle> getResumenDiarioDetalles() {

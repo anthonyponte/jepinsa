@@ -17,8 +17,11 @@
 
 package com.anthonyponte.jbill.model;
 
-/** @author anthony */
+/**
+ * @author anthony
+ */
 public class Moneda {
+
   private String codigo;
   private String descripcion;
 

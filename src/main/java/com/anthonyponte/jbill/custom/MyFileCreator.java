@@ -55,7 +55,9 @@ import org.jdom2.output.XMLOutputter;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class MyFileCreator {
 
   private static final Preferences PREFS =

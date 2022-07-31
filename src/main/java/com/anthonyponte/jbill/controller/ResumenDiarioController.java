@@ -33,7 +33,9 @@ import com.anthonyponte.jbill.filter.IntegerFilter;
 import com.anthonyponte.jbill.idao.IResumenDiarioDao;
 import com.anthonyponte.jbill.idao.ISummaryDao;
 import com.anthonyponte.jbill.maindoc.SummaryDocuments;
+import com.anthonyponte.jbill.model.Archivo;
 import com.anthonyponte.jbill.model.Bill;
+import com.anthonyponte.jbill.model.DocumentoIdentidad;
 import com.anthonyponte.jbill.model.TipoDocumentoIdentidad;
 import com.anthonyponte.jbill.model.Empresa;
 import com.anthonyponte.jbill.model.Estado;
@@ -42,7 +44,7 @@ import com.anthonyponte.jbill.model.Moneda;
 import com.anthonyponte.jbill.model.Operacion;
 import com.anthonyponte.jbill.model.OtrosCargos;
 import com.anthonyponte.jbill.model.Percepcion;
-import com.anthonyponte.jbill.model.RegimenPercepcion;
+import com.anthonyponte.jbill.model.Regimen;
 import com.anthonyponte.jbill.model.ResumenDiario;
 import com.anthonyponte.jbill.model.ResumenDiarioDetalle;
 import com.anthonyponte.jbill.model.TipoDocumento;
@@ -247,10 +249,17 @@ public class ResumenDiarioController {
                         resumenDiario.setFechaEmision(iFrame.dpFechaGeneracion.getDate());
                         resumenDiario.setFechaReferencia(iFrame.dpFechaEmision.getDate());
 
+                        TipoDocumentoIdentidad tipoDocumentoIdentidad =
+                            new TipoDocumentoIdentidad();
+                        tipoDocumentoIdentidad.setCodigo(
+                            preferences.get(UsuarioController.RUC_TIPO, ""));
+
+                        DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
+                        documentoIdentidad.setTipo(tipoDocumentoIdentidad);
+                        documentoIdentidad.setNumero(preferences.get(UsuarioController.RUC, ""));
+
                         Empresa emisor = new Empresa();
-                        emisor.setNumeroDocumentoIdentidad(
-                            preferences.get(UsuarioController.RUC, ""));
-                        emisor.setTipo(preferences.getInt(UsuarioController.RUC_TIPO, 0));
+                        emisor.setDocumentoIdentidad(documentoIdentidad);
                         emisor.setNombre(preferences.get(UsuarioController.RAZON_SOCIAL, ""));
                         resumenDiario.setEmisor(emisor);
 
@@ -281,8 +290,12 @@ public class ResumenDiarioController {
                                 sign);
 
                         byte[] byteArray = Files.readAllBytes(zip.toPath());
-                        resumenDiario.setNombreZip(zip.getName());
-                        resumenDiario.setZip(byteArray);
+
+                        Archivo archivo = new Archivo();
+                        archivo.setNombre(zip.getName());
+                        archivo.setContenido(byteArray);
+                        resumenDiario.setZip(archivo);
+
                         int id = summaryDao.create(resumenDiario);
                         resumenDiarioDao.create(id, eventList);
 
@@ -324,7 +337,7 @@ public class ResumenDiarioController {
 
                           JOptionPane.showMessageDialog(
                               iFrame,
-                              get.getNombreZip() + " guardado",
+                              get.getZip().getNombre() + " guardado",
                               "Guardado",
                               JOptionPane.INFORMATION_MESSAGE);
                         } catch (InterruptedException | ExecutionException ex) {
@@ -482,17 +495,15 @@ public class ResumenDiarioController {
           }
         });
 
-    iFrame.cbxPercepcionRegimen.addItemListener(
-        (ItemEvent ie) -> {
+    iFrame.cbxPercepcionRegimen.addItemListener((ItemEvent ie) -> {
           if (ie.getStateChange() == ItemEvent.SELECTED) {
-            RegimenPercepcion regimenPercepcion =
-                (RegimenPercepcion) iFrame.cbxPercepcionRegimen.getSelectedItem();
+            Regimen regimenPercepcion =
+                (Regimen) iFrame.cbxPercepcionRegimen.getSelectedItem();
             iFrame.tfPercepcionTasa.setText(String.valueOf(regimenPercepcion.getPorcentaje()));
           }
         });
 
-    iFrame.btnAgregar.addActionListener(
-        (arg0) -> {
+    iFrame.btnAgregar.addActionListener((arg0) -> {
           try {
             ResumenDiarioDetalle detalle = new ResumenDiarioDetalle();
 
@@ -504,10 +515,14 @@ public class ResumenDiarioController {
 
             if (iFrame.cbxDocumentoIdentidadTipo.getSelectedIndex() >= 0
                 && !iFrame.tfDocumentoIdentidadNumero.getText().isEmpty()) {
-              Empresa adquiriente = new Empresa();
-              adquiriente.setNumeroDocumentoIdentidad(iFrame.tfDocumentoIdentidadNumero.getText());
-              adquiriente.setTipoDocumentoIdentidad(
+              DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
+              documentoIdentidad.setTipo(
                   (TipoDocumentoIdentidad) iFrame.cbxDocumentoIdentidadTipo.getSelectedItem());
+              documentoIdentidad.setNumero(iFrame.tfDocumentoIdentidadNumero.getText());
+
+              Empresa adquiriente = new Empresa();
+              adquiriente.setDocumentoIdentidad(documentoIdentidad);
+
               detalle.setAdquiriente(adquiriente);
             }
 
@@ -525,8 +540,7 @@ public class ResumenDiarioController {
 
             if (iFrame.cbxPercepcionRegimen.getSelectedIndex() >= 0) {
               Percepcion percepcion = new Percepcion();
-              percepcion.setRegimenPercepcion(
-                  (RegimenPercepcion) iFrame.cbxPercepcionRegimen.getSelectedItem());
+              percepcion.setRegimen((Regimen) iFrame.cbxPercepcionRegimen.getSelectedItem());
               percepcion.setMonto((Double) iFrame.tfPercepcionMonto.getValue());
               percepcion.setMontoTotal((Double) iFrame.tfPercepcionMonto.getValue());
               percepcion.setMonto((Double) iFrame.tfPercepcionMontoTotal.getValue());
@@ -816,7 +830,7 @@ public class ResumenDiarioController {
                 return detalle.getDocumento().getTipoDocumento().getDescripcion();
               case 3:
                 if (detalle.getAdquiriente() != null)
-                  return detalle.getAdquiriente().getNumeroDocumentoIdentidad();
+                  return detalle.getAdquiriente().getDocumentoIdentidad().getNumero();
                 else return "";
               case 4:
                 if (detalle.getDocumentoReferencia() != null)
@@ -832,11 +846,11 @@ public class ResumenDiarioController {
                 else return "";
               case 7:
                 if (detalle.getPercepcion() != null)
-                  return detalle.getPercepcion().getRegimenPercepcion().getDescripcion();
+                  return detalle.getPercepcion().getRegimen().getDescripcion();
                 else return "";
               case 8:
                 if (detalle.getPercepcion() != null)
-                  return detalle.getPercepcion().getRegimenPercepcion().getPorcentaje();
+                  return detalle.getPercepcion().getRegimen().getPorcentaje();
                 else return "";
               case 9:
                 if (detalle.getPercepcion() != null) return detalle.getPercepcion().getMonto();

@@ -56,7 +56,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import org.joda.time.DateTime;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class ResumenesController {
   private final ResumenesIFrame iFrame;
   private final LoadingDialog dialog;
@@ -80,7 +82,8 @@ public class ResumenesController {
           start(date);
         });
 
-    iFrame.tblEncabezado.addMouseListener(new MouseAdapter() {
+    iFrame.tblEncabezado.addMouseListener(
+        new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
@@ -92,9 +95,9 @@ public class ResumenesController {
                 chooser.setCurrentDirectory(new File("."));
 
                 if (column == 8) {
-                  chooser.setSelectedFile(new File(selected.getNombreZip()));
+                  chooser.setSelectedFile(new File(selected.getZip().getNombre()));
                 } else if (column == 11) {
-                  chooser.setSelectedFile(new File(selected.getNombreContent()));
+                  chooser.setSelectedFile(new File(selected.getCdr().getNombre()));
                 }
 
                 int result = chooser.showSaveDialog(iFrame);
@@ -104,19 +107,21 @@ public class ResumenesController {
                       new FileOutputStream(file.getParent() + "//" + file.getName())) {
 
                     if (column == 8) {
-                      fos.write(selected.getZip());
+                      fos.write(selected.getZip().getContenido());
                     } else if (column == 11) {
-                      fos.write(selected.getContent());
+                      fos.write(selected.getCdr().getContenido());
                     }
 
                     fos.flush();
                   } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(null,
+                    JOptionPane.showMessageDialog(
+                        null,
                         ex.getMessage(),
                         ResumenesController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null,
+                    JOptionPane.showMessageDialog(
+                        null,
                         ex.getMessage(),
                         ResumenesController.class.getName(),
                         JOptionPane.ERROR_MESSAGE);
@@ -130,9 +135,10 @@ public class ResumenesController {
                   elDetalle.clear();
                   elDetalle.addAll(get);
 
-                  MyTableResize.resize(iFrame.tblEncabezado);
+                  MyTableResize.resize(iFrame.tblDetalle);
                 } catch (SQLException ex) {
-                  JOptionPane.showMessageDialog(null,
+                  JOptionPane.showMessageDialog(
+                      null,
                       ex.getMessage(),
                       ResumenesController.class.getName(),
                       JOptionPane.ERROR_MESSAGE);
@@ -221,17 +227,17 @@ public class ResumenesController {
               case 5:
                 return MyDateFormat.d_MMMM_Y(resumenDiario.getFechaReferencia());
               case 6:
-                return resumenDiario.getEmisor().getNumeroDocumentoIdentidad();
+                return resumenDiario.getEmisor().getDocumentoIdentidad().getNumero();
               case 7:
                 return resumenDiario.getEmisor().getNombre();
               case 8:
-                return resumenDiario.getNombreZip();
+                return resumenDiario.getZip().getNombre();
               case 9:
                 return resumenDiario.getTicket();
               case 10:
                 return resumenDiario.getStatusCode();
               case 11:
-                return resumenDiario.getNombreContent();
+                return resumenDiario.getCdr().getNombre();
             }
             throw new IllegalStateException("Unexpected column: " + column);
           }
@@ -285,7 +291,8 @@ public class ResumenesController {
               if (!get.isEmpty()) iFrame.tfFiltrar.requestFocus();
               else iFrame.dpMesAno.requestFocus();
             } catch (InterruptedException | ExecutionException ex) {
-              JOptionPane.showMessageDialog(null,
+              JOptionPane.showMessageDialog(
+                  null,
                   ex.getMessage(),
                   ResumenesController.class.getName(),
                   JOptionPane.ERROR_MESSAGE);

@@ -15,7 +15,9 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class VoidedDocuments {
 
   private static final Preferences PREFS =
@@ -106,7 +108,8 @@ public class VoidedDocuments {
                                     .setText(
                                         comunicacionBaja
                                             .getEmisor()
-                                            .getNumeroDocumentoIdentidad())))
+                                            .getDocumentoIdentidad()
+                                            .getNumero())))
                     .addContent(
                         new Element("PartyName", cac)
                             .addContent(
@@ -127,10 +130,11 @@ public class VoidedDocuments {
         new Element("AccountingSupplierParty", cac)
             .addContent(
                 new Element("CustomerAssignedAccountID", cbc)
-                    .setText(comunicacionBaja.getEmisor().getNumeroDocumentoIdentidad()))
+                    .setText(comunicacionBaja.getEmisor().getDocumentoIdentidad().getNumero()))
             .addContent(
                 new Element("AdditionalAccountID", cbc)
-                    .setText(String.valueOf(comunicacionBaja.getEmisor().getTipo())))
+                    .setText(
+                        comunicacionBaja.getEmisor().getDocumentoIdentidad().getTipo().getCodigo()))
             .addContent(
                 new Element("Party", cac)
                     .addContent(

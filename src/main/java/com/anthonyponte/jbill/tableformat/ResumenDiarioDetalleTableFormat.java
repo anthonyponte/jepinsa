@@ -20,7 +20,9 @@ package com.anthonyponte.jbill.tableformat;
 import ca.odell.glazedlists.gui.TableFormat;
 import com.anthonyponte.jbill.model.ResumenDiarioDetalle;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class ResumenDiarioDetalleTableFormat implements TableFormat<ResumenDiarioDetalle> {
 
   @Override
@@ -94,7 +96,7 @@ public class ResumenDiarioDetalleTableFormat implements TableFormat<ResumenDiari
         return detalle.getDocumento().getTipoDocumento().getDescripcion();
       case 3:
         if (detalle.getAdquiriente() != null)
-          return detalle.getAdquiriente().getNumeroDocumentoIdentidad();
+          return detalle.getAdquiriente().getDocumentoIdentidad().getNumero();
         else return "";
       case 4:
         if (detalle.getDocumentoReferencia() != null)
@@ -110,11 +112,11 @@ public class ResumenDiarioDetalleTableFormat implements TableFormat<ResumenDiari
         else return "";
       case 7:
         if (detalle.getPercepcion() != null)
-          return detalle.getPercepcion().getRegimenPercepcion().getDescripcion();
+          return detalle.getPercepcion().getRegimen().getDescripcion();
         else return "";
       case 8:
         if (detalle.getPercepcion() != null)
-          return detalle.getPercepcion().getRegimenPercepcion().getPorcentaje();
+          return detalle.getPercepcion().getRegimen().getPorcentaje();
         else return "";
       case 9:
         if (detalle.getPercepcion() != null) return detalle.getPercepcion().getMonto();

@@ -18,8 +18,7 @@ import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThr
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
 import com.anthonyponte.jbill.idao.IBillConsultService;
-import com.anthonyponte.jbill.model.Bill;
-import com.anthonyponte.jbill.view.BulkIFrame;
+import com.anthonyponte.jbill.view.BulkGetStatusIFrame;
 import com.anthonyponte.jbill.view.LoadingDialog;
 import com.poiji.bind.Poiji;
 import java.awt.event.ActionEvent;
@@ -32,6 +31,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import billconsultservice.sunat.gob.pe.BillService;
 import billconsultservice.sunat.gob.pe.StatusResponse;
 import com.anthonyponte.jbill.custom.MyTableResize;
+import com.anthonyponte.jbill.model.Documento;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -52,18 +52,20 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-/** @author AnthonyPonte */
-public class BulkController {
+/**
+ * @author AnthonyPonte
+ */
+public class BulkGetStatusController {
 
-  private final BulkIFrame iFrame;
+  private final BulkGetStatusIFrame iFrame;
   private final LoadingDialog dialog;
   private BillService service;
-  private EventList<Bill> eventList;
-  private SortedList<Bill> sortedList;
-  private AdvancedListSelectionModel<Bill> selectionModel;
-  private AdvancedTableModel<Bill> model;
+  private EventList<Documento> eventList;
+  private SortedList<Documento> sortedList;
+  private AdvancedListSelectionModel<Documento> selectionModel;
+  private AdvancedTableModel<Documento> model;
 
-  public BulkController(BulkIFrame iFrame, LoadingDialog dialog) {
+  public BulkGetStatusController(BulkGetStatusIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();
@@ -125,7 +127,7 @@ public class BulkController {
 
                     for (int r = 0; r < model.getRowCount(); r++) {
                       XSSFRow row = sheet.createRow(r + 1);
-                      Bill bill = model.getElementAt(r);
+                      Documento comprobante = model.getElementAt(r);
                       publish(r);
 
                       for (int c = 0; c < model.getColumnCount(); c++) {
@@ -134,22 +136,22 @@ public class BulkController {
 
                         switch (cell.getColumnIndex()) {
                           case 0:
-                            cell.setCellValue(bill.getEmisor().getNumeroDocumentoIdentidad());
+                            cell.setCellValue(comprobante.getRuc());
                             break;
                           case 1:
-                            cell.setCellValue(bill.getTipoDocumento().getCodigo());
+                            cell.setCellValue(comprobante.getTipo());
                             break;
                           case 2:
-                            cell.setCellValue(bill.getSerie());
+                            cell.setCellValue(comprobante.getSerie());
                             break;
                           case 3:
-                            cell.setCellValue(bill.getCorrelativo());
+                            cell.setCellValue(comprobante.getCorrelativo());
                             break;
                           case 4:
-                            cell.setCellValue(bill.getCdrStatusCode());
+                            cell.setCellValue(comprobante.getStatusResponse().getStatusCode());
                             break;
                           case 5:
-                            cell.setCellValue(bill.getStatusMessage());
+                            cell.setCellValue(comprobante.getStatusResponse().getStatusMessage());
                             break;
                           default:
                             break;
@@ -175,7 +177,7 @@ public class BulkController {
                     } catch (InterruptedException | ExecutionException | IOException ex) {
                       JOptionPane.showMessageDialog(null,
                           ex.getMessage(),
-                          BulkController.class.getName(),
+                          BulkGetStatusController.class.getName(),
                           JOptionPane.ERROR_MESSAGE);
                     }
                   }
@@ -205,7 +207,7 @@ public class BulkController {
               } catch (UnsupportedFlavorException | IOException ex) {
                 JOptionPane.showMessageDialog(null,
                     ex.getMessage(),
-                    BulkController.class.getName(),
+                    BulkGetStatusController.class.getName(),
                     JOptionPane.ERROR_MESSAGE);
               }
             } else {
@@ -218,29 +220,27 @@ public class BulkController {
           @Override
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
-              Bill selected = selectionModel.getSelected().get(0);
+              Documento selected = selectionModel.getSelected().get(0);
 
-              if (selected.getStatusCode().equals("0001")
-                  || selected.getStatusCode().equals("0002")
-                  || selected.getStatusCode().equals("0003")) {
+              if (selected.getStatusResponse().getStatusCode().equals("0001")
+                  || selected.getStatusResponse().getStatusCode().equals("0002")
+                  || selected.getStatusResponse().getStatusCode().equals("0003")) {
 
                 SwingWorker worker =
-                    new SwingWorker<Bill, Integer>() {
+                    new SwingWorker<Documento, Integer>() {
                       @Override
-                      protected Bill doInBackground() throws Exception {
+                      protected Documento doInBackground() throws Exception {
                         dialog.setVisible(true);
                         dialog.setLocationRelativeTo(iFrame);
 
                         StatusResponse statusResponse =
                             service.getStatusCdr(
-                                selected.getEmisor().getNumeroDocumentoIdentidad(),
-                                selected.getTipoDocumento().getCodigo(),
+                                selected.getRuc(),
+                                selected.getTipo(),
                                 selected.getSerie(),
                                 selected.getCorrelativo());
 
-                        selected.setCdrStatusCode(statusResponse.getStatusCode());
-                        selected.setCdrStatusMessage(statusResponse.getStatusMessage());
-                        selected.setCdrContent(statusResponse.getContent());
+                        selected.setCdrStatusResponse(statusResponse);
 
                         return selected;
                       }
@@ -250,9 +250,9 @@ public class BulkController {
                         try {
                           dialog.dispose();
 
-                          Bill get = get();
+                          Documento get = get();
 
-                          if (get.getCdrStatusCode().equals("0004")) {
+                          if (get.getCdrStatusResponse().getStatusCode().equals("0004")) {
                             JFileChooser chooser = new JFileChooser();
                             chooser.setDialogTitle("Guardar");
                             chooser.setApproveButtonText("Guardar");
@@ -263,9 +263,9 @@ public class BulkController {
                             chooser.setSelectedFile(
                                 new File(
                                     "R-"
-                                        + get.getEmisor().getNumeroDocumentoIdentidad()
+                                        + get.getRuc()
                                         + "-"
-                                        + get.getTipoDocumento().getCodigo()
+                                        + get.getTipo()
                                         + "-"
                                         + get.getSerie()
                                         + "-"
@@ -277,32 +277,32 @@ public class BulkController {
                               File file = chooser.getSelectedFile().getAbsoluteFile();
                               try (FileOutputStream fout =
                                   new FileOutputStream(file.getParent() + "//" + file.getName())) {
-                                fout.write(get.getCdrContent());
+                                fout.write(get.getCdrStatusResponse().getContent());
                                 fout.flush();
                                 fout.close();
                               } catch (FileNotFoundException ex) {
                                 JOptionPane.showMessageDialog(null,
                                     ex.getMessage(),
-                                    BulkController.class.getName(),
+                                    BulkGetStatusController.class.getName(),
                                     JOptionPane.ERROR_MESSAGE);
                               } catch (IOException ex) {
                                 JOptionPane.showMessageDialog(null,
                                     ex.getMessage(),
-                                    BulkController.class.getName(),
+                                    BulkGetStatusController.class.getName(),
                                     JOptionPane.ERROR_MESSAGE);
                               }
                             }
                           } else {
                             JOptionPane.showMessageDialog(
                                 iFrame,
-                                get.getCdrStatusMessage(),
-                                get.getCdrStatusCode(),
+                                get.getCdrStatusResponse().getStatusMessage(),
+                                get.getCdrStatusResponse().getStatusCode(),
                                 JOptionPane.ERROR_MESSAGE);
                           }
                         } catch (InterruptedException | ExecutionException ex) {
                           JOptionPane.showMessageDialog(null,
                               ex.getMessage(),
-                              BulkController.class.getName(),
+                              BulkGetStatusController.class.getName(),
                               JOptionPane.ERROR_MESSAGE);
                         }
                       }
@@ -320,27 +320,28 @@ public class BulkController {
     eventList = new BasicEventList<>();
 
     Comparator comparator =
-        (Comparator<Bill>) (Bill o1, Bill o2) -> o1.getCorrelativo() - o2.getCorrelativo();
+        (Comparator<Documento>)
+            (Documento o1, Documento o2) -> o1.getCorrelativo() - o2.getCorrelativo();
 
     sortedList = new SortedList<>(eventList, comparator);
 
-    TextFilterator<Bill> textFilterator =
-        (List<String> baseList, Bill element) -> {
-          baseList.add(element.getEmisor().getNumeroDocumentoIdentidad());
-          baseList.add(element.getTipoDocumento().getCodigo());
+    TextFilterator<Documento> textFilterator =
+        (List<String> baseList, Documento element) -> {
+          baseList.add(element.getRuc());
+          baseList.add(element.getTipo());
           baseList.add(element.getSerie());
           baseList.add(String.valueOf(element.getCorrelativo()));
-          baseList.add(element.getStatusCode());
-          baseList.add(element.getStatusMessage());
+          baseList.add(element.getStatusResponse().getStatusCode());
+          baseList.add(element.getStatusResponse().getStatusMessage());
         };
 
-    MatcherEditor<Bill> matcherEditor =
+    MatcherEditor<Documento> matcherEditor =
         new TextComponentMatcherEditor<>(this.iFrame.tfFiltrar, textFilterator);
 
-    FilterList<Bill> filterList = new FilterList<>(sortedList, matcherEditor);
+    FilterList<Documento> filterList = new FilterList<>(sortedList, matcherEditor);
 
-    TableFormat<Bill> tableFormat =
-        new TableFormat<Bill>() {
+    TableFormat<Documento> tableFormat =
+        new TableFormat<Documento>() {
           @Override
           public int getColumnCount() {
             return 6;
@@ -356,7 +357,7 @@ public class BulkController {
               case 2:
                 return "Serie";
               case 3:
-                return "Numero";
+                return "Correlativo";
               case 4:
                 return "Codigo";
               case 5:
@@ -368,20 +369,20 @@ public class BulkController {
           }
 
           @Override
-          public Object getColumnValue(Bill baseObject, int column) {
+          public Object getColumnValue(Documento baseObject, int column) {
             switch (column) {
               case 0:
-                return baseObject.getEmisor().getNumeroDocumentoIdentidad();
+                return baseObject.getRuc();
               case 1:
-                return baseObject.getTipoDocumento().getCodigo();
+                return baseObject.getTipo();
               case 2:
                 return baseObject.getSerie();
               case 3:
                 return baseObject.getCorrelativo();
               case 4:
-                return baseObject.getStatusCode();
+                return baseObject.getStatusResponse().getStatusCode();
               case 5:
-                return baseObject.getStatusMessage();
+                return baseObject.getStatusResponse().getStatusMessage();
               default:
                 break;
             }
@@ -410,33 +411,26 @@ public class BulkController {
     dialog.setLocationRelativeTo(iFrame);
 
     SwingWorker worker =
-        new SwingWorker<List<Bill>, Void>() {
+        new SwingWorker<List<Documento>, Void>() {
           @Override
-          protected List<Bill> doInBackground() throws Exception {
-            List<Bill> list = null;
+          protected List<Documento> doInBackground() throws Exception {
+            List<Documento> list = null;
             try {
-              list = Poiji.fromExcel(file, Bill.class);
+              list = Poiji.fromExcel(file, Documento.class);
 
               for (int i = 0; i < list.size(); i++) {
-                Bill bill = (Bill) list.get(i);
+                Documento bill = (Documento) list.get(i);
 
                 StatusResponse statusResponse =
                     service.getStatus(
-                        bill.getEmisor().getNumeroDocumentoIdentidad(),
-                        bill.getTipoDocumento().getCodigo(),
-                        bill.getSerie(),
-                        bill.getCorrelativo());
+                        bill.getRuc(), bill.getTipo(), bill.getSerie(), bill.getCorrelativo());
 
-                list.get(i).setStatusCode(statusResponse.getStatusCode());
-                list.get(i).setStatusMessage(statusResponse.getStatusMessage());
+                list.get(i).setStatusResponse(statusResponse);
               }
             } catch (Exception ex) {
               cancel(true);
 
-              JOptionPane.showMessageDialog(null,
-                  ex.getMessage(),
-                  BulkController.class.getName(),
-                  JOptionPane.ERROR_MESSAGE);
+              JOptionPane.showMessageDialog(null, ex.getMessage(), BulkGetStatusController.class.getName(), JOptionPane.ERROR_MESSAGE);
             }
             return list;
           }
@@ -447,7 +441,7 @@ public class BulkController {
 
             if (!isCancelled()) {
               try {
-                List<Bill> get = get();
+                List<Documento> get = get();
 
                 eventList.clear();
                 eventList.addAll(get);
@@ -460,7 +454,7 @@ public class BulkController {
               } catch (InterruptedException | ExecutionException ex) {
                 JOptionPane.showMessageDialog(null,
                     ex.getMessage(),
-                    BulkController.class.getName(),
+                    BulkGetStatusController.class.getName(),
                     JOptionPane.ERROR_MESSAGE);
               }
             }
