@@ -16,8 +16,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
@@ -59,90 +57,86 @@ public class SendBillController {
 
     iFrame.btnEnviar.addActionListener(
         (ActionEvent arg0) -> {
-          dialog.setVisible(true);
-          dialog.setLocationRelativeTo(iFrame);
+          String path = iFrame.tfRuta.getText();
+          File zip = new File(path);
+          if (zip.exists()) {
+            dialog.setVisible(true);
+            dialog.setLocationRelativeTo(iFrame);
 
-          SwingWorker worker =
-              new SwingWorker<Archivo, Void>() {
-                @Override
-                protected Archivo doInBackground() throws Exception {
-                  Archivo archivo = null;
-                  try {
-
-                    String path = iFrame.tfRuta.getText();
-                    File zip = new File(path);
+            SwingWorker worker =
+                new SwingWorker<Archivo, Void>() {
+                  @Override
+                  protected Archivo doInBackground() throws Exception {
+                    Archivo archivo = null;
 
                     String nombre = zip.getName();
                     byte[] contenido = Files.readAllBytes(zip.toPath());
 
                     String name = "R-" + zip.getName();
                     byte[] content = billServiceFactory.sendBill(nombre, contenido);
-                    archivo = new Archivo(name, content);
 
-                    if (content != null) cancel(true);
-
-                  } catch (IOException ex) {
-                    System.out.println(".cancel()");
-                    cancel(true);
-
-                    JOptionPane.showMessageDialog(
-                        null,
-                        ex.getMessage(),
-                        SendBillController.class.getName(),
-                        JOptionPane.ERROR_MESSAGE);
-                  }
-
-                  return archivo;
-                }
-
-                @Override
-                protected void done() {
-                  dialog.dispose();
-
-                  if (!isCancelled()) {
-                    try {
-                      Archivo archivo = get();
-
-                      JFileChooser chooser = new JFileChooser();
-                      chooser.setCurrentDirectory(new File("."));
-                      chooser.setSelectedFile(new File(archivo.getNombre()));
-                      int result = chooser.showSaveDialog(iFrame);
-                      if (result == JFileChooser.APPROVE_OPTION) {
-                        File file = chooser.getSelectedFile().getAbsoluteFile();
-                        try (FileOutputStream fos =
-                            new FileOutputStream(file.getParent() + "//" + file.getName())) {
-
-                          fos.write(archivo.getContenido());
-
-                          fos.flush();
-                        } catch (FileNotFoundException ex) {
-                          JOptionPane.showMessageDialog(
-                              null,
-                              ex.getMessage(),
-                              SendBillController.class.getName(),
-                              JOptionPane.ERROR_MESSAGE);
-                        } catch (IOException ex) {
-                          JOptionPane.showMessageDialog(
-                              null,
-                              ex.getMessage(),
-                              SendBillController.class.getName(),
-                              JOptionPane.ERROR_MESSAGE);
-                        }
-                      }
-                    } catch (InterruptedException | ExecutionException ex) {
-                      JOptionPane.showMessageDialog(
-                          null,
-                          ex.getMessage(),
-                          SendBillController.class.getName(),
-                          JOptionPane.ERROR_MESSAGE);
+                    if (content != null) {
+                      archivo = new Archivo(name, content);
+                    } else {
+                      cancel(true);
                     }
-                  } else {
-                    System.out.println(".done()");
-                  }
-                }
-              };
 
-          worker.execute();
+                    return archivo;
+                  }
+
+                  @Override
+                  protected void done() {
+                    dialog.dispose();
+
+                    if (!isCancelled()) {
+                      try {
+                        Archivo archivo = get();
+
+                        JFileChooser chooser = new JFileChooser();
+                        chooser.setCurrentDirectory(new File("."));
+                        chooser.setSelectedFile(new File(archivo.getNombre()));
+                        int result = chooser.showSaveDialog(iFrame);
+                        if (result == JFileChooser.APPROVE_OPTION) {
+                          File file = chooser.getSelectedFile().getAbsoluteFile();
+                          try (FileOutputStream fos =
+                              new FileOutputStream(file.getParent() + "//" + file.getName())) {
+
+                            fos.write(archivo.getContenido());
+
+                            fos.flush();
+                          } catch (FileNotFoundException ex) {
+                            JOptionPane.showMessageDialog(
+                                null,
+                                ex.getMessage(),
+                                SendBillController.class.getName(),
+                                JOptionPane.ERROR_MESSAGE);
+                          } catch (IOException ex) {
+                            JOptionPane.showMessageDialog(
+                                null,
+                                ex.getMessage(),
+                                SendBillController.class.getName(),
+                                JOptionPane.ERROR_MESSAGE);
+                          }
+                        }
+                      } catch (InterruptedException | ExecutionException ex) {
+                        JOptionPane.showMessageDialog(
+                            null,
+                            ex.getMessage(),
+                            SendBillController.class.getName(),
+                            JOptionPane.ERROR_MESSAGE);
+                      }
+                    }
+                  }
+                };
+
+            worker.execute();
+          } else {
+            JOptionPane.showMessageDialog(
+                iFrame,
+                "No se encuentra el archivo ZIP en la ruta " + path,
+                SendBillController.class.getName(),
+                JOptionPane.ERROR_MESSAGE);
+          }
         });
   }
 
