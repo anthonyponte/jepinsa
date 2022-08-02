@@ -51,7 +51,7 @@ public class BillServiceFactory {
 
     if (WEB_SERVICE) {
       efact.pe.StatusResponse statusResponse = service.getStatus(ticket);
-      
+
       if (statusResponse != null) {
         responde = new StatusResponse();
         responde.setStatusCode(statusResponse.getStatusCode());
