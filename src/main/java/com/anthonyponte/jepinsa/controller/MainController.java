@@ -37,7 +37,7 @@ public class MainController {
 
   private final MainFrame frame;
   private final String DATABASE = "jepinsa";
-  private final String ALIAS = "jb";
+  private final String ALIAS = "je";
   private UsuarioIFrame usuarioIFrame;
   private FacturaIFrame facturaIFrame;
   private ComunicacionBajaIFrame comunicacionBajaIFrame;

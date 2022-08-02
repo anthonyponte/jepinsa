@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class MyHsqldb {
 
   private Connection connection;
-  private final String ALIAS = "jb";
+  private final String ALIAS = "je";
   private final String USER = "SA";
   private final String PASS = "";
   private final String URL = "jdbc:hsqldb:hsql://localhost/" + ALIAS;

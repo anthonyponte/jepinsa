@@ -19,7 +19,6 @@ import org.joda.time.DateTime;
 import com.anthonyponte.jepinsa.dao.ComunicacionBajaDao;
 import com.anthonyponte.jepinsa.model.Archivo;
 import com.anthonyponte.jepinsa.model.DocumentoIdentidad;
-import com.anthonyponte.jepinsa.model.StatusResponse;
 import com.anthonyponte.jepinsa.model.TipoDocumento;
 
 /**
