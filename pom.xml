@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     
     <!-- The Basics -->
-    <groupId>com.anthonyponte.jbill</groupId>
-    <artifactId>JBill</artifactId>
+    <groupId>com.anthonyponte.jepinsa</groupId>
+    <artifactId>JEpinsa</artifactId>
     <version>1.2.0</version>
     <dependencies>           
         <dependency>
@@ -243,6 +243,6 @@
     </build>
     
     <!-- More Project Information -->
-    <name>JBill</name>
-    <description>Implementación java de los servicios web de SUNAT para la empresa EPINSA</description>
+    <name>JEpinsa</name>
+    <description>Implementación java de los servicios web de EFact y SUNAT para la empresa EPINSA</description>
 </project>

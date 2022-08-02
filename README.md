@@ -1,6 +1,6 @@
 ![logo](https://github.com/anthonyponte/JBill/blob/1.0.0/res/color_logo.png)
-# JBill
-Implementación java de los servicios web de SUNAT para la empresa EPINSA
+# EPINSA - Comprometidos con la seguridad alimentaria
+Implementación java de los servicios web de EFact y SUNAT para la empresa EPINSA
 ![screenshot](https://github.com/anthonyponte/JBill/blob/1.0.0/res/2022-06-17_10_51_53-JBill.png)
 ![screenshot](https://github.com/anthonyponte/JBill/blob/1.0.0/res/2022-06-17_10_52_16-JBill.png)
 ![screenshot](https://github.com/anthonyponte/JBill/blob/1.0.0/res/2022-06-17_10_52_35-JBill.png)
