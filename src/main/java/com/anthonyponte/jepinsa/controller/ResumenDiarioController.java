@@ -120,7 +120,7 @@ public class ResumenDiarioController {
                     JOptionPane.showMessageDialog(
                         null,
                         ex.getMessage(),
-                        ResumenDiarioController.class.getName(),
+                        ResumenDiarioController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                   return count;
@@ -199,7 +199,7 @@ public class ResumenDiarioController {
                     JOptionPane.showMessageDialog(
                         null,
                         ex.getMessage(),
-                        ResumenDiarioController.class.getName(),
+                        ResumenDiarioController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }
@@ -318,7 +318,7 @@ public class ResumenDiarioController {
                         JOptionPane.showMessageDialog(
                             null,
                             ex.getMessage(),
-                            ResumenDiarioController.class.getName(),
+                            ResumenDiarioController.class.getSimpleName(),
                             JOptionPane.ERROR_MESSAGE);
                       }
                       return resumenDiario;
@@ -344,7 +344,7 @@ public class ResumenDiarioController {
                           JOptionPane.showMessageDialog(
                               null,
                               ex.getMessage(),
-                              ResumenDiarioController.class.getName(),
+                              ResumenDiarioController.class.getSimpleName(),
                               JOptionPane.ERROR_MESSAGE);
                         }
                       }
@@ -359,7 +359,7 @@ public class ResumenDiarioController {
                 iFrame,
                 "No se encuentra el archivo JKS en la ruta "
                     + preferences.get(UsuarioController.FIRMA_JKS, ""),
-                ResumenDiarioController.class.getName(),
+                ResumenDiarioController.class.getSimpleName(),
                 JOptionPane.ERROR_MESSAGE);
           }
         });
@@ -396,7 +396,7 @@ public class ResumenDiarioController {
                 JOptionPane.showMessageDialog(
                     null,
                     ex.getMessage(),
-                    ResumenDiarioController.class.getName(),
+                    ResumenDiarioController.class.getSimpleName(),
                     JOptionPane.ERROR_MESSAGE);
               }
             } else {
@@ -423,7 +423,7 @@ public class ResumenDiarioController {
                 JOptionPane.showMessageDialog(
                     null,
                     ex.getMessage(),
-                    ResumenDiarioController.class.getName(),
+                    ResumenDiarioController.class.getSimpleName(),
                     JOptionPane.ERROR_MESSAGE);
               }
             }
@@ -452,7 +452,7 @@ public class ResumenDiarioController {
               JOptionPane.showMessageDialog(
                   null,
                   ex.getMessage(),
-                  ResumenDiarioController.class.getName(),
+                  ResumenDiarioController.class.getSimpleName(),
                   JOptionPane.ERROR_MESSAGE);
             }
           }
@@ -710,7 +710,7 @@ public class ResumenDiarioController {
             JOptionPane.showMessageDialog(
                 null,
                 ex.getMessage(),
-                ResumenDiarioController.class.getName(),
+                ResumenDiarioController.class.getSimpleName(),
                 JOptionPane.ERROR_MESSAGE);
           }
         });
@@ -1041,7 +1041,7 @@ public class ResumenDiarioController {
       JOptionPane.showMessageDialog(
           null,
           ex.getMessage(),
-          ResumenDiarioController.class.getName(),
+          ResumenDiarioController.class.getSimpleName(),
           JOptionPane.ERROR_MESSAGE);
     }
   }
@@ -1219,7 +1219,7 @@ public class ResumenDiarioController {
         JOptionPane.showMessageDialog(
             null,
             ex.getMessage(),
-            ResumenDiarioController.class.getName(),
+            ResumenDiarioController.class.getSimpleName(),
             JOptionPane.ERROR_MESSAGE);
       }
     }

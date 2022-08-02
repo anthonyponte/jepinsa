@@ -244,7 +244,7 @@ public class MainController {
       server.start();
     } catch (IOException | ServerAcl.AclFormatException ex) {
       JOptionPane.showMessageDialog(
-          null, ex.getMessage(), MainController.class.getName(), JOptionPane.ERROR_MESSAGE);
+          null, ex.getMessage(), MainController.class.getSimpleName(), JOptionPane.ERROR_MESSAGE);
     }
   }
 
@@ -297,7 +297,7 @@ public class MainController {
           iframe.setIcon(false);
         } catch (PropertyVetoException ex) {
           JOptionPane.showMessageDialog(
-              null, ex.getMessage(), MainController.class.getName(), JOptionPane.ERROR_MESSAGE);
+              null, ex.getMessage(), MainController.class.getSimpleName(), JOptionPane.ERROR_MESSAGE);
         }
       } else {
         iframe.setLocation(centerIFrame(iframe));

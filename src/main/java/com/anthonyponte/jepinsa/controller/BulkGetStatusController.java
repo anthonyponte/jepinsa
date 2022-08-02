@@ -177,7 +177,7 @@ public class BulkGetStatusController {
                     } catch (InterruptedException | ExecutionException | IOException ex) {
                       JOptionPane.showMessageDialog(null,
                           ex.getMessage(),
-                          BulkGetStatusController.class.getName(),
+                          BulkGetStatusController.class.getSimpleName(),
                           JOptionPane.ERROR_MESSAGE);
                     }
                   }
@@ -207,7 +207,7 @@ public class BulkGetStatusController {
               } catch (UnsupportedFlavorException | IOException ex) {
                 JOptionPane.showMessageDialog(null,
                     ex.getMessage(),
-                    BulkGetStatusController.class.getName(),
+                    BulkGetStatusController.class.getSimpleName(),
                     JOptionPane.ERROR_MESSAGE);
               }
             } else {
@@ -283,12 +283,12 @@ public class BulkGetStatusController {
                               } catch (FileNotFoundException ex) {
                                 JOptionPane.showMessageDialog(null,
                                     ex.getMessage(),
-                                    BulkGetStatusController.class.getName(),
+                                    BulkGetStatusController.class.getSimpleName(),
                                     JOptionPane.ERROR_MESSAGE);
                               } catch (IOException ex) {
                                 JOptionPane.showMessageDialog(null,
                                     ex.getMessage(),
-                                    BulkGetStatusController.class.getName(),
+                                    BulkGetStatusController.class.getSimpleName(),
                                     JOptionPane.ERROR_MESSAGE);
                               }
                             }
@@ -302,7 +302,7 @@ public class BulkGetStatusController {
                         } catch (InterruptedException | ExecutionException ex) {
                           JOptionPane.showMessageDialog(null,
                               ex.getMessage(),
-                              BulkGetStatusController.class.getName(),
+                              BulkGetStatusController.class.getSimpleName(),
                               JOptionPane.ERROR_MESSAGE);
                         }
                       }
@@ -430,7 +430,7 @@ public class BulkGetStatusController {
             } catch (Exception ex) {
               cancel(true);
 
-              JOptionPane.showMessageDialog(null, ex.getMessage(), BulkGetStatusController.class.getName(), JOptionPane.ERROR_MESSAGE);
+              JOptionPane.showMessageDialog(null, ex.getMessage(), BulkGetStatusController.class.getSimpleName(), JOptionPane.ERROR_MESSAGE);
             }
             return list;
           }
@@ -454,7 +454,7 @@ public class BulkGetStatusController {
               } catch (InterruptedException | ExecutionException ex) {
                 JOptionPane.showMessageDialog(null,
                     ex.getMessage(),
-                    BulkGetStatusController.class.getName(),
+                    BulkGetStatusController.class.getSimpleName(),
                     JOptionPane.ERROR_MESSAGE);
               }
             }

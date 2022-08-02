@@ -49,7 +49,7 @@ public class IBillConsultService implements BillService {
     } catch (Exception ex) {
       System.out.println("com.anthonyponte.jepinsa.idao.IBillConsultService.getStatusCdr() "+ex);
       JOptionPane.showMessageDialog(
-          null, ex.getMessage(), IBillConsultService.class.getName(), JOptionPane.ERROR_MESSAGE);
+          null, ex.getMessage(), IBillConsultService.class.getSimpleName(), JOptionPane.ERROR_MESSAGE);
     }
     return statusResponse;
   }
@@ -77,7 +77,7 @@ public class IBillConsultService implements BillService {
 
     } catch (Exception ex) {
       JOptionPane.showMessageDialog(
-          null, ex.getMessage(), IBillConsultService.class.getName(), JOptionPane.ERROR_MESSAGE);
+          null, ex.getMessage(), IBillConsultService.class.getSimpleName(), JOptionPane.ERROR_MESSAGE);
     }
     return statusResponse;
   }

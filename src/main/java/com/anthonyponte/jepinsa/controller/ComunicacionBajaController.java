@@ -105,7 +105,7 @@ public class ComunicacionBajaController {
                       JOptionPane.showMessageDialog(
                           null,
                           ex.getMessage(),
-                          ComunicacionBajaController.class.getName(),
+                          ComunicacionBajaController.class.getSimpleName(),
                           JOptionPane.ERROR_MESSAGE);
                     }
                     return count;
@@ -156,7 +156,7 @@ public class ComunicacionBajaController {
                       JOptionPane.showMessageDialog(
                           null,
                           ex.getMessage(),
-                          ComunicacionBajaController.class.getName(),
+                          ComunicacionBajaController.class.getSimpleName(),
                           JOptionPane.ERROR_MESSAGE);
                     }
                   }
@@ -200,7 +200,7 @@ public class ComunicacionBajaController {
             JOptionPane.showMessageDialog(
                 null,
                 ex.getMessage(),
-                ComunicacionBajaController.class.getName(),
+                ComunicacionBajaController.class.getSimpleName(),
                 JOptionPane.ERROR_MESSAGE);
           }
         });
@@ -362,7 +362,7 @@ public class ComunicacionBajaController {
                         JOptionPane.showMessageDialog(
                             null,
                             ex.getMessage(),
-                            ComunicacionBajaController.class.getName(),
+                            ComunicacionBajaController.class.getSimpleName(),
                             JOptionPane.ERROR_MESSAGE);
                       }
 
@@ -390,7 +390,7 @@ public class ComunicacionBajaController {
                           JOptionPane.showMessageDialog(
                               null,
                               ex.getMessage(),
-                              ComunicacionBajaController.class.getName(),
+                              ComunicacionBajaController.class.getSimpleName(),
                               JOptionPane.ERROR_MESSAGE);
                         }
                       }
@@ -405,7 +405,7 @@ public class ComunicacionBajaController {
                 iFrame,
                 "No se encuentra el archivo JKS en la ruta "
                     + preferences.get(UsuarioController.FIRMA_JKS, ""),
-                ComunicacionBajaController.class.getName(),
+                ComunicacionBajaController.class.getSimpleName(),
                 JOptionPane.ERROR_MESSAGE);
           }
         });
@@ -500,12 +500,12 @@ public class ComunicacionBajaController {
 
       iFrame.btnLimpiar.setEnabled(false);
     } catch (BadLocationException ex) {
-      Logger.getLogger(ComunicacionBajaController.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(ComunicacionBajaController.class.getSimpleName()).log(Level.SEVERE, null, ex);
 
       JOptionPane.showMessageDialog(
           null,
           ex.getMessage(),
-          ComunicacionBajaController.class.getName(),
+          ComunicacionBajaController.class.getSimpleName(),
           JOptionPane.ERROR_MESSAGE);
     }
   }

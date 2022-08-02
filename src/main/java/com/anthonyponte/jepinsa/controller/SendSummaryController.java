@@ -64,6 +64,8 @@ public class SendSummaryController {
             File zip = chooser.getSelectedFile();
 
             iFrame.tfRuta.setText(zip.getAbsolutePath());
+            iFrame.tfTicket.setText("");
+            iFrame.tfEstado.setText("");
 
             iFrame.btnEnviar.setEnabled(true);
             iFrame.btnEnviar.requestFocus();
@@ -96,13 +98,17 @@ public class SendSummaryController {
 
                       StatusResponse response = billServiceFactory.getStatus(ticket);
 
-                      if (response.getStatusCode().equals("0")
-                          || response.getStatusCode().equals("99")) {
-                        iFrame.tfEstado.setText(response.getStatusCode());
+                      if (response != null) {
+                        if (response.getStatusCode().equals("0")
+                            || response.getStatusCode().equals("99")) {
+                          iFrame.tfEstado.setText(response.getStatusCode());
 
-                        Archivo cdr = new Archivo();
-                        cdr.setNombre("R-" + zip.getName());
-                        cdr.setContenido(response.getContent());
+                          Archivo cdr = new Archivo();
+                          cdr.setNombre("R-" + zip.getName());
+                          cdr.setContenido(response.getContent());
+                        }
+                      } else {
+                        cancel(true);
                       }
                     } else {
                       cancel(true);
@@ -135,13 +141,13 @@ public class SendSummaryController {
                             JOptionPane.showMessageDialog(
                                 null,
                                 ex.getMessage(),
-                                SendSummaryController.class.getName(),
+                                SendSummaryController.class.getSimpleName(),
                                 JOptionPane.ERROR_MESSAGE);
                           } catch (IOException ex) {
                             JOptionPane.showMessageDialog(
                                 null,
                                 ex.getMessage(),
-                                SendSummaryController.class.getName(),
+                                SendSummaryController.class.getSimpleName(),
                                 JOptionPane.ERROR_MESSAGE);
                           }
                         }
@@ -149,7 +155,7 @@ public class SendSummaryController {
                         JOptionPane.showMessageDialog(
                             null,
                             ex.getMessage(),
-                            SendSummaryController.class.getName(),
+                            SendSummaryController.class.getSimpleName(),
                             JOptionPane.ERROR_MESSAGE);
                       }
                     }
@@ -161,13 +167,17 @@ public class SendSummaryController {
             JOptionPane.showMessageDialog(
                 iFrame,
                 "No se encuentra el archivo ZIP en la ruta " + path,
-                SendBillController.class.getName(),
+                SendBillController.class.getSimpleName(),
                 JOptionPane.ERROR_MESSAGE);
           }
         });
   }
 
   private void initComponents() {
+    billServiceFactory = new BillServiceFactory();
+
     iFrame.show();
+
+    iFrame.btnImportar.requestFocus();
   }
 }

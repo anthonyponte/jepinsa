@@ -108,13 +108,13 @@ public class SendBillController {
                             JOptionPane.showMessageDialog(
                                 null,
                                 ex.getMessage(),
-                                SendBillController.class.getName(),
+                                SendBillController.class.getSimpleName(),
                                 JOptionPane.ERROR_MESSAGE);
                           } catch (IOException ex) {
                             JOptionPane.showMessageDialog(
                                 null,
                                 ex.getMessage(),
-                                SendBillController.class.getName(),
+                                SendBillController.class.getSimpleName(),
                                 JOptionPane.ERROR_MESSAGE);
                           }
                         }
@@ -122,7 +122,7 @@ public class SendBillController {
                         JOptionPane.showMessageDialog(
                             null,
                             ex.getMessage(),
-                            SendBillController.class.getName(),
+                            SendBillController.class.getSimpleName(),
                             JOptionPane.ERROR_MESSAGE);
                       }
                     }
@@ -134,7 +134,7 @@ public class SendBillController {
             JOptionPane.showMessageDialog(
                 iFrame,
                 "No se encuentra el archivo ZIP en la ruta " + path,
-                SendBillController.class.getName(),
+                SendBillController.class.getSimpleName(),
                 JOptionPane.ERROR_MESSAGE);
           }
         });

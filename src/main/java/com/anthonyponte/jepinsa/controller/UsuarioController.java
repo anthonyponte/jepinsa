@@ -148,7 +148,7 @@ public class UsuarioController {
             JOptionPane.showMessageDialog(
                 null,
                 ex.getMessage(),
-                UsuarioController.class.getName(),
+                UsuarioController.class.getSimpleName(),
                 JOptionPane.ERROR_MESSAGE);
           }
         });

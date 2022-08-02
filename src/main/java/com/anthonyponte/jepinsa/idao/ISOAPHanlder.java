@@ -53,8 +53,8 @@ public class ISOAPHanlder implements SOAPHandler<SOAPMessageContext> {
         tagUsername.addTextNode(this.username);
         tagPassword.addTextNode(this.password);
       } catch (SOAPException ex) {
-        Logger.getLogger(ISOAPHanlder.class.getName()).log(Level.SEVERE, null, ex);
-        JOptionPane.showMessageDialog(null, ex.getMessage(), ISOAPHanlder.class.getName(), JOptionPane.ERROR_MESSAGE);
+        Logger.getLogger(ISOAPHanlder.class.getSimpleName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(null, ex.getMessage(), ISOAPHanlder.class.getSimpleName(), JOptionPane.ERROR_MESSAGE);
       }
     }
 
@@ -68,7 +68,7 @@ public class ISOAPHanlder implements SOAPHandler<SOAPMessageContext> {
       SOAPMessage message = context.getMessage();
       JOptionPane.showMessageDialog(null,
           message.getContentDescription(),
-          ISOAPHanlder.class.getName(),
+          ISOAPHanlder.class.getSimpleName(),
           JOptionPane.ERROR_MESSAGE);
     }
     return true;

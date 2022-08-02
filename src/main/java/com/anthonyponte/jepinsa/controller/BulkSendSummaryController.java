@@ -145,7 +145,7 @@ public class BulkSendSummaryController {
                       JOptionPane.showMessageDialog(
                           null,
                           ex.getMessage(),
-                          BulkSendSummaryController.class.getName(),
+                          BulkSendSummaryController.class.getSimpleName(),
                           JOptionPane.ERROR_MESSAGE);
                     }
                   }
@@ -180,13 +180,13 @@ public class BulkSendSummaryController {
                     JOptionPane.showMessageDialog(
                         null,
                         ex.getMessage(),
-                        BulkSendSummaryController.class.getName(),
+                        BulkSendSummaryController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
                     JOptionPane.showMessageDialog(
                         null,
                         ex.getMessage(),
-                        BulkSendSummaryController.class.getName(),
+                        BulkSendSummaryController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }
@@ -269,7 +269,7 @@ public class BulkSendSummaryController {
                               JOptionPane.showMessageDialog(
                                   null,
                                   ex.getMessage(),
-                                  BulkSendSummaryController.class.getName(),
+                                  BulkSendSummaryController.class.getSimpleName(),
                                   JOptionPane.ERROR_MESSAGE);
                             }
                           }
@@ -397,7 +397,7 @@ public class BulkSendSummaryController {
               JOptionPane.showMessageDialog(
                   null,
                   ex.getMessage(),
-                  BulkSendSummaryController.class.getName(),
+                  BulkSendSummaryController.class.getSimpleName(),
                   JOptionPane.ERROR_MESSAGE);
             }
           }

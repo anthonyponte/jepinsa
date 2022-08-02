@@ -63,7 +63,7 @@ public class GetStatusController {
             } catch (BadLocationException ex) {
               JOptionPane.showMessageDialog(null,
                   ex.getMessage(),
-                  GetStatusController.class.getName(),
+                  GetStatusController.class.getSimpleName(),
                   JOptionPane.ERROR_MESSAGE);
             }
           }
@@ -128,7 +128,7 @@ public class GetStatusController {
                   } catch (InterruptedException | ExecutionException ex) {
                     JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        GetStatusController.class.getName(),
+                        GetStatusController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }
@@ -200,12 +200,12 @@ public class GetStatusController {
                         } catch (FileNotFoundException ex) {
                           JOptionPane.showMessageDialog(null,
                               ex.getMessage(),
-                              GetStatusController.class.getName(),
+                              GetStatusController.class.getSimpleName(),
                               JOptionPane.ERROR_MESSAGE);
                         } catch (IOException ex) {
                           JOptionPane.showMessageDialog(null,
                               ex.getMessage(),
-                              GetStatusController.class.getName(),
+                              GetStatusController.class.getSimpleName(),
                               JOptionPane.ERROR_MESSAGE);
                         }
                       }
@@ -219,7 +219,7 @@ public class GetStatusController {
                   } catch (InterruptedException | ExecutionException ex) {
                     JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        GetStatusController.class.getName(),
+                        GetStatusController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }

@@ -44,9 +44,9 @@ public class IBillService implements BillService {
 
       ticket = port.sendSummary(fileName, contentFile);
     } catch (Exception ex) {
-      Logger.getLogger(IGw1BillService.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(IGw1BillService.class.getSimpleName()).log(Level.SEVERE, null, ex);
       JOptionPane.showMessageDialog(
-          null, ex.getMessage(), IGw1BillService.class.getName(), JOptionPane.ERROR_MESSAGE);
+          null, ex.getMessage(), IGw1BillService.class.getSimpleName(), JOptionPane.ERROR_MESSAGE);
     }
     return ticket;
   }
@@ -67,9 +67,9 @@ public class IBillService implements BillService {
 
       ticket = port.sendPack(fileName, contentFile);
     } catch (Exception ex) {
-      Logger.getLogger(IGw1BillService.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(IGw1BillService.class.getSimpleName()).log(Level.SEVERE, null, ex);
       JOptionPane.showMessageDialog(
-          null, ex.getMessage(), IGw1BillService.class.getName(), JOptionPane.ERROR_MESSAGE);
+          null, ex.getMessage(), IGw1BillService.class.getSimpleName(), JOptionPane.ERROR_MESSAGE);
     }
     return ticket;
   }
@@ -95,9 +95,9 @@ public class IBillService implements BillService {
       content =
           port.getStatusCdr(rucComprobante, tipoComprobante, serieComprobante, numeroComprobante);
     } catch (Exception ex) {
-      Logger.getLogger(IGw1BillService.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(IGw1BillService.class.getSimpleName()).log(Level.SEVERE, null, ex);
       JOptionPane.showMessageDialog(
-          null, ex.getMessage(), IGw1BillService.class.getName(), JOptionPane.ERROR_MESSAGE);
+          null, ex.getMessage(), IGw1BillService.class.getSimpleName(), JOptionPane.ERROR_MESSAGE);
     }
     return content;
   }
@@ -118,9 +118,9 @@ public class IBillService implements BillService {
 
       content = port.sendBill(fileName, contentFile);
     } catch (Exception ex) {
-      Logger.getLogger(IGw1BillService.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(IGw1BillService.class.getSimpleName()).log(Level.SEVERE, null, ex);
       JOptionPane.showMessageDialog(
-          null, ex.getMessage(), IGw1BillService.class.getName(), JOptionPane.ERROR_MESSAGE);
+          null, ex.getMessage(), IGw1BillService.class.getSimpleName(), JOptionPane.ERROR_MESSAGE);
     }
     return content;
   }
@@ -141,7 +141,7 @@ public class IBillService implements BillService {
 
       statusResponse = port.getStatus(ticket);
     } catch (Exception ex) {
-      Logger.getLogger(IGw1BillService.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(IGw1BillService.class.getSimpleName()).log(Level.SEVERE, null, ex);
       JOptionPane.showMessageDialog(null, ex.getMessage(), ticket, JOptionPane.ERROR_MESSAGE);
     }
     return statusResponse;

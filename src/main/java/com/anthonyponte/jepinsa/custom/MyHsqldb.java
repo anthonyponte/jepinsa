@@ -24,7 +24,7 @@ public class MyHsqldb {
       connection = DriverManager.getConnection(URL, USER, PASS);
     } catch (SQLException ex) {
       JOptionPane.showMessageDialog(
-          null, ex.getMessage(), MyHsqldb.class.getName(), JOptionPane.ERROR_MESSAGE);
+          null, ex.getMessage(), MyHsqldb.class.getSimpleName(), JOptionPane.ERROR_MESSAGE);
     }
   }
 
@@ -33,7 +33,7 @@ public class MyHsqldb {
       connection.close();
     } catch (SQLException ex) {
       JOptionPane.showMessageDialog(
-          null, ex.getMessage(), MyHsqldb.class.getName(), JOptionPane.ERROR_MESSAGE);
+          null, ex.getMessage(), MyHsqldb.class.getSimpleName(), JOptionPane.ERROR_MESSAGE);
     }
   }
 

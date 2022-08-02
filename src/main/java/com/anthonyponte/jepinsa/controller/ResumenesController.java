@@ -117,13 +117,13 @@ public class ResumenesController {
                     JOptionPane.showMessageDialog(
                         null,
                         ex.getMessage(),
-                        ResumenesController.class.getName(),
+                        ResumenesController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
                     JOptionPane.showMessageDialog(
                         null,
                         ex.getMessage(),
-                        ResumenesController.class.getName(),
+                        ResumenesController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }
@@ -140,7 +140,7 @@ public class ResumenesController {
                   JOptionPane.showMessageDialog(
                       null,
                       ex.getMessage(),
-                      ResumenesController.class.getName(),
+                      ResumenesController.class.getSimpleName(),
                       JOptionPane.ERROR_MESSAGE);
                 }
               }
@@ -294,7 +294,7 @@ public class ResumenesController {
               JOptionPane.showMessageDialog(
                   null,
                   ex.getMessage(),
-                  ResumenesController.class.getName(),
+                  ResumenesController.class.getSimpleName(),
                   JOptionPane.ERROR_MESSAGE);
             }
           }

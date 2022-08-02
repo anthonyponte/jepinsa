@@ -12,7 +12,9 @@ import com.anthonyponte.jepinsa.idao.IGw1BillService;
 import com.anthonyponte.jepinsa.model.StatusResponse;
 import java.util.prefs.Preferences;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class BillServiceFactory {
   private static final Preferences PREFERENCES =
       Preferences.userRoot().node(MainController.class.getPackageName());
@@ -34,7 +36,7 @@ public class BillServiceFactory {
 
     return ticket;
   }
-  
+
   public byte[] sendBill(String fileName, byte[] contentFile) {
     byte[] cdr;
 
@@ -45,24 +47,26 @@ public class BillServiceFactory {
   }
 
   public StatusResponse getStatus(String ticket) {
-    StatusResponse responde;
+    StatusResponse responde = null;
 
     if (WEB_SERVICE) {
       efact.pe.StatusResponse statusResponse = service.getStatus(ticket);
-
-      responde = new StatusResponse();
-      responde.setStatusCode(statusResponse.getStatusCode());
-      responde.setContentMessage(statusResponse.getContentMessage());
-      responde.setContent(statusResponse.getContent());
-
+      
+      if (statusResponse != null) {
+        responde = new StatusResponse();
+        responde.setStatusCode(statusResponse.getStatusCode());
+        responde.setContentMessage(statusResponse.getContentMessage());
+        responde.setContent(statusResponse.getContent());
+      }
     } else {
-
       gw1.efact.pe.StatusResponse statusResponse = gw1Service.getStatus(ticket);
 
-      responde = new StatusResponse();
-      responde.setStatusCode(statusResponse.getStatusCode());
-      responde.setContentMessage(statusResponse.getContentMessage());
-      responde.setContent(statusResponse.getContent());
+      if (statusResponse != null) {
+        responde = new StatusResponse();
+        responde.setStatusCode(statusResponse.getStatusCode());
+        responde.setContentMessage(statusResponse.getContentMessage());
+        responde.setContent(statusResponse.getContent());
+      }
     }
 
     return responde;

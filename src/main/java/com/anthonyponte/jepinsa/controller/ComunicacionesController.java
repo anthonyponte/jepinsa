@@ -105,13 +105,13 @@ public class ComunicacionesController {
                     JOptionPane.showMessageDialog(
                         null,
                         ex.getMessage(),
-                        ComunicacionesController.class.getName(),
+                        ComunicacionesController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
                     JOptionPane.showMessageDialog(
                         null,
                         ex.getMessage(),
-                        ComunicacionesController.class.getName(),
+                        ComunicacionesController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }
@@ -145,7 +145,7 @@ public class ComunicacionesController {
                           JOptionPane.showMessageDialog(
                               null,
                               ex.getMessage(),
-                              ComunicacionesController.class.getName(),
+                              ComunicacionesController.class.getSimpleName(),
                               JOptionPane.ERROR_MESSAGE);
                         }
                       }
@@ -303,7 +303,7 @@ public class ComunicacionesController {
               JOptionPane.showMessageDialog(
                   null,
                   ex.getMessage(),
-                  ComunicacionesController.class.getName(),
+                  ComunicacionesController.class.getSimpleName(),
                   JOptionPane.ERROR_MESSAGE);
             }
           }
