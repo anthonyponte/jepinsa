@@ -3,15 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.anthonyponte.jbill.factory;
+package com.anthonyponte.jepinsa.factory;
 
-import com.anthonyponte.jbill.dao.ComunicacionBajaDao;
-import com.anthonyponte.jbill.dao.ResumenDiarioDao;
-import com.anthonyponte.jbill.dao.SummaryDao;
-import com.anthonyponte.jbill.idao.IComunicacionBajaDao;
-import com.anthonyponte.jbill.idao.IResumenDiarioDao;
-import com.anthonyponte.jbill.idao.ISummaryDao;
-import com.anthonyponte.jbill.model.Summary;
+import com.anthonyponte.jepinsa.dao.ComunicacionBajaDao;
+import com.anthonyponte.jepinsa.dao.ResumenDiarioDao;
+import com.anthonyponte.jepinsa.dao.SummaryDao;
+import com.anthonyponte.jepinsa.idao.IComunicacionBajaDao;
+import com.anthonyponte.jepinsa.idao.IResumenDiarioDao;
+import com.anthonyponte.jepinsa.idao.ISummaryDao;
+import com.anthonyponte.jepinsa.model.Summary;
 import java.sql.SQLException;
 
 /** @author AnthonyPonte */

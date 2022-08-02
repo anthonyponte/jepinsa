@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package com.anthonyponte.jbill.view;
+package com.anthonyponte.jepinsa.view;
 
-import com.anthonyponte.jbill.filter.IntegerFilter;
-import com.anthonyponte.jbill.filter.SerieFilter;
-import com.anthonyponte.jbill.model.TipoDocumentoIdentidad;
-import com.anthonyponte.jbill.model.Estado;
-import com.anthonyponte.jbill.model.Moneda;
-import com.anthonyponte.jbill.model.Regimen;
-import com.anthonyponte.jbill.model.TipoDocumento;
+import com.anthonyponte.jepinsa.filter.IntegerFilter;
+import com.anthonyponte.jepinsa.filter.SerieFilter;
+import com.anthonyponte.jepinsa.model.TipoDocumentoIdentidad;
+import com.anthonyponte.jepinsa.model.Estado;
+import com.anthonyponte.jepinsa.model.Moneda;
+import com.anthonyponte.jepinsa.model.Regimen;
+import com.anthonyponte.jepinsa.model.TipoDocumento;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;

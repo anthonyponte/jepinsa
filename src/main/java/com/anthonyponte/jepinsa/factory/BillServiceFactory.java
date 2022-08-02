@@ -3,13 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.anthonyponte.jbill.factory;
+package com.anthonyponte.jepinsa.factory;
 
-import com.anthonyponte.jbill.controller.MainController;
-import com.anthonyponte.jbill.controller.UsuarioController;
-import com.anthonyponte.jbill.idao.IBillService;
-import com.anthonyponte.jbill.idao.IGw1BillService;
-import com.anthonyponte.jbill.model.StatusResponse;
+import com.anthonyponte.jepinsa.controller.MainController;
+import com.anthonyponte.jepinsa.controller.UsuarioController;
+import com.anthonyponte.jepinsa.idao.IBillService;
+import com.anthonyponte.jepinsa.idao.IGw1BillService;
+import com.anthonyponte.jepinsa.model.StatusResponse;
 import java.util.prefs.Preferences;
 
 /** @author AnthonyPonte */

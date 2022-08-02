@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.anthonyponte.jbill.tableformat;
+package com.anthonyponte.jepinsa.tableformat;
 
 import ca.odell.glazedlists.gui.TableFormat;
-import com.anthonyponte.jbill.model.ResumenDiarioDetalle;
+import com.anthonyponte.jepinsa.model.ResumenDiarioDetalle;
 
 /**
  * @author AnthonyPonte

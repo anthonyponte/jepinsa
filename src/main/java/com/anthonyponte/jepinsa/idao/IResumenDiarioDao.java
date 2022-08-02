@@ -15,25 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.anthonyponte.jbill.idao;
+package com.anthonyponte.jepinsa.idao;
 
-import com.anthonyponte.jbill.custom.MyHsqldb;
-import com.anthonyponte.jbill.dao.ResumenDiarioDao;
-import com.anthonyponte.jbill.model.Archivo;
-import com.anthonyponte.jbill.model.Bill;
-import com.anthonyponte.jbill.model.DocumentoIdentidad;
-import com.anthonyponte.jbill.model.Empresa;
-import com.anthonyponte.jbill.model.Estado;
-import com.anthonyponte.jbill.model.Impuesto;
-import com.anthonyponte.jbill.model.Moneda;
-import com.anthonyponte.jbill.model.Operacion;
-import com.anthonyponte.jbill.model.OtrosCargos;
-import com.anthonyponte.jbill.model.Percepcion;
-import com.anthonyponte.jbill.model.Regimen;
-import com.anthonyponte.jbill.model.ResumenDiario;
-import com.anthonyponte.jbill.model.ResumenDiarioDetalle;
-import com.anthonyponte.jbill.model.TipoDocumento;
-import com.anthonyponte.jbill.model.TipoDocumentoIdentidad;
+import com.anthonyponte.jepinsa.custom.MyHsqldb;
+import com.anthonyponte.jepinsa.dao.ResumenDiarioDao;
+import com.anthonyponte.jepinsa.model.Archivo;
+import com.anthonyponte.jepinsa.model.Bill;
+import com.anthonyponte.jepinsa.model.DocumentoIdentidad;
+import com.anthonyponte.jepinsa.model.Empresa;
+import com.anthonyponte.jepinsa.model.Estado;
+import com.anthonyponte.jepinsa.model.Impuesto;
+import com.anthonyponte.jepinsa.model.Moneda;
+import com.anthonyponte.jepinsa.model.Operacion;
+import com.anthonyponte.jepinsa.model.OtrosCargos;
+import com.anthonyponte.jepinsa.model.Percepcion;
+import com.anthonyponte.jepinsa.model.Regimen;
+import com.anthonyponte.jepinsa.model.ResumenDiario;
+import com.anthonyponte.jepinsa.model.ResumenDiarioDetalle;
+import com.anthonyponte.jepinsa.model.TipoDocumento;
+import com.anthonyponte.jepinsa.model.TipoDocumentoIdentidad;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

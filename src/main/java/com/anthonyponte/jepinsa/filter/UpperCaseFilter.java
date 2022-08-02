@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.anthonyponte.jbill.filter;
+package com.anthonyponte.jepinsa.filter;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;

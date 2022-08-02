@@ -244,5 +244,5 @@
     
     <!-- More Project Information -->
     <name>JEpinsa</name>
-    <description>Implementación java de los servicios web de EFact y SUNAT para la empresa EPINSA</description>
+    <description>Implementación java de los servicios web de envio de EFact y consulta de SUNAT para la empresa EPINSA</description>
 </project>

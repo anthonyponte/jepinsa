@@ -2,21 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.anthonyponte.jbill.controller;
+package com.anthonyponte.jepinsa.controller;
 
-import com.anthonyponte.jbill.view.BulkGetStatusIFrame;
-import com.anthonyponte.jbill.view.BulkSendSummaryIFrame;
-import com.anthonyponte.jbill.view.MainFrame;
-import com.anthonyponte.jbill.view.UsuarioIFrame;
-import com.anthonyponte.jbill.view.ComunicacionBajaIFrame;
-import com.anthonyponte.jbill.view.ComunicacionesIFrame;
-import com.anthonyponte.jbill.view.FacturaIFrame;
-import com.anthonyponte.jbill.view.LoadingDialog;
-import com.anthonyponte.jbill.view.ResumenDiarioIFrame;
-import com.anthonyponte.jbill.view.ResumenesIFrame;
-import com.anthonyponte.jbill.view.GetStatusIFrame;
-import com.anthonyponte.jbill.view.SendBillIFrame;
-import com.anthonyponte.jbill.view.SendSummaryIFrame;
+import com.anthonyponte.jepinsa.view.BulkGetStatusIFrame;
+import com.anthonyponte.jepinsa.view.BulkSendSummaryIFrame;
+import com.anthonyponte.jepinsa.view.MainFrame;
+import com.anthonyponte.jepinsa.view.UsuarioIFrame;
+import com.anthonyponte.jepinsa.view.ComunicacionBajaIFrame;
+import com.anthonyponte.jepinsa.view.ComunicacionesIFrame;
+import com.anthonyponte.jepinsa.view.FacturaIFrame;
+import com.anthonyponte.jepinsa.view.LoadingDialog;
+import com.anthonyponte.jepinsa.view.ResumenDiarioIFrame;
+import com.anthonyponte.jepinsa.view.ResumenesIFrame;
+import com.anthonyponte.jepinsa.view.GetStatusIFrame;
+import com.anthonyponte.jepinsa.view.SendBillIFrame;
+import com.anthonyponte.jepinsa.view.SendSummaryIFrame;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -36,7 +36,7 @@ import org.hsqldb.server.ServerAcl;
 public class MainController {
 
   private final MainFrame frame;
-  private final String DATABASE = "jbill";
+  private final String DATABASE = "jepinsa";
   private final String ALIAS = "jb";
   private UsuarioIFrame usuarioIFrame;
   private FacturaIFrame facturaIFrame;

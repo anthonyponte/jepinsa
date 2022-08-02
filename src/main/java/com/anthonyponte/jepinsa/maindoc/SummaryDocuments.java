@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.anthonyponte.jbill.maindoc;
+package com.anthonyponte.jepinsa.maindoc;
 
-import com.anthonyponte.jbill.controller.MainController;
-import com.anthonyponte.jbill.controller.UsuarioController;
-import com.anthonyponte.jbill.custom.MyDateFormat;
-import com.anthonyponte.jbill.model.ResumenDiario;
-import com.anthonyponte.jbill.model.ResumenDiarioDetalle;
+import com.anthonyponte.jepinsa.controller.MainController;
+import com.anthonyponte.jepinsa.controller.UsuarioController;
+import com.anthonyponte.jepinsa.custom.MyDateFormat;
+import com.anthonyponte.jepinsa.model.ResumenDiario;
+import com.anthonyponte.jepinsa.model.ResumenDiarioDetalle;
 import java.util.Locale;
 import java.util.prefs.Preferences;
 import org.jdom2.Document;

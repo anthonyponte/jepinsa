@@ -1,7 +1,7 @@
-package com.anthonyponte.jbill.controller;
+package com.anthonyponte.jepinsa.controller;
 
-import com.anthonyponte.jbill.view.MainFrame;
-import com.anthonyponte.jbill.view.UsuarioIFrame;
+import com.anthonyponte.jepinsa.view.MainFrame;
+import com.anthonyponte.jepinsa.view.UsuarioIFrame;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;

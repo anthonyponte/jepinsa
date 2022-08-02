@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package com.anthonyponte.jbill.view;
+package com.anthonyponte.jepinsa.view;
 
-import com.anthonyponte.jbill.filter.LetterNumberFilter;
+import com.anthonyponte.jepinsa.filter.LetterNumberFilter;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.GroupLayout;

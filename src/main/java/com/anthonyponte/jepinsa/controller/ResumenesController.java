@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.anthonyponte.jbill.controller;
+package com.anthonyponte.jepinsa.controller;
 
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
@@ -30,15 +30,15 @@ import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
 import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThreadProxyList;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
-import com.anthonyponte.jbill.custom.MyDateFormat;
-import com.anthonyponte.jbill.custom.MyTableResize;
-import com.anthonyponte.jbill.dao.ResumenDiarioDao;
-import com.anthonyponte.jbill.idao.IResumenDiarioDao;
-import com.anthonyponte.jbill.model.ResumenDiario;
-import com.anthonyponte.jbill.model.ResumenDiarioDetalle;
-import com.anthonyponte.jbill.tableformat.ResumenDiarioDetalleTableFormat;
-import com.anthonyponte.jbill.view.LoadingDialog;
-import com.anthonyponte.jbill.view.ResumenesIFrame;
+import com.anthonyponte.jepinsa.custom.MyDateFormat;
+import com.anthonyponte.jepinsa.custom.MyTableResize;
+import com.anthonyponte.jepinsa.dao.ResumenDiarioDao;
+import com.anthonyponte.jepinsa.idao.IResumenDiarioDao;
+import com.anthonyponte.jepinsa.model.ResumenDiario;
+import com.anthonyponte.jepinsa.model.ResumenDiarioDetalle;
+import com.anthonyponte.jepinsa.tableformat.ResumenDiarioDetalleTableFormat;
+import com.anthonyponte.jepinsa.view.LoadingDialog;
+import com.anthonyponte.jepinsa.view.ResumenesIFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

@@ -15,15 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.anthonyponte.jbill.idao;
+package com.anthonyponte.jepinsa.idao;
 
-import com.anthonyponte.jbill.custom.MyHsqldb;
-import com.anthonyponte.jbill.dao.SummaryDao;
-import com.anthonyponte.jbill.model.Archivo;
-import com.anthonyponte.jbill.model.DocumentoIdentidad;
-import com.anthonyponte.jbill.model.Empresa;
-import com.anthonyponte.jbill.model.Summary;
-import com.anthonyponte.jbill.model.TipoDocumento;
+import com.anthonyponte.jepinsa.custom.MyHsqldb;
+import com.anthonyponte.jepinsa.dao.SummaryDao;
+import com.anthonyponte.jepinsa.model.Archivo;
+import com.anthonyponte.jepinsa.model.DocumentoIdentidad;
+import com.anthonyponte.jepinsa.model.Empresa;
+import com.anthonyponte.jepinsa.model.Summary;
+import com.anthonyponte.jepinsa.model.TipoDocumento;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

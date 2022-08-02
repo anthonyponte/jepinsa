@@ -3,24 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.anthonyponte.jbill.idao;
+package com.anthonyponte.jepinsa.idao;
 
-import com.anthonyponte.jbill.custom.MyHsqldb;
-import com.anthonyponte.jbill.model.ComunicacionBaja;
-import com.anthonyponte.jbill.model.ComunicacionBajaDetalle;
+import com.anthonyponte.jepinsa.custom.MyHsqldb;
+import com.anthonyponte.jepinsa.model.ComunicacionBaja;
+import com.anthonyponte.jepinsa.model.ComunicacionBajaDetalle;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import com.anthonyponte.jbill.model.Bill;
-import com.anthonyponte.jbill.model.Empresa;
+import com.anthonyponte.jepinsa.model.Bill;
+import com.anthonyponte.jepinsa.model.Empresa;
 import java.util.ArrayList;
 import org.joda.time.DateTime;
-import com.anthonyponte.jbill.dao.ComunicacionBajaDao;
-import com.anthonyponte.jbill.model.Archivo;
-import com.anthonyponte.jbill.model.DocumentoIdentidad;
-import com.anthonyponte.jbill.model.StatusResponse;
-import com.anthonyponte.jbill.model.TipoDocumento;
+import com.anthonyponte.jepinsa.dao.ComunicacionBajaDao;
+import com.anthonyponte.jepinsa.model.Archivo;
+import com.anthonyponte.jepinsa.model.DocumentoIdentidad;
+import com.anthonyponte.jepinsa.model.StatusResponse;
+import com.anthonyponte.jepinsa.model.TipoDocumento;
 
 /**
  * @author anthony

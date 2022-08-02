@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.anthonyponte.jbill.filter;
+package com.anthonyponte.jepinsa.filter;
 
 import java.util.regex.Pattern;
 import javax.swing.text.AttributeSet;

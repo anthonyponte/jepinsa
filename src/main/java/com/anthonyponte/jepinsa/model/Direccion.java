@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.anthonyponte.jbill.model;
+package com.anthonyponte.jepinsa.model;
 
 /**
  * @author AnthonyPonte

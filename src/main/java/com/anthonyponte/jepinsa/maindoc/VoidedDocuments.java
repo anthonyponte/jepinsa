@@ -3,13 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.anthonyponte.jbill.maindoc;
+package com.anthonyponte.jepinsa.maindoc;
 
-import com.anthonyponte.jbill.controller.MainController;
-import com.anthonyponte.jbill.controller.UsuarioController;
-import com.anthonyponte.jbill.custom.MyDateFormat;
-import com.anthonyponte.jbill.model.ComunicacionBaja;
-import com.anthonyponte.jbill.model.ComunicacionBajaDetalle;
+import com.anthonyponte.jepinsa.controller.MainController;
+import com.anthonyponte.jepinsa.controller.UsuarioController;
+import com.anthonyponte.jepinsa.custom.MyDateFormat;
+import com.anthonyponte.jepinsa.model.ComunicacionBaja;
+import com.anthonyponte.jepinsa.model.ComunicacionBajaDetalle;
 import java.util.prefs.Preferences;
 import org.jdom2.Document;
 import org.jdom2.Element;

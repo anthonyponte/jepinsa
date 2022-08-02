@@ -3,10 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.anthonyponte.jbill.controller;
+package com.anthonyponte.jepinsa.controller;
 
-import com.anthonyponte.jbill.view.FacturaIFrame;
-import com.anthonyponte.jbill.view.LoadingDialog;
+import com.anthonyponte.jepinsa.view.FacturaIFrame;
+import com.anthonyponte.jepinsa.view.LoadingDialog;
 
 /**
  * @author AnthonyPonte

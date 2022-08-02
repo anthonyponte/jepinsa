@@ -1,4 +1,4 @@
-package com.anthonyponte.jbill.idao;
+package com.anthonyponte.jepinsa.idao;
 
 import jakarta.xml.soap.SOAPElement;
 import jakarta.xml.soap.SOAPEnvelope;

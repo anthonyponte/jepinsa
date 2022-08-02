@@ -3,10 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.anthonyponte.jbill.custom;
+package com.anthonyponte.jepinsa.custom;
 
-import com.anthonyponte.jbill.controller.MainController;
-import com.anthonyponte.jbill.controller.UsuarioController;
+import com.anthonyponte.jepinsa.controller.MainController;
+import com.anthonyponte.jepinsa.controller.UsuarioController;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

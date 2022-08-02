@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.anthonyponte.jbill.idao;
+package com.anthonyponte.jepinsa.idao;
 
-import com.anthonyponte.jbill.controller.UsuarioController;
+import com.anthonyponte.jepinsa.controller.UsuarioController;
 import jakarta.xml.ws.BindingProvider;
 import jakarta.xml.ws.handler.Handler;
 import jakarta.xml.ws.handler.soap.SOAPHandler;
@@ -47,7 +47,7 @@ public class IBillConsultService implements BillService {
       statusResponse =
           port.getStatusCdr(rucComprobante, tipoComprobante, serieComprobante, numeroComprobante);
     } catch (Exception ex) {
-      System.out.println("com.anthonyponte.jbill.idao.IBillConsultService.getStatusCdr() "+ex);
+      System.out.println("com.anthonyponte.jepinsa.idao.IBillConsultService.getStatusCdr() "+ex);
       JOptionPane.showMessageDialog(
           null, ex.getMessage(), IBillConsultService.class.getName(), JOptionPane.ERROR_MESSAGE);
     }

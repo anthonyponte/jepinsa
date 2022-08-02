@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.anthonyponte.jbill.dao;
+package com.anthonyponte.jepinsa.dao;
 
-import com.anthonyponte.jbill.model.Summary;
-import com.anthonyponte.jbill.model.TipoDocumento;
+import com.anthonyponte.jepinsa.model.Summary;
+import com.anthonyponte.jepinsa.model.TipoDocumento;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;

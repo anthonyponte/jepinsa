@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.anthonyponte.jbill.custom;
+package com.anthonyponte.jepinsa.custom;
 
 import java.awt.Component;
 import javax.swing.JTable;

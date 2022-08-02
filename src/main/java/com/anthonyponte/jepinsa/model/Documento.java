@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.anthonyponte.jbill.model;
+package com.anthonyponte.jepinsa.model;
 
 import com.poiji.annotation.ExcelCellName;
 import billconsultservice.sunat.gob.pe.StatusResponse;

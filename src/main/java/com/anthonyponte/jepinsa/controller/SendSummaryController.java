@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.anthonyponte.jbill.controller;
+package com.anthonyponte.jepinsa.controller;
 
-import com.anthonyponte.jbill.factory.BillServiceFactory;
-import com.anthonyponte.jbill.model.Archivo;
-import com.anthonyponte.jbill.model.StatusResponse;
-import com.anthonyponte.jbill.view.LoadingDialog;
-import com.anthonyponte.jbill.view.SendSummaryIFrame;
+import com.anthonyponte.jepinsa.factory.BillServiceFactory;
+import com.anthonyponte.jepinsa.model.Archivo;
+import com.anthonyponte.jepinsa.model.StatusResponse;
+import com.anthonyponte.jepinsa.view.LoadingDialog;
+import com.anthonyponte.jepinsa.view.SendSummaryIFrame;
 import com.google.common.util.concurrent.Uninterruptibles;
 import java.awt.event.ActionEvent;
 import java.io.File;

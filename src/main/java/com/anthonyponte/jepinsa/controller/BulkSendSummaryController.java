@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.anthonyponte.jbill.controller;
+package com.anthonyponte.jepinsa.controller;
 
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
@@ -17,22 +17,22 @@ import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
 import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThreadProxyList;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
-import com.anthonyponte.jbill.custom.MyDateFormat;
-import com.anthonyponte.jbill.custom.MyTableResize;
-import com.anthonyponte.jbill.view.BulkSendSummaryIFrame;
+import com.anthonyponte.jepinsa.custom.MyDateFormat;
+import com.anthonyponte.jepinsa.custom.MyTableResize;
+import com.anthonyponte.jepinsa.view.BulkSendSummaryIFrame;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
-import com.anthonyponte.jbill.dao.SummaryDao;
-import com.anthonyponte.jbill.factory.BillServiceFactory;
-import com.anthonyponte.jbill.factory.SummaryFactory;
-import com.anthonyponte.jbill.idao.ISummaryDao;
-import com.anthonyponte.jbill.model.Archivo;
-import com.anthonyponte.jbill.model.StatusResponse;
-import com.anthonyponte.jbill.model.Summary;
-import com.anthonyponte.jbill.view.LoadingDialog;
+import com.anthonyponte.jepinsa.dao.SummaryDao;
+import com.anthonyponte.jepinsa.factory.BillServiceFactory;
+import com.anthonyponte.jepinsa.factory.SummaryFactory;
+import com.anthonyponte.jepinsa.idao.ISummaryDao;
+import com.anthonyponte.jepinsa.model.Archivo;
+import com.anthonyponte.jepinsa.model.StatusResponse;
+import com.anthonyponte.jepinsa.model.Summary;
+import com.anthonyponte.jepinsa.view.LoadingDialog;
 import com.google.common.util.concurrent.Uninterruptibles;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;

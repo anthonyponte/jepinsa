@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.anthonyponte.jbill.view;
+package com.anthonyponte.jepinsa.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,12 +29,12 @@ public class MainFrame extends JFrame {
      */
     public MainFrame() {
         list = new ArrayList<>();
-        list.add(new ImageIcon(getClass().getResource("/com/anthonyponte/jbill/img/16x16.png")).getImage());
-        list.add(new ImageIcon(getClass().getResource("/com/anthonyponte/jbill/img/32x32.png")).getImage());
-        list.add(new ImageIcon(getClass().getResource("/com/anthonyponte/jbill/img/64x64.png")).getImage());
-        list.add(new ImageIcon(getClass().getResource("/com/anthonyponte/jbill/img/128x128.png")).getImage());
-        list.add(new ImageIcon(getClass().getResource("/com/anthonyponte/jbill/img/256x256.png")).getImage());
-        list.add(new ImageIcon(getClass().getResource("/com/anthonyponte/jbill/img/512x512.png")).getImage());
+        list.add(new ImageIcon(getClass().getResource("/com/anthonyponte/jepinsa/img/16x16.png")).getImage());
+        list.add(new ImageIcon(getClass().getResource("/com/anthonyponte/jepinsa/img/32x32.png")).getImage());
+        list.add(new ImageIcon(getClass().getResource("/com/anthonyponte/jepinsa/img/64x64.png")).getImage());
+        list.add(new ImageIcon(getClass().getResource("/com/anthonyponte/jepinsa/img/128x128.png")).getImage());
+        list.add(new ImageIcon(getClass().getResource("/com/anthonyponte/jepinsa/img/256x256.png")).getImage());
+        list.add(new ImageIcon(getClass().getResource("/com/anthonyponte/jepinsa/img/512x512.png")).getImage());
         initComponents();
     }
 

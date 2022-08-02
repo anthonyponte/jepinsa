@@ -3,15 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.anthonyponte.jbill.controller;
+package com.anthonyponte.jepinsa.controller;
 
 import billconsultservice.sunat.gob.pe.BillService;
 import billconsultservice.sunat.gob.pe.StatusResponse;
-import com.anthonyponte.jbill.filter.SerieFilter;
-import com.anthonyponte.jbill.idao.IBillConsultService;
-import com.anthonyponte.jbill.model.TipoDocumento;
-import com.anthonyponte.jbill.view.LoadingDialog;
-import com.anthonyponte.jbill.view.GetStatusIFrame;
+import com.anthonyponte.jepinsa.filter.SerieFilter;
+import com.anthonyponte.jepinsa.idao.IBillConsultService;
+import com.anthonyponte.jepinsa.model.TipoDocumento;
+import com.anthonyponte.jepinsa.view.LoadingDialog;
+import com.anthonyponte.jepinsa.view.GetStatusIFrame;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;

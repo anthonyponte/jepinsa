@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.anthonyponte.jbill.tableformat;
+package com.anthonyponte.jepinsa.tableformat;
 
 import ca.odell.glazedlists.gui.TableFormat;
-import com.anthonyponte.jbill.model.ComunicacionBajaDetalle;
+import com.anthonyponte.jepinsa.model.ComunicacionBajaDetalle;
 
 /** @author AnthonyPonte */
 public class ComunicacionBajaDetalleTableFormat implements TableFormat<ComunicacionBajaDetalle> {

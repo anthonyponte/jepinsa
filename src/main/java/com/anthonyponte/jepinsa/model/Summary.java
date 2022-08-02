@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.anthonyponte.jbill.model;
+package com.anthonyponte.jepinsa.model;
 
 import java.util.Date;
 

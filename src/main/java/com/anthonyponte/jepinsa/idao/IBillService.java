@@ -3,10 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.anthonyponte.jbill.idao;
+package com.anthonyponte.jepinsa.idao;
 
-import com.anthonyponte.jbill.controller.MainController;
-import com.anthonyponte.jbill.controller.UsuarioController;
+import com.anthonyponte.jepinsa.controller.MainController;
+import com.anthonyponte.jepinsa.controller.UsuarioController;
 import efact.pe.BillService;
 import efact.pe.BillServiceImplService;
 import efact.pe.StatusResponse;

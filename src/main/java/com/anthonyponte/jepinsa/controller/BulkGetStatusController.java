@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.anthonyponte.jbill.controller;
+package com.anthonyponte.jepinsa.controller;
 
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
@@ -17,9 +17,9 @@ import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
 import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThreadProxyList;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
-import com.anthonyponte.jbill.idao.IBillConsultService;
-import com.anthonyponte.jbill.view.BulkGetStatusIFrame;
-import com.anthonyponte.jbill.view.LoadingDialog;
+import com.anthonyponte.jepinsa.idao.IBillConsultService;
+import com.anthonyponte.jepinsa.view.BulkGetStatusIFrame;
+import com.anthonyponte.jepinsa.view.LoadingDialog;
 import com.poiji.bind.Poiji;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -30,8 +30,8 @@ import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import billconsultservice.sunat.gob.pe.BillService;
 import billconsultservice.sunat.gob.pe.StatusResponse;
-import com.anthonyponte.jbill.custom.MyTableResize;
-import com.anthonyponte.jbill.model.Documento;
+import com.anthonyponte.jepinsa.custom.MyTableResize;
+import com.anthonyponte.jepinsa.model.Documento;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;

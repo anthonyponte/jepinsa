@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.anthonyponte.jbill.controller;
+package com.anthonyponte.jepinsa.controller;
 
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
@@ -18,12 +18,12 @@ import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
 import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThreadProxyList;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
-import com.anthonyponte.jbill.custom.MyDateFormat;
-import com.anthonyponte.jbill.custom.MyTableResize;
-import com.anthonyponte.jbill.idao.IComunicacionBajaDao;
-import com.anthonyponte.jbill.model.ComunicacionBaja;
-import com.anthonyponte.jbill.model.ComunicacionBajaDetalle;
-import com.anthonyponte.jbill.view.ComunicacionesIFrame;
+import com.anthonyponte.jepinsa.custom.MyDateFormat;
+import com.anthonyponte.jepinsa.custom.MyTableResize;
+import com.anthonyponte.jepinsa.idao.IComunicacionBajaDao;
+import com.anthonyponte.jepinsa.model.ComunicacionBaja;
+import com.anthonyponte.jepinsa.model.ComunicacionBajaDetalle;
+import com.anthonyponte.jepinsa.view.ComunicacionesIFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -38,9 +38,9 @@ import java.util.concurrent.ExecutionException;
 import javax.swing.JFileChooser;
 import javax.swing.SwingWorker;
 import org.joda.time.DateTime;
-import com.anthonyponte.jbill.dao.ComunicacionBajaDao;
-import com.anthonyponte.jbill.tableformat.ComunicacionBajaDetalleTableFormat;
-import com.anthonyponte.jbill.view.LoadingDialog;
+import com.anthonyponte.jepinsa.dao.ComunicacionBajaDao;
+import com.anthonyponte.jepinsa.tableformat.ComunicacionBajaDetalleTableFormat;
+import com.anthonyponte.jepinsa.view.LoadingDialog;
 import javax.swing.JOptionPane;
 
 /**

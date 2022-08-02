@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.anthonyponte.jbill.dao;
+package com.anthonyponte.jepinsa.dao;
 
-import com.anthonyponte.jbill.model.ResumenDiario;
-import com.anthonyponte.jbill.model.ResumenDiarioDetalle;
+import com.anthonyponte.jepinsa.model.ResumenDiario;
+import com.anthonyponte.jepinsa.model.ResumenDiarioDetalle;
 import java.sql.SQLException;
 import java.util.List;
 import org.joda.time.DateTime;

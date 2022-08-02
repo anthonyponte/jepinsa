@@ -3,12 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.anthonyponte.jbill.controller;
+package com.anthonyponte.jepinsa.controller;
 
-import com.anthonyponte.jbill.factory.BillServiceFactory;
-import com.anthonyponte.jbill.model.Archivo;
-import com.anthonyponte.jbill.view.LoadingDialog;
-import com.anthonyponte.jbill.view.SendBillIFrame;
+import com.anthonyponte.jepinsa.factory.BillServiceFactory;
+import com.anthonyponte.jepinsa.model.Archivo;
+import com.anthonyponte.jepinsa.view.LoadingDialog;
+import com.anthonyponte.jepinsa.view.SendBillIFrame;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
