@@ -103,9 +103,9 @@ public class SendSummaryController {
                             || response.getStatusCode().equals("99")) {
                           iFrame.tfEstado.setText(response.getStatusCode());
 
-                          Archivo cdr = new Archivo();
-                          cdr.setNombre("R-" + zip.getName());
-                          cdr.setContenido(response.getContent());
+                          archivo = new Archivo();
+                          archivo.setNombre("R-" + zip.getName());
+                          archivo.setContenido(response.getContent());
                         }
                       } else {
                         cancel(true);
