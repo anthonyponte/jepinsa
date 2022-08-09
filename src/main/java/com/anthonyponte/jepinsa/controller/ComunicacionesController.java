@@ -23,7 +23,6 @@ import com.anthonyponte.jepinsa.custom.MyTableResize;
 import com.anthonyponte.jepinsa.idao.IComunicacionBajaDao;
 import com.anthonyponte.jepinsa.model.ComunicacionBaja;
 import com.anthonyponte.jepinsa.model.ComunicacionBajaDetalle;
-import com.anthonyponte.jepinsa.view.ComunicacionesIFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -39,8 +38,9 @@ import javax.swing.JFileChooser;
 import javax.swing.SwingWorker;
 import org.joda.time.DateTime;
 import com.anthonyponte.jepinsa.dao.ComunicacionBajaDao;
-import com.anthonyponte.jepinsa.tableformat.ComunicacionBajaDetalleTableFormat;
+import com.anthonyponte.jepinsa.glazedlist.ComunicacionBajaDetalleTableFormat;
 import com.anthonyponte.jepinsa.view.LoadingDialog;
+import com.anthonyponte.jepinsa.view.TableIFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,7 +48,7 @@ import javax.swing.JOptionPane;
  */
 public class ComunicacionesController {
 
-  private final ComunicacionesIFrame iFrame;
+  private final TableIFrame iFrame;
   private final LoadingDialog dialog;
   private ComunicacionBajaDao dao;
   private EventList<ComunicacionBaja> elEncabezado;
@@ -57,7 +57,7 @@ public class ComunicacionesController {
   private AdvancedListSelectionModel<ComunicacionBaja> selectionModel;
   private AdvancedTableModel<ComunicacionBaja> tableModel;
 
-  public ComunicacionesController(ComunicacionesIFrame iFrame, LoadingDialog dialog) {
+  public ComunicacionesController(TableIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();

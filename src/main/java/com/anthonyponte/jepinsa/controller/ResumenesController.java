@@ -36,9 +36,9 @@ import com.anthonyponte.jepinsa.dao.ResumenDiarioDao;
 import com.anthonyponte.jepinsa.idao.IResumenDiarioDao;
 import com.anthonyponte.jepinsa.model.ResumenDiario;
 import com.anthonyponte.jepinsa.model.ResumenDiarioDetalle;
-import com.anthonyponte.jepinsa.tableformat.ResumenDiarioDetalleTableFormat;
+import com.anthonyponte.jepinsa.glazedlist.ResumenDiarioDetalleTableFormat;
 import com.anthonyponte.jepinsa.view.LoadingDialog;
-import com.anthonyponte.jepinsa.view.ResumenesIFrame;
+import com.anthonyponte.jepinsa.view.TableIFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -60,7 +60,7 @@ import org.joda.time.DateTime;
  * @author AnthonyPonte
  */
 public class ResumenesController {
-  private final ResumenesIFrame iFrame;
+  private final TableIFrame iFrame;
   private final LoadingDialog dialog;
   private ResumenDiarioDao dao;
   private EventList<ResumenDiario> elEncabezado;
@@ -69,7 +69,7 @@ public class ResumenesController {
   private AdvancedListSelectionModel<ResumenDiario> selectionModel;
   private AdvancedTableModel<ResumenDiario> tableModel;
 
-  public ResumenesController(ResumenesIFrame iFrame, LoadingDialog dialog) {
+  public ResumenesController(TableIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();

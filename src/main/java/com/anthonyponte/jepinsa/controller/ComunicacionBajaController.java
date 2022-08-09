@@ -42,7 +42,7 @@ import com.anthonyponte.jepinsa.model.DocumentoIdentidad;
 import com.anthonyponte.jepinsa.model.Empresa;
 import com.anthonyponte.jepinsa.model.TipoDocumento;
 import com.anthonyponte.jepinsa.model.TipoDocumentoIdentidad;
-import com.anthonyponte.jepinsa.tableformat.ComunicacionBajaDetalleTableFormat;
+import com.anthonyponte.jepinsa.glazedlist.ComunicacionBajaDetalleTableFormat;
 import com.anthonyponte.jepinsa.view.LoadingDialog;
 import java.awt.event.ItemEvent;
 import java.io.IOException;

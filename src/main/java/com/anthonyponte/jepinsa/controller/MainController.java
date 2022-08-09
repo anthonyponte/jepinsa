@@ -9,11 +9,10 @@ import com.anthonyponte.jepinsa.view.BulkSendSummaryIFrame;
 import com.anthonyponte.jepinsa.view.MainFrame;
 import com.anthonyponte.jepinsa.view.UsuarioIFrame;
 import com.anthonyponte.jepinsa.view.ComunicacionBajaIFrame;
-import com.anthonyponte.jepinsa.view.ComunicacionesIFrame;
 import com.anthonyponte.jepinsa.view.FacturaIFrame;
 import com.anthonyponte.jepinsa.view.LoadingDialog;
 import com.anthonyponte.jepinsa.view.ResumenDiarioIFrame;
-import com.anthonyponte.jepinsa.view.ResumenesIFrame;
+import com.anthonyponte.jepinsa.view.TableIFrame;
 import com.anthonyponte.jepinsa.view.GetStatusIFrame;
 import com.anthonyponte.jepinsa.view.SendBillIFrame;
 import com.anthonyponte.jepinsa.view.SendSummaryIFrame;
@@ -42,8 +41,8 @@ public class MainController {
   private FacturaIFrame facturaIFrame;
   private ComunicacionBajaIFrame comunicacionBajaIFrame;
   private ResumenDiarioIFrame resumenDiarioIFrame;
-  private ComunicacionesIFrame comunicacionesIFrame;
-  private ResumenesIFrame resumenesIFrame;
+  private TableIFrame comunicacionesIFrame;
+  private TableIFrame resumenesIFrame;
   private BulkSendSummaryIFrame bulkSendSummaryIFrame;
   private SendSummaryIFrame sendSummaryIFrame;
   private SendBillIFrame sendBillIFrame;
@@ -109,7 +108,7 @@ public class MainController {
     frame.miComunicaciones.addActionListener(
         (ActionEvent arg0) -> {
           if (isIframeClosed(comunicacionesIFrame)) {
-            comunicacionesIFrame = new ComunicacionesIFrame();
+            comunicacionesIFrame = new TableIFrame();
             frame.dpane.add(comunicacionesIFrame);
             comunicacionesIFrame.setLocation(centerIFrame(comunicacionesIFrame));
             new ComunicacionesController(comunicacionesIFrame, dialog).init();
@@ -118,10 +117,9 @@ public class MainController {
           }
         });
 
-    frame.miResumenes.addActionListener(
-        (ActionEvent arg0) -> {
+    frame.miResumenes.addActionListener((ActionEvent arg0) -> {
           if (isIframeClosed(resumenesIFrame)) {
-            resumenesIFrame = new ResumenesIFrame();
+            resumenesIFrame = new TableIFrame();
             frame.dpane.add(resumenesIFrame);
             resumenesIFrame.setLocation(centerIFrame(resumenesIFrame));
             new ResumenesController(resumenesIFrame, dialog).init();

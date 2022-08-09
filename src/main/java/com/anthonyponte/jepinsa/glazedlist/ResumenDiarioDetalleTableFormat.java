@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.anthonyponte.jepinsa.tableformat;
+package com.anthonyponte.jepinsa.glazedlist;
 
 import ca.odell.glazedlists.gui.TableFormat;
 import com.anthonyponte.jepinsa.model.ResumenDiarioDetalle;
