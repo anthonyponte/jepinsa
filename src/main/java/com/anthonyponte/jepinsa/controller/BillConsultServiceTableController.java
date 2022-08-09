@@ -8,8 +8,6 @@ import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.FilterList;
 import ca.odell.glazedlists.SortedList;
-import ca.odell.glazedlists.TextFilterator;
-import ca.odell.glazedlists.gui.TableFormat;
 import ca.odell.glazedlists.matchers.MatcherEditor;
 import ca.odell.glazedlists.swing.AdvancedListSelectionModel;
 import ca.odell.glazedlists.swing.AdvancedTableModel;
@@ -31,6 +29,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import billconsultservice.sunat.gob.pe.BillService;
 import billconsultservice.sunat.gob.pe.StatusResponse;
 import com.anthonyponte.jepinsa.custom.MyTableResize;
+import com.anthonyponte.jepinsa.glazedlist.DocumentoTableFormat;
+import com.anthonyponte.jepinsa.glazedlist.DocumentoTextFilterator;
+import com.anthonyponte.jepinsa.glazedlist.StatusResponseSelect;
 import com.anthonyponte.jepinsa.model.Documento;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -65,7 +66,8 @@ public class BillConsultServiceTableController {
   private AdvancedListSelectionModel<Documento> selectionModel;
   private AdvancedTableModel<Documento> model;
 
-  public BillConsultServiceTableController(BillConsultServiceTableIFrame iFrame, LoadingDialog dialog) {
+  public BillConsultServiceTableController(
+      BillConsultServiceTableIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();
@@ -89,7 +91,8 @@ public class BillConsultServiceTableController {
           }
         });
 
-    iFrame.btnExportar.addActionListener((ActionEvent e) -> {
+    iFrame.btnExportar.addActionListener(
+        (ActionEvent e) -> {
           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
           String dateString = format.format(new Date());
 
@@ -175,7 +178,8 @@ public class BillConsultServiceTableController {
                       dialog.dispose();
 
                     } catch (InterruptedException | ExecutionException | IOException ex) {
-                      JOptionPane.showMessageDialog(null,
+                      JOptionPane.showMessageDialog(
+                          null,
                           ex.getMessage(),
                           BillConsultServiceTableController.class.getSimpleName(),
                           JOptionPane.ERROR_MESSAGE);
@@ -187,7 +191,8 @@ public class BillConsultServiceTableController {
           }
         });
 
-    iFrame.scrllTable.setDropTarget(new DropTarget() {
+    iFrame.scrllTable.setDropTarget(
+        new DropTarget() {
           @Override
           public synchronized void drop(DropTargetDropEvent dtde) {
             if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
@@ -205,7 +210,8 @@ public class BillConsultServiceTableController {
                   }
                 }
               } catch (UnsupportedFlavorException | IOException ex) {
-                JOptionPane.showMessageDialog(null,
+                JOptionPane.showMessageDialog(
+                    null,
                     ex.getMessage(),
                     BillConsultServiceTableController.class.getSimpleName(),
                     JOptionPane.ERROR_MESSAGE);
@@ -216,7 +222,8 @@ public class BillConsultServiceTableController {
           }
         });
 
-    iFrame.table.addMouseListener(new MouseAdapter() {
+    iFrame.table.addMouseListener(
+        new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
@@ -281,12 +288,14 @@ public class BillConsultServiceTableController {
                                 fout.flush();
                                 fout.close();
                               } catch (FileNotFoundException ex) {
-                                JOptionPane.showMessageDialog(null,
+                                JOptionPane.showMessageDialog(
+                                    null,
                                     ex.getMessage(),
                                     BillConsultServiceTableController.class.getSimpleName(),
                                     JOptionPane.ERROR_MESSAGE);
                               } catch (IOException ex) {
-                                JOptionPane.showMessageDialog(null,
+                                JOptionPane.showMessageDialog(
+                                    null,
                                     ex.getMessage(),
                                     BillConsultServiceTableController.class.getSimpleName(),
                                     JOptionPane.ERROR_MESSAGE);
@@ -300,7 +309,8 @@ public class BillConsultServiceTableController {
                                 JOptionPane.ERROR_MESSAGE);
                           }
                         } catch (InterruptedException | ExecutionException ex) {
-                          JOptionPane.showMessageDialog(null,
+                          JOptionPane.showMessageDialog(
+                              null,
                               ex.getMessage(),
                               BillConsultServiceTableController.class.getSimpleName(),
                               JOptionPane.ERROR_MESSAGE);
@@ -319,80 +329,23 @@ public class BillConsultServiceTableController {
     service = new IBillConsultService();
     eventList = new BasicEventList<>();
 
-    Comparator comparator =
-        (Comparator<Documento>)
-            (Documento o1, Documento o2) -> o1.getCorrelativo() - o2.getCorrelativo();
+    Comparator<Documento> comparator = Comparator.comparing(Documento::getCorrelativo);
 
     sortedList = new SortedList<>(eventList, comparator);
 
-    TextFilterator<Documento> textFilterator =
-        (List<String> baseList, Documento element) -> {
-          baseList.add(element.getRuc());
-          baseList.add(element.getTipo());
-          baseList.add(element.getSerie());
-          baseList.add(String.valueOf(element.getCorrelativo()));
-          baseList.add(element.getStatusResponse().getStatusCode());
-          baseList.add(element.getStatusResponse().getStatusMessage());
-        };
+    StatusResponseSelect messageSelect = new StatusResponseSelect(iFrame.list, sortedList);
+    messageSelect.confJList();
+
+    FilterList<Documento> slStatusMessage = new FilterList<>(sortedList, messageSelect);
 
     MatcherEditor<Documento> matcherEditor =
-        new TextComponentMatcherEditor<>(this.iFrame.tfFiltrar, textFilterator);
+        new TextComponentMatcherEditor<>(this.iFrame.tfFiltrar, new DocumentoTextFilterator());
 
-    FilterList<Documento> filterList = new FilterList<>(sortedList, matcherEditor);
+    FilterList<Documento> flBills = new FilterList<>(slStatusMessage, matcherEditor);
 
-    TableFormat<Documento> tableFormat =
-        new TableFormat<Documento>() {
-          @Override
-          public int getColumnCount() {
-            return 6;
-          }
+    model = eventTableModelWithThreadProxyList(flBills, new DocumentoTableFormat());
 
-          @Override
-          public String getColumnName(int column) {
-            switch (column) {
-              case 0:
-                return "RUC";
-              case 1:
-                return "Tipo";
-              case 2:
-                return "Serie";
-              case 3:
-                return "Correlativo";
-              case 4:
-                return "Codigo";
-              case 5:
-                return "Estado";
-              default:
-                break;
-            }
-            throw new IllegalStateException("Unexpected column: " + column);
-          }
-
-          @Override
-          public Object getColumnValue(Documento baseObject, int column) {
-            switch (column) {
-              case 0:
-                return baseObject.getRuc();
-              case 1:
-                return baseObject.getTipo();
-              case 2:
-                return baseObject.getSerie();
-              case 3:
-                return baseObject.getCorrelativo();
-              case 4:
-                return baseObject.getStatusResponse().getStatusCode();
-              case 5:
-                return baseObject.getStatusResponse().getStatusMessage();
-              default:
-                break;
-            }
-            throw new IllegalStateException("Unexpected column: " + column);
-          }
-        };
-
-    model = eventTableModelWithThreadProxyList(filterList, tableFormat);
-
-    selectionModel = new DefaultEventSelectionModel<>(filterList);
+    selectionModel = new DefaultEventSelectionModel<>(flBills);
 
     iFrame.table.setModel(model);
 
@@ -430,7 +383,11 @@ public class BillConsultServiceTableController {
             } catch (Exception ex) {
               cancel(true);
 
-              JOptionPane.showMessageDialog(null, ex.getMessage(), BillConsultServiceTableController.class.getSimpleName(), JOptionPane.ERROR_MESSAGE);
+              JOptionPane.showMessageDialog(
+                  null,
+                  ex.getMessage(),
+                  BillConsultServiceTableController.class.getSimpleName(),
+                  JOptionPane.ERROR_MESSAGE);
             }
             return list;
           }
@@ -452,7 +409,8 @@ public class BillConsultServiceTableController {
                 iFrame.btnExportar.setEnabled(true);
 
               } catch (InterruptedException | ExecutionException ex) {
-                JOptionPane.showMessageDialog(null,
+                JOptionPane.showMessageDialog(
+                    null,
                     ex.getMessage(),
                     BillConsultServiceTableController.class.getSimpleName(),
                     JOptionPane.ERROR_MESSAGE);
