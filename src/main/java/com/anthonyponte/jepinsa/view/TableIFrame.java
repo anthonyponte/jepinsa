@@ -45,12 +45,11 @@ public class TableIFrame extends JInternalFrame {
     private void initComponents() {
 
         dpMesAno = new JXDatePicker();
-        separator = new JSeparator();
         tfFiltrar = new JTextField();
-        spltPane = new JSplitPane();
-        scrllEncabezado = new JScrollPane();
+        split = new JSplitPane();
+        spEncabezado = new JScrollPane();
         tblEncabezado = new JTable();
-        scrllDetalle = new JScrollPane();
+        spDetalle = new JScrollPane();
         tblDetalle = new JTable();
 
         setClosable(true);
@@ -75,10 +74,10 @@ public class TableIFrame extends JInternalFrame {
         tfFiltrar.putClientProperty("JTextField.placeholderText", "Filtrar");
         tfFiltrar.putClientProperty("JTextField.showClearButton", true);
 
-        spltPane.setDividerLocation(300);
-        spltPane.setDividerSize(6);
-        spltPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-        spltPane.setResizeWeight(1.0);
+        split.setDividerLocation(300);
+        split.setDividerSize(6);
+        split.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        split.setResizeWeight(1.0);
 
         tblEncabezado.setModel(new DefaultTableModel(
             new Object [][] {
@@ -91,10 +90,10 @@ public class TableIFrame extends JInternalFrame {
         tblEncabezado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblEncabezado.setColumnSelectionAllowed(true);
         tblEncabezado.getTableHeader().setReorderingAllowed(false);
-        scrllEncabezado.setViewportView(tblEncabezado);
+        spEncabezado.setViewportView(tblEncabezado);
         tblEncabezado.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-        spltPane.setLeftComponent(scrllEncabezado);
+        split.setLeftComponent(spEncabezado);
 
         tblDetalle.setModel(new DefaultTableModel(
             new Object [][] {
@@ -106,9 +105,9 @@ public class TableIFrame extends JInternalFrame {
         ));
         tblDetalle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblDetalle.getTableHeader().setReorderingAllowed(false);
-        scrllDetalle.setViewportView(tblDetalle);
+        spDetalle.setViewportView(tblDetalle);
 
-        spltPane.setRightComponent(scrllDetalle);
+        split.setRightComponent(spDetalle);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,8 +116,7 @@ public class TableIFrame extends JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(tfFiltrar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(spltPane, GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
-                    .addComponent(separator)
+                    .addComponent(split, GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(dpMesAno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -129,12 +127,10 @@ public class TableIFrame extends JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(dpMesAno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfFiltrar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spltPane, GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                .addComponent(split, GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -143,10 +139,9 @@ public class TableIFrame extends JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public JXDatePicker dpMesAno;
-    public JScrollPane scrllDetalle;
-    public JScrollPane scrllEncabezado;
-    public JSeparator separator;
-    public JSplitPane spltPane;
+    public JScrollPane spDetalle;
+    public JScrollPane spEncabezado;
+    public JSplitPane split;
     public JTable tblDetalle;
     public JTable tblEncabezado;
     public JTextField tfFiltrar;

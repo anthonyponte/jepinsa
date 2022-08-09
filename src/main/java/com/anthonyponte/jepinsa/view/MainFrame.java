@@ -53,19 +53,19 @@ public class MainFrame extends JFrame {
         menuEntrar = new JMenuItem();
         menuNuevo = new JMenu();
         miFactura = new JMenuItem();
-        miComunicacionBaja = new JMenuItem();
-        miResumenDiario = new JMenuItem();
+        miComunicacion = new JMenuItem();
+        miResumen = new JMenuItem();
         menuVer = new JMenu();
-        miComunicaciones = new JMenuItem();
-        miResumenes = new JMenuItem();
+        miComunicacionTable = new JMenuItem();
+        miResumenTable = new JMenuItem();
         menuWebService = new JMenu();
         menuBillService = new JMenu();
-        miBulkSendSummary = new JMenuItem();
-        miSendSummary = new JMenuItem();
         miSendBill = new JMenuItem();
+        miSendSummary = new JMenuItem();
+        miSendSummaryTable = new JMenuItem();
         menuBillConsultService = new JMenu();
-        miBulkGetStatus = new JMenuItem();
-        miGetStatus = new JMenuItem();
+        miBillConsultService = new JMenuItem();
+        miBillConsultServiceTable = new JMenuItem();
         menuSalir = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -96,26 +96,26 @@ public class MainFrame extends JFrame {
         miFactura.setEnabled(false);
         menuNuevo.add(miFactura);
 
-        miComunicacionBaja.setText("Comunicacion de baja");
-        miComunicacionBaja.setEnabled(false);
-        menuNuevo.add(miComunicacionBaja);
+        miComunicacion.setText("Comunicacion de baja");
+        miComunicacion.setEnabled(false);
+        menuNuevo.add(miComunicacion);
 
-        miResumenDiario.setText("Resumen diario");
-        miResumenDiario.setEnabled(false);
-        menuNuevo.add(miResumenDiario);
+        miResumen.setText("Resumen diario");
+        miResumen.setEnabled(false);
+        menuNuevo.add(miResumen);
 
         menuMain.add(menuNuevo);
 
         menuVer.setText("Ver");
         menuVer.setEnabled(false);
 
-        miComunicaciones.setText("Comunicaciones");
-        miComunicaciones.setEnabled(false);
-        menuVer.add(miComunicaciones);
+        miComunicacionTable.setText("Comunicaciones");
+        miComunicacionTable.setEnabled(false);
+        menuVer.add(miComunicacionTable);
 
-        miResumenes.setText("Resumenes");
-        miResumenes.setEnabled(false);
-        menuVer.add(miResumenes);
+        miResumenTable.setText("Resumenes");
+        miResumenTable.setEnabled(false);
+        menuVer.add(miResumenTable);
 
         menuMain.add(menuVer);
 
@@ -125,30 +125,30 @@ public class MainFrame extends JFrame {
         menuBillService.setText("BillService");
         menuBillService.setEnabled(false);
 
-        miBulkSendSummary.setText("Bulk Send Summary");
-        miBulkSendSummary.setEnabled(false);
-        menuBillService.add(miBulkSendSummary);
+        miSendBill.setText("Documento");
+        miSendBill.setEnabled(false);
+        menuBillService.add(miSendBill);
 
-        miSendSummary.setText("Send Summary");
+        miSendSummary.setText("Resumen");
         miSendSummary.setEnabled(false);
         menuBillService.add(miSendSummary);
 
-        miSendBill.setText("Send Bill");
-        miSendBill.setEnabled(false);
-        menuBillService.add(miSendBill);
+        miSendSummaryTable.setText("Resumenes");
+        miSendSummaryTable.setEnabled(false);
+        menuBillService.add(miSendSummaryTable);
 
         menuWebService.add(menuBillService);
 
         menuBillConsultService.setText("BillConsultService");
         menuBillConsultService.setEnabled(false);
 
-        miBulkGetStatus.setText("Bulk Get Status");
-        miBulkGetStatus.setEnabled(false);
-        menuBillConsultService.add(miBulkGetStatus);
+        miBillConsultService.setText("Documento");
+        miBillConsultService.setEnabled(false);
+        menuBillConsultService.add(miBillConsultService);
 
-        miGetStatus.setText("Get Status");
-        miGetStatus.setEnabled(false);
-        menuBillConsultService.add(miGetStatus);
+        miBillConsultServiceTable.setText("Documentos");
+        miBillConsultServiceTable.setEnabled(false);
+        menuBillConsultService.add(miBillConsultServiceTable);
 
         menuWebService.add(menuBillConsultService);
 
@@ -192,15 +192,15 @@ public class MainFrame extends JFrame {
     public JMenuItem menuSalir;
     public JMenu menuVer;
     public JMenu menuWebService;
-    public JMenuItem miBulkGetStatus;
-    public JMenuItem miBulkSendSummary;
-    public JMenuItem miComunicacionBaja;
-    public JMenuItem miComunicaciones;
+    public JMenuItem miBillConsultService;
+    public JMenuItem miBillConsultServiceTable;
+    public JMenuItem miComunicacion;
+    public JMenuItem miComunicacionTable;
     public JMenuItem miFactura;
-    public JMenuItem miGetStatus;
-    public JMenuItem miResumenDiario;
-    public JMenuItem miResumenes;
+    public JMenuItem miResumen;
+    public JMenuItem miResumenTable;
     public JMenuItem miSendBill;
     public JMenuItem miSendSummary;
+    public JMenuItem miSendSummaryTable;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,9 +10,6 @@ import java.awt.Dimension;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
@@ -22,18 +19,19 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.AbstractDocument;
 import org.kordamp.ikonli.remixicon.RemixiconAL;
+import org.kordamp.ikonli.remixicon.RemixiconMZ;
 import org.kordamp.ikonli.swing.FontIcon;
 
 /**
  *
  * @author anthony
  */
-public class BulkGetStatusIFrame extends JInternalFrame {
+public class SendTableIFrame extends JInternalFrame {
 
     /**
      * Creates new form BillServiceIFrame
      */
-    public BulkGetStatusIFrame() {
+    public SendTableIFrame() {
         initComponents();
     }
 
@@ -46,19 +44,17 @@ public class BulkGetStatusIFrame extends JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        separator = new JSeparator();
         tfFiltrar = new JTextField();
-        scroll = new JScrollPane();
+        scrllPane = new JScrollPane();
         table = new JTable();
-        btnImportar = new JButton();
-        jSeparator1 = new JSeparator();
-        btnExportar = new JButton();
+        btnEnviar = new JButton();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Bulk Get Status");
-        setFrameIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#f7d117")));
+        setFrameIcon(FontIcon.of(RemixiconMZ.SEND_PLANE_LINE, 16, Color.decode("#f7d117")));
         setMaximumSize(null);
         setMinimumSize(new Dimension(800, 600));
         setPreferredSize(new Dimension(800, 600));
@@ -81,20 +77,17 @@ public class BulkGetStatusIFrame extends JInternalFrame {
             }
         ));
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.setColumnSelectionAllowed(true);
         table.getTableHeader().setReorderingAllowed(false);
-        scroll.setViewportView(table);
+        scrllPane.setViewportView(table);
         table.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-        btnImportar.setIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#FFFFFF")));
-        btnImportar.setText("Importar");
-        btnImportar.setMaximumSize(null);
-        btnImportar.setMinimumSize(null);
-        btnImportar.setPreferredSize(new Dimension(100, 30));
-
-        btnExportar.setIcon(FontIcon.of(RemixiconAL.FILE_EXCEL_LINE, 16, Color.decode("#FFFFFF")));
-        btnExportar.setText("Exportar");
-        btnExportar.setEnabled(false);
-        btnExportar.setPreferredSize(new Dimension(100, 30));
+        btnEnviar.setIcon(FontIcon.of(RemixiconMZ.SEND_PLANE_LINE, 16, Color.decode("#FFFFFF")));
+        btnEnviar.setText("Enviar");
+        btnEnviar.setEnabled(false);
+        btnEnviar.setMaximumSize(null);
+        btnEnviar.setMinimumSize(null);
+        btnEnviar.setPreferredSize(new Dimension(125, 30));
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,29 +95,25 @@ public class BulkGetStatusIFrame extends JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(scroll, GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                    .addComponent(scrllPane, GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
                     .addComponent(tfFiltrar, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(separator, GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnImportar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExportar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jSeparator1))
+                        .addComponent(btnEnviar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnImportar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExportar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnEnviar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfFiltrar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scroll, GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+                .addComponent(scrllPane, GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -132,10 +121,9 @@ public class BulkGetStatusIFrame extends JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public JButton btnExportar;
-    public JButton btnImportar;
-    public JSeparator jSeparator1;
-    public JScrollPane scroll;
+    public JButton btnEnviar;
+    public JScrollPane scrllPane;
+    public JSeparator separator;
     public JTable table;
     public JTextField tfFiltrar;
     // End of variables declaration//GEN-END:variables

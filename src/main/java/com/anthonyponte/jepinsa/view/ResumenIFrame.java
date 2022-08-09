@@ -48,12 +48,12 @@ import org.kordamp.ikonli.swing.FontIcon;
  *
  * @author anthony
  */
-public class ResumenDiarioIFrame extends JInternalFrame {
+public class ResumenIFrame extends JInternalFrame {
 
     /**
      * Creates new form VoidedDocumentsIFrame
      */
-    public ResumenDiarioIFrame() {
+    public ResumenIFrame() {
         initComponents();
     }
 
@@ -151,7 +151,6 @@ public class ResumenDiarioIFrame extends JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Resumen diario");
         setFrameIcon(FontIcon.of(RemixiconAL.ADD_LINE, 16, Color.decode("#f7d117")));
         setMaximumSize(null);
 

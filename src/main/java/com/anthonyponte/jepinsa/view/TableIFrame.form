@@ -41,8 +41,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="tfFiltrar" max="32767" attributes="0"/>
-                  <Component id="spltPane" alignment="0" pref="776" max="32767" attributes="0"/>
-                  <Component id="separator" alignment="0" max="32767" attributes="0"/>
+                  <Component id="split" alignment="0" pref="776" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="dpMesAno" min="-2" max="-2" attributes="0"/>
@@ -58,12 +57,10 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="dpMesAno" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="separator" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="tfFiltrar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="spltPane" pref="471" max="32767" attributes="0"/>
+              <Component id="split" pref="471" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -92,8 +89,6 @@
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="dpMesAno.getEditor().setEditable(false);"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JSeparator" name="separator">
-    </Component>
     <Component class="javax.swing.JTextField" name="tfFiltrar">
       <Properties>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -108,7 +103,7 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
-    <Container class="javax.swing.JSplitPane" name="spltPane">
+    <Container class="javax.swing.JSplitPane" name="split">
       <Properties>
         <Property name="dividerLocation" type="int" value="300"/>
         <Property name="dividerSize" type="int" value="6"/>
@@ -118,7 +113,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JScrollPane" name="scrllEncabezado">
+        <Container class="javax.swing.JScrollPane" name="spEncabezado">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -147,7 +142,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JScrollPane" name="scrllDetalle">
+        <Container class="javax.swing.JScrollPane" name="spDetalle">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>

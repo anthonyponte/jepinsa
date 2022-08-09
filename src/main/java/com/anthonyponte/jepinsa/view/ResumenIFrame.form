@@ -4,7 +4,6 @@
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
     <Property name="iconifiable" type="boolean" value="true"/>
-    <Property name="title" type="java.lang.String" value="Resumen diario"/>
     <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
       <Connection code="FontIcon.of(RemixiconAL.ADD_LINE, 16, Color.decode(&quot;#f7d117&quot;))" type="code"/>
     </Property>
@@ -1260,7 +1259,7 @@
                         <Component class="javax.swing.JComboBox" name="cbxPercepcionRegimen">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new DefaultComboBoxModel(new com.anthonyponte.jbill.model.Regimen[] {&#xa;    new com.anthonyponte.jbill.model.Regimen(&quot;01&quot;, &quot;Percepci&#xf3;n Venta Interna&quot;, 2),&#xa;    new com.anthonyponte.jbill.model.Regimen(&quot;02&quot;, &quot;Percepci&#xf3;n a la adquisici&#xf3;n de combustible&quot;, 1),&#xa;    new com.anthonyponte.jbill.model.Regimen(&quot;03&quot;, &quot;Percepci&#xf3;n realizada al agente de percepci&#xf3;n con tasa especial&quot;, 0.5)&#xa;})" type="code"/>
+                              <Connection code="new DefaultComboBoxModel(new Regimen[] {&#xa;    new Regimen(&quot;01&quot;, &quot;Percepci&#xf3;n Venta Interna&quot;, 2),&#xa;    new Regimen(&quot;02&quot;, &quot;Percepci&#xf3;n a la adquisici&#xf3;n de combustible&quot;, 1),&#xa;    new Regimen(&quot;03&quot;, &quot;Percepci&#xf3;n realizada al agente de percepci&#xf3;n con tasa especial&quot;, 0.5)&#xa;})" type="code"/>
                             </Property>
                             <Property name="enabled" type="boolean" value="false"/>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -1270,7 +1269,7 @@
                               <Dimension value="[150, 30]"/>
                             </Property>
                             <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new DefaultListCellRenderer(){&#xa;    @Override&#xa;    public Component getListCellRendererComponent(&#xa;        JList&lt;?&gt; list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);&#xa;        if (value instanceof com.anthonyponte.jbill.model.Regimen) {&#xa;            com.anthonyponte.jbill.model.Regimen regimenPercepcion = (com.anthonyponte.jbill.model.Regimen) value;&#xa;            setText(regimenPercepcion.getDescripcion());&#xa;        }&#xa;        return this;&#xa;    }&#xa;}" type="code"/>
+                              <Connection code="new DefaultListCellRenderer(){&#xa;    @Override&#xa;    public Component getListCellRendererComponent(&#xa;        JList&lt;?&gt; list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);&#xa;        if (value instanceof Regimen) {&#xa;            Regimen regimenPercepcion = (Regimen) value;&#xa;            setText(regimenPercepcion.getDescripcion());&#xa;        }&#xa;        return this;&#xa;    }&#xa;}" type="code"/>
                             </Property>
                           </Properties>
                           <AuxValues>

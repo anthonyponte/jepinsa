@@ -49,7 +49,7 @@ import com.anthonyponte.jepinsa.model.ResumenDiario;
 import com.anthonyponte.jepinsa.model.ResumenDiarioDetalle;
 import com.anthonyponte.jepinsa.model.TipoDocumento;
 import com.anthonyponte.jepinsa.view.LoadingDialog;
-import com.anthonyponte.jepinsa.view.ResumenDiarioIFrame;
+import com.anthonyponte.jepinsa.view.ResumenIFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.io.File;
@@ -81,8 +81,8 @@ import org.xml.sax.SAXException;
 /**
  * @author anthony
  */
-public class ResumenDiarioController {
-  private final ResumenDiarioIFrame iFrame;
+public class ResumenController {
+  private final ResumenIFrame iFrame;
   private final LoadingDialog dialog;
   private Preferences preferences;
   private SummaryDao summaryDao;
@@ -91,15 +91,14 @@ public class ResumenDiarioController {
   private AdvancedTableModel<ResumenDiarioDetalle> tableModel;
   private AdvancedListSelectionModel<ResumenDiarioDetalle> selectionModel;
 
-  public ResumenDiarioController(ResumenDiarioIFrame iFrame, LoadingDialog dialog) {
+  public ResumenController(ResumenIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();
   }
 
   void init() {
-    iFrame.btnNuevo.addActionListener(
-        (ActionEvent arg0) -> {
+    iFrame.btnNuevo.addActionListener((ActionEvent arg0) -> {
           iFrame.cbxTipo.setSelectedIndex(0);
           iFrame.dpFechaGeneracion.setDate(new Date());
 
@@ -117,10 +116,9 @@ public class ResumenDiarioController {
 
                     count = summaryDao.count(tipoDocumento, fechaGeneracion);
                   } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        ResumenDiarioController.class.getSimpleName(),
+                        ResumenController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                   return count;
@@ -196,10 +194,9 @@ public class ResumenDiarioController {
 
                     iFrame.btnLimpiar.setEnabled(true);
                   } catch (InterruptedException | ExecutionException ex) {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        ResumenDiarioController.class.getSimpleName(),
+                        ResumenController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }
@@ -208,8 +205,7 @@ public class ResumenDiarioController {
           worker.execute();
         });
 
-    iFrame.btnGuardar.addActionListener(
-        (ActionEvent arg0) -> {
+    iFrame.btnGuardar.addActionListener((ActionEvent arg0) -> {
           File jks = new File(preferences.get(UsuarioController.FIRMA_JKS, ""));
           if (jks.exists()) {
             TipoDocumento tipoDocumento = (TipoDocumento) iFrame.cbxTipo.getSelectedItem();
@@ -315,10 +311,9 @@ public class ResumenDiarioController {
                           | SQLException ex) {
                         cancel(true);
 
-                        JOptionPane.showMessageDialog(
-                            null,
+                        JOptionPane.showMessageDialog(null,
                             ex.getMessage(),
-                            ResumenDiarioController.class.getSimpleName(),
+                            ResumenController.class.getSimpleName(),
                             JOptionPane.ERROR_MESSAGE);
                       }
                       return resumenDiario;
@@ -341,10 +336,9 @@ public class ResumenDiarioController {
                               "Guardado",
                               JOptionPane.INFORMATION_MESSAGE);
                         } catch (InterruptedException | ExecutionException ex) {
-                          JOptionPane.showMessageDialog(
-                              null,
+                          JOptionPane.showMessageDialog(null,
                               ex.getMessage(),
-                              ResumenDiarioController.class.getSimpleName(),
+                              ResumenController.class.getSimpleName(),
                               JOptionPane.ERROR_MESSAGE);
                         }
                       }
@@ -355,11 +349,10 @@ public class ResumenDiarioController {
             }
 
           } else {
-            JOptionPane.showMessageDialog(
-                iFrame,
+            JOptionPane.showMessageDialog(iFrame,
                 "No se encuentra el archivo JKS en la ruta "
                     + preferences.get(UsuarioController.FIRMA_JKS, ""),
-                ResumenDiarioController.class.getSimpleName(),
+                ResumenController.class.getSimpleName(),
                 JOptionPane.ERROR_MESSAGE);
           }
         });
@@ -369,8 +362,7 @@ public class ResumenDiarioController {
           start();
         });
 
-    iFrame.cbxDocumentoTipo.addItemListener(
-        (ItemEvent ie) -> {
+    iFrame.cbxDocumentoTipo.addItemListener((ItemEvent ie) -> {
           if (ie.getStateChange() == ItemEvent.SELECTED) {
             if (iFrame.cbxDocumentoTipo.getSelectedIndex() == 0) {
               try {
@@ -393,10 +385,9 @@ public class ResumenDiarioController {
 
                 enabled();
               } catch (BadLocationException ex) {
-                JOptionPane.showMessageDialog(
-                    null,
+                JOptionPane.showMessageDialog(null,
                     ex.getMessage(),
-                    ResumenDiarioController.class.getSimpleName(),
+                    ResumenController.class.getSimpleName(),
                     JOptionPane.ERROR_MESSAGE);
               }
             } else {
@@ -420,18 +411,16 @@ public class ResumenDiarioController {
 
                 enabled();
               } catch (BadLocationException ex) {
-                JOptionPane.showMessageDialog(
-                    null,
+                JOptionPane.showMessageDialog(null,
                     ex.getMessage(),
-                    ResumenDiarioController.class.getSimpleName(),
+                    ResumenController.class.getSimpleName(),
                     JOptionPane.ERROR_MESSAGE);
               }
             }
           }
         });
 
-    iFrame.cbxDocumentoIdentidadTipo.addItemListener(
-        (ItemEvent ie) -> {
+    iFrame.cbxDocumentoIdentidadTipo.addItemListener((ItemEvent ie) -> {
           if (ie.getStateChange() == ItemEvent.SELECTED) {
             try {
               AbstractDocument adtfDocumentoIdentidadNumero =
@@ -449,10 +438,9 @@ public class ResumenDiarioController {
 
               iFrame.tfDocumentoIdentidadNumero.requestFocus();
             } catch (BadLocationException ex) {
-              JOptionPane.showMessageDialog(
-                  null,
+              JOptionPane.showMessageDialog(null,
                   ex.getMessage(),
-                  ResumenDiarioController.class.getSimpleName(),
+                  ResumenController.class.getSimpleName(),
                   JOptionPane.ERROR_MESSAGE);
             }
           }
@@ -707,10 +695,9 @@ public class ResumenDiarioController {
 
             iFrame.btnGuardar.setEnabled(true);
           } catch (BadLocationException ex) {
-            JOptionPane.showMessageDialog(
-                null,
+            JOptionPane.showMessageDialog(null,
                 ex.getMessage(),
-                ResumenDiarioController.class.getSimpleName(),
+                ResumenController.class.getSimpleName(),
                 JOptionPane.ERROR_MESSAGE);
           }
         });
@@ -1038,10 +1025,9 @@ public class ResumenDiarioController {
 
       iFrame.btnLimpiar.setEnabled(false);
     } catch (BadLocationException ex) {
-      JOptionPane.showMessageDialog(
-          null,
+      JOptionPane.showMessageDialog(null,
           ex.getMessage(),
-          ResumenDiarioController.class.getSimpleName(),
+          ResumenController.class.getSimpleName(),
           JOptionPane.ERROR_MESSAGE);
     }
   }
@@ -1216,10 +1202,9 @@ public class ResumenDiarioController {
 
         enabled();
       } catch (BadLocationException ex) {
-        JOptionPane.showMessageDialog(
-            null,
+        JOptionPane.showMessageDialog(null,
             ex.getMessage(),
-            ResumenDiarioController.class.getSimpleName(),
+            ResumenController.class.getSimpleName(),
             JOptionPane.ERROR_MESSAGE);
       }
     }

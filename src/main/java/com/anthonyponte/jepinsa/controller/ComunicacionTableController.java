@@ -46,7 +46,7 @@ import javax.swing.JOptionPane;
 /**
  * @author AnthonyPonte
  */
-public class ComunicacionesController {
+public class ComunicacionTableController {
 
   private final TableIFrame iFrame;
   private final LoadingDialog dialog;
@@ -57,7 +57,7 @@ public class ComunicacionesController {
   private AdvancedListSelectionModel<ComunicacionBaja> selectionModel;
   private AdvancedTableModel<ComunicacionBaja> tableModel;
 
-  public ComunicacionesController(TableIFrame iFrame, LoadingDialog dialog) {
+  public ComunicacionTableController(TableIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();
@@ -70,8 +70,7 @@ public class ComunicacionesController {
           start(date);
         });
 
-    iFrame.tblEncabezado.addMouseListener(
-        new MouseAdapter() {
+    iFrame.tblEncabezado.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
@@ -102,16 +101,14 @@ public class ComunicacionesController {
 
                     fos.flush();
                   } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        ComunicacionesController.class.getSimpleName(),
+                        ComunicacionTableController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        ComunicacionesController.class.getSimpleName(),
+                        ComunicacionTableController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }
@@ -142,10 +139,9 @@ public class ComunicacionesController {
                           MyTableResize.resize(iFrame.tblDetalle);
 
                         } catch (InterruptedException | ExecutionException ex) {
-                          JOptionPane.showMessageDialog(
-                              null,
+                          JOptionPane.showMessageDialog(null,
                               ex.getMessage(),
-                              ComunicacionesController.class.getSimpleName(),
+                              ComunicacionTableController.class.getSimpleName(),
                               JOptionPane.ERROR_MESSAGE);
                         }
                       }
@@ -300,10 +296,9 @@ public class ComunicacionesController {
               if (!get.isEmpty()) iFrame.tfFiltrar.requestFocus();
               else iFrame.dpMesAno.requestFocus();
             } catch (InterruptedException | ExecutionException ex) {
-              JOptionPane.showMessageDialog(
-                  null,
+              JOptionPane.showMessageDialog(null,
                   ex.getMessage(),
-                  ComunicacionesController.class.getSimpleName(),
+                  ComunicacionTableController.class.getSimpleName(),
                   JOptionPane.ERROR_MESSAGE);
             }
           }

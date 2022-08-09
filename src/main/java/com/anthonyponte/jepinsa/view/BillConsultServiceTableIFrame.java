@@ -7,11 +7,17 @@ package com.anthonyponte.jepinsa.view;
 import com.anthonyponte.jepinsa.filter.LetterNumberFilter;
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.AbstractListModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
+import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
@@ -19,19 +25,18 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.AbstractDocument;
 import org.kordamp.ikonli.remixicon.RemixiconAL;
-import org.kordamp.ikonli.remixicon.RemixiconMZ;
 import org.kordamp.ikonli.swing.FontIcon;
 
 /**
  *
  * @author anthony
  */
-public class BulkSendSummaryIFrame extends JInternalFrame {
+public class BillConsultServiceTableIFrame extends JInternalFrame {
 
     /**
      * Creates new form BillServiceIFrame
      */
-    public BulkSendSummaryIFrame() {
+    public BillConsultServiceTableIFrame() {
         initComponents();
     }
 
@@ -44,18 +49,20 @@ public class BulkSendSummaryIFrame extends JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        separator = new JSeparator();
         tfFiltrar = new JTextField();
-        scrllPane = new JScrollPane();
+        btnImportar = new JButton();
+        btnExportar = new JButton();
+        spltPane = new JSplitPane();
+        scrllTable = new JScrollPane();
         table = new JTable();
-        btnEnviar = new JButton();
+        scrllList = new JScrollPane();
+        list = new JList<>();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Bulk Send Summary");
-        setFrameIcon(FontIcon.of(RemixiconMZ.SEND_PLANE_LINE, 16, Color.decode("#f7d117")));
+        setFrameIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#f7d117")));
         setMaximumSize(null);
         setMinimumSize(new Dimension(800, 600));
         setPreferredSize(new Dimension(800, 600));
@@ -69,6 +76,22 @@ public class BulkSendSummaryIFrame extends JInternalFrame {
         tfFiltrar.putClientProperty("JTextField.placeholderText", "Filtrar");
         tfFiltrar.putClientProperty("JTextField.showClearButton", true);
 
+        btnImportar.setIcon(FontIcon.of(RemixiconAL.FILE_SEARCH_LINE, 16, Color.decode("#FFFFFF")));
+        btnImportar.setText("Importar");
+        btnImportar.setMaximumSize(null);
+        btnImportar.setMinimumSize(null);
+        btnImportar.setPreferredSize(new Dimension(125, 30));
+
+        btnExportar.setIcon(FontIcon.of(RemixiconAL.FILE_EXCEL_LINE, 16, Color.decode("#FFFFFF")));
+        btnExportar.setText("Exportar");
+        btnExportar.setEnabled(false);
+        btnExportar.setPreferredSize(new Dimension(125, 30));
+
+        spltPane.setDividerLocation(300);
+        spltPane.setDividerSize(6);
+        spltPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        spltPane.setResizeWeight(1.0);
+
         table.setModel(new DefaultTableModel(
             new Object [][] {
 
@@ -77,18 +100,13 @@ public class BulkSendSummaryIFrame extends JInternalFrame {
 
             }
         ));
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        table.setColumnSelectionAllowed(true);
-        table.getTableHeader().setReorderingAllowed(false);
-        scrllPane.setViewportView(table);
-        table.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        scrllTable.setViewportView(table);
 
-        btnEnviar.setIcon(FontIcon.of(RemixiconMZ.SEND_PLANE_LINE, 16, Color.decode("#FFFFFF")));
-        btnEnviar.setText("Enviar");
-        btnEnviar.setEnabled(false);
-        btnEnviar.setMaximumSize(null);
-        btnEnviar.setMinimumSize(null);
-        btnEnviar.setPreferredSize(new Dimension(125, 30));
+        spltPane.setTopComponent(scrllTable);
+
+        scrllList.setViewportView(list);
+
+        spltPane.setRightComponent(scrllList);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,25 +114,26 @@ public class BulkSendSummaryIFrame extends JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(scrllPane, GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
                     .addComponent(tfFiltrar, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(separator, GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnEnviar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 260, Short.MAX_VALUE)
+                        .addComponent(btnImportar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExportar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 260, Short.MAX_VALUE))
+                    .addComponent(spltPane, GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnEnviar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnImportar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExportar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfFiltrar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrllPane, GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                .addComponent(spltPane, GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -122,9 +141,12 @@ public class BulkSendSummaryIFrame extends JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public JButton btnEnviar;
-    public JScrollPane scrllPane;
-    public JSeparator separator;
+    public JButton btnExportar;
+    public JButton btnImportar;
+    public JList<String> list;
+    public JScrollPane scrllList;
+    public JScrollPane scrllTable;
+    public JSplitPane spltPane;
     public JTable table;
     public JTextField tfFiltrar;
     // End of variables declaration//GEN-END:variables

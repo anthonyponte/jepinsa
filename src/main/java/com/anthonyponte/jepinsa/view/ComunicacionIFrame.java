@@ -39,12 +39,12 @@ import org.kordamp.ikonli.swing.FontIcon;
  *
  * @author anthony
  */
-public class ComunicacionBajaIFrame extends JInternalFrame {
+public class ComunicacionIFrame extends JInternalFrame {
 
     /**
      * Creates new form VoidedDocumentsIFrame
      */
-    public ComunicacionBajaIFrame() {
+    public ComunicacionIFrame() {
         initComponents();
     }
 
@@ -89,7 +89,6 @@ public class ComunicacionBajaIFrame extends JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Comunicacion de baja");
         setFrameIcon(FontIcon.of(RemixiconAL.ADD_LINE, 16, Color.decode("#f7d117")));
         setMaximumSize(null);
         setMinimumSize(null);

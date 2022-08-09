@@ -11,7 +11,7 @@ import com.anthonyponte.jepinsa.filter.SerieFilter;
 import com.anthonyponte.jepinsa.idao.IBillConsultService;
 import com.anthonyponte.jepinsa.model.TipoDocumento;
 import com.anthonyponte.jepinsa.view.LoadingDialog;
-import com.anthonyponte.jepinsa.view.GetStatusIFrame;
+import com.anthonyponte.jepinsa.view.BillConsultServiceIFrame;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -35,14 +35,14 @@ import org.kordamp.ikonli.swing.FontIcon;
 /**
  * @author AnthonyPonte
  */
-public class GetStatusController {
+public class BillConsultServiceController {
 
-  private final GetStatusIFrame iFrame;
+  private final BillConsultServiceIFrame iFrame;
   private final LoadingDialog dialog;
   private Preferences preferences;
   private BillService service;
 
-  public GetStatusController(GetStatusIFrame iFrame, LoadingDialog dialog) {
+  public BillConsultServiceController(BillConsultServiceIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();
@@ -63,7 +63,7 @@ public class GetStatusController {
             } catch (BadLocationException ex) {
               JOptionPane.showMessageDialog(null,
                   ex.getMessage(),
-                  GetStatusController.class.getSimpleName(),
+                  BillConsultServiceController.class.getSimpleName(),
                   JOptionPane.ERROR_MESSAGE);
             }
           }
@@ -128,7 +128,7 @@ public class GetStatusController {
                   } catch (InterruptedException | ExecutionException ex) {
                     JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        GetStatusController.class.getSimpleName(),
+                        BillConsultServiceController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }
@@ -200,12 +200,12 @@ public class GetStatusController {
                         } catch (FileNotFoundException ex) {
                           JOptionPane.showMessageDialog(null,
                               ex.getMessage(),
-                              GetStatusController.class.getSimpleName(),
+                              BillConsultServiceController.class.getSimpleName(),
                               JOptionPane.ERROR_MESSAGE);
                         } catch (IOException ex) {
                           JOptionPane.showMessageDialog(null,
                               ex.getMessage(),
-                              GetStatusController.class.getSimpleName(),
+                              BillConsultServiceController.class.getSimpleName(),
                               JOptionPane.ERROR_MESSAGE);
                         }
                       }
@@ -219,7 +219,7 @@ public class GetStatusController {
                   } catch (InterruptedException | ExecutionException ex) {
                     JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        GetStatusController.class.getSimpleName(),
+                        BillConsultServiceController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }

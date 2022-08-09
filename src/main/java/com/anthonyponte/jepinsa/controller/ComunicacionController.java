@@ -16,7 +16,7 @@ import com.anthonyponte.jepinsa.custom.MyTableResize;
 import com.anthonyponte.jepinsa.idao.IComunicacionBajaDao;
 import com.anthonyponte.jepinsa.model.ComunicacionBajaDetalle;
 import com.anthonyponte.jepinsa.model.Bill;
-import com.anthonyponte.jepinsa.view.ComunicacionBajaIFrame;
+import com.anthonyponte.jepinsa.view.ComunicacionIFrame;
 import java.awt.event.ActionEvent;
 import java.util.Date;
 import java.util.logging.Level;
@@ -65,9 +65,9 @@ import org.xml.sax.SAXException;
 /**
  * @author anthony
  */
-public class ComunicacionBajaController {
+public class ComunicacionController {
 
-  private final ComunicacionBajaIFrame iFrame;
+  private final ComunicacionIFrame iFrame;
   private final LoadingDialog dialog;
   private Preferences preferences;
   private SummaryDao summaryDao;
@@ -76,15 +76,14 @@ public class ComunicacionBajaController {
   private AdvancedTableModel<ComunicacionBajaDetalle> tableModel;
   private AdvancedListSelectionModel<ComunicacionBajaDetalle> selectionModel;
 
-  public ComunicacionBajaController(ComunicacionBajaIFrame iFrame, LoadingDialog dialog) {
+  public ComunicacionController(ComunicacionIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();
   }
 
   public void init() {
-    iFrame.cbxTipo.addItemListener(
-        (ItemEvent ie) -> {
+    iFrame.cbxTipo.addItemListener((ItemEvent ie) -> {
           if (ie.getStateChange() == ItemEvent.SELECTED) {
             dialog.setVisible(true);
             dialog.setLocationRelativeTo(iFrame);
@@ -102,10 +101,9 @@ public class ComunicacionBajaController {
 
                       count = summaryDao.count(tipoDocumento, fechaGeneracion);
                     } catch (SQLException ex) {
-                      JOptionPane.showMessageDialog(
-                          null,
+                      JOptionPane.showMessageDialog(null,
                           ex.getMessage(),
-                          ComunicacionBajaController.class.getSimpleName(),
+                          ComunicacionController.class.getSimpleName(),
                           JOptionPane.ERROR_MESSAGE);
                     }
                     return count;
@@ -153,10 +151,9 @@ public class ComunicacionBajaController {
                         docSerie.setDocumentFilter(new SerieFilter('R'));
                       }
                     } catch (BadLocationException | InterruptedException | ExecutionException ex) {
-                      JOptionPane.showMessageDialog(
-                          null,
+                      JOptionPane.showMessageDialog(null,
                           ex.getMessage(),
-                          ComunicacionBajaController.class.getSimpleName(),
+                          ComunicacionController.class.getSimpleName(),
                           JOptionPane.ERROR_MESSAGE);
                     }
                   }
@@ -165,8 +162,7 @@ public class ComunicacionBajaController {
           }
         });
 
-    iFrame.btnAgregar.addActionListener(
-        (arg0) -> {
+    iFrame.btnAgregar.addActionListener((arg0) -> {
           try {
             Bill documento = new Bill();
             documento.setTipoDocumento((TipoDocumento) iFrame.cbxDocumentoTipo.getSelectedItem());
@@ -197,10 +193,9 @@ public class ComunicacionBajaController {
 
             iFrame.btnGuardar.setEnabled(true);
           } catch (BadLocationException ex) {
-            JOptionPane.showMessageDialog(
-                null,
+            JOptionPane.showMessageDialog(null,
                 ex.getMessage(),
-                ComunicacionBajaController.class.getSimpleName(),
+                ComunicacionController.class.getSimpleName(),
                 JOptionPane.ERROR_MESSAGE);
           }
         });
@@ -257,8 +252,7 @@ public class ComunicacionBajaController {
           iFrame.btnLimpiar.setEnabled(true);
         });
 
-    iFrame.btnGuardar.addActionListener(
-        (arg0) -> {
+    iFrame.btnGuardar.addActionListener((arg0) -> {
           File jks = new File(preferences.get(UsuarioController.FIRMA_JKS, ""));
           if (jks.exists()) {
             TipoDocumento tipoDocumento = (TipoDocumento) iFrame.cbxTipo.getSelectedItem();
@@ -359,10 +353,9 @@ public class ComunicacionBajaController {
                           | SQLException ex) {
                         cancel(true);
 
-                        JOptionPane.showMessageDialog(
-                            null,
+                        JOptionPane.showMessageDialog(null,
                             ex.getMessage(),
-                            ComunicacionBajaController.class.getSimpleName(),
+                            ComunicacionController.class.getSimpleName(),
                             JOptionPane.ERROR_MESSAGE);
                       }
 
@@ -387,10 +380,9 @@ public class ComunicacionBajaController {
                               "Guardado",
                               JOptionPane.INFORMATION_MESSAGE);
                         } catch (InterruptedException | ExecutionException ex) {
-                          JOptionPane.showMessageDialog(
-                              null,
+                          JOptionPane.showMessageDialog(null,
                               ex.getMessage(),
-                              ComunicacionBajaController.class.getSimpleName(),
+                              ComunicacionController.class.getSimpleName(),
                               JOptionPane.ERROR_MESSAGE);
                         }
                       }
@@ -401,11 +393,10 @@ public class ComunicacionBajaController {
             }
 
           } else {
-            JOptionPane.showMessageDialog(
-                iFrame,
+            JOptionPane.showMessageDialog(iFrame,
                 "No se encuentra el archivo JKS en la ruta "
                     + preferences.get(UsuarioController.FIRMA_JKS, ""),
-                ComunicacionBajaController.class.getSimpleName(),
+                ComunicacionController.class.getSimpleName(),
                 JOptionPane.ERROR_MESSAGE);
           }
         });
@@ -500,12 +491,11 @@ public class ComunicacionBajaController {
 
       iFrame.btnLimpiar.setEnabled(false);
     } catch (BadLocationException ex) {
-      Logger.getLogger(ComunicacionBajaController.class.getSimpleName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(ComunicacionController.class.getSimpleName()).log(Level.SEVERE, null, ex);
 
-      JOptionPane.showMessageDialog(
-          null,
+      JOptionPane.showMessageDialog(null,
           ex.getMessage(),
-          ComunicacionBajaController.class.getSimpleName(),
+          ComunicacionController.class.getSimpleName(),
           JOptionPane.ERROR_MESSAGE);
     }
   }

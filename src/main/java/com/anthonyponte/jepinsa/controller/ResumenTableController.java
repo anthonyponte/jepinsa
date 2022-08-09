@@ -59,7 +59,7 @@ import org.joda.time.DateTime;
 /**
  * @author AnthonyPonte
  */
-public class ResumenesController {
+public class ResumenTableController {
   private final TableIFrame iFrame;
   private final LoadingDialog dialog;
   private ResumenDiarioDao dao;
@@ -69,7 +69,7 @@ public class ResumenesController {
   private AdvancedListSelectionModel<ResumenDiario> selectionModel;
   private AdvancedTableModel<ResumenDiario> tableModel;
 
-  public ResumenesController(TableIFrame iFrame, LoadingDialog dialog) {
+  public ResumenTableController(TableIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();
@@ -82,8 +82,7 @@ public class ResumenesController {
           start(date);
         });
 
-    iFrame.tblEncabezado.addMouseListener(
-        new MouseAdapter() {
+    iFrame.tblEncabezado.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
@@ -114,16 +113,14 @@ public class ResumenesController {
 
                     fos.flush();
                   } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        ResumenesController.class.getSimpleName(),
+                        ResumenTableController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        ResumenesController.class.getSimpleName(),
+                        ResumenTableController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }
@@ -137,10 +134,9 @@ public class ResumenesController {
 
                   MyTableResize.resize(iFrame.tblDetalle);
                 } catch (SQLException ex) {
-                  JOptionPane.showMessageDialog(
-                      null,
+                  JOptionPane.showMessageDialog(null,
                       ex.getMessage(),
-                      ResumenesController.class.getSimpleName(),
+                      ResumenTableController.class.getSimpleName(),
                       JOptionPane.ERROR_MESSAGE);
                 }
               }
@@ -291,10 +287,9 @@ public class ResumenesController {
               if (!get.isEmpty()) iFrame.tfFiltrar.requestFocus();
               else iFrame.dpMesAno.requestFocus();
             } catch (InterruptedException | ExecutionException ex) {
-              JOptionPane.showMessageDialog(
-                  null,
+              JOptionPane.showMessageDialog(null,
                   ex.getMessage(),
-                  ResumenesController.class.getSimpleName(),
+                  ResumenTableController.class.getSimpleName(),
                   JOptionPane.ERROR_MESSAGE);
             }
           }

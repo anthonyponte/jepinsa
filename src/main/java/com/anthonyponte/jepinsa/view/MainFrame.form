@@ -32,7 +32,7 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="miComunicacionBaja">
+                <MenuItem class="javax.swing.JMenuItem" name="miComunicacion">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Comunicacion de baja"/>
                     <Property name="enabled" type="boolean" value="false"/>
@@ -41,7 +41,7 @@
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="miResumenDiario">
+                <MenuItem class="javax.swing.JMenuItem" name="miResumen">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Resumen diario"/>
                     <Property name="enabled" type="boolean" value="false"/>
@@ -58,7 +58,7 @@
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="miComunicaciones">
+                <MenuItem class="javax.swing.JMenuItem" name="miComunicacionTable">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Comunicaciones"/>
                     <Property name="enabled" type="boolean" value="false"/>
@@ -67,7 +67,7 @@
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="miResumenes">
+                <MenuItem class="javax.swing.JMenuItem" name="miResumenTable">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Resumenes"/>
                     <Property name="enabled" type="boolean" value="false"/>
@@ -87,21 +87,21 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <SubComponents>
-                    <MenuItem class="javax.swing.JMenuItem" name="miBulkSendSummary">
+                    <MenuItem class="javax.swing.JMenuItem" name="miSendBill">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Bulk Send Summary"/>
+                        <Property name="text" type="java.lang.String" value="Documento"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                     </MenuItem>
                     <MenuItem class="javax.swing.JMenuItem" name="miSendSummary">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Send Summary"/>
+                        <Property name="text" type="java.lang.String" value="Resumen"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                     </MenuItem>
-                    <MenuItem class="javax.swing.JMenuItem" name="miSendBill">
+                    <MenuItem class="javax.swing.JMenuItem" name="miSendSummaryTable">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Send Bill"/>
+                        <Property name="text" type="java.lang.String" value="Resumenes"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                     </MenuItem>
@@ -113,15 +113,15 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <SubComponents>
-                    <MenuItem class="javax.swing.JMenuItem" name="miBulkGetStatus">
+                    <MenuItem class="javax.swing.JMenuItem" name="miBillConsultService">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Bulk Get Status"/>
+                        <Property name="text" type="java.lang.String" value="Documento"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                     </MenuItem>
-                    <MenuItem class="javax.swing.JMenuItem" name="miGetStatus">
+                    <MenuItem class="javax.swing.JMenuItem" name="miBillConsultServiceTable">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Get Status"/>
+                        <Property name="text" type="java.lang.String" value="Documentos"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                     </MenuItem>

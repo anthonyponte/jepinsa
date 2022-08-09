@@ -19,7 +19,7 @@ import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
 import com.anthonyponte.jepinsa.custom.MyDateFormat;
 import com.anthonyponte.jepinsa.custom.MyTableResize;
-import com.anthonyponte.jepinsa.view.BulkSendSummaryIFrame;
+import com.anthonyponte.jepinsa.view.SendTableIFrame;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -53,9 +53,9 @@ import javax.swing.KeyStroke;
 /**
  * @author anthony
  */
-public class BulkSendSummaryController {
+public class SendSummaryTableController {
 
-  private final BulkSendSummaryIFrame iFrame;
+  private final SendTableIFrame iFrame;
   private final LoadingDialog dialog;
   private SummaryDao dao;
   private SummaryFactory summaryFactory;
@@ -65,15 +65,14 @@ public class BulkSendSummaryController {
   private AdvancedListSelectionModel<Summary> selectionModel;
   private AdvancedTableModel<Summary> tableModel;
 
-  public BulkSendSummaryController(BulkSendSummaryIFrame iFrame, LoadingDialog dialog) {
+  public SendSummaryTableController(SendTableIFrame iFrame, LoadingDialog dialog) {
     this.iFrame = iFrame;
     this.dialog = dialog;
     initComponents();
   }
 
   public void init() {
-    iFrame.btnEnviar.addActionListener(
-        (var e) -> {
+    iFrame.btnEnviar.addActionListener((var e) -> {
           int seleccionados = selectionModel.getSelected().size();
           int input =
               JOptionPane.showOptionDialog(
@@ -142,10 +141,9 @@ public class BulkSendSummaryController {
                           "Enviados",
                           JOptionPane.INFORMATION_MESSAGE);
                     } catch (InterruptedException | ExecutionException ex) {
-                      JOptionPane.showMessageDialog(
-                          null,
+                      JOptionPane.showMessageDialog(null,
                           ex.getMessage(),
-                          BulkSendSummaryController.class.getSimpleName(),
+                          SendSummaryTableController.class.getSimpleName(),
                           JOptionPane.ERROR_MESSAGE);
                     }
                   }
@@ -154,8 +152,7 @@ public class BulkSendSummaryController {
           }
         });
 
-    iFrame.table.addMouseListener(
-        new MouseAdapter() {
+    iFrame.table.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
@@ -177,16 +174,14 @@ public class BulkSendSummaryController {
 
                     fos.flush();
                   } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        BulkSendSummaryController.class.getSimpleName(),
+                        SendSummaryTableController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(
-                        null,
+                    JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
-                        BulkSendSummaryController.class.getSimpleName(),
+                        SendSummaryTableController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
                   }
                 }
@@ -215,8 +210,7 @@ public class BulkSendSummaryController {
     iFrame
         .table
         .getActionMap()
-        .put(
-            "DELETE",
+        .put("DELETE",
             new AbstractAction() {
               @Override
               public void actionPerformed(ActionEvent ae) {
@@ -266,10 +260,9 @@ public class BulkSendSummaryController {
                                   "Eliminados",
                                   JOptionPane.INFORMATION_MESSAGE);
                             } catch (InterruptedException | ExecutionException ex) {
-                              JOptionPane.showMessageDialog(
-                                  null,
+                              JOptionPane.showMessageDialog(null,
                                   ex.getMessage(),
-                                  BulkSendSummaryController.class.getSimpleName(),
+                                  SendSummaryTableController.class.getSimpleName(),
                                   JOptionPane.ERROR_MESSAGE);
                             }
                           }
@@ -394,10 +387,9 @@ public class BulkSendSummaryController {
 
               if (!get.isEmpty()) iFrame.tfFiltrar.requestFocus();
             } catch (InterruptedException | ExecutionException ex) {
-              JOptionPane.showMessageDialog(
-                  null,
+              JOptionPane.showMessageDialog(null,
                   ex.getMessage(),
-                  BulkSendSummaryController.class.getSimpleName(),
+                  SendSummaryTableController.class.getSimpleName(),
                   JOptionPane.ERROR_MESSAGE);
             }
           }

@@ -127,23 +127,23 @@ public class UsuarioController {
 
             frame.miFactura.setEnabled(true);
             
-            frame.miComunicacionBaja.setEnabled(true);
+            frame.miComunicacion.setEnabled(true);
 
-            frame.miResumenDiario.setEnabled(true);
+            frame.miResumen.setEnabled(true);
 
-            frame.miComunicaciones.setEnabled(true);
+            frame.miComunicacionTable.setEnabled(true);
 
-            frame.miResumenes.setEnabled(true);
+            frame.miResumenTable.setEnabled(true);
 
-            frame.miBulkSendSummary.setEnabled(true);
+            frame.miSendSummaryTable.setEnabled(true);
             
             frame.miSendSummary.setEnabled(true);
             
             frame.miSendBill.setEnabled(true);
 
-            frame.miBulkGetStatus.setEnabled(true);
+            frame.miBillConsultServiceTable.setEnabled(true);
 
-            frame.miGetStatus.setEnabled(true);
+            frame.miBillConsultService.setEnabled(true);
           } catch (BackingStoreException ex) {
             JOptionPane.showMessageDialog(
                 null,

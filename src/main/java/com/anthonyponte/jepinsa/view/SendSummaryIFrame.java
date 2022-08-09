@@ -52,7 +52,6 @@ public class SendSummaryIFrame extends JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Send Summary");
         setFrameIcon(FontIcon.of(RemixiconMZ.SEND_PLANE_LINE, 16, Color.decode("#f7d117")));
         setMaximumSize(null);
         setMinimumSize(null);
