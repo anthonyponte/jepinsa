@@ -9,7 +9,9 @@ package com.anthonyponte.jepinsa.model;
  * @author AnthonyPonte
  */
 public class Direccion {
-  private String detalle;
+
+  private String codigo;
+  private String descripcion;
   private String urbanizacion;
   private String provincia;
   private String codigoUbigeo;
@@ -20,14 +22,16 @@ public class Direccion {
   public Direccion() {}
 
   public Direccion(
-      String detalle,
+      String codigo,
+      String descripcion,
       String urbanizacion,
       String provincia,
       String codigoUbigeo,
       String departamento,
       String distrito,
       String codigoPais) {
-    this.detalle = detalle;
+    this.codigo = codigo;
+    this.descripcion = descripcion;
     this.urbanizacion = urbanizacion;
     this.provincia = provincia;
     this.codigoUbigeo = codigoUbigeo;
@@ -36,12 +40,20 @@ public class Direccion {
     this.codigoPais = codigoPais;
   }
 
-  public String getDetalle() {
-    return detalle;
+  public String getCodigo() {
+    return codigo;
   }
 
-  public void setDetalle(String detalle) {
-    this.detalle = detalle;
+  public void setCodigo(String codigo) {
+    this.codigo = codigo;
+  }
+
+  public String getDescripcion() {
+    return descripcion;
+  }
+
+  public void setDescripcion(String descripcion) {
+    this.descripcion = descripcion;
   }
 
   public String getUrbanizacion() {
@@ -95,8 +107,10 @@ public class Direccion {
   @Override
   public String toString() {
     return "Direccion{"
-        + "detalle="
-        + detalle
+        + "codigo="
+        + codigo
+        + ", descripcion="
+        + descripcion
         + ", urbanizacion="
         + urbanizacion
         + ", provincia="

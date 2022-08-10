@@ -18,7 +18,9 @@
 package com.anthonyponte.jepinsa.maindoc;
 
 import com.anthonyponte.jepinsa.controller.MainController;
+import com.anthonyponte.jepinsa.controller.UsuarioController;
 import com.anthonyponte.jepinsa.custom.MyDateFormat;
+import com.anthonyponte.jepinsa.model.Documento;
 import com.anthonyponte.jepinsa.model.Factura;
 import com.anthonyponte.jepinsa.model.FacturaDetalle;
 import com.anthonyponte.jepinsa.model.Leyenda;
@@ -125,182 +127,198 @@ public class Invoice {
       document.getRootElement().addContent(tagDueDate);
     }
 
-    //    // 6 Tipo de documento. M
-    //    Element tagInvoiceTypeCode =
-    //        new Element("InvoiceTypeCode", cbc)
-    //            .setAttribute("listAgencyName", "PE:SUNAT")
-    //            .setAttribute("listName", "Tipo de Documento")
-    //            .setAttribute("listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01")
-    //            // 58 Tipo de operación. M
-    //            .setAttribute("listID", factura.getTipoOperacion())
-    //            .setText(encabezado.getTipoDocumento());
-    //    document.getRootElement().addContent(tagInvoiceTypeCode);
+    // 6 Tipo de documento. M
+    Element tagInvoiceTypeCode =
+        new Element("InvoiceTypeCode", cbc)
+            .setAttribute("listAgencyName", "PE:SUNAT")
+            .setAttribute("listName", "Tipo de Documento")
+            .setAttribute("listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01")
+            // 58 Tipo de operación. M
+            .setAttribute("listID", factura.getTipoOperacion())
+            .setText(factura.getTipoDocumento().getCodigo());
+    document.getRootElement().addContent(tagInvoiceTypeCode);
+
+    // 60 FISE (Ley 29852) Fondo Inclusión Social Energético. C
     //
-    //    // 60 FISE (Ley 29852) Fondo Inclusión Social Energético. C
-    //    //
-    //    // 61 Restitución Simplificada de Derechos Arancelarios. C
-    //    //
-    //    // 57 Leyendas. C
-    //    if (factura.getLeyendas() != null) {
-    //      for (Leyenda leyenda : factura.getLeyendas()) {
-    //        Element tagNote =
-    //            new Element("Note", cbc)
-    //                .setAttribute("languageLocaleID", leyenda.getCodigo())
-    //                .setText(leyenda.getDescripcion());
-    //        document.getRootElement().addContent(tagNote);
-    //      }
-    //    }
+    // 61 Restitución Simplificada de Derechos Arancelarios. C
     //
-    //    // 7 Tipo de moneda. M
-    //    Element tagDocumentCurrencyCode =
-    //        new Element("DocumentCurrencyCode", cbc)
-    //            .setAttribute("listID", "ISO 4217 Alpha")
-    //            .setAttribute("listName", "Currency")
-    //            .setAttribute("listAgencyName", "United Nations Economic Commission for Europe")
-    //            .setText(factura.getMoneda().getCodigo());
-    //    document.getRootElement().addContent(tagDocumentCurrencyCode);
-    //
-    //    // 59 Número de la orden de compra. C
-    //    if (!adicional.getOrdenCompra().equals("")) {
-    //
-    //      Element tagOrderReference =
-    //          new Element("OrderReference", cac)
-    //              .addContent(new Element("ID", cbc).setText(adicional.getOrdenCompra()));
-    //      document.getRootElement().addContent(tagOrderReference);
-    //    }
-    //
-    //    // Documentos de referencia
-    //    // 22 Tipo y número de la guía de remisión relacionada. C
-    //    for (Documento guia : referencias.getGuiaRemision()) {
-    //      if (!guia.getNumeracion().equals("")) {
-    //        Element tagDespatchDocumentReference =
-    //            new Element("DespatchDocumentReference", cac)
-    //                .addContent(new Element("ID", cbc).setText(guia.getNumeracion()))
-    //                .addContent(
-    //                    new Element("DocumentTypeCode", cbc)
-    //                        .setAttribute("listAgencyName", "PE:SUNAT")
-    //                        .setAttribute("listName", "Tipo de Documento")
-    //                        .setAttribute(
-    //                            "listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01")
-    //                        .setText(guia.getTipo()));
-    //        document.getRootElement().addContent(tagDespatchDocumentReference);
-    //      }
-    //    }
-    //
-    //    // 23 Tipo y número de otro documento relacionado. C
-    //    for (Documento referencia : referencias.getDocumentosrelacionados()) {
-    //
-    //      if (!referencia.getNumeracion().equals("")) {
-    //
-    //        Element tagAdditionalDocumentReference =
-    //            new Element("AdditionalDocumentReference", cac)
-    //                .addContent(new Element("ID", cbc).setText(referencia.getNumeracion()))
-    //                .addContent(
-    //                    new Element("DocumentTypeCode", cbc)
-    //                        .setAttribute("listAgencyName", "PE:SUNAT")
-    //                        .setAttribute("listName", "Documento Relacionado")
-    //                        .setAttribute(
-    //                            "listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo12")
-    //                        .setText(referencia.getTipo()));
-    //        document.getRootElement().addContent(tagAdditionalDocumentReference);
-    //      }
-    //    }
-    //
-    //    // 9 Firma Digital. M
-    //    Element tagSignature =
-    //        new Element("Signature", cac)
-    //            .addContent(new Element("ID", cbc).setText(firma.getId()))
-    //            .addContent(
-    //                new Element("SignatoryParty", cac)
-    //                    .addContent(
-    //                        new Element("PartyIdentification", cac)
-    //                            .addContent(new Element("ID", cbc).setText(emisor.getNumero())))
-    //                    .addContent(
-    //                        new Element("PartyName", cac)
-    //                            .addContent(new Element("Name",
-    // cbc).setText(emisor.getNombre()))))
-    //            .addContent(
-    //                new Element("DigitalSignatureAttachment", cac)
-    //                    .addContent(
-    //                        new Element("ExternalReference", cac)
-    //                            .addContent(new Element("URI", cbc).setText(firma.getUri()))));
-    //    document.getRootElement().addContent(tagSignature);
-    //
-    //    // Datos del Emisor
-    //    Element tagAccountingSupplierParty = new Element("AccountingSupplierParty", cac);
-    //    Element tagParty = new Element("Party", cac);
-    //    Element tagPartyLegalEntity = new Element("PartyLegalEntity", cac);
-    //    Element tagRegistrationAddress = new Element("RegistrationAddress", cac);
-    //
-    //    // 10 Número de RUC. M
-    //    tagParty.addContent(
-    //        new Element("PartyIdentification", cac)
-    //            .addContent(
-    //                new Element("ID", cbc)
-    //                    .setAttribute("schemeID", emisor.getTipo())
-    //                    .setAttribute("schemeName", "Documento de Identidad")
-    //                    .setAttribute("schemeAgencyName", "PE:SUNAT")
-    //                    .setAttribute("schemeURI",
-    // "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06")
-    //                    .setText(emisor.getNumero())));
-    //
-    //    // 11 Nombre Comercial. C
-    //    if (!emisor.getNombreComercial().equals("")) {
-    //
-    //      tagParty.addContent(
-    //          new Element("PartyName", cac)
-    //              .addContent(new Element("Name", cbc).setText(emisor.getNombreComercial())));
-    //    }
-    //
-    //    // 12 Apellidos y nombres, denominación o razón social. M
-    //    tagPartyLegalEntity.addContent(
-    //        new Element("RegistrationName", cbc).setText(emisor.getNombre()));
-    //
-    //    // 13 Domicilio Fiscal. C
-    //    if (!emisor.getUbigeo().equals("")) {
-    //
-    //      tagRegistrationAddress.addContent(
-    //          new Element("ID", cbc)
-    //              .setAttribute("schemeAgencyName", "PE:INEI")
-    //              .setAttribute("schemeName", "Ubigeos")
-    //              .setText(emisor.getUbigeo()));
-    //    }
-    //
-    //    // 16. Código asignado por SUNAT para el establecimiento anexo declarado en el RUC. M
-    //    tagRegistrationAddress.addContent(
-    //        new Element("AddressTypeCode", cbc)
-    //            .setAttribute("listAgencyName", "PE:SUNAT")
-    //            .setAttribute("listName", "Establecimientos anexos")
-    //            .setText(emisor.getCodigoDomicilioFizcal()));
-    //
-    //    // 13 Domicilio Fiscal. C
-    //    if (!emisor.getDireccion().equals("")) {
-    //
-    //      tagRegistrationAddress
-    //          .addContent(new Element("CitySubdivisionName",
-    // cbc).setText(emisor.getUrbanizacion()))
-    //          .addContent(new Element("CityName", cbc).setText(emisor.getProvincia()))
-    //          .addContent(new Element("CountrySubentity", cbc).setText(emisor.getDepartamento()))
-    //          .addContent(new Element("District", cbc).setText(emisor.getDistrito()))
-    //          .addContent(
-    //              new Element("AddressLine", cac)
-    //                  .addContent(new Element("Line", cbc).setText(emisor.getDireccion())))
-    //          .addContent(
-    //              new Element("Country", cac)
-    //                  .addContent(
-    //                      new Element("IdentificationCode", cbc)
-    //                          .setAttribute("listID", "ISO 3166-1")
-    //                          .setAttribute(
-    //                              "listAgencyName", "United Nations Economic Commission for
-    // Europe")
-    //                          .setAttribute("listName", "Country")
-    //                          .setText(emisor.getCodigoPais())));
-    //    }
-    //
-    //    tagPartyLegalEntity.addContent(tagRegistrationAddress);
-    //    tagParty.addContent(tagPartyLegalEntity);
-    //    tagAccountingSupplierParty.addContent(tagParty);
-    //    document.getRootElement().addContent(tagAccountingSupplierParty);
+    // 57 Leyendas. C
+    if (factura.getLeyendas() != null) {
+      for (Leyenda leyenda : factura.getLeyendas()) {
+        Element tagNote =
+            new Element("Note", cbc)
+                .setAttribute("languageLocaleID", leyenda.getCodigo())
+                .setText(leyenda.getDescripcion());
+        document.getRootElement().addContent(tagNote);
+      }
+    }
+
+    // 7 Tipo de moneda. M
+    Element tagDocumentCurrencyCode =
+        new Element("DocumentCurrencyCode", cbc)
+            .setAttribute("listID", "ISO 4217 Alpha")
+            .setAttribute("listName", "Currency")
+            .setAttribute("listAgencyName", "United Nations Economic Commission for Europe")
+            .setText(factura.getMoneda().getCodigo());
+    document.getRootElement().addContent(tagDocumentCurrencyCode);
+
+    // 59 Número de la orden de compra. C
+    if (!factura.getOrdenCompra().equals("")) {
+      Element tagOrderReference =
+          new Element("OrderReference", cac)
+              .addContent(new Element("ID", cbc).setText(factura.getOrdenCompra()));
+      document.getRootElement().addContent(tagOrderReference);
+    }
+
+    // Documentos de referencia
+    // 22 Tipo y número de la guía de remisión relacionada. C
+    if (factura.getGuia() != null) {
+      Element tagDespatchDocumentReference =
+          new Element("DespatchDocumentReference", cac)
+              .addContent(
+                  new Element("ID", cbc)
+                      .setText(
+                          factura.getGuia().getSerie() + "-" + factura.getGuia().getCorrelativo()))
+              .addContent(
+                  new Element("DocumentTypeCode", cbc)
+                      .setAttribute("listAgencyName", "PE:SUNAT")
+                      .setAttribute("listName", "Tipo de Documento")
+                      .setAttribute("listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01")
+                      .setText(factura.getGuia().getTipo()));
+      document.getRootElement().addContent(tagDespatchDocumentReference);
+    }
+
+    // 23 Tipo y número de otro documento relacionado. C
+    for (Documento documento : factura.getDocumentosRelacionados()) {
+      if (documento != null) {
+        Element tagAdditionalDocumentReference =
+            new Element("AdditionalDocumentReference", cac)
+                .addContent(
+                    new Element("ID", cbc)
+                        .setText(documento.getSerie() + "-" + documento.getCorrelativo()))
+                .addContent(
+                    new Element("DocumentTypeCode", cbc)
+                        .setAttribute("listAgencyName", "PE:SUNAT")
+                        .setAttribute("listName", "Documento Relacionado")
+                        .setAttribute(
+                            "listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo12")
+                        .setText(documento.getTipo()));
+        document.getRootElement().addContent(tagAdditionalDocumentReference);
+      }
+    }
+
+    // 9 Firma Digital. M
+    Element signature =
+        new Element("Signature", cac)
+            .addContent(
+                new Element("ID", cbc)
+                    .setText("SIGN-" + PREFS.get(UsuarioController.FIRMA_USUARIO, "")))
+            .addContent(
+                new Element("SignatoryParty", cac)
+                    .addContent(
+                        new Element("PartyIdentification", cac)
+                            .addContent(
+                                new Element("ID", cbc)
+                                    .setText(
+                                        factura.getEmisor().getDocumentoIdentidad().getNumero())))
+                    .addContent(
+                        new Element("PartyName", cac)
+                            .addContent(
+                                new Element("Name", cbc).setText(factura.getEmisor().getNombre()))))
+            .addContent(
+                new Element("DigitalSignatureAttachment", cac)
+                    .addContent(
+                        new Element("ExternalReference", cac)
+                            .addContent(
+                                new Element("URI", cbc)
+                                    .setText(
+                                        "#SIGN-"
+                                            + PREFS.get(UsuarioController.FIRMA_USUARIO, "")))));
+    document.getRootElement().addContent(signature);
+
+    // Datos del Emisor
+    Element tagAccountingSupplierParty = new Element("AccountingSupplierParty", cac);
+    Element tagParty = new Element("Party", cac);
+    Element tagPartyLegalEntity = new Element("PartyLegalEntity", cac);
+    Element tagRegistrationAddress = new Element("RegistrationAddress", cac);
+
+    // 10 Número de RUC. M
+    tagParty.addContent(
+        new Element("PartyIdentification", cac)
+            .addContent(
+                new Element("ID", cbc)
+                    .setAttribute(
+                        "schemeID",
+                        factura.getEmisor().getDocumentoIdentidad().getTipo().getCodigo())
+                    .setAttribute("schemeName", "Documento de Identidad")
+                    .setAttribute("schemeAgencyName", "PE:SUNAT")
+                    .setAttribute("schemeURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06")
+                    .setText(factura.getEmisor().getDocumentoIdentidad().getNumero())));
+
+    // 11 Nombre Comercial. C
+    if (factura.getEmisor().getNombreComercial().isEmpty()) {
+      tagParty.addContent(
+          new Element("PartyName", cac)
+              .addContent(
+                  new Element("Name", cbc).setText(factura.getEmisor().getNombreComercial())));
+    }
+
+    // 12 Apellidos y nombres, denominación o razón social. M
+    tagPartyLegalEntity.addContent(
+        new Element("RegistrationName", cbc).setText(factura.getEmisor().getNombre()));
+
+    // 13 Domicilio Fiscal. C
+    if (factura.getEmisor().getDomicilioFiscal().getCodigoUbigeo().isEmpty()) {
+      tagRegistrationAddress.addContent(
+          new Element("ID", cbc)
+              .setAttribute("schemeAgencyName", "PE:INEI")
+              .setAttribute("schemeName", "Ubigeos")
+              .setText(factura.getEmisor().getDomicilioFiscal().getCodigoUbigeo()));
+    }
+
+    // 16. Código asignado por SUNAT para el establecimiento anexo declarado en el RUC. M
+    tagRegistrationAddress.addContent(
+        new Element("AddressTypeCode", cbc)
+            .setAttribute("listAgencyName", "PE:SUNAT")
+            .setAttribute("listName", "Establecimientos anexos")
+            .setText(factura.getEmisor().getDomicilioFiscal().getCodigo()));
+
+    // 13 Domicilio Fiscal. C
+    if (factura.getEmisor().getDomicilioFiscal() != null) {
+
+      tagRegistrationAddress
+          .addContent(
+              new Element("CitySubdivisionName", cbc)
+                  .setText(factura.getEmisor().getDomicilioFiscal().getUrbanizacion()))
+          .addContent(
+              new Element("CityName", cbc)
+                  .setText(factura.getEmisor().getDomicilioFiscal().getProvincia()))
+          .addContent(
+              new Element("CountrySubentity", cbc)
+                  .setText(factura.getEmisor().getDomicilioFiscal().getDepartamento()))
+          .addContent(
+              new Element("District", cbc)
+                  .setText(factura.getEmisor().getDomicilioFiscal().getDistrito()))
+          .addContent(
+              new Element("AddressLine", cac)
+                  .addContent(
+                      new Element("Line", cbc)
+                          .setText(factura.getEmisor().getDomicilioFiscal().getDescripcion())))
+          .addContent(
+              new Element("Country", cac)
+                  .addContent(
+                      new Element("IdentificationCode", cbc)
+                          .setAttribute("listID", "ISO 3166-1")
+                          .setAttribute(
+                              "listAgencyName", "United Nations Economic Commission for Europe")
+                          .setAttribute("listName", "Country")
+                          .setText(factura.getEmisor().getDomicilioFiscal().getCodigoPais())));
+    }
+
+    tagPartyLegalEntity.addContent(tagRegistrationAddress);
+    tagParty.addContent(tagPartyLegalEntity);
+    tagAccountingSupplierParty.addContent(tagParty);
+    document.getRootElement().addContent(tagAccountingSupplierParty);
     //
     //    if (!emisor.getDireccionEntrega().getDireccion().equals("")) {
     //

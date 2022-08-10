@@ -89,7 +89,6 @@ public class FacturaIFrame extends JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Factura");
         setFrameIcon(FontIcon.of(RemixiconAL.ADD_LINE, 16, Color.decode("#f7d117")));
         setMaximumSize(null);
         setMinimumSize(null);
