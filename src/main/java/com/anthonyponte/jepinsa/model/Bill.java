@@ -12,7 +12,6 @@ import java.util.List;
  * @author anthony
  */
 public class Bill {
-
   private String ubl;
   private String version;
   private String serie;

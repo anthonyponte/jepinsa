@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 anthony
+ * Copyright (C) 2022 AnthonyPonte
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,19 +18,39 @@
 package com.anthonyponte.jepinsa.model;
 
 /**
- * @author anthony
+ * @author AnthonyPonte
  */
-public class Regimen {
+public class Descuento {
+  private boolean indicador;
   private String codigo;
   private String descripcion;
-  private double porcentaje;
+  private double factor;
+  private double monto;
+  private double base;
 
-  public Regimen() {}
+  public Descuento() {}
 
-  public Regimen(String codigo, String descripcion, double porcentaje) {
+  public Descuento(
+      boolean indicador,
+      String codigo,
+      String descripcion,
+      double factor,
+      double monto,
+      double base) {
+    this.indicador = indicador;
     this.codigo = codigo;
     this.descripcion = descripcion;
-    this.porcentaje = porcentaje;
+    this.factor = factor;
+    this.monto = monto;
+    this.base = base;
+  }
+
+  public boolean isIndicador() {
+    return indicador;
+  }
+
+  public void setIndicador(boolean indicador) {
+    this.indicador = indicador;
   }
 
   public String getCodigo() {
@@ -49,23 +69,45 @@ public class Regimen {
     this.descripcion = descripcion;
   }
 
-  public double getPorcentaje() {
-    return porcentaje;
+  public double getFactor() {
+    return factor;
   }
 
-  public void setPorcentaje(double porcentaje) {
-    this.porcentaje = porcentaje;
+  public void setFactor(double factor) {
+    this.factor = factor;
+  }
+
+  public double getMonto() {
+    return monto;
+  }
+
+  public void setMonto(double monto) {
+    this.monto = monto;
+  }
+
+  public double getBase() {
+    return base;
+  }
+
+  public void setBase(double base) {
+    this.base = base;
   }
 
   @Override
   public String toString() {
-    return "RegimenPercepcion{"
-        + "codigo="
+    return "Descuento{"
+        + "indicador="
+        + indicador
+        + ", codigo="
         + codigo
         + ", descripcion="
         + descripcion
-        + ", porcentaje="
-        + porcentaje
+        + ", factor="
+        + factor
+        + ", monto="
+        + monto
+        + ", base="
+        + base
         + '}';
   }
 }

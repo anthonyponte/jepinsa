@@ -319,113 +319,134 @@ public class Invoice {
     tagParty.addContent(tagPartyLegalEntity);
     tagAccountingSupplierParty.addContent(tagParty);
     document.getRootElement().addContent(tagAccountingSupplierParty);
-    //
-    //    if (!emisor.getDireccionEntrega().getDireccion().equals("")) {
-    //
-    //      Element tagDeliveryTerms =
-    //          new Element("DeliveryTerms", cac)
-    //              // 62 Incoterm. C
-    //              .addContent(new Element("ID",
-    // cbc).setText(emisor.getDireccionEntrega().getUbigeo()))
-    //              // 14 Dirección del lugar en el que se entrega el bien. C.
-    //              .addContent(
-    //                  new Element("DeliveryLocation", cac)
-    //                      .addContent(
-    //                          new Element("Address", cac)
-    //                              .addContent(
-    //                                  new Element("StreetName", cbc)
-    //                                      .setText(emisor.getDireccionEntrega().getDireccion()))
-    //                              .addContent(
-    //                                  new Element("CitySubdivisionName", cbc)
-    //
-    // .setText(emisor.getDireccionEntrega().getUrbanizacion()))
-    //                              .addContent(
-    //                                  new Element("CityName", cbc)
-    //                                      .setText(emisor.getDireccionEntrega().getUbigeo()))
-    //                              .addContent(
-    //                                  new Element("CountrySubentity", cbc)
-    //                                      .setText(emisor.getDireccionEntrega().getProvincia()))
-    //                              .addContent(
-    //                                  new Element("District", cbc)
-    //                                      .setText(emisor.getDireccionEntrega().getDistrito()))
-    //                              // 15. Pais del uso, explotación o aprovechamiento del servicio.
-    // -
-    //                              // Código de país. C
-    //                              .addContent(
-    //                                  new Element("Country", cac)
-    //                                      .addContent(
-    //                                          new Element("IdentificationCode", cac)
-    //                                              .setAttribute("listID", "ISO 3166-1")
-    //                                              .setAttribute(
-    //                                                  "listAgencyName",
-    //                                                  "United Nations Economic Commission for
-    // Europe")
-    //                                              .setAttribute("listName", "Country")
-    //                                              .setText(
-    //
-    // emisor.getDireccionEntrega().getCodigoPais())))));
-    //      document.getRootElement().addContent(tagDeliveryTerms);
-    //    }
-    //
-    //    // Datos del cliente o receptor
-    //    Element tagAccountingCustomerParty = new Element("AccountingCustomerParty", cac);
-    //    Element tagParty2 = new Element("Party", cac);
-    //    Element tagPartyLegalEntity2 = new Element("PartyLegalEntity", cac);
-    //
-    //    // 17 Tipo y Número de documento de identidad del adquirente o usuario. M
-    //    tagParty2.addContent(
-    //        new Element("PartyIdentification", cac)
-    //            .addContent(
-    //                new Element("ID", cbc)
-    //                    .setAttribute("schemeID", cliente.getTipo())
-    //                    .setAttribute("schemeName", "Documento de Identidad")
-    //                    .setAttribute("schemeAgencyName", "PE:SUNAT")
-    //                    .setAttribute("schemeURI",
-    // "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06")
-    //                    .setText(cliente.getNumero())));
-    //
-    //    // 18 Apellidos y nombres, denominación o razón social del adquirente o usuario. M
-    //    tagPartyLegalEntity2.addContent(
-    //        new Element("RegistrationName", cbc).setText(cliente.getNombre()));
-    //
-    //    // 19 Dirección del adquiriente o usuario. C
-    //    if (!cliente.getDireccion().equals("")) {
-    //      tagPartyLegalEntity2.addContent(
-    //          new Element("RegistrationAddress", cac)
-    //              .addContent(
-    //                  new Element("ID", cbc)
-    //                      .setAttribute("schemeAgencyName", "PE:INEI")
-    //                      .setAttribute("schemeName", "Ubigeos")
-    //                      .setText(cliente.getUbigeo()))
-    //              .addContent(
-    //                  new Element("CitySubdivisionName", cbc).setText(cliente.getUrbanizacion()))
-    //              .addContent(new Element("CityName", cbc).setText(cliente.getProvincia()))
-    //              .addContent(new Element("CountrySubentity",
-    // cbc).setText(cliente.getDepartamento()))
-    //              .addContent(new Element("District", cbc).setText(cliente.getDistrito()))
-    //              .addContent(
-    //                  new Element("AddressLine", cac)
-    //                      .addContent(new Element("Line", cbc).setText(cliente.getDireccion())))
-    //              .addContent(
-    //                  new Element("Country", cac)
-    //                      .addContent(
-    //                          new Element("IdentificationCode", cbc)
-    //                              .setAttribute("listID", "ISO 3166-1")
-    //                              .setAttribute(
-    //                                  "listAgencyName", "United Nations Economic Commission for
-    // Europe")
-    //                              .setAttribute("listName", "Country")
-    //                              .setText(cliente.getCodigoPais()))));
-    //    }
-    //    // 20 Tipo y Número de documento de identidad de otros participantes asociados a la
-    // transacción.
-    //    // C
-    //    //
-    //    tagParty2.addContent(tagPartyLegalEntity2);
-    //    tagAccountingCustomerParty.addContent(tagParty2);
-    //    document.getRootElement().addContent(tagAccountingCustomerParty);
-    //
-    //    // 174 Forma de pago
+
+    if (factura.getEmisor().getDireccionEntrega() != null) {
+      Element tagDeliveryTerms =
+          new Element("DeliveryTerms", cac)
+              // 62 Incoterm. C
+              .addContent(
+                  new Element("ID", cbc)
+                      .setText(factura.getEmisor().getDireccionEntrega().getCodigoUbigeo()))
+              // 14 Dirección del lugar en el que se entrega el bien. C.
+              .addContent(
+                  new Element("DeliveryLocation", cac)
+                      .addContent(
+                          new Element("Address", cac)
+                              .addContent(
+                                  new Element("StreetName", cbc)
+                                      .setText(
+                                          factura
+                                              .getEmisor()
+                                              .getDireccionEntrega()
+                                              .getDescripcion()))
+                              .addContent(
+                                  new Element("CitySubdivisionName", cbc)
+                                      .setText(
+                                          factura
+                                              .getEmisor()
+                                              .getDireccionEntrega()
+                                              .getUrbanizacion()))
+                              .addContent(
+                                  new Element("CityName", cbc)
+                                      .setText(
+                                          factura
+                                              .getEmisor()
+                                              .getDireccionEntrega()
+                                              .getCodigoUbigeo()))
+                              .addContent(
+                                  new Element("CountrySubentity", cbc)
+                                      .setText(
+                                          factura.getEmisor().getDireccionEntrega().getProvincia()))
+                              .addContent(
+                                  new Element("District", cbc)
+                                      .setText(
+                                          factura.getEmisor().getDireccionEntrega().getDistrito()))
+                              // 15. Pais del uso, explotación o aprovechamiento del servicio.
+                              // Código de país. C
+                              .addContent(
+                                  new Element("Country", cac)
+                                      .addContent(
+                                          new Element("IdentificationCode", cac)
+                                              .setAttribute("listID", "ISO 3166-1")
+                                              .setAttribute(
+                                                  "listAgencyName",
+                                                  "United Nations Economic Commission for Europe")
+                                              .setAttribute("listName", "Country")
+                                              .setText(
+                                                  factura
+                                                      .getEmisor()
+                                                      .getDireccionEntrega()
+                                                      .getCodigoPais())))));
+      document.getRootElement().addContent(tagDeliveryTerms);
+    }
+
+    // Datos del cliente o receptor
+    Element tagAccountingCustomerParty = new Element("AccountingCustomerParty", cac);
+    Element tagParty2 = new Element("Party", cac);
+    Element tagPartyLegalEntity2 = new Element("PartyLegalEntity", cac);
+
+    // 17 Tipo y Número de documento de identidad del adquirente o usuario. M
+    tagParty2.addContent(
+        new Element("PartyIdentification", cac)
+            .addContent(
+                new Element("ID", cbc)
+                    .setAttribute(
+                        "schemeID",
+                        factura.getAdquiriente().getDocumentoIdentidad().getTipo().getCodigo())
+                    .setAttribute("schemeName", "Documento de Identidad")
+                    .setAttribute("schemeAgencyName", "PE:SUNAT")
+                    .setAttribute("schemeURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06")
+                    .setText(factura.getAdquiriente().getDocumentoIdentidad().getNumero())));
+
+    // 18 Apellidos y nombres, denominación o razón social del adquirente o usuario. M
+    tagPartyLegalEntity2.addContent(
+        new Element("RegistrationName", cbc).setText(factura.getAdquiriente().getNombre()));
+
+    // 19 Dirección del adquiriente o usuario. C
+    if (factura.getAdquiriente().getDomicilioFiscal() != null) {
+      tagPartyLegalEntity2.addContent(
+          new Element("RegistrationAddress", cac)
+              .addContent(
+                  new Element("ID", cbc)
+                      .setAttribute("schemeAgencyName", "PE:INEI")
+                      .setAttribute("schemeName", "Ubigeos")
+                      .setText(factura.getAdquiriente().getDomicilioFiscal().getCodigoUbigeo()))
+              .addContent(
+                  new Element("CitySubdivisionName", cbc)
+                      .setText(factura.getAdquiriente().getDomicilioFiscal().getUrbanizacion()))
+              .addContent(
+                  new Element("CityName", cbc)
+                      .setText(factura.getAdquiriente().getDomicilioFiscal().getProvincia()))
+              .addContent(
+                  new Element("CountrySubentity", cbc)
+                      .setText(factura.getAdquiriente().getDomicilioFiscal().getDepartamento()))
+              .addContent(
+                  new Element("District", cbc)
+                      .setText(factura.getAdquiriente().getDomicilioFiscal().getDistrito()))
+              .addContent(
+                  new Element("AddressLine", cac)
+                      .addContent(
+                          new Element("Line", cbc)
+                              .setText(
+                                  factura.getAdquiriente().getDomicilioFiscal().getDescripcion())))
+              .addContent(
+                  new Element("Country", cac)
+                      .addContent(
+                          new Element("IdentificationCode", cbc)
+                              .setAttribute("listID", "ISO 3166-1")
+                              .setAttribute(
+                                  "listAgencyName", "United Nations Economic Commission for Europe")
+                              .setAttribute("listName", "Country")
+                              .setText(
+                                  factura.getAdquiriente().getDomicilioFiscal().getCodigoPais()))));
+    }
+    // 20 Tipo y Número de documento de identidad de otros participantes asociados a la transacción.
+    // C
+    tagParty2.addContent(tagPartyLegalEntity2);
+    tagAccountingCustomerParty.addContent(tagParty2);
+    document.getRootElement().addContent(tagAccountingCustomerParty);
+
+    // 174 Forma de pago
     //    Element tagPaymentTerms =
     //        new Element("PaymentTerms", cac).addContent(new Element("ID",
     // cbc).setText("FormaPago"));
@@ -461,36 +482,35 @@ public class Invoice {
     //      }
     //    }
     //
-    //    // Datos del comprador
-    //    // 21 Tipo y Número de documento de identidad del comprador. C
-    //    //
-    //    // 50 Cargos y Descuentos Globales. C
-    //    if (!total.getCuota().getMonto().equals("0.00")) {
-    //      Element tagAllowanceCharge =
-    //          new Element("AllowanceCharge", cbc)
-    //              .addContent(
-    //                  new Element("ChargeIndicator",
-    // cbc).setText(total.getCuota().getIndicador()))
-    //              .addContent(
-    //                  new Element("AllowanceChargeReasonCode", cbc)
-    //                      .setAttribute("listAgencyName", "PE:SUNAT")
-    //                      .setAttribute("listName", "Cargo/descuento")
-    //                      .setAttribute("listURI",
-    // "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo53")
-    //                      .setText(total.getCuota().getCodigo()))
-    //              .addContent(
-    //                  new Element("MultiplierFactorNumeric", cbc)
-    //                      .setText(total.getCuota().getPorcentaje()))
-    //              .addContent(
-    //                  new Element("Amount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(total.getCuota().getMonto()))
-    //              .addContent(
-    //                  new Element("BaseAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(total.getCuota().getMontoBase()));
-    //      document.getRootElement().addContent(tagAllowanceCharge);
-    //    }
+    // Datos del comprador
+    // 21 Tipo y Número de documento de identidad del comprador. C
+    //
+    // 50 Cargos y Descuentos Globales. C
+//    if (factura.getDescuentos() != null) {
+//      Element tagAllowanceCharge =
+//          new Element("AllowanceCharge", cbc)
+//              .addContent(
+//                  new Element("ChargeIndicator", cbc)
+//                      .setText(String.valueOf(factura.getDescuentos().isIndicador())))
+//              .addContent(
+//                  new Element("AllowanceChargeReasonCode", cbc)
+//                      .setAttribute("listAgencyName", "PE:SUNAT")
+//                      .setAttribute("listName", "Cargo/descuento")
+//                      .setAttribute("listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo53")
+//                      .setText(total.getCuota().getCodigo()))
+//              .addContent(
+//                  new Element("MultiplierFactorNumeric", cbc)
+//                      .setText(total.getCuota().getPorcentaje()))
+//              .addContent(
+//                  new Element("Amount", cbc)
+//                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+//                      .setText(total.getCuota().getMonto()))
+//              .addContent(
+//                  new Element("BaseAmount", cbc)
+//                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+//                      .setText(total.getCuota().getMontoBase()));
+//      document.getRootElement().addContent(tagAllowanceCharge);
+//    }
     //
     //    // Totales de la Factura
     //    // 40 Monto total de impuestos. M
