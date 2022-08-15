@@ -13,16 +13,12 @@ import java.util.List;
  */
 public class Factura extends Bill {
 
+  // Datos del detalle o Ítem de la Factura
   private List<FacturaDetalle> facturaDetalles;
 
   public Factura() {}
 
-  public Factura(List<FacturaDetalle> facturaDetalles) {
-    this.facturaDetalles = facturaDetalles;
-  }
-
   public Factura(
-      List<FacturaDetalle> facturaDetalles,
       String ubl,
       String version,
       String serie,
@@ -35,7 +31,7 @@ public class Factura extends Bill {
       Empresa emisor,
       Empresa adquiriente,
       DocumentoIdentidad sujeto,
-      Documento guia,
+      List<Documento> guias,
       List<Documento> documentosRelacionados,
       double totalTributos,
       Operacion totalExportacion,
@@ -60,7 +56,9 @@ public class Factura extends Bill {
       String ordenCompra,
       String fise,
       String derechosArancelarios,
-      String incoterm) {
+      String incoterm,
+      FormaPago contado,
+      List<FormaPago> credito) {
     super(
         ubl,
         version,
@@ -74,7 +72,7 @@ public class Factura extends Bill {
         emisor,
         adquiriente,
         sujeto,
-        guia,
+        guias,
         documentosRelacionados,
         totalTributos,
         totalExportacion,
@@ -99,8 +97,9 @@ public class Factura extends Bill {
         ordenCompra,
         fise,
         derechosArancelarios,
-        incoterm);
-    this.facturaDetalles = facturaDetalles;
+        incoterm,
+        contado,
+        credito);
   }
 
   public List<FacturaDetalle> getFacturaDetalles() {

@@ -12,6 +12,7 @@ import java.util.List;
  * @author anthony
  */
 public class Bill {
+  // Datos de la Factura electrónica
   private String ubl;
   private String version;
   private String serie;
@@ -21,11 +22,17 @@ public class Bill {
   private TipoDocumento tipoDocumento;
   private Moneda moneda;
   private Date fechaVencimiento;
+  // Datos del Emisor
   private Empresa emisor;
+  // Datos del adquirente o usuario
   private Empresa adquiriente;
+  // Información adicional - Datos del sujeto que realiza la operación por cuenta del adquirente o
+  // usuario
   private DocumentoIdentidad sujeto;
-  private Documento guia;
+  // Información adicional - Documentos relacionados
+  private List<Documento> guias;
   private List<Documento> documentosRelacionados;
+  // Totales de la Factura
   private double totalTributos;
   private Operacion totalExportacion;
   private Operacion totalInafectas;
@@ -44,13 +51,41 @@ public class Bill {
   private double totalValorVenta;
   private double totalPrecioVenta;
   private double totalRedondeado;
+  // Información adicional
   private List<Leyenda> leyendas;
   private String tipoOperacion;
   private String ordenCompra;
   private String fise;
   private String derechosArancelarios;
   private String incoterm;
-
+  // Información adicional - percepciones
+  // Información adicional  - anticipos
+  // Información adicional - sustento de traslado de mercaderias
+  // a) Para el caso de la factura electrónica remitente
+  // b) Para el caso de la factura electrónica tranportista
+  // Información adicional  - transporte terrestre de pasajeros
+  // Información adicional  - detracciones
+  // Información adicional - detracciones - recursos hidrobiológicos
+  // Información adicional - detracciones - servicio de transporte de carga
+  // Información adicional - detracciones - servicio de transporte de carga - detalle de tramos
+  // Información adicional - detracciones - servicio de transporte de carga - detalle de el(los)
+  // vehículo(s)
+  // Información adicional  - exportación de servicios de hospedaje
+  // Información adicional  - beneficio de hospedaje - paquete turístico
+  // Información adicional - ventas al sector público
+  // Información adicional - migración de documentos autorizados - Carta Porte Aéreo
+  // Información adicional - migración de documentos autorizados - BVME para transporte ferroviario
+  // de pasajeros
+  // Información adicional a nivel de ítem
+  // Información adicional a nivel de ítem - comprobante emitido por empresas del sistema financiero
+  // y cooperativas de ahorro y crédito no autorizadas a captar recursos del público
+  // Información adicional  a nivel de ítem - comprobante emitido por empresas de seguros
+  // Información adicional - Forma de pago al contado
+  // Información adicional - Forma de pago al crédito
+  private FormaPago contado;
+  private List<FormaPago> credito;
+  // Información adicional - Retenciones de IGV
+  // Información adicional - Retenciones de Renta de segunda categoría
   public Bill() {}
 
   public Bill(
@@ -66,7 +101,7 @@ public class Bill {
       Empresa emisor,
       Empresa adquiriente,
       DocumentoIdentidad sujeto,
-      Documento guia,
+      List<Documento> guias,
       List<Documento> documentosRelacionados,
       double totalTributos,
       Operacion totalExportacion,
@@ -91,7 +126,9 @@ public class Bill {
       String ordenCompra,
       String fise,
       String derechosArancelarios,
-      String incoterm) {
+      String incoterm,
+      FormaPago contado,
+      List<FormaPago> credito) {
     this.ubl = ubl;
     this.version = version;
     this.serie = serie;
@@ -104,7 +141,7 @@ public class Bill {
     this.emisor = emisor;
     this.adquiriente = adquiriente;
     this.sujeto = sujeto;
-    this.guia = guia;
+    this.guias = guias;
     this.documentosRelacionados = documentosRelacionados;
     this.totalTributos = totalTributos;
     this.totalExportacion = totalExportacion;
@@ -130,6 +167,8 @@ public class Bill {
     this.fise = fise;
     this.derechosArancelarios = derechosArancelarios;
     this.incoterm = incoterm;
+    this.contado = contado;
+    this.credito = credito;
   }
 
   public String getUbl() {
@@ -228,12 +267,12 @@ public class Bill {
     this.sujeto = sujeto;
   }
 
-  public Documento getGuia() {
-    return guia;
+  public List<Documento> getGuias() {
+    return guias;
   }
 
-  public void setGuia(Documento guia) {
-    this.guia = guia;
+  public void setGuias(List<Documento> guias) {
+    this.guias = guias;
   }
 
   public List<Documento> getDocumentosRelacionados() {
@@ -436,6 +475,22 @@ public class Bill {
     this.incoterm = incoterm;
   }
 
+  public FormaPago getContado() {
+    return contado;
+  }
+
+  public void setContado(FormaPago contado) {
+    this.contado = contado;
+  }
+
+  public List<FormaPago> getCredito() {
+    return credito;
+  }
+
+  public void setCredito(List<FormaPago> credito) {
+    this.credito = credito;
+  }
+
   @Override
   public String toString() {
     return "Bill{"
@@ -463,8 +518,8 @@ public class Bill {
         + adquiriente
         + ", sujeto="
         + sujeto
-        + ", guia="
-        + guia
+        + ", guias="
+        + guias
         + ", documentosRelacionados="
         + documentosRelacionados
         + ", totalTributos="
@@ -515,6 +570,10 @@ public class Bill {
         + derechosArancelarios
         + ", incoterm="
         + incoterm
+        + ", contado="
+        + contado
+        + ", credito="
+        + credito
         + '}';
   }
 }

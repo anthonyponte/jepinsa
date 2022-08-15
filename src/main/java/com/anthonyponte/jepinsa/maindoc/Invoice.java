@@ -22,7 +22,7 @@ import com.anthonyponte.jepinsa.controller.UsuarioController;
 import com.anthonyponte.jepinsa.custom.MyDateFormat;
 import com.anthonyponte.jepinsa.model.Documento;
 import com.anthonyponte.jepinsa.model.Factura;
-import com.anthonyponte.jepinsa.model.FacturaDetalle;
+import com.anthonyponte.jepinsa.model.FormaPago;
 import com.anthonyponte.jepinsa.model.Leyenda;
 import java.util.prefs.Preferences;
 import org.jdom2.Document;
@@ -97,7 +97,6 @@ public class Invoice {
     // 2. Versión de la estructura del documento. M
     Element tagCustomizationID =
         new Element("CustomizationID", cbc)
-            // C
             .setAttribute("schemeAgencyName", "PE:SUNAT")
             .setText(factura.getVersion());
     document.getRootElement().addContent(tagCustomizationID);
@@ -172,25 +171,26 @@ public class Invoice {
 
     // Documentos de referencia
     // 22 Tipo y número de la guía de remisión relacionada. C
-    if (factura.getGuia() != null) {
-      Element tagDespatchDocumentReference =
-          new Element("DespatchDocumentReference", cac)
-              .addContent(
-                  new Element("ID", cbc)
-                      .setText(
-                          factura.getGuia().getSerie() + "-" + factura.getGuia().getCorrelativo()))
-              .addContent(
-                  new Element("DocumentTypeCode", cbc)
-                      .setAttribute("listAgencyName", "PE:SUNAT")
-                      .setAttribute("listName", "Tipo de Documento")
-                      .setAttribute("listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01")
-                      .setText(factura.getGuia().getTipo()));
-      document.getRootElement().addContent(tagDespatchDocumentReference);
+    if (factura.getGuias() != null) {
+      for (Documento guia : factura.getGuias()) {
+        Element tagDespatchDocumentReference =
+            new Element("DespatchDocumentReference", cac)
+                .addContent(
+                    new Element("ID", cbc).setText(guia.getSerie() + "-" + guia.getCorrelativo()))
+                .addContent(
+                    new Element("DocumentTypeCode", cbc)
+                        .setAttribute("listAgencyName", "PE:SUNAT")
+                        .setAttribute("listName", "Tipo de Documento")
+                        .setAttribute(
+                            "listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01")
+                        .setText(guia.getTipo()));
+        document.getRootElement().addContent(tagDespatchDocumentReference);
+      }
     }
 
     // 23 Tipo y número de otro documento relacionado. C
-    for (Documento documento : factura.getDocumentosRelacionados()) {
-      if (documento != null) {
+    if (factura.getDocumentosRelacionados() != null) {
+      for (Documento documento : factura.getDocumentosRelacionados()) {
         Element tagAdditionalDocumentReference =
             new Element("AdditionalDocumentReference", cac)
                 .addContent(
@@ -267,15 +267,6 @@ public class Invoice {
     tagPartyLegalEntity.addContent(
         new Element("RegistrationName", cbc).setText(factura.getEmisor().getNombre()));
 
-    // 13 Domicilio Fiscal. C
-    if (factura.getEmisor().getDomicilioFiscal().getCodigoUbigeo().isEmpty()) {
-      tagRegistrationAddress.addContent(
-          new Element("ID", cbc)
-              .setAttribute("schemeAgencyName", "PE:INEI")
-              .setAttribute("schemeName", "Ubigeos")
-              .setText(factura.getEmisor().getDomicilioFiscal().getCodigoUbigeo()));
-    }
-
     // 16. Código asignado por SUNAT para el establecimiento anexo declarado en el RUC. M
     tagRegistrationAddress.addContent(
         new Element("AddressTypeCode", cbc)
@@ -285,8 +276,12 @@ public class Invoice {
 
     // 13 Domicilio Fiscal. C
     if (factura.getEmisor().getDomicilioFiscal() != null) {
-
       tagRegistrationAddress
+          .addContent(
+              new Element("ID", cbc)
+                  .setAttribute("schemeAgencyName", "PE:INEI")
+                  .setAttribute("schemeName", "Ubigeos")
+                  .setText(factura.getEmisor().getDomicilioFiscal().getCodigoUbigeo()))
           .addContent(
               new Element("CitySubdivisionName", cbc)
                   .setText(factura.getEmisor().getDomicilioFiscal().getUrbanizacion()))
@@ -446,71 +441,77 @@ public class Invoice {
     tagAccountingCustomerParty.addContent(tagParty2);
     document.getRootElement().addContent(tagAccountingCustomerParty);
 
-    // 174 Forma de pago
-    //    Element tagPaymentTerms =
-    //        new Element("PaymentTerms", cac).addContent(new Element("ID",
-    // cbc).setText("FormaPago"));
-    //
-    //    Element tagPaymentMeansID = new Element("PaymentMeansID", cbc);
-    //    if (condicion.getTipo().equals("CONTADO")
-    //        || condicion.getTipo().equals("TRANSFERENCIA GRATUITA")) {
-    //      tagPaymentMeansID.setText("Contado");
-    //      tagPaymentTerms.addContent(tagPaymentMeansID);
-    //    } else {
-    //      tagPaymentMeansID.setText("Credito");
-    //      tagPaymentTerms.addContent(tagPaymentMeansID);
-    //
-    //      tagPaymentTerms.addContent(
-    //          new Element("Amount", cbc)
-    //              .setAttribute("currencyID", encabezado.getMoneda())
-    //              .setText(condicion.getMonto()));
-    //    }
-    //    document.getRootElement().addContent(tagPaymentTerms);
-    //
-    //    if (!condicion.getTipo().equals("CONTADO")) {
-    //      if (!condicion.getTipo().equals("TRANSFERENCIA GRATUITA")) {
-    //        Element tagPaymentTerms1 =
-    //            new Element("PaymentTerms", cac)
-    //                .addContent(new Element("ID", cbc).setText("FormaPago"))
-    //                .addContent(new Element("PaymentMeansID", cbc).setText("Cuota001"))
-    //                .addContent(
-    //                    new Element("Amount", cbc)
-    //                        .setAttribute("currencyID", encabezado.getMoneda())
-    //                        .setText(condicion.getMonto()))
-    //                .addContent(new Element("PaymentDueDate", cbc).setText(condicion.getFecha()));
-    //        document.getRootElement().addContent(tagPaymentTerms1);
-    //      }
-    //    }
-    //
+    // Información adicional - Forma de pago al contado
+    // 174	Forma de pago
+    // Información adicional - Forma de pago al crédito
+    // 175	Forma de pago
+    // Monto neto pendiente de pago
+    // 176 Monto del pago único o de las cuotas
+    // 177 Fecha del pago único o de las cuotas
+    if (factura.getContado() != null) {
+      Element tagPaymentTerms =
+          new Element("PaymentTerms", cac)
+              .addContent(new Element("ID", cbc).setText("FormaPago"))
+              .addContent(
+                  new Element("PaymentMeansID", cbc)
+                      .setText(factura.getContado().getDescripcion()));
+      document.getRootElement().addContent(tagPaymentTerms);
+    } else {
+      Element tagPaymentTerms =
+          new Element("PaymentTerms", cac)
+              .addContent(new Element("ID", cbc).setText("FormaPago"))
+              .addContent(
+                  new Element("PaymentMeansID", cbc)
+                      .setText(factura.getContado().getDescripcion()));
+
+      for (FormaPago formaPago : factura.getCredito()) {
+        Element tagCuota =
+            new Element("PaymentTerms", cac)
+                .addContent(new Element("ID", cbc).setText("FormaPago"))
+                .addContent(new Element("PaymentMeansID", cbc).setText(formaPago.getNmroCuota()))
+                .addContent(
+                    new Element("Amount", cbc)
+                        .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                        .setText(String.valueOf(formaPago.getMontoPago())))
+                .addContent(
+                    new Element("PaymentDueDate", cbc)
+                        .setText(MyDateFormat.yyyy_MM_dd(formaPago.getFechaPago())));
+
+        tagPaymentTerms.addContent(tagCuota);
+      }
+
+      document.getRootElement().addContent(tagPaymentTerms);
+    }
+
     // Datos del comprador
     // 21 Tipo y Número de documento de identidad del comprador. C
     //
     // 50 Cargos y Descuentos Globales. C
-//    if (factura.getDescuentos() != null) {
-//      Element tagAllowanceCharge =
-//          new Element("AllowanceCharge", cbc)
-//              .addContent(
-//                  new Element("ChargeIndicator", cbc)
-//                      .setText(String.valueOf(factura.getDescuentos().isIndicador())))
-//              .addContent(
-//                  new Element("AllowanceChargeReasonCode", cbc)
-//                      .setAttribute("listAgencyName", "PE:SUNAT")
-//                      .setAttribute("listName", "Cargo/descuento")
-//                      .setAttribute("listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo53")
-//                      .setText(total.getCuota().getCodigo()))
-//              .addContent(
-//                  new Element("MultiplierFactorNumeric", cbc)
-//                      .setText(total.getCuota().getPorcentaje()))
-//              .addContent(
-//                  new Element("Amount", cbc)
-//                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
-//                      .setText(total.getCuota().getMonto()))
-//              .addContent(
-//                  new Element("BaseAmount", cbc)
-//                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
-//                      .setText(total.getCuota().getMontoBase()));
-//      document.getRootElement().addContent(tagAllowanceCharge);
-//    }
+    if (factura.getDescuentos() != null) {
+      Element tagAllowanceCharge =
+          new Element("AllowanceCharge", cbc)
+              .addContent(
+                  new Element("ChargeIndicator", cbc)
+                      .setText(String.valueOf(factura.getDescuentos().isIndicador())))
+              .addContent(
+                  new Element("AllowanceChargeReasonCode", cbc)
+                      .setAttribute("listAgencyName", "PE:SUNAT")
+                      .setAttribute("listName", "Cargo/descuento")
+                      .setAttribute("listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo53")
+                      .setText(factura.getDescuentos().getCodigo()))
+              .addContent(
+                  new Element("MultiplierFactorNumeric", cbc)
+                      .setText(factura.getDescuentos().getPorcentaje()))
+              .addContent(
+                  new Element("Amount", cbc)
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                      .setText(factura.getDescuentos().getMonto()))
+              .addContent(
+                  new Element("BaseAmount", cbc)
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                      .setText(factura.getCuota().getMontoBase()));
+      document.getRootElement().addContent(tagAllowanceCharge);
+    }
     //
     //    // Totales de la Factura
     //    // 40 Monto total de impuestos. M
