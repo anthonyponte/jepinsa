@@ -24,6 +24,7 @@ public class Bill {
   private Date fechaVencimiento;
   // Datos del Emisor
   private Empresa emisor;
+  private Direccion direccionEntrega;
   // Datos del adquirente o usuario
   private Empresa adquiriente;
   // Información adicional - Datos del sujeto que realiza la operación por cuenta del adquirente o
@@ -99,6 +100,7 @@ public class Bill {
       Moneda moneda,
       Date fechaVencimiento,
       Empresa emisor,
+      Direccion direccionEntrega,
       Empresa adquiriente,
       DocumentoIdentidad sujeto,
       List<Documento> guias,
@@ -139,6 +141,7 @@ public class Bill {
     this.moneda = moneda;
     this.fechaVencimiento = fechaVencimiento;
     this.emisor = emisor;
+    this.direccionEntrega = direccionEntrega;
     this.adquiriente = adquiriente;
     this.sujeto = sujeto;
     this.guias = guias;
@@ -249,6 +252,14 @@ public class Bill {
 
   public void setEmisor(Empresa emisor) {
     this.emisor = emisor;
+  }
+
+  public Direccion getDireccionEntrega() {
+    return direccionEntrega;
+  }
+
+  public void setDireccionEntrega(Direccion direccionEntrega) {
+    this.direccionEntrega = direccionEntrega;
   }
 
   public Empresa getAdquiriente() {
@@ -514,6 +525,8 @@ public class Bill {
         + fechaVencimiento
         + ", emisor="
         + emisor
+        + ", direccionEntrega="
+        + direccionEntrega
         + ", adquiriente="
         + adquiriente
         + ", sujeto="

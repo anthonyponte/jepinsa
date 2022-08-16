@@ -315,53 +315,42 @@ public class Invoice {
     tagAccountingSupplierParty.addContent(tagParty);
     document.getRootElement().addContent(tagAccountingSupplierParty);
 
-    if (factura.getEmisor().getDireccionEntrega() != null) {
-      Element tagDeliveryTerms =
-          new Element("DeliveryTerms", cac)
-              // 62 Incoterm. C
-              .addContent(
-                  new Element("ID", cbc)
-                      .setText(factura.getEmisor().getDireccionEntrega().getCodigoUbigeo()))
-              // 14 Dirección del lugar en el que se entrega el bien. C.
+    // 14 Dirección del lugar en el que se entrega el bien. C.
+    // 15 Código del pais del uso, explotación o aprovechamiento del servicio. C.
+    if (factura.getDireccionEntrega() != null) {
+      Element tagDelivery =
+          new Element("Delivery", cac)
               .addContent(
                   new Element("DeliveryLocation", cac)
                       .addContent(
                           new Element("Address", cac)
                               .addContent(
-                                  new Element("StreetName", cbc)
-                                      .setText(
-                                          factura
-                                              .getEmisor()
-                                              .getDireccionEntrega()
-                                              .getDescripcion()))
+                                  new Element("AddressLine", cac)
+                                      .addContent(
+                                          new Element("Line", cbc)
+                                              .setText(
+                                                  factura.getDireccionEntrega().getDescripcion())))
                               .addContent(
                                   new Element("CitySubdivisionName", cbc)
-                                      .setText(
-                                          factura
-                                              .getEmisor()
-                                              .getDireccionEntrega()
-                                              .getUrbanizacion()))
+                                      .setText(factura.getDireccionEntrega().getUrbanizacion()))
                               .addContent(
                                   new Element("CityName", cbc)
-                                      .setText(
-                                          factura
-                                              .getEmisor()
-                                              .getDireccionEntrega()
-                                              .getCodigoUbigeo()))
+                                      .setText(factura.getDireccionEntrega().getProvincia()))
+                              .addContent(
+                                  new Element("ID", cbc)
+                                      .setAttribute("schemeAgencyName", "PE:INEI")
+                                      .setAttribute("schemeName", "Ubigeos")
+                                      .setText(factura.getDireccionEntrega().getCodigoUbigeo()))
                               .addContent(
                                   new Element("CountrySubentity", cbc)
-                                      .setText(
-                                          factura.getEmisor().getDireccionEntrega().getProvincia()))
+                                      .setText(factura.getDireccionEntrega().getDepartamento()))
                               .addContent(
                                   new Element("District", cbc)
-                                      .setText(
-                                          factura.getEmisor().getDireccionEntrega().getDistrito()))
-                              // 15. Pais del uso, explotación o aprovechamiento del servicio.
-                              // Código de país. C
+                                      .setText(factura.getDireccionEntrega().getDistrito()))
                               .addContent(
                                   new Element("Country", cac)
                                       .addContent(
-                                          new Element("IdentificationCode", cac)
+                                          new Element("IdentificationCode", cbc)
                                               .setAttribute("listID", "ISO 3166-1")
                                               .setAttribute(
                                                   "listAgencyName",
@@ -369,10 +358,9 @@ public class Invoice {
                                               .setAttribute("listName", "Country")
                                               .setText(
                                                   factura
-                                                      .getEmisor()
                                                       .getDireccionEntrega()
                                                       .getCodigoPais())))));
-      document.getRootElement().addContent(tagDeliveryTerms);
+      document.getRootElement().addContent(tagDelivery);
     }
 
     // Datos del cliente o receptor
