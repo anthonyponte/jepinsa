@@ -365,11 +365,11 @@ public class Invoice {
 
     // Datos del cliente o receptor
     Element tagAccountingCustomerParty = new Element("AccountingCustomerParty", cac);
-    Element tagParty2 = new Element("Party", cac);
-    Element tagPartyLegalEntity2 = new Element("PartyLegalEntity", cac);
+    tagParty = new Element("Party", cac);
+    tagPartyLegalEntity = new Element("PartyLegalEntity", cac);
 
     // 17 Tipo y Número de documento de identidad del adquirente o usuario. M
-    tagParty2.addContent(
+    tagParty.addContent(
         new Element("PartyIdentification", cac)
             .addContent(
                 new Element("ID", cbc)
@@ -382,12 +382,12 @@ public class Invoice {
                     .setText(factura.getAdquiriente().getDocumentoIdentidad().getNumero())));
 
     // 18 Apellidos y nombres, denominación o razón social del adquirente o usuario. M
-    tagPartyLegalEntity2.addContent(
+    tagPartyLegalEntity.addContent(
         new Element("RegistrationName", cbc).setText(factura.getAdquiriente().getNombre()));
 
     // 19 Dirección del adquiriente o usuario. C
     if (factura.getAdquiriente().getDomicilioFiscal() != null) {
-      tagPartyLegalEntity2.addContent(
+      tagPartyLegalEntity.addContent(
           new Element("RegistrationAddress", cac)
               .addContent(
                   new Element("ID", cbc)
@@ -423,10 +423,48 @@ public class Invoice {
                               .setText(
                                   factura.getAdquiriente().getDomicilioFiscal().getCodigoPais()))));
     }
-    // 20 Tipo y Número de documento de identidad de otros participantes asociados a la transacción.
+
+    // 20 Tipo y número de documento de identidad de otros participantes asociados a la transacción
+    // Apellidos y nombres, denominación o razón social de otros participantes asociados a la
+    // transacción
     // C
-    tagParty2.addContent(tagPartyLegalEntity2);
-    tagAccountingCustomerParty.addContent(tagParty2);
+    if (factura.getParticipante() != null) {
+      Element tagShareholderParty =
+          new Element("ShareholderParty", cac)
+              .addContent(
+                  new Element("Party", cac)
+                      .addContent(
+                          new Element("PartyIdentification", cac)
+                              .addContent(
+                                  new Element("ID", cbc)
+                                      .setAttribute(
+                                          "schemeID",
+                                          factura
+                                              .getParticipante()
+                                              .getDocumentoIdentidad()
+                                              .getTipo()
+                                              .getCodigo())
+                                      .setAttribute("schemeName", "Documento de Identidad")
+                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
+                                      .setAttribute(
+                                          "schemeURI",
+                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06")
+                                      .setText(
+                                          factura
+                                              .getParticipante()
+                                              .getDocumentoIdentidad()
+                                              .getNumero())))
+                      .addContent(
+                          new Element("PartyLegalEntity", cac)
+                              .addContent(
+                                  new Element("RegistrationName", cbc)
+                                      .setText(factura.getParticipante().getNombre()))));
+
+      tagPartyLegalEntity.addContent(tagShareholderParty);
+    }
+
+    tagParty.addContent(tagPartyLegalEntity);
+    tagAccountingCustomerParty.addContent(tagParty);
     document.getRootElement().addContent(tagAccountingCustomerParty);
 
     // Información adicional - Forma de pago al contado

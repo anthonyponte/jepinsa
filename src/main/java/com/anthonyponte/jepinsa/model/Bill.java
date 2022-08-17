@@ -27,6 +27,7 @@ public class Bill {
   private Direccion direccionEntrega;
   // Datos del adquirente o usuario
   private Empresa adquiriente;
+  private Empresa participante;
   // Información adicional - Datos del sujeto que realiza la operación por cuenta del adquirente o
   // usuario
   private DocumentoIdentidad sujeto;
@@ -102,6 +103,7 @@ public class Bill {
       Empresa emisor,
       Direccion direccionEntrega,
       Empresa adquiriente,
+      Empresa participante,
       DocumentoIdentidad sujeto,
       List<Documento> guias,
       List<Documento> documentosRelacionados,
@@ -143,6 +145,7 @@ public class Bill {
     this.emisor = emisor;
     this.direccionEntrega = direccionEntrega;
     this.adquiriente = adquiriente;
+    this.participante = participante;
     this.sujeto = sujeto;
     this.guias = guias;
     this.documentosRelacionados = documentosRelacionados;
@@ -268,6 +271,14 @@ public class Bill {
 
   public void setAdquiriente(Empresa adquiriente) {
     this.adquiriente = adquiriente;
+  }
+
+  public Empresa getParticipante() {
+    return participante;
+  }
+
+  public void setParticipante(Empresa participante) {
+    this.participante = participante;
   }
 
   public DocumentoIdentidad getSujeto() {
@@ -529,6 +540,8 @@ public class Bill {
         + direccionEntrega
         + ", adquiriente="
         + adquiriente
+        + ", participante="
+        + participante
         + ", sujeto="
         + sujeto
         + ", guias="
