@@ -13,18 +13,14 @@ public class FacturaDetalle {
   private int id;
   private Factura factura;
   private int numero;
-  private String unidadMedida;
+  private UnidadMedida unidadMedida;
   private double cantidad;
-  private String codigoProducto;
-  private int codigoProductoSUNAT;
-  private String codigoProductoGTIN;
-  private String placa;
-  private String descripcion;
+  private Producto producto;
   private double valorUnitario;
   private double precioVentaUnitario;
   private double valorReferencialUnitario;
   private double totalTributos;
-  private double igv;
+  private Impuesto igv;
   private double isc;
   private double impuestoBolsas;
   private double valorVenta;
@@ -36,18 +32,14 @@ public class FacturaDetalle {
       int id,
       Factura factura,
       int numero,
-      String unidadMedida,
+      UnidadMedida unidadMedida,
       double cantidad,
-      String codigoProducto,
-      int codigoProductoSUNAT,
-      String codigoProductoGTIN,
-      String placa,
-      String descripcion,
+      Producto producto,
       double valorUnitario,
       double precioVentaUnitario,
       double valorReferencialUnitario,
       double totalTributos,
-      double igv,
+      Impuesto igv,
       double isc,
       double impuestoBolsas,
       double valorVenta,
@@ -57,11 +49,7 @@ public class FacturaDetalle {
     this.numero = numero;
     this.unidadMedida = unidadMedida;
     this.cantidad = cantidad;
-    this.codigoProducto = codigoProducto;
-    this.codigoProductoSUNAT = codigoProductoSUNAT;
-    this.codigoProductoGTIN = codigoProductoGTIN;
-    this.placa = placa;
-    this.descripcion = descripcion;
+    this.producto = producto;
     this.valorUnitario = valorUnitario;
     this.precioVentaUnitario = precioVentaUnitario;
     this.valorReferencialUnitario = valorReferencialUnitario;
@@ -97,11 +85,11 @@ public class FacturaDetalle {
     this.numero = numero;
   }
 
-  public String getUnidadMedida() {
+  public UnidadMedida getUnidadMedida() {
     return unidadMedida;
   }
 
-  public void setUnidadMedida(String unidadMedida) {
+  public void setUnidadMedida(UnidadMedida unidadMedida) {
     this.unidadMedida = unidadMedida;
   }
 
@@ -113,44 +101,12 @@ public class FacturaDetalle {
     this.cantidad = cantidad;
   }
 
-  public String getCodigoProducto() {
-    return codigoProducto;
+  public Producto getProducto() {
+    return producto;
   }
 
-  public void setCodigoProducto(String codigoProducto) {
-    this.codigoProducto = codigoProducto;
-  }
-
-  public int getCodigoProductoSUNAT() {
-    return codigoProductoSUNAT;
-  }
-
-  public void setCodigoProductoSUNAT(int codigoProductoSUNAT) {
-    this.codigoProductoSUNAT = codigoProductoSUNAT;
-  }
-
-  public String getCodigoProductoGTIN() {
-    return codigoProductoGTIN;
-  }
-
-  public void setCodigoProductoGTIN(String codigoProductoGTIN) {
-    this.codigoProductoGTIN = codigoProductoGTIN;
-  }
-
-  public String getPlaca() {
-    return placa;
-  }
-
-  public void setPlaca(String placa) {
-    this.placa = placa;
-  }
-
-  public String getDescripcion() {
-    return descripcion;
-  }
-
-  public void setDescripcion(String descripcion) {
-    this.descripcion = descripcion;
+  public void setProducto(Producto producto) {
+    this.producto = producto;
   }
 
   public double getValorUnitario() {
@@ -185,11 +141,11 @@ public class FacturaDetalle {
     this.totalTributos = totalTributos;
   }
 
-  public double getIgv() {
+  public Impuesto getIgv() {
     return igv;
   }
 
-  public void setIgv(double igv) {
+  public void setIgv(Impuesto igv) {
     this.igv = igv;
   }
 
@@ -238,16 +194,8 @@ public class FacturaDetalle {
         + unidadMedida
         + ", cantidad="
         + cantidad
-        + ", codigoProducto="
-        + codigoProducto
-        + ", codigoProductoSUNAT="
-        + codigoProductoSUNAT
-        + ", codigoProductoGTIN="
-        + codigoProductoGTIN
-        + ", placa="
-        + placa
-        + ", descripcion="
-        + descripcion
+        + ", producto="
+        + producto
         + ", valorUnitario="
         + valorUnitario
         + ", precioVentaUnitario="

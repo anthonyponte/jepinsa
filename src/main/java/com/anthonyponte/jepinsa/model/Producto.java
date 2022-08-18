@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 AnthonyPonte
+ * Copyright (C) 2022 Anthony Ponte
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,24 +18,23 @@
 package com.anthonyponte.jepinsa.model;
 
 /**
- * @author AnthonyPonte
+ * @author Anthony Ponte
  */
-public class Impuesto {
-  private double base;
-  private double monto;
-  private double tasa;
+public class Producto {
   private String codigo;
-  private String nombre;
-  private String codigoInternacional;
+  private String descripcion;
+  private String sunat;
+  private Gtin gtin;
+  private Placa placa;
 
-  public Impuesto() {}
+  public Producto() {}
 
-  public double getTotal() {
-    return total;
-  }
-
-  public void setTotal(double total) {
-    this.total = total;
+  public Producto(String codigo, String descripcion, String sunat, Gtin gtin, Placa placa) {
+    this.codigo = codigo;
+    this.descripcion = descripcion;
+    this.sunat = sunat;
+    this.gtin = gtin;
+    this.placa = placa;
   }
 
   public String getCodigo() {
@@ -54,25 +53,43 @@ public class Impuesto {
     this.descripcion = descripcion;
   }
 
-  public String getCodigoInternacional() {
-    return codigoInternacional;
+  public String getSunat() {
+    return sunat;
   }
 
-  public void setCodigoInternacional(String codigoInternacional) {
-    this.codigoInternacional = codigoInternacional;
+  public void setSunat(String sunat) {
+    this.sunat = sunat;
+  }
+
+  public Gtin getGtin() {
+    return gtin;
+  }
+
+  public void setGtin(Gtin gtin) {
+    this.gtin = gtin;
+  }
+
+  public Placa getPlaca() {
+    return placa;
+  }
+
+  public void setPlaca(Placa placa) {
+    this.placa = placa;
   }
 
   @Override
   public String toString() {
-    return "Impuesto{"
-        + "total="
-        + total
-        + ", codigo="
+    return "Producto{"
+        + "codigo="
         + codigo
         + ", descripcion="
         + descripcion
-        + ", codigoInternacional="
-        + codigoInternacional
+        + ", sunat="
+        + sunat
+        + ", gtin="
+        + gtin
+        + ", placa="
+        + placa
         + '}';
   }
 }

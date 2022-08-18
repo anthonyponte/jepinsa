@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 AnthonyPonte
+ * Copyright (C) 2022 Anthony Ponte
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,24 +18,17 @@
 package com.anthonyponte.jepinsa.model;
 
 /**
- * @author AnthonyPonte
+ * @author Anthony Ponte
  */
-public class Impuesto {
-  private double base;
-  private double monto;
-  private double tasa;
+public class UnidadMedida {
   private String codigo;
-  private String nombre;
-  private String codigoInternacional;
+  private String descripcion;
 
-  public Impuesto() {}
+  public UnidadMedida() {}
 
-  public double getTotal() {
-    return total;
-  }
-
-  public void setTotal(double total) {
-    this.total = total;
+  public UnidadMedida(String codigo, String descripcion) {
+    this.codigo = codigo;
+    this.descripcion = descripcion;
   }
 
   public String getCodigo() {
@@ -54,25 +47,8 @@ public class Impuesto {
     this.descripcion = descripcion;
   }
 
-  public String getCodigoInternacional() {
-    return codigoInternacional;
-  }
-
-  public void setCodigoInternacional(String codigoInternacional) {
-    this.codigoInternacional = codigoInternacional;
-  }
-
   @Override
   public String toString() {
-    return "Impuesto{"
-        + "total="
-        + total
-        + ", codigo="
-        + codigo
-        + ", descripcion="
-        + descripcion
-        + ", codigoInternacional="
-        + codigoInternacional
-        + '}';
+    return "UnidadMedida{" + "codigo=" + codigo + ", descripcion=" + descripcion + '}';
   }
 }

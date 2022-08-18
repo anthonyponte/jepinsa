@@ -22,6 +22,7 @@ import com.anthonyponte.jepinsa.controller.UsuarioController;
 import com.anthonyponte.jepinsa.custom.MyDateFormat;
 import com.anthonyponte.jepinsa.model.Documento;
 import com.anthonyponte.jepinsa.model.Factura;
+import com.anthonyponte.jepinsa.model.FacturaDetalle;
 import com.anthonyponte.jepinsa.model.FormaPago;
 import com.anthonyponte.jepinsa.model.Leyenda;
 import java.util.prefs.Preferences;
@@ -511,7 +512,27 @@ public class Invoice {
 
     // Datos del comprador
     // 21 Tipo y Número de documento de identidad del comprador. C
-    //
+
+    if (factura.getSujeto() != null) {
+      Element tagBuyerCustomerParty =
+          new Element("BuyerCustomerParty", cac)
+              .addContent(
+                  new Element("Party", cac)
+                      .addContent(
+                          new Element("PartyIdentification", cac)
+                              .addContent(
+                                  new Element("ID", cbc)
+                                      .setAttribute(
+                                          "schemeID", factura.getSujeto().getTipo().getCodigo())
+                                      .setAttribute("schemeName", "Documento de Identidad")
+                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
+                                      .setAttribute(
+                                          "schemeURI",
+                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06")
+                                      .setText(factura.getSujeto().getNumero()))));
+
+      document.getRootElement().addContent(tagBuyerCustomerParty);
+    }
     // 50 Cargos y Descuentos Globales. C
     if (factura.getDescuentos() != null) {
       Element tagAllowanceCharge =
@@ -829,236 +850,254 @@ public class Invoice {
     //    //
     //    // Información Adicional a nivel de ítem
     //    //
-    //    // Datos del detalle o Ítem de la Factura
-    //    for (FacturaDetalle detalle : factura.getFacturaDetalles()) {
-    //
-    //      Element tagInvoiceLine = new Element("InvoiceLine", cac);
-    //
-    //      // 24 Número de orden del Ítem. M
-    //      tagInvoiceLine.addContent(new Element("ID", cbc).setText(detalle.getNumero()));
-    //
-    //      // 25 Unidad de medida por ítem. M
-    //      // 26 Cantidad de unidades por ítem. M
-    //      tagInvoiceLine.addContent(
-    //          new Element("InvoicedQuantity", cbc)
-    //              .setAttribute("unitCode", detalle.getUm())
-    //              .setAttribute("unitCodeListID", "UN/ECE rec 20")
-    //              .setAttribute("unitCodeListAgencyID", "United Nations Economic Commission for
-    // Europe")
-    //              .setText(detalle.getCantidad()));
-    //
-    //      // 38 Valor de venta por ítem. M
-    //      tagInvoiceLine.addContent(
-    //          new Element("LineExtensionAmount", cbc)
-    //              .setAttribute("currencyID", encabezado.getMoneda())
-    //              .setText(detalle.getValorVenta()));
-    //
-    //      // 33 Precio de venta unitario por item. M
-    //      if (!detalle.getPrecioVentaUnitario().equals("0.00")) {
-    //        tagInvoiceLine.addContent(
-    //            new Element("PricingReference", cac)
-    //                .addContent(
-    //                    new Element("AlternativeConditionPrice", cac)
-    //                        .addContent(
-    //                            new Element("PriceAmount", cbc)
-    //                                .setAttribute("currencyID", encabezado.getMoneda())
-    //                                .setText(detalle.getPrecioVentaUnitario()))
-    //                        .addContent(
-    //                            new Element("PriceTypeCode", cbc)
-    //                                .setAttribute("listName", "Tipo de Precio")
-    //                                .setAttribute("listAgencyName", "PE:SUNAT")
-    //                                .setAttribute(
-    //                                    "listURI",
-    // "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16")
-    //                                .setText("01"))));
-    //      }
-    //
-    //      // 34 Valor referencial unitario por ítem en operaciones no onerosas. C
-    //      if (detalle.getPrecioVentaUnitario().equals("0.00")) {
-    //        tagInvoiceLine.addContent(
-    //            new Element("PricingReference", cac)
-    //                .addContent(
-    //                    new Element("AlternativeConditionPrice", cac)
-    //                        .addContent(
-    //                            new Element("PriceAmount", cbc)
-    //                                .setAttribute("currencyID", encabezado.getMoneda())
-    //                                .setText(detalle.getValorReferencialUnitario()))
-    //                        .addContent(
-    //                            new Element("PriceTypeCode", cbc)
-    //                                .setAttribute("listName", "Tipo de Precio")
-    //                                .setAttribute("listAgencyName", "PE:SUNAT")
-    //                                .setAttribute(
-    //                                    "listURI",
-    // "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16")
-    //                                .setText("02"))));
-    //      }
-    //
-    //      // 39 Cargo/descuento por ítem. C
-    //      if (!detalle.getCuota().getMonto().equals("0.00")) {
-    //        tagInvoiceLine.addContent(
-    //            new Element("AllowanceCharge", cac)
-    //                .addContent(
-    //                    new Element("ChargeIndicator",
-    // cbc).setText(detalle.getCuota().getIndicador()))
-    //                .addContent(
-    //                    new Element("AllowanceChargeReasonCode", cbc)
-    //                        .setText(detalle.getCuota().getCodigo()))
-    //                .addContent(
-    //                    new Element("MultiplierFactorNumeric", cbc)
-    //                        .setText(detalle.getCuota().getPorcentaje()))
-    //                .addContent(
-    //                    new Element("Amount", cbc)
-    //                        .setAttribute("currencyID", encabezado.getMoneda())
-    //                        .setText(detalle.getCuota().getMonto()))
-    //                .addContent(
-    //                    new Element("BaseAmount", cbc)
-    //                        .setAttribute("currencyID", encabezado.getMoneda())
-    //                        .setText(detalle.getCuota().getMontoBase())));
-    //      }
-    //
-    //      Element tagTaxTotalLine = new Element("TaxTotal", cac);
-    //      // 35 Monto total de impuestos del ítem. M
-    //      tagTaxTotalLine.addContent(
-    //          new Element("TaxAmount", cbc)
-    //              .setAttribute("currencyID", encabezado.getMoneda())
-    //              .setText(detalle.getImpuesto()));
-    //
-    //      // 36 Afectación al IGV por la línea/Afectación IVAP por la línea. M            .
-    //      tagTaxTotalLine.addContent(
-    //          new Element("TaxSubtotal", cac)
-    //              .addContent(
-    //                  new Element("TaxableAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(detalle.getIgv().getBase()))
-    //              .addContent(
-    //                  new Element("TaxAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(detalle.getIgv().getValor()))
-    //              .addContent(
-    //                  new Element("TaxCategory", cac)
-    //                      .addContent(
-    //                          new Element("ID", cbc)
-    //                              .setAttribute("schemeID", "UN/ECE 5305")
-    //                              .setAttribute("schemeName", "Tax Category Identifier")
-    //                              .setAttribute(
-    //                                  "schemeAgencyName",
-    //                                  "United Nations Economic Commission for Europe")
-    //                              .setText("S"))
-    //                      .addContent(
-    //                          new Element("Percent",
-    // cbc).setText(detalle.getIgv().getPorcentaje()))
-    //                      .addContent(
-    //                          new Element("TaxExemptionReasonCode", cbc)
-    //                              .setAttribute("listAgencyName", "PE:SUNAT")
-    //                              .setAttribute("listName", "Afectacion del IGV")
-    //                              .setAttribute(
-    //                                  "listURI",
-    // "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07")
-    //                              .setText(detalle.getIgv().getTipo()))
-    //                      .addContent(
-    //                          new Element("TaxScheme", cac)
-    //                              .addContent(
-    //                                  new Element("ID", cbc)
-    //                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
-    //                                      .setAttribute("schemeID", "UN/ECE 5153")
-    //                                      .setAttribute("schemeName", "Codigo de tributos")
-    //                                      .setText(detalle.getIgv().getId()))
-    //                              .addContent(
-    //                                  new Element("Name",
-    // cbc).setText(detalle.getIgv().getNombre()))
-    //                              .addContent(
-    //                                  new Element("TaxTypeCode", cbc)
-    //                                      .setText(detalle.getIgv().getCodigo())))));
-    //
-    //      // 37 Afectación del ISC por la línea. C.
-    //      if (!detalle.getIsc().getValor().equals("0.00")) {
-    //        tagTaxTotalLine.addContent(
-    //            new Element("TaxSubtotal", cac)
-    //                .addContent(
-    //                    new Element("TaxableAmount", cbc)
-    //                        .setAttribute("currencyID", encabezado.getMoneda())
-    //                        .setText(detalle.getValorVenta()))
-    //                .addContent(
-    //                    new Element("TaxAmount", cbc)
-    //                        .setAttribute("currencyID", encabezado.getMoneda())
-    //                        .setText(detalle.getIsc().getValor()))
-    //                .addContent(
-    //                    new Element("TaxCategory", cac)
-    //                        .addContent(
-    //                            new Element("ID", cbc)
-    //                                .setAttribute("schemeID", "UN/ECE 5305")
-    //                                .setAttribute("schemeName", "Tax Category Identifier")
-    //                                .setAttribute(
-    //                                    "schemeAgencyName",
-    //                                    "United Nations Economic Commission for Europe")
-    //                                .setText("S"))
-    //                        .addContent(new Element("Percent", cbc).setText("20.00"))
-    //                        .addContent(
-    //                            new Element("TaxExemptionReasonCode", cbc)
-    //                                .setAttribute("listAgencyName", "PE:SUNAT")
-    //                                .setAttribute(
-    //                                    "listName", "SUNAT:Codigo de Tipo de Afectación del IGV")
-    //                                .setAttribute(
-    //                                    "listURI",
-    // "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07")
-    //                                .setText(detalle.getIsc().getTipo()))
-    //                        .addContent(new Element("TierRange", cbc).setText(""))
-    //                        .addContent(
-    //                            new Element("TaxScheme", cac)
-    //                                .addContent(
-    //                                    new Element("ID", cbc)
-    //                                        .setAttribute(
-    //                                            "schemeAgencyName",
-    //                                            "United Nations Economic Commission for Europe")
-    //                                        .setAttribute("schemeID", "UN/ECE 5153")
-    //                                        .setAttribute("schemeName", "Tax Scheme Identifier")
-    //                                        .setText("2000"))
-    //                                .addContent(new Element("Name", cbc).setText("ISC"))
-    //                                .addContent(new Element("TaxTypeCode",
-    // cbc).setText("EXC")))));
-    //      }
-    //      tagInvoiceLine.addContent(tagTaxTotalLine);
-    //
-    //      Element tagItem = new Element("Item", cac);
-    //      // 31 Descripción detallada del servicio prestado, bien vendido o cedido en uso,
-    // indicando las
-    //      // características.. M.
-    //      tagItem.addContent(new Element("Description", cbc).setText(detalle.getDescripcion()));
-    //
-    //      // 27 Código de producto. C.
-    //      if (!detalle.getCodigo().equals("")) {
-    //        tagItem.addContent(
-    //            new Element("SellersItemIdentification", cac)
-    //                .addContent(new Element("ID", cbc).setText(detalle.getCodigo())));
-    //      }
-    //
-    //      // 28. Código de producto SUNAT. C.
-    //      if (!detalle.getCodigoSUNAT().equals("")) {
-    //        tagItem.addContent(
-    //            new Element("CommodityClassification", cac)
-    //                .addContent(
-    //                    new Element("ItemClassificationCode", cbc)
-    //                        .setAttribute("listID", "UNSPSC")
-    //                        .setAttribute("listAgencyName", "GS1 US")
-    //                        .setAttribute("listName", "Item Classification")
-    //                        .setText(detalle.getCodigoSUNAT())));
-    //      }
-    //      tagInvoiceLine.addContent(tagItem);
-    //
-    //      // 29 Código de producto GS1 . C
-    //      //
-    //      // 30 Número de placa del vehículo (Información Adicional - Gastos art.37° Renta). C
-    //      //
-    //      // 32 Valor unitario por ítem. M
-    //      tagInvoiceLine.addContent(
-    //          new Element("Price", cac)
-    //              .addContent(
-    //                  new Element("PriceAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(detalle.getValorUnitario())));
-    //
-    //      document.getRootElement().addContent(tagInvoiceLine);
-    //    }
+    // Datos del detalle o Ítem de la Factura
+    for (FacturaDetalle detalle : factura.getFacturaDetalles()) {
+      Element tagInvoiceLine = new Element("InvoiceLine", cac);
+      // 24 Número de orden del Ítem. M
+      tagInvoiceLine.addContent(
+          new Element("ID", cbc).setText(String.valueOf(detalle.getNumero())));
+
+      // 25 Unidad de medida por ítem. M
+      // 26 Cantidad de unidades por ítem. M
+      tagInvoiceLine.addContent(
+          new Element("InvoicedQuantity", cbc)
+              .setAttribute("unitCode", detalle.getUnidadMedida().getCodigo())
+              .setAttribute("unitCodeListID", "UN/ECE rec 20")
+              .setAttribute("unitCodeListAgencyID", "United Nations Economic Commission for Europe")
+              .setText(String.valueOf(detalle.getCantidad())));
+
+      // 38 Valor de venta por ítem. M
+      tagInvoiceLine.addContent(
+          new Element("LineExtensionAmount", cbc)
+              .setAttribute("currencyID", encabezado.getMoneda())
+              .setText(detalle.getValorVenta()));
+
+      // 33 Precio de venta unitario por item. M
+      if (detalle.getPrecioVentaUnitario() > 0.0) {
+        tagInvoiceLine.addContent(
+            new Element("PricingReference", cac)
+                .addContent(
+                    new Element("AlternativeConditionPrice", cac)
+                        .addContent(
+                            new Element("PriceAmount", cbc)
+                                .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                                .setText(String.valueOf(detalle.getPrecioVentaUnitario())))
+                        .addContent(
+                            new Element("PriceTypeCode", cbc)
+                                .setAttribute("listName", "Tipo de Precio")
+                                .setAttribute("listAgencyName", "PE:SUNAT")
+                                .setAttribute(
+                                    "listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16")
+                                .setText("01"))));
+      }
+
+      // 34 Valor referencial unitario por ítem en operaciones no onerosas. C
+      if (detalle.getValorReferencialUnitario() > 0.0) {
+        tagInvoiceLine.addContent(
+            new Element("PricingReference", cac)
+                .addContent(
+                    new Element("AlternativeConditionPrice", cac)
+                        .addContent(
+                            new Element("PriceAmount", cbc)
+                                .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                                .setText(String.valueOf(detalle.getValorReferencialUnitario())))
+                        .addContent(
+                            new Element("PriceTypeCode", cbc)
+                                .setAttribute("listName", "Tipo de Precio")
+                                .setAttribute("listAgencyName", "PE:SUNAT")
+                                .setAttribute(
+                                    "listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16")
+                                .setText("02"))));
+      }
+
+      // 39 Cargo/descuento por ítem. C
+      if (!detalle.getCuota().getMonto().equals("0.00")) {
+        tagInvoiceLine.addContent(
+            new Element("AllowanceCharge", cac)
+                .addContent(
+                    new Element("ChargeIndicator", cbc).setText(detalle.getCuota().getIndicador()))
+                .addContent(
+                    new Element("AllowanceChargeReasonCode", cbc)
+                        .setText(detalle.getCuota().getCodigo()))
+                .addContent(
+                    new Element("MultiplierFactorNumeric", cbc)
+                        .setText(detalle.getCuota().getPorcentaje()))
+                .addContent(
+                    new Element("Amount", cbc)
+                        .setAttribute("currencyID", encabezado.getMoneda())
+                        .setText(detalle.getCuota().getMonto()))
+                .addContent(
+                    new Element("BaseAmount", cbc)
+                        .setAttribute("currencyID", encabezado.getMoneda())
+                        .setText(detalle.getCuota().getMontoBase())));
+      }
+
+      Element tagTaxTotalLine = new Element("TaxTotal", cac);
+
+      // 35 Monto total de impuestos del ítem. M
+      tagTaxTotalLine.addContent(
+          new Element("TaxAmount", cbc)
+              .setAttribute("currencyID", factura.getMoneda().getCodigo())
+              .setText(String.valueOf(detalle.getTotalTributos())));
+
+      // 36 Afectación al IGV por ítem
+      // Afectación al IVAP por ítem
+      // M            .
+      tagTaxTotalLine.addContent(
+          new Element("TaxSubtotal", cac)
+              .addContent(
+                  new Element("TaxableAmount", cbc)
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                      .setText(detalle.getIgv().getBase()))
+              .addContent(
+                  new Element("TaxAmount", cbc)
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                      .setText(detalle.getIgv().getValor()))
+              .addContent(
+                  new Element("TaxCategory", cac)
+                      .addContent(
+                          new Element("ID", cbc)
+                              .setAttribute("schemeID", "UN/ECE 5305")
+                              .setAttribute("schemeName", "Tax Category Identifier")
+                              .setAttribute(
+                                  "schemeAgencyName",
+                                  "United Nations Economic Commission for Europe")
+                              .setText("S"))
+                      .addContent(
+                          new Element("Percent", cbc).setText(detalle.getIgv().getPorcentaje()))
+                      .addContent(
+                          new Element("TaxExemptionReasonCode", cbc)
+                              .setAttribute("listAgencyName", "PE:SUNAT")
+                              .setAttribute("listName", "Afectacion del IGV")
+                              .setAttribute(
+                                  "listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07")
+                              .setText(detalle.getIgv().getTipo()))
+                      .addContent(
+                          new Element("TaxScheme", cac)
+                              .addContent(
+                                  new Element("ID", cbc)
+                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
+                                      .setAttribute("schemeID", "UN/ECE 5153")
+                                      .setAttribute("schemeName", "Codigo de tributos")
+                                      .setText(detalle.getIgv().getCodigo()))
+                              .addContent(
+                                  new Element("Name", cbc).setText(detalle.getIgv().getDescripcion()))
+                              .addContent(
+                                  new Element("TaxTypeCode", cbc)
+                                      .setText(detalle.getIgv().getCodigoInternacional())))));
+
+      // 37 Afectación del ISC por la línea. C.
+      if (!detalle.getIsc().getValor().equals("0.00")) {
+        tagTaxTotalLine.addContent(
+            new Element("TaxSubtotal", cac)
+                .addContent(
+                    new Element("TaxableAmount", cbc)
+                        .setAttribute("currencyID", encabezado.getMoneda())
+                        .setText(detalle.getValorVenta()))
+                .addContent(
+                    new Element("TaxAmount", cbc)
+                        .setAttribute("currencyID", encabezado.getMoneda())
+                        .setText(detalle.getIsc().getValor()))
+                .addContent(
+                    new Element("TaxCategory", cac)
+                        .addContent(
+                            new Element("ID", cbc)
+                                .setAttribute("schemeID", "UN/ECE 5305")
+                                .setAttribute("schemeName", "Tax Category Identifier")
+                                .setAttribute(
+                                    "schemeAgencyName",
+                                    "United Nations Economic Commission for Europe")
+                                .setText("S"))
+                        .addContent(new Element("Percent", cbc).setText("20.00"))
+                        .addContent(
+                            new Element("TaxExemptionReasonCode", cbc)
+                                .setAttribute("listAgencyName", "PE:SUNAT")
+                                .setAttribute(
+                                    "listName", "SUNAT:Codigo de Tipo de Afectación del IGV")
+                                .setAttribute(
+                                    "listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07")
+                                .setText(detalle.getIsc().getTipo()))
+                        .addContent(new Element("TierRange", cbc).setText(""))
+                        .addContent(
+                            new Element("TaxScheme", cac)
+                                .addContent(
+                                    new Element("ID", cbc)
+                                        .setAttribute(
+                                            "schemeAgencyName",
+                                            "United Nations Economic Commission for Europe")
+                                        .setAttribute("schemeID", "UN/ECE 5153")
+                                        .setAttribute("schemeName", "Tax Scheme Identifier")
+                                        .setText("2000"))
+                                .addContent(new Element("Name", cbc).setText("ISC"))
+                                .addContent(new Element("TaxTypeCode", cbc).setText("EXC")))));
+      }
+      tagInvoiceLine.addContent(tagTaxTotalLine);
+
+      Element tagItem = new Element("Item", cac);
+      // 31 Descripción detallada del servicio prestado, bien vendido o cedido en uso, indicando las
+      // características. M.
+      tagItem.addContent(
+          new Element("Description", cbc).setText(detalle.getProducto().getDescripcion()));
+
+      // 27 Código de producto. C.
+      if (!detalle.getProducto().getCodigo().isEmpty()) {
+        tagItem.addContent(
+            new Element("SellersItemIdentification", cac)
+                .addContent(new Element("ID", cbc).setText(detalle.getProducto().getCodigo())));
+      }
+
+      // 28. Código de producto SUNAT. C.
+      if (!detalle.getProducto().getSunat().isEmpty()) {
+        tagItem.addContent(
+            new Element("CommodityClassification", cac)
+                .addContent(
+                    new Element("ItemClassificationCode", cbc)
+                        .setAttribute("listID", "UNSPSC")
+                        .setAttribute("listAgencyName", "GS1 US")
+                        .setAttribute("listName", "Item Classification")
+                        .setText(detalle.getProducto().getSunat())));
+      }
+
+      // 29 Código de producto GTIN. C
+      if (detalle.getProducto().getGtin() != null) {
+        tagItem.addContent(
+            new Element("StandardItemIdentification", cac)
+                .addContent(
+                    new Element("ID", cbc)
+                        .setAttribute("schemeID", detalle.getProducto().getGtin().getTipo())
+                        .setText(detalle.getProducto().getGtin().getCodigo())));
+      }
+
+      // 30 Número de placa del vehículo automotor. C
+      if (detalle.getProducto().getPlaca() != null) {
+        tagItem.addContent(
+            new Element("AdditionalItemProperty", cac)
+                .addContent(
+                    new Element("Name", cbc).setText(detalle.getProducto().getPlaca().getNombre()))
+                .addContent(
+                    new Element("NameCode", cbc)
+                        .setAttribute("listName", "Propiedad del item")
+                        .setAttribute("listAgencyName", "PE:SUNAT")
+                        .setAttribute(
+                            "listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo55")
+                        .setText(detalle.getProducto().getPlaca().getCodigoNomnre()))
+                .addContent(
+                    new Element("Value", cbc)
+                        .setText(detalle.getProducto().getPlaca().getValor())));
+      }
+
+      tagInvoiceLine.addContent(tagItem);
+
+      // 32 Valor unitario por ítem. M
+      tagInvoiceLine.addContent(
+          new Element("Price", cac)
+              .addContent(
+                  new Element("PriceAmount", cbc)
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                      .setText(String.valueOf(detalle.getValorUnitario()))));
+
+      document.getRootElement().addContent(tagInvoiceLine);
+    }
 
     return document;
   }
