@@ -27,7 +27,7 @@ public class Summary {
   private int id;
   private String ubl;
   private String version;
-  private TipoDocumento tipoDocumento;
+  private Tipo tipoDocumento;
   private String serie;
   private int correlativo;
   private Date fechaEmision;
@@ -45,7 +45,7 @@ public class Summary {
       int id,
       String ubl,
       String version,
-      TipoDocumento tipoDocumento,
+      Tipo tipoDocumento,
       String serie,
       int correlativo,
       Date fechaEmision,
@@ -96,11 +96,11 @@ public class Summary {
     this.version = version;
   }
 
-  public TipoDocumento getTipoDocumento() {
+  public Tipo getTipoDocumento() {
     return tipoDocumento;
   }
 
-  public void setTipoDocumento(TipoDocumento tipoDocumento) {
+  public void setTipoDocumento(Tipo tipoDocumento) {
     this.tipoDocumento = tipoDocumento;
   }
 

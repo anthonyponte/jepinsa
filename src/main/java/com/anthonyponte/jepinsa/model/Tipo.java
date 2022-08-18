@@ -20,13 +20,14 @@ package com.anthonyponte.jepinsa.model;
 /**
  * @author anthony
  */
-public class TipoDocumentoIdentidad {
+public class Tipo {
+
   private String codigo;
   private String descripcion;
 
-  public TipoDocumentoIdentidad() {}
+  public Tipo() {}
 
-  public TipoDocumentoIdentidad(String codigo, String descripcion) {
+  public Tipo(String codigo, String descripcion) {
     this.codigo = codigo;
     this.descripcion = descripcion;
   }
@@ -49,6 +50,6 @@ public class TipoDocumentoIdentidad {
 
   @Override
   public String toString() {
-    return "DocumentoIdentidad{" + "codigo=" + codigo + ", descripcion=" + descripcion + '}';
+    return "TipoDocumento{" + "codigo=" + codigo + ", descripcion=" + descripcion + '}';
   }
 }

@@ -140,7 +140,7 @@
     <Component class="javax.swing.JComboBox" name="cbxTipo">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new DefaultComboBoxModel(new TipoDocumento[] {&#xa;    new TipoDocumento(&quot;01&quot;, &quot;Factura&quot;),&#xa;    new TipoDocumento(&quot;03&quot;, &quot;Boleta de venta&quot;),&#xa;    new TipoDocumento(&quot;07&quot;, &quot;Nota de cr&#xe9;dito&quot;),&#xa;    new TipoDocumento(&quot;08&quot;, &quot;Nota de d&#xe9;bito&quot;)&#xa;})" type="code"/>
+          <Connection code="new DefaultComboBoxModel(new com.anthonyponte.jepinsa.model.Tipo[] {&#xa;    new com.anthonyponte.jepinsa.model.Tipo(&quot;01&quot;, &quot;Factura&quot;),&#xa;    new com.anthonyponte.jepinsa.model.Tipo(&quot;03&quot;, &quot;Boleta de venta&quot;),&#xa;    new com.anthonyponte.jepinsa.model.Tipo(&quot;07&quot;, &quot;Nota de cr&#xe9;dito&quot;),&#xa;    new com.anthonyponte.jepinsa.model.Tipo(&quot;08&quot;, &quot;Nota de d&#xe9;bito&quot;)&#xa;})" type="code"/>
         </Property>
         <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="0" type="code"/>
@@ -152,7 +152,7 @@
           <Dimension value="[150, 30]"/>
         </Property>
         <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new DefaultListCellRenderer(){&#xa;    @Override&#xa;    public Component getListCellRendererComponent(&#xa;        JList&lt;?&gt; list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);&#xa;        if (value instanceof TipoDocumento) {&#xa;            TipoDocumento tipoDocumento = (TipoDocumento) value;&#xa;            setText(tipoDocumento.getDescripcion());&#xa;        }&#xa;        return this;&#xa;    }&#xa;}" type="code"/>
+          <Connection code="new DefaultListCellRenderer(){&#xa;    @Override&#xa;    public Component getListCellRendererComponent(&#xa;        JList&lt;?&gt; list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);&#xa;        if (value instanceof com.anthonyponte.jepinsa.model.Tipo) {&#xa;            com.anthonyponte.jepinsa.model.Tipo tipoDocumento = (com.anthonyponte.jepinsa.model.Tipo) value;&#xa;            setText(tipoDocumento.getDescripcion());&#xa;        }&#xa;        return this;&#xa;    }&#xa;}" type="code"/>
         </Property>
       </Properties>
       <AuxValues>

@@ -32,8 +32,8 @@ import com.anthonyponte.jepinsa.model.Percepcion;
 import com.anthonyponte.jepinsa.model.Regimen;
 import com.anthonyponte.jepinsa.model.ResumenDiario;
 import com.anthonyponte.jepinsa.model.ResumenDiarioDetalle;
-import com.anthonyponte.jepinsa.model.TipoDocumento;
-import com.anthonyponte.jepinsa.model.TipoDocumentoIdentidad;
+import com.anthonyponte.jepinsa.model.Tipo;
+import com.anthonyponte.jepinsa.model.TipoTributo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -194,16 +194,16 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
           ps.setNull(41, Types.DOUBLE);
         }
 
-        ps.setDouble(42, get.getIgv().getTotal());
-        ps.setString(43, get.getIgv().getCodigo());
-        ps.setString(44, get.getIgv().getDescripcion());
-        ps.setString(45, get.getIgv().getCodigoInternacional());
+        ps.setDouble(42, get.getIgv().getMonto());
+        ps.setString(43, get.getIgv().getTipoTributo().getCodigo());
+        ps.setString(44, get.getIgv().getTipoTributo().getDescripcion());
+        ps.setString(45, get.getIgv().getTipoTributo().getCodigoInternacional());
 
         if (get.getIsc() != null) {
-          ps.setDouble(46, get.getIsc().getTotal());
-          ps.setString(47, get.getIsc().getCodigo());
-          ps.setString(48, get.getIsc().getDescripcion());
-          ps.setString(49, get.getIsc().getCodigoInternacional());
+          ps.setDouble(46, get.getIsc().getMonto());
+          ps.setString(47, get.getIsc().getTipoTributo().getCodigo());
+          ps.setString(48, get.getIsc().getTipoTributo().getDescripcion());
+          ps.setString(49, get.getIsc().getTipoTributo().getCodigoInternacional());
         } else {
           ps.setNull(46, Types.DOUBLE);
           ps.setNull(47, Types.VARCHAR);
@@ -212,10 +212,10 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
         }
 
         if (get.getOtrosTributos() != null) {
-          ps.setDouble(50, get.getOtrosTributos().getTotal());
-          ps.setString(51, get.getOtrosTributos().getCodigo());
-          ps.setString(52, get.getOtrosTributos().getDescripcion());
-          ps.setString(53, get.getOtrosTributos().getCodigoInternacional());
+          ps.setDouble(50, get.getOtrosTributos().getMonto());
+          ps.setString(51, get.getOtrosTributos().getTipoTributo().getCodigo());
+          ps.setString(52, get.getOtrosTributos().getTipoTributo().getDescripcion());
+          ps.setString(53, get.getOtrosTributos().getTipoTributo().getCodigoInternacional());
         } else {
           ps.setNull(50, Types.DOUBLE);
           ps.setNull(51, Types.VARCHAR);
@@ -224,10 +224,10 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
         }
 
         if (get.getImpuestoBolsa() != null) {
-          ps.setDouble(54, get.getImpuestoBolsa().getTotal());
-          ps.setString(55, get.getImpuestoBolsa().getCodigo());
-          ps.setString(56, get.getImpuestoBolsa().getDescripcion());
-          ps.setString(57, get.getImpuestoBolsa().getCodigoInternacional());
+          ps.setDouble(54, get.getImpuestoBolsa().getMonto());
+          ps.setString(55, get.getImpuestoBolsa().getTipoTributo().getCodigo());
+          ps.setString(56, get.getImpuestoBolsa().getTipoTributo().getDescripcion());
+          ps.setString(57, get.getImpuestoBolsa().getTipoTributo().getCodigoInternacional());
         } else {
           ps.setNull(54, Types.DOUBLE);
           ps.setNull(55, Types.VARCHAR);
@@ -270,7 +270,7 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
           ResumenDiario resumenDiario = new ResumenDiario();
           resumenDiario.setId(rs.getInt(1));
 
-          TipoDocumento tipoDocumento = new TipoDocumento();
+          Tipo tipoDocumento = new Tipo();
           tipoDocumento.setCodigo(rs.getString(2));
           tipoDocumento.setDescripcion(rs.getString(3));
           resumenDiario.setTipoDocumento(tipoDocumento);
@@ -354,7 +354,7 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
           documento.setSerie(rs.getString(3));
           documento.setCorrelativo(rs.getInt(4));
 
-          TipoDocumento tipoDocumento = new TipoDocumento();
+          Tipo tipoDocumento = new Tipo();
           tipoDocumento.setCodigo(rs.getString(5));
           tipoDocumento.setDescripcion(rs.getString(6));
           documento.setTipoDocumento(tipoDocumento);
@@ -366,11 +366,10 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
             DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
             documentoIdentidad.setNumero(rs.getString(7));
 
-            TipoDocumentoIdentidad tipoDocumentoIdentidad = new TipoDocumentoIdentidad();
-            tipoDocumentoIdentidad.setCodigo(rs.getString(8));
-            tipoDocumentoIdentidad.setDescripcion(rs.getString(9));
-
-            documentoIdentidad.setTipo(tipoDocumentoIdentidad);
+            Tipo tipo = new Tipo();
+            tipo.setCodigo(rs.getString(8));
+            tipo.setDescripcion(rs.getString(9));
+            documentoIdentidad.setTipo(tipo);
 
             Empresa adquiriente = new Empresa();
             adquiriente.setDocumentoIdentidad(documentoIdentidad);
@@ -384,7 +383,7 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
             documentoReferencia.setSerie(rs.getString(10));
             documentoReferencia.setCorrelativo(rs.getInt(11));
 
-            TipoDocumento tipoDocumentoReferencia = new TipoDocumento();
+            Tipo tipoDocumentoReferencia = new Tipo();
             tipoDocumentoReferencia.setCodigo(rs.getString(12));
             tipoDocumentoReferencia.setDescripcion(rs.getString(13));
             documentoReferencia.setTipoDocumento(tipoDocumentoReferencia);
@@ -475,39 +474,56 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
           }
 
           Impuesto igv = new Impuesto();
-          igv.setTotal(rs.getDouble(42));
-          igv.setCodigo(rs.getString(43));
-          igv.setDescripcion(rs.getString(44));
-          igv.setCodigoInternacional(rs.getString(45));
+          igv.setMonto(rs.getDouble(42));
+
+          TipoTributo tipoTributo = new TipoTributo();
+          tipoTributo.setCodigo(rs.getString(43));
+          tipoTributo.setDescripcion(rs.getString(44));
+          tipoTributo.setCodigoInternacional(rs.getString(45));
+          igv.setTipoTributo(tipoTributo);
+
           resumenDiarioDetalle.setIgv(igv);
 
           rs.getString(46);
           if (!rs.wasNull()) {
             Impuesto isc = new Impuesto();
-            isc.setTotal(rs.getDouble(46));
-            isc.setCodigo(rs.getString(47));
-            isc.setDescripcion(rs.getString(48));
-            isc.setCodigoInternacional(rs.getString(49));
+            isc.setMonto(rs.getDouble(46));
+
+            tipoTributo = new TipoTributo();
+            tipoTributo.setCodigo(rs.getString(47));
+            tipoTributo.setDescripcion(rs.getString(48));
+            tipoTributo.setCodigoInternacional(rs.getString(49));
+            isc.setTipoTributo(tipoTributo);
+
             resumenDiarioDetalle.setIsc(isc);
           }
 
           rs.getString(50);
           if (!rs.wasNull()) {
             Impuesto otrosTributos = new Impuesto();
-            otrosTributos.setTotal(rs.getDouble(50));
-            otrosTributos.setCodigo(rs.getString(51));
-            otrosTributos.setDescripcion(rs.getString(52));
-            otrosTributos.setCodigoInternacional(rs.getString(53));
+            otrosTributos.setMonto(rs.getDouble(50));
+
+            tipoTributo = new TipoTributo();
+            tipoTributo.setCodigo(rs.getString(51));
+            tipoTributo.setDescripcion(rs.getString(52));
+            tipoTributo.setCodigoInternacional(rs.getString(53));
+            otrosTributos.setTipoTributo(tipoTributo);
+
             resumenDiarioDetalle.setOtrosTributos(otrosTributos);
           }
 
           rs.getString(54);
           if (!rs.wasNull()) {
             Impuesto impuestoBolsa = new Impuesto();
-            impuestoBolsa.setTotal(rs.getDouble(54));
-            impuestoBolsa.setCodigo(rs.getString(55));
-            impuestoBolsa.setDescripcion(rs.getString(56));
-            impuestoBolsa.setCodigoInternacional(rs.getString(57));
+
+            impuestoBolsa.setMonto(rs.getDouble(54));
+
+            tipoTributo = new TipoTributo();
+            tipoTributo.setCodigo(rs.getString(55));
+            tipoTributo.setDescripcion(rs.getString(56));
+            tipoTributo.setCodigoInternacional(rs.getString(57));
+            impuestoBolsa.setTipoTributo(tipoTributo);
+
             resumenDiarioDetalle.setImpuestoBolsa(impuestoBolsa);
           }
 

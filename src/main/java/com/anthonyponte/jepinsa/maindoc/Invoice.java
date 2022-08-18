@@ -948,11 +948,11 @@ public class Invoice {
               .addContent(
                   new Element("TaxableAmount", cbc)
                       .setAttribute("currencyID", factura.getMoneda().getCodigo())
-                      .setText(detalle.getIgv().getBase()))
+                      .setText(String.valueOf(detalle.getIgv().getBase())))
               .addContent(
                   new Element("TaxAmount", cbc)
                       .setAttribute("currencyID", factura.getMoneda().getCodigo())
-                      .setText(detalle.getIgv().getValor()))
+                      .setText(String.valueOf(detalle.getIgv().getMonto())))
               .addContent(
                   new Element("TaxCategory", cac)
                       .addContent(
@@ -964,14 +964,15 @@ public class Invoice {
                                   "United Nations Economic Commission for Europe")
                               .setText("S"))
                       .addContent(
-                          new Element("Percent", cbc).setText(detalle.getIgv().getPorcentaje()))
+                          new Element("Percent", cbc)
+                              .setText(String.valueOf(detalle.getIgv().getTasa())))
                       .addContent(
                           new Element("TaxExemptionReasonCode", cbc)
                               .setAttribute("listAgencyName", "PE:SUNAT")
                               .setAttribute("listName", "Afectacion del IGV")
                               .setAttribute(
                                   "listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07")
-                              .setText(detalle.getIgv().getTipo()))
+                              .setText(detalle.getIgv().getTipoIgv().getCodigo()))
                       .addContent(
                           new Element("TaxScheme", cac)
                               .addContent(
@@ -979,12 +980,17 @@ public class Invoice {
                                       .setAttribute("schemeAgencyName", "PE:SUNAT")
                                       .setAttribute("schemeID", "UN/ECE 5153")
                                       .setAttribute("schemeName", "Codigo de tributos")
-                                      .setText(detalle.getIgv().getCodigo()))
+                                      .setText(detalle.getIgv().getTipoTributo().getCodigo()))
                               .addContent(
-                                  new Element("Name", cbc).setText(detalle.getIgv().getDescripcion()))
+                                  new Element("Name", cbc)
+                                      .setText(detalle.getIgv().getTipoTributo().getDescripcion()))
                               .addContent(
                                   new Element("TaxTypeCode", cbc)
-                                      .setText(detalle.getIgv().getCodigoInternacional())))));
+                                      .setText(
+                                          detalle
+                                              .getIgv()
+                                              .getTipoTributo()
+                                              .getCodigoInternacional())))));
 
       // 37 Afectación del ISC por la línea. C.
       if (!detalle.getIsc().getValor().equals("0.00")) {

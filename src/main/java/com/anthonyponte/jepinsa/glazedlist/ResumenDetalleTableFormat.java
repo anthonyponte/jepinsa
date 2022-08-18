@@ -23,7 +23,7 @@ import com.anthonyponte.jepinsa.model.ResumenDiarioDetalle;
 /**
  * @author AnthonyPonte
  */
-public class ResumenDiarioDetalleTableFormat implements TableFormat<ResumenDiarioDetalle> {
+public class ResumenDetalleTableFormat implements TableFormat<ResumenDiarioDetalle> {
 
   @Override
   public int getColumnCount() {
@@ -149,15 +149,15 @@ public class ResumenDiarioDetalleTableFormat implements TableFormat<ResumenDiari
         if (detalle.getOtrosCargos() != null) return detalle.getOtrosCargos().getTotal();
         else return "";
       case 20:
-        return detalle.getIgv().getTotal();
+        return detalle.getIgv().getMonto();
       case 21:
-        if (detalle.getIsc() != null) return detalle.getIsc().getTotal();
+        if (detalle.getIsc() != null) return detalle.getIsc().getMonto();
         else return "";
       case 22:
-        if (detalle.getOtrosTributos() != null) return detalle.getOtrosTributos().getTotal();
+        if (detalle.getOtrosTributos() != null) return detalle.getOtrosTributos().getMonto();
         else return "";
       case 23:
-        if (detalle.getImpuestoBolsa() != null) return detalle.getImpuestoBolsa().getTotal();
+        if (detalle.getImpuestoBolsa() != null) return detalle.getImpuestoBolsa().getMonto();
         else return "";
     }
     throw new IllegalStateException("Unexpected column: " + column);

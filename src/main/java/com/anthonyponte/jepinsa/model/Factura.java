@@ -25,7 +25,7 @@ public class Factura extends Bill {
       int correlativo,
       Date fechaEmision,
       Date horaEmision,
-      TipoDocumento tipoDocumento,
+      Tipo tipoDocumento,
       Moneda moneda,
       Date fechaVencimiento,
       Empresa emisor,

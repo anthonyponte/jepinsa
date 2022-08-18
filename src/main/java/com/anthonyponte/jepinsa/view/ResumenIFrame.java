@@ -6,11 +6,10 @@ package com.anthonyponte.jepinsa.view;
 
 import com.anthonyponte.jepinsa.filter.IntegerFilter;
 import com.anthonyponte.jepinsa.filter.SerieFilter;
-import com.anthonyponte.jepinsa.model.TipoDocumentoIdentidad;
 import com.anthonyponte.jepinsa.model.Estado;
 import com.anthonyponte.jepinsa.model.Moneda;
 import com.anthonyponte.jepinsa.model.Regimen;
-import com.anthonyponte.jepinsa.model.TipoDocumento;
+import com.anthonyponte.jepinsa.model.Tipo;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -198,8 +197,8 @@ public class ResumenIFrame extends JInternalFrame {
         dpFechaGeneracion.setMinimumSize(null);
         dpFechaGeneracion.setPreferredSize(new Dimension(150, 30));
 
-        cbxTipo.setModel(new DefaultComboBoxModel(new TipoDocumento[] {
-            new TipoDocumento("RC", "Resumen Diario")
+        cbxTipo.setModel(new DefaultComboBoxModel(new Tipo[] {
+            new Tipo("RC", "Resumen Diario")
         }));
         cbxTipo.setEnabled(false);
         cbxTipo.setMaximumSize(null);
@@ -209,8 +208,8 @@ public class ResumenIFrame extends JInternalFrame {
             public Component getListCellRendererComponent(
                 JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (value instanceof TipoDocumento) {
-                    TipoDocumento tipoDocumento = (TipoDocumento) value;
+                if (value instanceof Tipo) {
+                    Tipo tipoDocumento = (Tipo) value;
                     setText(tipoDocumento.getDescripcion());
                 }
                 return this;
@@ -293,10 +292,10 @@ public class ResumenIFrame extends JInternalFrame {
         lblDocumentoTipo.setFont(lblDocumentoTipo.getFont().deriveFont(lblDocumentoTipo.getFont().getStyle() | Font.BOLD, lblDocumentoTipo.getFont().getSize()-2));
         lblDocumentoTipo.setText("Tipo *");
 
-        cbxDocumentoTipo.setModel(new DefaultComboBoxModel(new TipoDocumento[] {
-            new TipoDocumento("03", "Boleta de venta"),
-            new TipoDocumento("07", "Nota de crédito - boleta de venta"),
-            new TipoDocumento("08", "Nota de débito - boleta de venta")
+        cbxDocumentoTipo.setModel(new DefaultComboBoxModel(new Tipo[] {
+            new Tipo("03", "Boleta de venta"),
+            new Tipo("07", "Nota de crédito - boleta de venta"),
+            new Tipo("08", "Nota de débito - boleta de venta")
         }));
         cbxDocumentoTipo.setEnabled(false);
         cbxDocumentoTipo.setMaximumSize(null);
@@ -306,9 +305,9 @@ public class ResumenIFrame extends JInternalFrame {
             public Component getListCellRendererComponent(
                 JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (value instanceof TipoDocumento) {
-                    TipoDocumento tipoDocumento = (TipoDocumento) value;
-                    setText(tipoDocumento.getDescripcion());
+                if (value instanceof Tipo) {
+                    Tipo tipo = (Tipo) value;
+                    setText(tipo.getDescripcion());
                 }
                 return this;
             }
@@ -372,11 +371,11 @@ public class ResumenIFrame extends JInternalFrame {
         lblDocumentoIdentidadTipo.setFont(lblDocumentoIdentidadTipo.getFont().deriveFont(lblDocumentoIdentidadTipo.getFont().getStyle() | Font.BOLD, lblDocumentoIdentidadTipo.getFont().getSize()-2));
         lblDocumentoIdentidadTipo.setText("Documento identidad *");
 
-        cbxDocumentoIdentidadTipo.setModel(new DefaultComboBoxModel(new TipoDocumentoIdentidad[] {
-            new TipoDocumentoIdentidad("0", "DOC.TRIB.NO.DOM.SIN.RUC"),
-            new TipoDocumentoIdentidad("1", "Documento Nacional de Identidad"),
-            new TipoDocumentoIdentidad("4", "Carnet de extranjería"),
-            new TipoDocumentoIdentidad("6", "Registro Unico de Contributentes")
+        cbxDocumentoIdentidadTipo.setModel(new DefaultComboBoxModel(new Tipo[] {
+            new Tipo("0", "DOC.TRIB.NO.DOM.SIN.RUC"),
+            new Tipo("1", "Documento Nacional de Identidad"),
+            new Tipo("4", "Carnet de extranjería"),
+            new Tipo("6", "Registro Unico de Contributentes")
         }));
         cbxDocumentoIdentidadTipo.setEnabled(false);
         cbxDocumentoIdentidadTipo.setMaximumSize(null);
@@ -387,9 +386,9 @@ public class ResumenIFrame extends JInternalFrame {
             public Component getListCellRendererComponent(
                 JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (value instanceof TipoDocumentoIdentidad) {
-                    TipoDocumentoIdentidad documentoIdentidad = (TipoDocumentoIdentidad) value;
-                    setText(documentoIdentidad.getDescripcion());
+                if (value instanceof Tipo) {
+                    Tipo tipo = (Tipo) value;
+                    setText(tipo.getDescripcion());
                 }
                 return this;
             }
@@ -435,9 +434,9 @@ public class ResumenIFrame extends JInternalFrame {
         lblReferenciaTipo.setFont(lblReferenciaTipo.getFont().deriveFont(lblReferenciaTipo.getFont().getStyle() | Font.BOLD, lblReferenciaTipo.getFont().getSize()-2));
         lblReferenciaTipo.setText("Tipo *");
 
-        cbxDocumentoReferenciaTipo.setModel(new DefaultComboBoxModel(new TipoDocumento[] {
-            new TipoDocumento("03", "Boleta de venta"),
-            new TipoDocumento("12", "Ticket de máquina registradora")
+        cbxDocumentoReferenciaTipo.setModel(new DefaultComboBoxModel(new Tipo[] {
+            new Tipo("03", "Boleta de venta"),
+            new Tipo("12", "Ticket de máquina registradora")
         }));
         cbxDocumentoReferenciaTipo.setEnabled(false);
         cbxDocumentoReferenciaTipo.setMaximumSize(null);
@@ -447,8 +446,8 @@ public class ResumenIFrame extends JInternalFrame {
             public Component getListCellRendererComponent(
                 JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (value instanceof TipoDocumento) {
-                    TipoDocumento tipoDocumento = (TipoDocumento) value;
+                if (value instanceof Tipo) {
+                    Tipo tipoDocumento = (Tipo) value;
                     setText(tipoDocumento.getDescripcion());
                 }
                 return this;

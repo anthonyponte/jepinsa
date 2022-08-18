@@ -18,7 +18,7 @@
 package com.anthonyponte.jepinsa.dao;
 
 import com.anthonyponte.jepinsa.model.Summary;
-import com.anthonyponte.jepinsa.model.TipoDocumento;
+import com.anthonyponte.jepinsa.model.Tipo;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -33,5 +33,5 @@ public interface SummaryDao {
 
   public void delete(int id) throws SQLException;
 
-  public int count(TipoDocumento tipoDocumento, Date fechaEmision) throws SQLException;
+  public int count(Tipo tipoDocumento, Date fechaEmision) throws SQLException;
 }

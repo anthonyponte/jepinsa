@@ -21,7 +21,7 @@ import ca.odell.glazedlists.gui.TableFormat;
 import com.anthonyponte.jepinsa.model.ComunicacionBajaDetalle;
 
 /** @author AnthonyPonte */
-public class ComunicacionBajaDetalleTableFormat implements TableFormat<ComunicacionBajaDetalle> {
+public class ComunicacionDetalleTableFormat implements TableFormat<ComunicacionBajaDetalle> {
 
   @Override
   public int getColumnCount() {

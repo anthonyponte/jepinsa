@@ -19,7 +19,7 @@ public class Bill {
   private int correlativo;
   private Date fechaEmision;
   private Date horaEmision;
-  private TipoDocumento tipoDocumento;
+  private Tipo tipoDocumento;
   private Moneda moneda;
   private Date fechaVencimiento;
   // Datos del Emisor
@@ -97,7 +97,7 @@ public class Bill {
       int correlativo,
       Date fechaEmision,
       Date horaEmision,
-      TipoDocumento tipoDocumento,
+      Tipo tipoDocumento,
       Moneda moneda,
       Date fechaVencimiento,
       Empresa emisor,
@@ -225,11 +225,11 @@ public class Bill {
     this.horaEmision = horaEmision;
   }
 
-  public TipoDocumento getTipoDocumento() {
+  public Tipo getTipoDocumento() {
     return tipoDocumento;
   }
 
-  public void setTipoDocumento(TipoDocumento tipoDocumento) {
+  public void setTipoDocumento(Tipo tipoDocumento) {
     this.tipoDocumento = tipoDocumento;
   }
 

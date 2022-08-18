@@ -6,7 +6,7 @@ package com.anthonyponte.jepinsa.view;
 
 import com.anthonyponte.jepinsa.filter.IntegerFilter;
 import com.anthonyponte.jepinsa.filter.SerieFilter;
-import com.anthonyponte.jepinsa.model.TipoDocumento;
+import com.anthonyponte.jepinsa.model.Tipo;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -120,9 +120,9 @@ public class FacturaIFrame extends JInternalFrame {
         lblTipo.setFont(lblTipo.getFont().deriveFont(lblTipo.getFont().getStyle() | Font.BOLD, lblTipo.getFont().getSize()-2));
         lblTipo.setText("Tipo");
 
-        cbxTipo.setModel(new DefaultComboBoxModel(new TipoDocumento[] {
-            new TipoDocumento("RA", "Comunicación de baja"),
-            new TipoDocumento("RR", "Resumen de reversiones")
+        cbxTipo.setModel(new DefaultComboBoxModel(new Tipo[] {
+            new Tipo("RA", "Comunicación de baja"),
+            new Tipo("RR", "Resumen de reversiones")
         }));
         cbxTipo.setSelectedIndex(-1);
         cbxTipo.setEnabled(false);
@@ -133,8 +133,8 @@ public class FacturaIFrame extends JInternalFrame {
             public Component getListCellRendererComponent(
                 JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (value instanceof TipoDocumento) {
-                    TipoDocumento tipoDocumento = (TipoDocumento) value;
+                if (value instanceof Tipo) {
+                    Tipo tipoDocumento = (Tipo) value;
                     setText(tipoDocumento.getDescripcion());
                 }
                 return this;
@@ -213,10 +213,10 @@ public class FacturaIFrame extends JInternalFrame {
         lblDocumentoTipo.setFont(lblDocumentoTipo.getFont().deriveFont(lblDocumentoTipo.getFont().getStyle() | Font.BOLD, lblDocumentoTipo.getFont().getSize()-2));
         lblDocumentoTipo.setText("Tipo documento");
 
-        cbxDocumentoTipo.setModel(new DefaultComboBoxModel(new TipoDocumento[] {
-            new TipoDocumento("01", "Factura"),
-            new TipoDocumento("07", "Nota de crédito"),
-            new TipoDocumento("08", "Nota de débito")
+        cbxDocumentoTipo.setModel(new DefaultComboBoxModel(new Tipo[] {
+            new Tipo("01", "Factura"),
+            new Tipo("07", "Nota de crédito"),
+            new Tipo("08", "Nota de débito")
         }));
         cbxDocumentoTipo.setSelectedIndex(-1);
         cbxDocumentoTipo.setEnabled(false);
@@ -227,8 +227,8 @@ public class FacturaIFrame extends JInternalFrame {
             public Component getListCellRendererComponent(
                 JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (value instanceof TipoDocumento) {
-                    TipoDocumento tipoDocumento = (TipoDocumento) value;
+                if (value instanceof Tipo) {
+                    Tipo tipoDocumento = (Tipo) value;
                     setText(tipoDocumento.getDescripcion());
                 }
                 return this;

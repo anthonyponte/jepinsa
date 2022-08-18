@@ -24,55 +24,73 @@ public class Impuesto {
   private double base;
   private double monto;
   private double tasa;
-  private String codigo;
-  private String nombre;
-  private String codigoInternacional;
+  private TipoIgv tipoIgv;
+  private TipoTributo tipoTributo;
 
   public Impuesto() {}
 
-  public double getTotal() {
-    return total;
+  public Impuesto(
+      double base, double monto, double tasa, TipoIgv tipoIgv, TipoTributo tipoTributo) {
+    this.base = base;
+    this.monto = monto;
+    this.tasa = tasa;
+    this.tipoIgv = tipoIgv;
+    this.tipoTributo = tipoTributo;
   }
 
-  public void setTotal(double total) {
-    this.total = total;
+  public double getBase() {
+    return base;
   }
 
-  public String getCodigo() {
-    return codigo;
+  public void setBase(double base) {
+    this.base = base;
   }
 
-  public void setCodigo(String codigo) {
-    this.codigo = codigo;
+  public double getMonto() {
+    return monto;
   }
 
-  public String getDescripcion() {
-    return descripcion;
+  public void setMonto(double monto) {
+    this.monto = monto;
   }
 
-  public void setDescripcion(String descripcion) {
-    this.descripcion = descripcion;
+  public double getTasa() {
+    return tasa;
   }
 
-  public String getCodigoInternacional() {
-    return codigoInternacional;
+  public void setTasa(double tasa) {
+    this.tasa = tasa;
   }
 
-  public void setCodigoInternacional(String codigoInternacional) {
-    this.codigoInternacional = codigoInternacional;
+  public TipoIgv getTipoIgv() {
+    return tipoIgv;
+  }
+
+  public void setTipoIgv(TipoIgv tipoIgv) {
+    this.tipoIgv = tipoIgv;
+  }
+
+  public TipoTributo getTipoTributo() {
+    return tipoTributo;
+  }
+
+  public void setTipoTributo(TipoTributo tipoTributo) {
+    this.tipoTributo = tipoTributo;
   }
 
   @Override
   public String toString() {
     return "Impuesto{"
-        + "total="
-        + total
-        + ", codigo="
-        + codigo
-        + ", descripcion="
-        + descripcion
-        + ", codigoInternacional="
-        + codigoInternacional
+        + "base="
+        + base
+        + ", monto="
+        + monto
+        + ", tasa="
+        + tasa
+        + ", tipoIgv="
+        + tipoIgv
+        + ", tipoTributo="
+        + tipoTributo
         + '}';
   }
 }
