@@ -39,7 +39,7 @@ import com.anthonyponte.jepinsa.model.Bill;
 import com.anthonyponte.jepinsa.model.DocumentoIdentidad;
 import com.anthonyponte.jepinsa.model.Empresa;
 import com.anthonyponte.jepinsa.model.Estado;
-import com.anthonyponte.jepinsa.model.Impuesto;
+import com.anthonyponte.jepinsa.model.Igv;
 import com.anthonyponte.jepinsa.model.Moneda;
 import com.anthonyponte.jepinsa.model.Operacion;
 import com.anthonyponte.jepinsa.model.OtrosCargos;
@@ -501,8 +501,7 @@ public class ResumenController {
           }
         });
 
-    iFrame.btnAgregar.addActionListener(
-        (arg0) -> {
+    iFrame.btnAgregar.addActionListener((arg0) -> {
           try {
             ResumenDiarioDetalle detalle = new ResumenDiarioDetalle();
 
@@ -607,7 +606,7 @@ public class ResumenController {
             }
 
             Number igv = (Number) iFrame.tfIgv.getValue();
-            Impuesto impuestoIgv = new Impuesto();
+            Igv impuestoIgv = new Igv();
             impuestoIgv.setMonto(igv.doubleValue());
 
             TipoTributo tipoTributo = new TipoTributo();
@@ -620,7 +619,7 @@ public class ResumenController {
 
             Number isc = (Number) iFrame.tfIsc.getValue();
             if (isc.doubleValue() > 0) {
-              Impuesto impuestoIsc = new Impuesto();
+              Igv impuestoIsc = new Igv();
               impuestoIsc.setMonto(isc.doubleValue());
 
               tipoTributo = new TipoTributo();
@@ -634,7 +633,7 @@ public class ResumenController {
 
             Number otrosTributos = (Number) iFrame.tfOtrosTributos.getValue();
             if (otrosTributos.doubleValue() > 0) {
-              Impuesto impuestoOtrosTributos = new Impuesto();
+              Igv impuestoOtrosTributos = new Igv();
               impuestoOtrosTributos.setMonto(otrosTributos.doubleValue());
 
               tipoTributo = new TipoTributo();
@@ -648,7 +647,7 @@ public class ResumenController {
 
             Number bolsas = (Number) iFrame.tfBolsasPlasticas.getValue();
             if (bolsas.doubleValue() > 0) {
-              Impuesto impuestoBolsas = new Impuesto();
+              Igv impuestoBolsas = new Igv();
               impuestoBolsas.setMonto(bolsas.doubleValue());
 
               tipoTributo = new TipoTributo();

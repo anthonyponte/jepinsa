@@ -24,7 +24,7 @@ import com.anthonyponte.jepinsa.model.Bill;
 import com.anthonyponte.jepinsa.model.DocumentoIdentidad;
 import com.anthonyponte.jepinsa.model.Empresa;
 import com.anthonyponte.jepinsa.model.Estado;
-import com.anthonyponte.jepinsa.model.Impuesto;
+import com.anthonyponte.jepinsa.model.Igv;
 import com.anthonyponte.jepinsa.model.Moneda;
 import com.anthonyponte.jepinsa.model.Operacion;
 import com.anthonyponte.jepinsa.model.OtrosCargos;
@@ -473,7 +473,7 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
             resumenDiarioDetalle.setOtrosCargos(otrosCargos);
           }
 
-          Impuesto igv = new Impuesto();
+          Igv igv = new Igv();
           igv.setMonto(rs.getDouble(42));
 
           TipoTributo tipoTributo = new TipoTributo();
@@ -486,7 +486,7 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
 
           rs.getString(46);
           if (!rs.wasNull()) {
-            Impuesto isc = new Impuesto();
+            Igv isc = new Igv();
             isc.setMonto(rs.getDouble(46));
 
             tipoTributo = new TipoTributo();
@@ -500,7 +500,7 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
 
           rs.getString(50);
           if (!rs.wasNull()) {
-            Impuesto otrosTributos = new Impuesto();
+            Igv otrosTributos = new Igv();
             otrosTributos.setMonto(rs.getDouble(50));
 
             tipoTributo = new TipoTributo();
@@ -514,7 +514,7 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
 
           rs.getString(54);
           if (!rs.wasNull()) {
-            Impuesto impuestoBolsa = new Impuesto();
+            Igv impuestoBolsa = new Igv();
 
             impuestoBolsa.setMonto(rs.getDouble(54));
 

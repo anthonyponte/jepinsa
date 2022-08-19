@@ -19,6 +19,7 @@ public class Factura extends Bill {
   public Factura() {}
 
   public Factura(
+      List<FacturaDetalle> facturaDetalles,
       String ubl,
       String version,
       String serie,
@@ -40,12 +41,12 @@ public class Factura extends Bill {
       Operacion totalInafectas,
       Operacion totalExoneradas,
       Operacion totalGratuitas,
-      Impuesto tributosGratuitas,
+      Igv tributosGratuitas,
       Operacion totalGravadas,
-      Impuesto igv,
-      Impuesto isc,
-      Impuesto otrosTributos,
-      Impuesto icbper,
+      Igv igv,
+      Isc isc,
+      Igv otrosTributos,
+      Igv icbper,
       OtrosCargos descuentos,
       double otrosDescuentos,
       double otrosCargos,
@@ -104,6 +105,7 @@ public class Factura extends Bill {
         incoterm,
         contado,
         credito);
+    this.facturaDetalles = facturaDetalles;
   }
 
   public List<FacturaDetalle> getFacturaDetalles() {

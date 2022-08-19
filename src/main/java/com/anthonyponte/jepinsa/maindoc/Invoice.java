@@ -559,297 +559,298 @@ public class Invoice {
                       .setText(factura.getCuota().getMontoBase()));
       document.getRootElement().addContent(tagAllowanceCharge);
     }
+
+    // Totales de la Factura
+    // 40 Monto total de impuestos. M
+    Element tagTaxTotal =
+        new Element("TaxTotal", cac)
+            .addContent(
+                new Element("TaxAmount", cbc)
+                    .setAttribute("currencyID", encabezado.getMoneda())
+                    .setText(total.getImpuesto()));
+
+    // 41 Total Valor de Venta - Exportación. C
+    if (!total.getExportacion().equals("0.00")) {
+      tagTaxTotal.addContent(
+          new Element("TaxSubtotal", cac)
+              .addContent(
+                  new Element("TaxableAmount", cbc)
+                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setText(total.getExportacion()))
+              .addContent(
+                  new Element("TaxAmount", cbc)
+                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setText("0.00"))
+              .addContent(
+                  new Element("TaxCategory", cac)
+                      .addContent(
+                          new Element("TaxScheme", cac)
+                              .addContent(
+                                  new Element("ID", cbc)
+                                      .setAttribute("schemeName", "Codigo de tributos")
+                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
+                                      .setAttribute(
+                                          "schemeURI",
+                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
+                                      .setText("9995"))
+                              .addContent(new Element("Name", cbc).setText("EXP"))
+                              .addContent(new Element("TaxTypeCode", cbc).setText("FRE")))));
+    }
+
+    // 42 Total valor de venta - operaciones inafectas. C
+    if (!total.getInafectas().equals("0.00")) {
+      tagTaxTotal.addContent(
+          new Element("TaxSubtotal", cac)
+              .addContent(
+                  new Element("TaxableAmount", cbc)
+                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setText(total.getInafectas()))
+              .addContent(
+                  new Element("TaxAmount", cbc)
+                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setText("0.00"))
+              .addContent(
+                  new Element("TaxCategory", cac)
+                      .addContent(
+                          new Element("TaxScheme", cac)
+                              .addContent(
+                                  new Element("ID", cbc)
+                                      .setAttribute("schemeName", "Codigo de tributos")
+                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
+                                      .setAttribute(
+                                          "schemeURI",
+                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
+                                      .setText("9998"))
+                              .addContent(new Element("Name", cbc).setText("INA"))
+                              .addContent(new Element("TaxTypeCode", cbc).setText("FRE")))));
+    }
+
+    // 43 Total valor de venta - operaciones exoneradas. C
+    if (!total.getExoneradas().equals("0.00")) {
+      tagTaxTotal.addContent(
+          new Element("TaxSubtotal", cac)
+              .addContent(
+                  new Element("TaxableAmount", cbc)
+                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setText(total.getExoneradas()))
+              .addContent(
+                  new Element("TaxAmount", cbc)
+                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setText("0.00"))
+              .addContent(
+                  new Element("TaxCategory", cac)
+                      .addContent(
+                          new Element("TaxScheme", cac)
+                              .addContent(
+                                  new Element("ID", cbc)
+                                      .setAttribute("schemeName", "Codigo de tributos")
+                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
+                                      .setAttribute(
+                                          "schemeURI",
+                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
+                                      .setText("9997"))
+                              .addContent(new Element("Name", cbc).setText("EXO"))
+                              .addContent(new Element("TaxTypeCode", cbc).setText("VAT")))));
+    }
+
+    // 44 Total valor de venta - operaciones gratuitas
+    // 45 Sumatoria de tributos de operaciones gratuitas. C
+    if (!total.getGratuitas().equals("0.00")) {
+      tagTaxTotal.addContent(
+          new Element("TaxSubtotal", cac)
+              .addContent(
+                  new Element("TaxableAmount", cbc)
+                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setText(total.getGratuitas()))
+              .addContent(
+                  new Element("TaxAmount", cbc)
+                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setText(total.getIgvGratuitas()))
+              .addContent(
+                  new Element("TaxCategory", cac)
+                      .addContent(
+                          new Element("TaxScheme", cac)
+                              .addContent(
+                                  new Element("ID", cbc)
+                                      .setAttribute("schemeName", "Codigo de tributos")
+                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
+                                      .setAttribute(
+                                          "schemeURI",
+                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
+                                      .setText("9996"))
+                              .addContent(new Element("Name", cbc).setText("GRA"))
+                              .addContent(new Element("TaxTypeCode", cbc).setText("FRE")))));
+    }
+
+    // 46 Total valor de venta - operaciones gravadas (IGV o IVAP). M
+    // 47 Total Importe IGV o IVAP. M
+    if (!total.getGravadas().equals("0.00")) {
+      tagTaxTotal.addContent(
+          new Element("TaxSubtotal", cac)
+              .addContent(
+                  new Element("TaxableAmount", cbc)
+                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setText(total.getGravadas()))
+              .addContent(
+                  new Element("TaxAmount", cbc)
+                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setText(total.getIgv()))
+              .addContent(
+                  new Element("TaxCategory", cac)
+                      .addContent(
+                          new Element("TaxScheme", cac)
+                              .addContent(
+                                  new Element("ID", cbc)
+                                      .setAttribute("schemeName", "Codigo de tributos")
+                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
+                                      .setAttribute(
+                                          "schemeURI",
+                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
+                                      .setText("1000"))
+                              .addContent(new Element("Name", cbc).setText("IGV"))
+                              .addContent(new Element("TaxTypeCode", cbc).setText("VAT")))));
+    }
+
+    // 48 Sumatoria ISC. C
+    if (!total.getIsc().equals("0.00")) {
+      tagTaxTotal.addContent(
+          new Element("TaxSubtotal", cac)
+              .addContent(
+                  new Element("TaxableAmount", cbc)
+                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setText(total.getMontoIsc()))
+              .addContent(
+                  new Element("TaxAmount", cbc)
+                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setText(total.getIsc()))
+              .addContent(
+                  new Element("TaxCategory", cac)
+                      .addContent(
+                          new Element("TaxScheme", cac)
+                              .addContent(
+                                  new Element("ID", cbc)
+                                      .setAttribute("schemeName", "Codigo de tributos")
+                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
+                                      .setAttribute(
+                                          "schemeURI",
+                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
+                                      .setText("2000"))
+                              .addContent(new Element("Name", cbc).setText("ISC"))
+                              .addContent(new Element("TaxTypeCode", cbc).setText("EXC")))));
+    }
+
+    // 49 Sumatoria Otros Tributos. C
+    if (!total.getOtrosTributos().equals("0.00")) {
+      tagTaxTotal.addContent(
+          new Element("TaxSubtotal", cac)
+              .addContent(
+                  new Element("TaxableAmount", cbc)
+                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setText(total.getMontoOtrosTributos()))
+              .addContent(
+                  new Element("TaxAmount", cbc)
+                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setText(total.getOtrosTributos()))
+              .addContent(
+                  new Element("TaxCategory", cac)
+                      .addContent(
+                          new Element("TaxScheme", cac)
+                              .addContent(
+                                  new Element("ID", cbc)
+                                      .setAttribute("schemeName", "Codigo de tributos")
+                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
+                                      .setAttribute(
+                                          "schemeURI",
+                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
+                                      .setText("9999"))
+                              .addContent(
+                                  new Element("Name", cbc).setText("OTROS CONCEPTOS DE PAGO"))
+                              .addContent(new Element("TaxTypeCode", cbc).setText("OTH")))));
+    }
+
+    document.getRootElement().addContent(tagTaxTotal);
+
+    Element tagLegalMonetaryTotal = new Element("LegalMonetaryTotal", cac);
+
+    // 54 Total Valor de Venta. C
+    tagLegalMonetaryTotal.addContent(
+        new Element("LineExtensionAmount", cbc)
+            .setAttribute("currencyID", encabezado.getMoneda())
+            .setText(total.getValorVenta()));
+
+    // 55 Total Precio de Venta. C
+    tagLegalMonetaryTotal.addContent(
+        new Element("TaxInclusiveAmount", cbc)
+            .setAttribute("currencyID", encabezado.getMoneda())
+            .setText(total.getPrecioVenta()));
+
+    // 51 Total Descuentos (Que no afectan la base). C
+    if (!total.getDescuentos().equals("0.00")) {
+      tagLegalMonetaryTotal.addContent(
+          new Element("AllowanceTotalAmount", cbc)
+              .setAttribute("currencyID", encabezado.getMoneda())
+              .setText(total.getDescuentos()));
+    }
+
+    // 52 Total otros Cargos (Que no afectan la base). C
+    if (!total.getOtrosCargos().equals("0.00")) {
+      tagLegalMonetaryTotal.addContent(
+          new Element("ChargeTotalAmount", cbc)
+              .setAttribute("currencyID", encabezado.getMoneda())
+              .setText(total.getOtrosCargos()));
+    }
+
+    // 56 Monto para Redondeo del Importe Total. C
+    if (!total.getTotalRedondeado().equals("0.00")) {
+      tagLegalMonetaryTotal.addContent(
+          new Element("PayableRoundingAmount", cbc)
+              .setAttribute("currencyID", encabezado.getMoneda())
+              .setText(total.getTotalRedondeado()));
+    }
+
+    // 53 Importe total de la venta, cesión en uso o del servicio prestado. M
+    tagLegalMonetaryTotal.addContent(
+        new Element("PayableAmount", cbc)
+            .setAttribute("currencyID", encabezado.getMoneda())
+            .setText(total.getTotal()));
+
+    document.getRootElement().addContent(tagLegalMonetaryTotal);
+
+    // Información Adicional - Percepciones
     //
-    //    // Totales de la Factura
-    //    // 40 Monto total de impuestos. M
-    //    Element tagTaxTotal =
-    //        new Element("TaxTotal", cac)
-    //            .addContent(
-    //                new Element("TaxAmount", cbc)
-    //                    .setAttribute("currencyID", encabezado.getMoneda())
-    //                    .setText(total.getImpuesto()));
+    // Información Adicional  - Anticipos
     //
-    //    // 41 Total Valor de Venta - Exportación. C
-    //    if (!total.getExportacion().equals("0.00")) {
-    //      tagTaxTotal.addContent(
-    //          new Element("TaxSubtotal", cac)
-    //              .addContent(
-    //                  new Element("TaxableAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(total.getExportacion()))
-    //              .addContent(
-    //                  new Element("TaxAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText("0.00"))
-    //              .addContent(
-    //                  new Element("TaxCategory", cac)
-    //                      .addContent(
-    //                          new Element("TaxScheme", cac)
-    //                              .addContent(
-    //                                  new Element("ID", cbc)
-    //                                      .setAttribute("schemeName", "Codigo de tributos")
-    //                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
-    //                                      .setAttribute(
-    //                                          "schemeURI",
-    //                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
-    //                                      .setText("9995"))
-    //                              .addContent(new Element("Name", cbc).setText("EXP"))
-    //                              .addContent(new Element("TaxTypeCode", cbc).setText("FRE")))));
-    //    }
+    // Información Adicional - Sustento de traslado de mercaderias
     //
-    //    // 42 Total valor de venta - operaciones inafectas. C
-    //    if (!total.getInafectas().equals("0.00")) {
-    //      tagTaxTotal.addContent(
-    //          new Element("TaxSubtotal", cac)
-    //              .addContent(
-    //                  new Element("TaxableAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(total.getInafectas()))
-    //              .addContent(
-    //                  new Element("TaxAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText("0.00"))
-    //              .addContent(
-    //                  new Element("TaxCategory", cac)
-    //                      .addContent(
-    //                          new Element("TaxScheme", cac)
-    //                              .addContent(
-    //                                  new Element("ID", cbc)
-    //                                      .setAttribute("schemeName", "Codigo de tributos")
-    //                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
-    //                                      .setAttribute(
-    //                                          "schemeURI",
-    //                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
-    //                                      .setText("9998"))
-    //                              .addContent(new Element("Name", cbc).setText("INA"))
-    //                              .addContent(new Element("TaxTypeCode", cbc).setText("FRE")))));
-    //    }
+    // Información Adicional  - Transporte terrestre de pasajeros
     //
-    //    // 43 Total valor de venta - operaciones exoneradas. C
-    //    if (!total.getExoneradas().equals("0.00")) {
-    //      tagTaxTotal.addContent(
-    //          new Element("TaxSubtotal", cac)
-    //              .addContent(
-    //                  new Element("TaxableAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(total.getExoneradas()))
-    //              .addContent(
-    //                  new Element("TaxAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText("0.00"))
-    //              .addContent(
-    //                  new Element("TaxCategory", cac)
-    //                      .addContent(
-    //                          new Element("TaxScheme", cac)
-    //                              .addContent(
-    //                                  new Element("ID", cbc)
-    //                                      .setAttribute("schemeName", "Codigo de tributos")
-    //                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
-    //                                      .setAttribute(
-    //                                          "schemeURI",
-    //                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
-    //                                      .setText("9997"))
-    //                              .addContent(new Element("Name", cbc).setText("EXO"))
-    //                              .addContent(new Element("TaxTypeCode", cbc).setText("VAT")))));
-    //    }
+    // Información Adicional  - Detracciones
     //
-    //    // 44 Total valor de venta - operaciones gratuitas
-    //    // 45 Sumatoria de tributos de operaciones gratuitas. C
-    //    if (!total.getGratuitas().equals("0.00")) {
-    //      tagTaxTotal.addContent(
-    //          new Element("TaxSubtotal", cac)
-    //              .addContent(
-    //                  new Element("TaxableAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(total.getGratuitas()))
-    //              .addContent(
-    //                  new Element("TaxAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(total.getIgvGratuitas()))
-    //              .addContent(
-    //                  new Element("TaxCategory", cac)
-    //                      .addContent(
-    //                          new Element("TaxScheme", cac)
-    //                              .addContent(
-    //                                  new Element("ID", cbc)
-    //                                      .setAttribute("schemeName", "Codigo de tributos")
-    //                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
-    //                                      .setAttribute(
-    //                                          "schemeURI",
-    //                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
-    //                                      .setText("9996"))
-    //                              .addContent(new Element("Name", cbc).setText("GRA"))
-    //                              .addContent(new Element("TaxTypeCode", cbc).setText("FRE")))));
-    //    }
+    // Detracciones - Recursos Hidrobiológicos
     //
-    //    // 46 Total valor de venta - operaciones gravadas (IGV o IVAP). M
-    //    // 47 Total Importe IGV o IVAP. M
-    //    if (!total.getGravadas().equals("0.00")) {
-    //      tagTaxTotal.addContent(
-    //          new Element("TaxSubtotal", cac)
-    //              .addContent(
-    //                  new Element("TaxableAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(total.getGravadas()))
-    //              .addContent(
-    //                  new Element("TaxAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(total.getIgv()))
-    //              .addContent(
-    //                  new Element("TaxCategory", cac)
-    //                      .addContent(
-    //                          new Element("TaxScheme", cac)
-    //                              .addContent(
-    //                                  new Element("ID", cbc)
-    //                                      .setAttribute("schemeName", "Codigo de tributos")
-    //                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
-    //                                      .setAttribute(
-    //                                          "schemeURI",
-    //                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
-    //                                      .setText("1000"))
-    //                              .addContent(new Element("Name", cbc).setText("IGV"))
-    //                              .addContent(new Element("TaxTypeCode", cbc).setText("VAT")))));
-    //    }
+    // Detracciones - Servicio de transporte de Carga
     //
-    //    // 48 Sumatoria ISC. C
-    //    if (!total.getIsc().equals("0.00")) {
-    //      tagTaxTotal.addContent(
-    //          new Element("TaxSubtotal", cac)
-    //              .addContent(
-    //                  new Element("TaxableAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(total.getMontoIsc()))
-    //              .addContent(
-    //                  new Element("TaxAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(total.getIsc()))
-    //              .addContent(
-    //                  new Element("TaxCategory", cac)
-    //                      .addContent(
-    //                          new Element("TaxScheme", cac)
-    //                              .addContent(
-    //                                  new Element("ID", cbc)
-    //                                      .setAttribute("schemeName", "Codigo de tributos")
-    //                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
-    //                                      .setAttribute(
-    //                                          "schemeURI",
-    //                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
-    //                                      .setText("2000"))
-    //                              .addContent(new Element("Name", cbc).setText("ISC"))
-    //                              .addContent(new Element("TaxTypeCode", cbc).setText("EXC")))));
-    //    }
+    // Detracciones - Servicio de transporte de Carga - BillLine de tramos (De corresponder)
     //
-    //    // 49 Sumatoria Otros Tributos. C
-    //    if (!total.getOtrosTributos().equals("0.00")) {
-    //      tagTaxTotal.addContent(
-    //          new Element("TaxSubtotal", cac)
-    //              .addContent(
-    //                  new Element("TaxableAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(total.getMontoOtrosTributos()))
-    //              .addContent(
-    //                  new Element("TaxAmount", cbc)
-    //                      .setAttribute("currencyID", encabezado.getMoneda())
-    //                      .setText(total.getOtrosTributos()))
-    //              .addContent(
-    //                  new Element("TaxCategory", cac)
-    //                      .addContent(
-    //                          new Element("TaxScheme", cac)
-    //                              .addContent(
-    //                                  new Element("ID", cbc)
-    //                                      .setAttribute("schemeName", "Codigo de tributos")
-    //                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
-    //                                      .setAttribute(
-    //                                          "schemeURI",
-    //                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
-    //                                      .setText("9999"))
-    //                              .addContent(
-    //                                  new Element("Name", cbc).setText("OTROS CONCEPTOS DE PAGO"))
-    //                              .addContent(new Element("TaxTypeCode", cbc).setText("OTH")))));
-    //    }
+    // Detracciones - Servicio de transporte de Carga - BillLine del (os) Vehículo (s)
     //
-    //    document.getRootElement().addContent(tagTaxTotal);
+    // Información Adicional  - Beneficio de hospedaje
     //
-    //    Element tagLegalMonetaryTotal = new Element("LegalMonetaryTotal", cac);
+    // Información Adicional  - Paquete Turístico
     //
-    //    // 54 Total Valor de Venta. C
-    //    tagLegalMonetaryTotal.addContent(
-    //        new Element("LineExtensionAmount", cbc)
-    //            .setAttribute("currencyID", encabezado.getMoneda())
-    //            .setText(total.getValorVenta()));
+    // Ventas Sector Público
     //
-    //    // 55 Total Precio de Venta. C
-    //    tagLegalMonetaryTotal.addContent(
-    //        new Element("TaxInclusiveAmount", cbc)
-    //            .setAttribute("currencyID", encabezado.getMoneda())
-    //            .setText(total.getPrecioVenta()));
+    // Gastos intereses hipotecarios (incluye primera vivienda)
     //
-    //    // 51 Total Descuentos (Que no afectan la base). C
-    //    if (!total.getDescuentos().equals("0.00")) {
-    //      tagLegalMonetaryTotal.addContent(
-    //          new Element("AllowanceTotalAmount", cbc)
-    //              .setAttribute("currencyID", encabezado.getMoneda())
-    //              .setText(total.getDescuentos()));
-    //    }
+    // Migración de documentos autorizados - Carta Porte Aéreo
     //
-    //    // 52 Total otros Cargos (Que no afectan la base). C
-    //    if (!total.getOtrosCargos().equals("0.00")) {
-    //      tagLegalMonetaryTotal.addContent(
-    //          new Element("ChargeTotalAmount", cbc)
-    //              .setAttribute("currencyID", encabezado.getMoneda())
-    //              .setText(total.getOtrosCargos()));
-    //    }
+    // Migración de documentos autorizados - BVME para transporte ferroviario de pasajeros
     //
-    //    // 56 Monto para Redondeo del Importe Total. C
-    //    if (!total.getTotalRedondeado().equals("0.00")) {
-    //      tagLegalMonetaryTotal.addContent(
-    //          new Element("PayableRoundingAmount", cbc)
-    //              .setAttribute("currencyID", encabezado.getMoneda())
-    //              .setText(total.getTotalRedondeado()));
-    //    }
+    // Migración de documentos autorizados - Pago de regalía petrolera
     //
-    //    // 53 Importe total de la venta, cesión en uso o del servicio prestado. M
-    //    tagLegalMonetaryTotal.addContent(
-    //        new Element("PayableAmount", cbc)
-    //            .setAttribute("currencyID", encabezado.getMoneda())
-    //            .setText(total.getTotal()));
+    // Información Adicional a nivel de ítem
     //
-    //    document.getRootElement().addContent(tagLegalMonetaryTotal);
-    //
-    //    // Información Adicional - Percepciones
-    //    //
-    //    // Información Adicional  - Anticipos
-    //    //
-    //    // Información Adicional - Sustento de traslado de mercaderias
-    //    //
-    //    // Información Adicional  - Transporte terrestre de pasajeros
-    //    //
-    //    // Información Adicional  - Detracciones
-    //    //
-    //    // Detracciones - Recursos Hidrobiológicos
-    //    //
-    //    // Detracciones - Servicio de transporte de Carga
-    //    //
-    //    // Detracciones - Servicio de transporte de Carga - BillLine de tramos (De corresponder)
-    //    //
-    //    // Detracciones - Servicio de transporte de Carga - BillLine del (os) Vehículo (s)
-    //    //
-    //    // Información Adicional  - Beneficio de hospedaje
-    //    //
-    //    // Información Adicional  - Paquete Turístico
-    //    //
-    //    // Ventas Sector Público
-    //    //
-    //    // Gastos intereses hipotecarios (incluye primera vivienda)
-    //    //
-    //    // Migración de documentos autorizados - Carta Porte Aéreo
-    //    //
-    //    // Migración de documentos autorizados - BVME para transporte ferroviario de pasajeros
-    //    //
-    //    // Migración de documentos autorizados - Pago de regalía petrolera
-    //    //
-    //    // Información Adicional a nivel de ítem
-    //    //
+
     // Datos del detalle o Ítem de la Factura
     for (FacturaDetalle detalle : factura.getFacturaDetalles()) {
       Element tagInvoiceLine = new Element("InvoiceLine", cac);
@@ -869,8 +870,8 @@ public class Invoice {
       // 38 Valor de venta por ítem. M
       tagInvoiceLine.addContent(
           new Element("LineExtensionAmount", cbc)
-              .setAttribute("currencyID", encabezado.getMoneda())
-              .setText(detalle.getValorVenta()));
+              .setAttribute("currencyID", factura.getMoneda().getCodigo())
+              .setText(String.valueOf(detalle.getValorVenta())));
 
       // 33 Precio de venta unitario por item. M
       if (detalle.getPrecioVentaUnitario() > 0.0) {
@@ -924,18 +925,18 @@ public class Invoice {
                         .setText(detalle.getCuota().getPorcentaje()))
                 .addContent(
                     new Element("Amount", cbc)
-                        .setAttribute("currencyID", encabezado.getMoneda())
+                        .setAttribute("currencyID", factura.getMoneda().getCodigo())
                         .setText(detalle.getCuota().getMonto()))
                 .addContent(
                     new Element("BaseAmount", cbc)
-                        .setAttribute("currencyID", encabezado.getMoneda())
+                        .setAttribute("currencyID", factura.getMoneda().getCodigo())
                         .setText(detalle.getCuota().getMontoBase())));
       }
 
-      Element tagTaxTotalLine = new Element("TaxTotal", cac);
+      tagTaxTotal = new Element("TaxTotal", cac);
 
       // 35 Monto total de impuestos del ítem. M
-      tagTaxTotalLine.addContent(
+      tagTaxTotal.addContent(
           new Element("TaxAmount", cbc)
               .setAttribute("currencyID", factura.getMoneda().getCodigo())
               .setText(String.valueOf(detalle.getTotalTributos())));
@@ -943,7 +944,7 @@ public class Invoice {
       // 36 Afectación al IGV por ítem
       // Afectación al IVAP por ítem
       // M            .
-      tagTaxTotalLine.addContent(
+      tagTaxTotal.addContent(
           new Element("TaxSubtotal", cac)
               .addContent(
                   new Element("TaxableAmount", cbc)
@@ -956,14 +957,6 @@ public class Invoice {
               .addContent(
                   new Element("TaxCategory", cac)
                       .addContent(
-                          new Element("ID", cbc)
-                              .setAttribute("schemeID", "UN/ECE 5305")
-                              .setAttribute("schemeName", "Tax Category Identifier")
-                              .setAttribute(
-                                  "schemeAgencyName",
-                                  "United Nations Economic Commission for Europe")
-                              .setText("S"))
-                      .addContent(
                           new Element("Percent", cbc)
                               .setText(String.valueOf(detalle.getIgv().getTasa())))
                       .addContent(
@@ -972,14 +965,16 @@ public class Invoice {
                               .setAttribute("listName", "Afectacion del IGV")
                               .setAttribute(
                                   "listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07")
-                              .setText(detalle.getIgv().getTipoIgv().getCodigo()))
+                              .setText(detalle.getIgv().getTipo().getCodigo()))
                       .addContent(
                           new Element("TaxScheme", cac)
                               .addContent(
                                   new Element("ID", cbc)
-                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
-                                      .setAttribute("schemeID", "UN/ECE 5153")
                                       .setAttribute("schemeName", "Codigo de tributos")
+                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
+                                      .setAttribute(
+                                          "schemeURI",
+                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05'")
                                       .setText(detalle.getIgv().getTipoTributo().getCodigo()))
                               .addContent(
                                   new Element("Name", cbc)
@@ -993,51 +988,89 @@ public class Invoice {
                                               .getCodigoInternacional())))));
 
       // 37 Afectación del ISC por la línea. C.
-      if (!detalle.getIsc().getValor().equals("0.00")) {
-        tagTaxTotalLine.addContent(
+      if (detalle.getIsc() != null) {
+        tagTaxTotal.addContent(
             new Element("TaxSubtotal", cac)
                 .addContent(
                     new Element("TaxableAmount", cbc)
-                        .setAttribute("currencyID", encabezado.getMoneda())
-                        .setText(detalle.getValorVenta()))
+                        .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                        .setText(String.valueOf(detalle.getIsc().getBase())))
                 .addContent(
                     new Element("TaxAmount", cbc)
-                        .setAttribute("currencyID", encabezado.getMoneda())
-                        .setText(detalle.getIsc().getValor()))
+                        .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                        .setText(String.valueOf(detalle.getIsc().getMonto())))
                 .addContent(
                     new Element("TaxCategory", cac)
                         .addContent(
-                            new Element("ID", cbc)
-                                .setAttribute("schemeID", "UN/ECE 5305")
-                                .setAttribute("schemeName", "Tax Category Identifier")
-                                .setAttribute(
-                                    "schemeAgencyName",
-                                    "United Nations Economic Commission for Europe")
-                                .setText("S"))
-                        .addContent(new Element("Percent", cbc).setText("20.00"))
+                            new Element("Percent", cbc)
+                                .setText(String.valueOf(detalle.getIsc().getTasa())))
                         .addContent(
-                            new Element("TaxExemptionReasonCode", cbc)
-                                .setAttribute("listAgencyName", "PE:SUNAT")
-                                .setAttribute(
-                                    "listName", "SUNAT:Codigo de Tipo de Afectación del IGV")
-                                .setAttribute(
-                                    "listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07")
-                                .setText(detalle.getIsc().getTipo()))
-                        .addContent(new Element("TierRange", cbc).setText(""))
+                            new Element("TierRange", cbc)
+                                .setText(detalle.getIsc().getTipo().getCodigo()))
                         .addContent(
                             new Element("TaxScheme", cac)
                                 .addContent(
                                     new Element("ID", cbc)
+                                        .setAttribute("schemeName", "Codigo de tributos")
+                                        .setAttribute("schemeAgencyName", "PE:SUNAT")
                                         .setAttribute(
-                                            "schemeAgencyName",
-                                            "United Nations Economic Commission for Europe")
-                                        .setAttribute("schemeID", "UN/ECE 5153")
-                                        .setAttribute("schemeName", "Tax Scheme Identifier")
-                                        .setText("2000"))
-                                .addContent(new Element("Name", cbc).setText("ISC"))
-                                .addContent(new Element("TaxTypeCode", cbc).setText("EXC")))));
+                                            "schemeURI",
+                                            "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
+                                        .setText(detalle.getIsc().getTipoTributo().getCodigo()))
+                                .addContent(
+                                    new Element("Name", cbc)
+                                        .setText(
+                                            detalle.getIsc().getTipoTributo().getDescripcion()))
+                                .addContent(
+                                    new Element("TaxTypeCode", cbc)
+                                        .setText(
+                                            detalle
+                                                .getIsc()
+                                                .getTipoTributo()
+                                                .getCodigoInternacional())))));
       }
-      tagInvoiceLine.addContent(tagTaxTotalLine);
+
+      // 37-A Impuesto al consumo de bolsas de plástico por ítem C
+      if (detalle.getBolsas() != null) {
+        tagTaxTotal.addContent(
+            new Element("TaxSubtotal", cac)
+                .addContent(
+                    new Element("TaxableAmount", cbc)
+                        .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                        .setText(String.valueOf(detalle.getBolsas().getMonto())))
+                .addContent(
+                    new Element("BaseUnitMeasure", cbc)
+                        .setAttribute("unitCode", "NIU")
+                        .setText(String.valueOf(detalle.getBolsas().getCantidad())))
+                .addContent(
+                    new Element("TaxCategory", cac)
+                        .addContent(
+                            new Element("PerUnitAmount", cbc)
+                                .setText(String.valueOf(detalle.getBolsas().getMontoUnitario())))
+                        .addContent(
+                            new Element("TaxScheme", cac)
+                                .addContent(
+                                    new Element("ID", cbc)
+                                        .setAttribute("schemeName", "Codigo de tributos")
+                                        .setAttribute("schemeAgencyName", "PE:SUNAT")
+                                        .setAttribute(
+                                            "schemeURI",
+                                            "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
+                                        .setText(detalle.getBolsas().getTipoTributo().getCodigo()))
+                                .addContent(
+                                    new Element("Name", cbc)
+                                        .setText(
+                                            detalle.getBolsas().getTipoTributo().getDescripcion()))
+                                .addContent(
+                                    new Element("TaxTypeCode", cbc)
+                                        .setText(
+                                            detalle
+                                                .getBolsas()
+                                                .getTipoTributo()
+                                                .getCodigoInternacional())))));
+      }
+
+      tagInvoiceLine.addContent(tagTaxTotal);
 
       Element tagItem = new Element("Item", cac);
       // 31 Descripción detallada del servicio prestado, bien vendido o cedido en uso, indicando las

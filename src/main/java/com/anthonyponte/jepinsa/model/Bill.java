@@ -40,12 +40,12 @@ public class Bill {
   private Operacion totalInafectas;
   private Operacion totalExoneradas;
   private Operacion totalGratuitas;
-  private Impuesto tributosGratuitas;
+  private Igv tributosGratuitas;
   private Operacion totalGravadas;
-  private Impuesto igv;
-  private Impuesto isc;
-  private Impuesto otrosTributos;
-  private Impuesto icbper;
+  private Igv igv;
+  private Isc isc;
+  private Igv otrosTributos;
+  private Igv icbper;
   private OtrosCargos descuentos;
   private double otrosDescuentos;
   private double otrosCargos;
@@ -112,12 +112,12 @@ public class Bill {
       Operacion totalInafectas,
       Operacion totalExoneradas,
       Operacion totalGratuitas,
-      Impuesto tributosGratuitas,
+      Igv tributosGratuitas,
       Operacion totalGravadas,
-      Impuesto igv,
-      Impuesto isc,
-      Impuesto otrosTributos,
-      Impuesto icbper,
+      Igv igv,
+      Isc isc,
+      Igv otrosTributos,
+      Igv icbper,
       OtrosCargos descuentos,
       double otrosDescuentos,
       double otrosCargos,
@@ -345,11 +345,11 @@ public class Bill {
     this.totalGratuitas = totalGratuitas;
   }
 
-  public Impuesto getTributosGratuitas() {
+  public Igv getTributosGratuitas() {
     return tributosGratuitas;
   }
 
-  public void setTributosGratuitas(Impuesto tributosGratuitas) {
+  public void setTributosGratuitas(Igv tributosGratuitas) {
     this.tributosGratuitas = tributosGratuitas;
   }
 
@@ -361,35 +361,35 @@ public class Bill {
     this.totalGravadas = totalGravadas;
   }
 
-  public Impuesto getIgv() {
+  public Igv getIgv() {
     return igv;
   }
 
-  public void setIgv(Impuesto igv) {
+  public void setIgv(Igv igv) {
     this.igv = igv;
   }
 
-  public Impuesto getIsc() {
+  public Isc getIsc() {
     return isc;
   }
 
-  public void setIsc(Impuesto isc) {
+  public void setIsc(Isc isc) {
     this.isc = isc;
   }
 
-  public Impuesto getOtrosTributos() {
+  public Igv getOtrosTributos() {
     return otrosTributos;
   }
 
-  public void setOtrosTributos(Impuesto otrosTributos) {
+  public void setOtrosTributos(Igv otrosTributos) {
     this.otrosTributos = otrosTributos;
   }
 
-  public Impuesto getIcbper() {
+  public Igv getIcbper() {
     return icbper;
   }
 
-  public void setIcbper(Impuesto icbper) {
+  public void setIcbper(Igv icbper) {
     this.icbper = icbper;
   }
 

@@ -20,9 +20,9 @@ public class FacturaDetalle {
   private double precioVentaUnitario;
   private double valorReferencialUnitario;
   private double totalTributos;
-  private Impuesto igv;
-  private double isc;
-  private double impuestoBolsas;
+  private Igv igv;
+  private Isc isc;
+  private Bolsas bolsas;
   private double valorVenta;
   private double descuento;
 
@@ -39,9 +39,9 @@ public class FacturaDetalle {
       double precioVentaUnitario,
       double valorReferencialUnitario,
       double totalTributos,
-      Impuesto igv,
-      double isc,
-      double impuestoBolsas,
+      Igv igv,
+      Isc isc,
+      Bolsas bolsas,
       double valorVenta,
       double descuento) {
     this.id = id;
@@ -56,7 +56,7 @@ public class FacturaDetalle {
     this.totalTributos = totalTributos;
     this.igv = igv;
     this.isc = isc;
-    this.impuestoBolsas = impuestoBolsas;
+    this.bolsas = bolsas;
     this.valorVenta = valorVenta;
     this.descuento = descuento;
   }
@@ -141,28 +141,28 @@ public class FacturaDetalle {
     this.totalTributos = totalTributos;
   }
 
-  public Impuesto getIgv() {
+  public Igv getIgv() {
     return igv;
   }
 
-  public void setIgv(Impuesto igv) {
+  public void setIgv(Igv igv) {
     this.igv = igv;
   }
 
-  public double getIsc() {
+  public Isc getIsc() {
     return isc;
   }
 
-  public void setIsc(double isc) {
+  public void setIsc(Isc isc) {
     this.isc = isc;
   }
 
-  public double getImpuestoBolsas() {
-    return impuestoBolsas;
+  public Bolsas getBolsas() {
+    return bolsas;
   }
 
-  public void setImpuestoBolsas(double impuestoBolsas) {
-    this.impuestoBolsas = impuestoBolsas;
+  public void setBolsas(Bolsas bolsas) {
+    this.bolsas = bolsas;
   }
 
   public double getValorVenta() {
@@ -208,8 +208,8 @@ public class FacturaDetalle {
         + igv
         + ", isc="
         + isc
-        + ", impuestoBolsas="
-        + impuestoBolsas
+        + ", bolsas="
+        + bolsas
         + ", valorVenta="
         + valorVenta
         + ", descuento="

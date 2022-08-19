@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 AnthonyPonte
+ * Copyright (C) 2022 Anthony Ponte
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,32 +18,21 @@
 package com.anthonyponte.jepinsa.model;
 
 /**
- * @author AnthonyPonte
+ * @author Anthony Ponte
  */
-public class Impuesto {
-  private double base;
+public class Bolsas {
   private double monto;
-  private double tasa;
-  private TipoIgv tipoIgv;
+  private int cantidad;
+  private double montoUnitario;
   private TipoTributo tipoTributo;
 
-  public Impuesto() {}
+  public Bolsas() {}
 
-  public Impuesto(
-      double base, double monto, double tasa, TipoIgv tipoIgv, TipoTributo tipoTributo) {
-    this.base = base;
+  public Bolsas(double monto, int cantidad, double montoUnitario, TipoTributo tipoTributo) {
     this.monto = monto;
-    this.tasa = tasa;
-    this.tipoIgv = tipoIgv;
+    this.cantidad = cantidad;
+    this.montoUnitario = montoUnitario;
     this.tipoTributo = tipoTributo;
-  }
-
-  public double getBase() {
-    return base;
-  }
-
-  public void setBase(double base) {
-    this.base = base;
   }
 
   public double getMonto() {
@@ -54,20 +43,20 @@ public class Impuesto {
     this.monto = monto;
   }
 
-  public double getTasa() {
-    return tasa;
+  public int getCantidad() {
+    return cantidad;
   }
 
-  public void setTasa(double tasa) {
-    this.tasa = tasa;
+  public void setCantidad(int cantidad) {
+    this.cantidad = cantidad;
   }
 
-  public TipoIgv getTipoIgv() {
-    return tipoIgv;
+  public double getMontoUnitario() {
+    return montoUnitario;
   }
 
-  public void setTipoIgv(TipoIgv tipoIgv) {
-    this.tipoIgv = tipoIgv;
+  public void setMontoUnitario(double montoUnitario) {
+    this.montoUnitario = montoUnitario;
   }
 
   public TipoTributo getTipoTributo() {
@@ -80,15 +69,13 @@ public class Impuesto {
 
   @Override
   public String toString() {
-    return "Impuesto{"
-        + "base="
-        + base
-        + ", monto="
+    return "Bolsas{"
+        + "monto="
         + monto
-        + ", tasa="
-        + tasa
-        + ", tipoIgv="
-        + tipoIgv
+        + ", cantidad="
+        + cantidad
+        + ", montoUnitario="
+        + montoUnitario
         + ", tipoTributo="
         + tipoTributo
         + '}';

@@ -37,10 +37,10 @@ public class ResumenDiarioDetalle {
   private Operacion gratuitas;
   private Operacion exportacion;
   private OtrosCargos otrosCargos;
-  private Impuesto igv;
-  private Impuesto isc;
-  private Impuesto otrosTributos;
-  private Impuesto impuestoBolsa;
+  private Igv igv;
+  private Igv isc;
+  private Igv otrosTributos;
+  private Igv impuestoBolsa;
 
   public ResumenDiarioDetalle() {}
 
@@ -61,10 +61,10 @@ public class ResumenDiarioDetalle {
       Operacion gratuitas,
       Operacion exportacion,
       OtrosCargos otrosCargos,
-      Impuesto igv,
-      Impuesto isc,
-      Impuesto otrosTributos,
-      Impuesto impuestoBolsa) {
+      Igv igv,
+      Igv isc,
+      Igv otrosTributos,
+      Igv impuestoBolsa) {
     this.id = id;
     this.resumenDiario = resumenDiario;
     this.numero = numero;
@@ -215,35 +215,35 @@ public class ResumenDiarioDetalle {
     this.otrosCargos = otrosCargos;
   }
 
-  public Impuesto getIgv() {
+  public Igv getIgv() {
     return igv;
   }
 
-  public void setIgv(Impuesto igv) {
+  public void setIgv(Igv igv) {
     this.igv = igv;
   }
 
-  public Impuesto getIsc() {
+  public Igv getIsc() {
     return isc;
   }
 
-  public void setIsc(Impuesto isc) {
+  public void setIsc(Igv isc) {
     this.isc = isc;
   }
 
-  public Impuesto getOtrosTributos() {
+  public Igv getOtrosTributos() {
     return otrosTributos;
   }
 
-  public void setOtrosTributos(Impuesto otrosTributos) {
+  public void setOtrosTributos(Igv otrosTributos) {
     this.otrosTributos = otrosTributos;
   }
 
-  public Impuesto getImpuestoBolsa() {
+  public Igv getImpuestoBolsa() {
     return impuestoBolsa;
   }
 
-  public void setImpuestoBolsa(Impuesto impuestoBolsa) {
+  public void setImpuestoBolsa(Igv impuestoBolsa) {
     this.impuestoBolsa = impuestoBolsa;
   }
 
