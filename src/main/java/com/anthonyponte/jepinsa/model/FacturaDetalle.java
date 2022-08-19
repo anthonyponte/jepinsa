@@ -24,7 +24,7 @@ public class FacturaDetalle {
   private Isc isc;
   private Bolsas bolsas;
   private double valorVenta;
-  private double descuento;
+  private Descuento descuento;
 
   public FacturaDetalle() {}
 
@@ -43,7 +43,7 @@ public class FacturaDetalle {
       Isc isc,
       Bolsas bolsas,
       double valorVenta,
-      double descuento) {
+      Descuento descuento) {
     this.id = id;
     this.factura = factura;
     this.numero = numero;
@@ -173,11 +173,11 @@ public class FacturaDetalle {
     this.valorVenta = valorVenta;
   }
 
-  public double getDescuento() {
+  public Descuento getDescuento() {
     return descuento;
   }
 
-  public void setDescuento(double descuento) {
+  public void setDescuento(Descuento descuento) {
     this.descuento = descuento;
   }
 

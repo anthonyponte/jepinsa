@@ -566,20 +566,20 @@ public class Invoice {
         new Element("TaxTotal", cac)
             .addContent(
                 new Element("TaxAmount", cbc)
-                    .setAttribute("currencyID", encabezado.getMoneda())
-                    .setText(total.getImpuesto()));
+                    .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                    .setText(String.valueOf(factura.getTotalTributos())));
 
     // 41 Total Valor de Venta - Exportación. C
-    if (!total.getExportacion().equals("0.00")) {
+    if (factura.getTotalExportacion() != null) {
       tagTaxTotal.addContent(
           new Element("TaxSubtotal", cac)
               .addContent(
                   new Element("TaxableAmount", cbc)
-                      .setAttribute("currencyID", encabezado.getMoneda())
+                    .setAttribute("currencyID", factura.getMoneda().getCodigo())
                       .setText(total.getExportacion()))
               .addContent(
                   new Element("TaxAmount", cbc)
-                      .setAttribute("currencyID", encabezado.getMoneda())
+                    .setAttribute("currencyID", factura.getMoneda().getCodigo())
                       .setText("0.00"))
               .addContent(
                   new Element("TaxCategory", cac)
@@ -912,25 +912,26 @@ public class Invoice {
       }
 
       // 39 Cargo/descuento por ítem. C
-      if (!detalle.getCuota().getMonto().equals("0.00")) {
+      if (detalle.getDescuento() != null) {
         tagInvoiceLine.addContent(
             new Element("AllowanceCharge", cac)
                 .addContent(
-                    new Element("ChargeIndicator", cbc).setText(detalle.getCuota().getIndicador()))
+                    new Element("ChargeIndicator", cbc)
+                        .setText(String.valueOf(detalle.getDescuento().isIndicador())))
                 .addContent(
                     new Element("AllowanceChargeReasonCode", cbc)
-                        .setText(detalle.getCuota().getCodigo()))
+                        .setText(detalle.getDescuento().getCodigo()))
                 .addContent(
                     new Element("MultiplierFactorNumeric", cbc)
-                        .setText(detalle.getCuota().getPorcentaje()))
+                        .setText(String.valueOf(detalle.getDescuento().getFactor())))
                 .addContent(
                     new Element("Amount", cbc)
                         .setAttribute("currencyID", factura.getMoneda().getCodigo())
-                        .setText(detalle.getCuota().getMonto()))
+                        .setText(String.valueOf(detalle.getDescuento().getMonto())))
                 .addContent(
                     new Element("BaseAmount", cbc)
                         .setAttribute("currencyID", factura.getMoneda().getCodigo())
-                        .setText(detalle.getCuota().getMontoBase())));
+                        .setText(String.valueOf(detalle.getDescuento().getBase()))));
       }
 
       tagTaxTotal = new Element("TaxTotal", cac);
