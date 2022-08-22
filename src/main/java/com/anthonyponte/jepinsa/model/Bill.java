@@ -36,12 +36,12 @@ public class Bill {
   private List<Documento> documentosRelacionados;
   // Totales de la Factura
   private double totalTributos;
-  private Operacion totalExportacion;
-  private Operacion totalInafectas;
-  private Operacion totalExoneradas;
-  private Operacion totalGratuitas;
+  private Operacion exportacion;
+  private Operacion inafectas;
+  private Operacion exoneradas;
+  private Operacion gratuitas;
   private Igv tributosGratuitas;
-  private Operacion totalGravadas;
+  private Operacion gravadas;
   private Igv igv;
   private Isc isc;
   private Igv otrosTributos;
@@ -108,12 +108,12 @@ public class Bill {
       List<Documento> guias,
       List<Documento> documentosRelacionados,
       double totalTributos,
-      Operacion totalExportacion,
-      Operacion totalInafectas,
-      Operacion totalExoneradas,
-      Operacion totalGratuitas,
+      Operacion exportacion,
+      Operacion inafectas,
+      Operacion exoneradas,
+      Operacion gratuitas,
       Igv tributosGratuitas,
-      Operacion totalGravadas,
+      Operacion gravadas,
       Igv igv,
       Isc isc,
       Igv otrosTributos,
@@ -150,12 +150,12 @@ public class Bill {
     this.guias = guias;
     this.documentosRelacionados = documentosRelacionados;
     this.totalTributos = totalTributos;
-    this.totalExportacion = totalExportacion;
-    this.totalInafectas = totalInafectas;
-    this.totalExoneradas = totalExoneradas;
-    this.totalGratuitas = totalGratuitas;
+    this.exportacion = exportacion;
+    this.inafectas = inafectas;
+    this.exoneradas = exoneradas;
+    this.gratuitas = gratuitas;
     this.tributosGratuitas = tributosGratuitas;
-    this.totalGravadas = totalGravadas;
+    this.gravadas = gravadas;
     this.igv = igv;
     this.isc = isc;
     this.otrosTributos = otrosTributos;
@@ -313,36 +313,36 @@ public class Bill {
     this.totalTributos = totalTributos;
   }
 
-  public Operacion getTotalExportacion() {
-    return totalExportacion;
+  public Operacion getExportacion() {
+    return exportacion;
   }
 
-  public void setTotalExportacion(Operacion totalExportacion) {
-    this.totalExportacion = totalExportacion;
+  public void setExportacion(Operacion exportacion) {
+    this.exportacion = exportacion;
   }
 
-  public Operacion getTotalInafectas() {
-    return totalInafectas;
+  public Operacion getInafectas() {
+    return inafectas;
   }
 
-  public void setTotalInafectas(Operacion totalInafectas) {
-    this.totalInafectas = totalInafectas;
+  public void setInafectas(Operacion inafectas) {
+    this.inafectas = inafectas;
   }
 
-  public Operacion getTotalExoneradas() {
-    return totalExoneradas;
+  public Operacion getExoneradas() {
+    return exoneradas;
   }
 
-  public void setTotalExoneradas(Operacion totalExoneradas) {
-    this.totalExoneradas = totalExoneradas;
+  public void setExoneradas(Operacion exoneradas) {
+    this.exoneradas = exoneradas;
   }
 
-  public Operacion getTotalGratuitas() {
-    return totalGratuitas;
+  public Operacion getGratuitas() {
+    return gratuitas;
   }
 
-  public void setTotalGratuitas(Operacion totalGratuitas) {
-    this.totalGratuitas = totalGratuitas;
+  public void setGratuitas(Operacion gratuitas) {
+    this.gratuitas = gratuitas;
   }
 
   public Igv getTributosGratuitas() {
@@ -353,12 +353,12 @@ public class Bill {
     this.tributosGratuitas = tributosGratuitas;
   }
 
-  public Operacion getTotalGravadas() {
-    return totalGravadas;
+  public Operacion getGravadas() {
+    return gravadas;
   }
 
-  public void setTotalGravadas(Operacion totalGravadas) {
-    this.totalGravadas = totalGravadas;
+  public void setGravadas(Operacion gravadas) {
+    this.gravadas = gravadas;
   }
 
   public Igv getIgv() {
@@ -550,18 +550,18 @@ public class Bill {
         + documentosRelacionados
         + ", totalTributos="
         + totalTributos
-        + ", totalExportacion="
-        + totalExportacion
-        + ", totalInafectas="
-        + totalInafectas
-        + ", totalExoneradas="
-        + totalExoneradas
-        + ", totalGratuitas="
-        + totalGratuitas
+        + ", exportacion="
+        + exportacion
+        + ", inafectas="
+        + inafectas
+        + ", exoneradas="
+        + exoneradas
+        + ", gratuitas="
+        + gratuitas
         + ", tributosGratuitas="
         + tributosGratuitas
-        + ", totalGravadas="
-        + totalGravadas
+        + ", gravadas="
+        + gravadas
         + ", igv="
         + igv
         + ", isc="

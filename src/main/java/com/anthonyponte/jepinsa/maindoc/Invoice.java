@@ -512,7 +512,6 @@ public class Invoice {
 
     // Datos del comprador
     // 21 Tipo y Número de documento de identidad del comprador. C
-
     if (factura.getSujeto() != null) {
       Element tagBuyerCustomerParty =
           new Element("BuyerCustomerParty", cac)
@@ -533,6 +532,7 @@ public class Invoice {
 
       document.getRootElement().addContent(tagBuyerCustomerParty);
     }
+
     // 50 Cargos y Descuentos Globales. C
     if (factura.getDescuentos() != null) {
       Element tagAllowanceCharge =
@@ -569,17 +569,17 @@ public class Invoice {
                     .setAttribute("currencyID", factura.getMoneda().getCodigo())
                     .setText(String.valueOf(factura.getTotalTributos())));
 
-    // 41 Total Valor de Venta - Exportación. C
-    if (factura.getTotalExportacion() != null) {
+    // 41 Total valor de venta - exportación
+    if (factura.getExportacion() != null) {
       tagTaxTotal.addContent(
           new Element("TaxSubtotal", cac)
               .addContent(
                   new Element("TaxableAmount", cbc)
-                    .setAttribute("currencyID", factura.getMoneda().getCodigo())
-                      .setText(total.getExportacion()))
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                      .setText(String.valueOf(factura.getExportacion().getTotal())))
               .addContent(
                   new Element("TaxAmount", cbc)
-                    .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
                       .setText("0.00"))
               .addContent(
                   new Element("TaxCategory", cac)
@@ -598,16 +598,16 @@ public class Invoice {
     }
 
     // 42 Total valor de venta - operaciones inafectas. C
-    if (!total.getInafectas().equals("0.00")) {
+    if (factura.getInafectas() != null) {
       tagTaxTotal.addContent(
           new Element("TaxSubtotal", cac)
               .addContent(
                   new Element("TaxableAmount", cbc)
-                      .setAttribute("currencyID", encabezado.getMoneda())
-                      .setText(total.getInafectas()))
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                      .setText(String.valueOf(factura.getInafectas().getTotal())))
               .addContent(
                   new Element("TaxAmount", cbc)
-                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
                       .setText("0.00"))
               .addContent(
                   new Element("TaxCategory", cac)
@@ -626,16 +626,16 @@ public class Invoice {
     }
 
     // 43 Total valor de venta - operaciones exoneradas. C
-    if (!total.getExoneradas().equals("0.00")) {
+    if (factura.getExoneradas() != null) {
       tagTaxTotal.addContent(
           new Element("TaxSubtotal", cac)
               .addContent(
                   new Element("TaxableAmount", cbc)
-                      .setAttribute("currencyID", encabezado.getMoneda())
-                      .setText(total.getExoneradas()))
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                      .setText(String.valueOf(factura.getExoneradas().getTotal())))
               .addContent(
                   new Element("TaxAmount", cbc)
-                      .setAttribute("currencyID", encabezado.getMoneda())
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
                       .setText("0.00"))
               .addContent(
                   new Element("TaxCategory", cac)
@@ -655,17 +655,17 @@ public class Invoice {
 
     // 44 Total valor de venta - operaciones gratuitas
     // 45 Sumatoria de tributos de operaciones gratuitas. C
-    if (!total.getGratuitas().equals("0.00")) {
+    if (factura.getGratuitas() != null) {
       tagTaxTotal.addContent(
           new Element("TaxSubtotal", cac)
               .addContent(
                   new Element("TaxableAmount", cbc)
-                      .setAttribute("currencyID", encabezado.getMoneda())
-                      .setText(total.getGratuitas()))
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                      .setText(String.valueOf(factura.getGratuitas().getTotal())))
               .addContent(
                   new Element("TaxAmount", cbc)
-                      .setAttribute("currencyID", encabezado.getMoneda())
-                      .setText(total.getIgvGratuitas()))
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                      .setText(String.valueOf(factura.getGratuitas().getTributo())))
               .addContent(
                   new Element("TaxCategory", cac)
                       .addContent(
@@ -684,32 +684,30 @@ public class Invoice {
 
     // 46 Total valor de venta - operaciones gravadas (IGV o IVAP). M
     // 47 Total Importe IGV o IVAP. M
-    if (!total.getGravadas().equals("0.00")) {
-      tagTaxTotal.addContent(
-          new Element("TaxSubtotal", cac)
-              .addContent(
-                  new Element("TaxableAmount", cbc)
-                      .setAttribute("currencyID", encabezado.getMoneda())
-                      .setText(total.getGravadas()))
-              .addContent(
-                  new Element("TaxAmount", cbc)
-                      .setAttribute("currencyID", encabezado.getMoneda())
-                      .setText(total.getIgv()))
-              .addContent(
-                  new Element("TaxCategory", cac)
-                      .addContent(
-                          new Element("TaxScheme", cac)
-                              .addContent(
-                                  new Element("ID", cbc)
-                                      .setAttribute("schemeName", "Codigo de tributos")
-                                      .setAttribute("schemeAgencyName", "PE:SUNAT")
-                                      .setAttribute(
-                                          "schemeURI",
-                                          "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
-                                      .setText("1000"))
-                              .addContent(new Element("Name", cbc).setText("IGV"))
-                              .addContent(new Element("TaxTypeCode", cbc).setText("VAT")))));
-    }
+    tagTaxTotal.addContent(
+        new Element("TaxSubtotal", cac)
+            .addContent(
+                new Element("TaxableAmount", cbc)
+                    .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                    .setText(String.valueOf(factura.getGravadas().getTributo())))
+            .addContent(
+                new Element("TaxAmount", cbc)
+                    .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                    .setText(String.valueOf(factura.getGravadas().getTributo())))
+            .addContent(
+                new Element("TaxCategory", cac)
+                    .addContent(
+                        new Element("TaxScheme", cac)
+                            .addContent(
+                                new Element("ID", cbc)
+                                    .setAttribute("schemeName", "Codigo de tributos")
+                                    .setAttribute("schemeAgencyName", "PE:SUNAT")
+                                    .setAttribute(
+                                        "schemeURI",
+                                        "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05")
+                                    .setText("1000"))
+                            .addContent(new Element("Name", cbc).setText("IGV"))
+                            .addContent(new Element("TaxTypeCode", cbc).setText("VAT")))));
 
     // 48 Sumatoria ISC. C
     if (!total.getIsc().equals("0.00")) {

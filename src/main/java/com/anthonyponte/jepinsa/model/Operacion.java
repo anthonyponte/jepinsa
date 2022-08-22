@@ -17,18 +17,32 @@
 
 package com.anthonyponte.jepinsa.model;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class Operacion {
   private double total;
   private String codigo;
   private String descripcion;
+  private String codigoInternacional;
+  private String nombre;
+  private double tributo;
 
   public Operacion() {}
 
-  public Operacion(double total, String codigo, String descripcion) {
+  public Operacion(
+      double total,
+      String codigo,
+      String descripcion,
+      String codigoInternacional,
+      String nombre,
+      double tributo) {
     this.total = total;
     this.codigo = codigo;
     this.descripcion = descripcion;
+    this.codigoInternacional = codigoInternacional;
+    this.nombre = nombre;
+    this.tributo = tributo;
   }
 
   public double getTotal() {
@@ -55,6 +69,30 @@ public class Operacion {
     this.descripcion = descripcion;
   }
 
+  public String getCodigoInternacional() {
+    return codigoInternacional;
+  }
+
+  public void setCodigoInternacional(String codigoInternacional) {
+    this.codigoInternacional = codigoInternacional;
+  }
+
+  public String getNombre() {
+    return nombre;
+  }
+
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
+  }
+
+  public double getTributo() {
+    return tributo;
+  }
+
+  public void setTributo(double tributo) {
+    this.tributo = tributo;
+  }
+
   @Override
   public String toString() {
     return "Operacion{"
@@ -64,6 +102,12 @@ public class Operacion {
         + codigo
         + ", descripcion="
         + descripcion
+        + ", codigoInternacional="
+        + codigoInternacional
+        + ", nombre="
+        + nombre
+        + ", tributo="
+        + tributo
         + '}';
   }
 }
