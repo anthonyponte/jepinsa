@@ -36,9 +36,9 @@ public class Bill {
   private List<Documento> documentosRelacionados;
   // Totales de la Factura
   private double totalTributos;
-  private Operacion exportacion;
-  private Operacion inafectas;
-  private Operacion exoneradas;
+  private double exportacion;
+  private double inafectas;
+  private double exoneradas;
   private Operacion gratuitas;
   private Igv tributosGratuitas;
   private Operacion gravadas;
@@ -108,9 +108,9 @@ public class Bill {
       List<Documento> guias,
       List<Documento> documentosRelacionados,
       double totalTributos,
-      Operacion exportacion,
-      Operacion inafectas,
-      Operacion exoneradas,
+      double exportacion,
+      double inafectas,
+      double exoneradas,
       Operacion gratuitas,
       Igv tributosGratuitas,
       Operacion gravadas,
@@ -313,27 +313,27 @@ public class Bill {
     this.totalTributos = totalTributos;
   }
 
-  public Operacion getExportacion() {
+  public double getExportacion() {
     return exportacion;
   }
 
-  public void setExportacion(Operacion exportacion) {
+  public void setExportacion(double exportacion) {
     this.exportacion = exportacion;
   }
 
-  public Operacion getInafectas() {
+  public double getInafectas() {
     return inafectas;
   }
 
-  public void setInafectas(Operacion inafectas) {
+  public void setInafectas(double inafectas) {
     this.inafectas = inafectas;
   }
 
-  public Operacion getExoneradas() {
+  public double getExoneradas() {
     return exoneradas;
   }
 
-  public void setExoneradas(Operacion exoneradas) {
+  public void setExoneradas(double exoneradas) {
     this.exoneradas = exoneradas;
   }
 

@@ -570,13 +570,13 @@ public class Invoice {
                     .setText(String.valueOf(factura.getTotalTributos())));
 
     // 41 Total valor de venta - exportación
-    if (factura.getExportacion() != null) {
+    if (factura.getExportacion() > 0.0) {
       tagTaxTotal.addContent(
           new Element("TaxSubtotal", cac)
               .addContent(
                   new Element("TaxableAmount", cbc)
                       .setAttribute("currencyID", factura.getMoneda().getCodigo())
-                      .setText(String.valueOf(factura.getExportacion().getTotal())))
+                      .setText(String.valueOf(factura.getExportacion())))
               .addContent(
                   new Element("TaxAmount", cbc)
                       .setAttribute("currencyID", factura.getMoneda().getCodigo())
@@ -598,13 +598,13 @@ public class Invoice {
     }
 
     // 42 Total valor de venta - operaciones inafectas. C
-    if (factura.getInafectas() != null) {
+    if (factura.getInafectas() > 0.0) {
       tagTaxTotal.addContent(
           new Element("TaxSubtotal", cac)
               .addContent(
                   new Element("TaxableAmount", cbc)
                       .setAttribute("currencyID", factura.getMoneda().getCodigo())
-                      .setText(String.valueOf(factura.getInafectas().getTotal())))
+                      .setText(String.valueOf(factura.getInafectas())))
               .addContent(
                   new Element("TaxAmount", cbc)
                       .setAttribute("currencyID", factura.getMoneda().getCodigo())
