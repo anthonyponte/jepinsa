@@ -55,10 +55,8 @@ public class Bill {
   private double totalRedondeado;
   // Información adicional
   private List<Leyenda> leyendas;
-  private String tipoOperacion;
+  private TipoOperacion tipoOperacion;
   private String ordenCompra;
-  private String fise;
-  private String derechosArancelarios;
   private String incoterm;
   // Información adicional - percepciones
   // Información adicional  - anticipos
@@ -126,10 +124,8 @@ public class Bill {
       double totalPrecioVenta,
       double totalRedondeado,
       List<Leyenda> leyendas,
-      String tipoOperacion,
+      TipoOperacion tipoOperacion,
       String ordenCompra,
-      String fise,
-      String derechosArancelarios,
       String incoterm,
       FormaPago contado,
       List<FormaPago> credito) {
@@ -170,8 +166,6 @@ public class Bill {
     this.leyendas = leyendas;
     this.tipoOperacion = tipoOperacion;
     this.ordenCompra = ordenCompra;
-    this.fise = fise;
-    this.derechosArancelarios = derechosArancelarios;
     this.incoterm = incoterm;
     this.contado = contado;
     this.credito = credito;
@@ -457,11 +451,11 @@ public class Bill {
     this.leyendas = leyendas;
   }
 
-  public String getTipoOperacion() {
+  public TipoOperacion getTipoOperacion() {
     return tipoOperacion;
   }
 
-  public void setTipoOperacion(String tipoOperacion) {
+  public void setTipoOperacion(TipoOperacion tipoOperacion) {
     this.tipoOperacion = tipoOperacion;
   }
 
@@ -471,22 +465,6 @@ public class Bill {
 
   public void setOrdenCompra(String ordenCompra) {
     this.ordenCompra = ordenCompra;
-  }
-
-  public String getFise() {
-    return fise;
-  }
-
-  public void setFise(String fise) {
-    this.fise = fise;
-  }
-
-  public String getDerechosArancelarios() {
-    return derechosArancelarios;
-  }
-
-  public void setDerechosArancelarios(String derechosArancelarios) {
-    this.derechosArancelarios = derechosArancelarios;
   }
 
   public String getIncoterm() {
@@ -590,10 +568,6 @@ public class Bill {
         + tipoOperacion
         + ", ordenCompra="
         + ordenCompra
-        + ", fise="
-        + fise
-        + ", derechosArancelarios="
-        + derechosArancelarios
         + ", incoterm="
         + incoterm
         + ", contado="

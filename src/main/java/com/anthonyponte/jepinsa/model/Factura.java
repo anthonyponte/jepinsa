@@ -16,7 +16,9 @@ public class Factura extends Bill {
   // Datos del detalle o Ítem de la Factura
   private List<FacturaDetalle> facturaDetalles;
 
-  public Factura() {}
+  public Factura(List<FacturaDetalle> facturaDetalles) {
+    this.facturaDetalles = facturaDetalles;
+  }
 
   public Factura(
       List<FacturaDetalle> facturaDetalles,
@@ -55,10 +57,8 @@ public class Factura extends Bill {
       double totalPrecioVenta,
       double totalRedondeado,
       List<Leyenda> leyendas,
-      String tipoOperacion,
+      TipoOperacion tipoOperacion,
       String ordenCompra,
-      String fise,
-      String derechosArancelarios,
       String incoterm,
       FormaPago contado,
       List<FormaPago> credito) {
@@ -100,8 +100,6 @@ public class Factura extends Bill {
         leyendas,
         tipoOperacion,
         ordenCompra,
-        fise,
-        derechosArancelarios,
         incoterm,
         contado,
         credito);

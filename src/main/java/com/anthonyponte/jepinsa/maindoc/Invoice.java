@@ -134,14 +134,28 @@ public class Invoice {
             .setAttribute("listName", "Tipo de Documento")
             .setAttribute("listURI", "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01")
             // 58 Tipo de operación. M
-            .setAttribute("listID", factura.getTipoOperacion())
+            .setAttribute("listID", factura.getTipoOperacion().getCodigo())
             .setText(factura.getTipoDocumento().getCodigo());
     document.getRootElement().addContent(tagInvoiceTypeCode);
 
     // 60 FISE (Ley 29852) Fondo Inclusión Social Energético. C
-    //
     // 61 Restitución Simplificada de Derechos Arancelarios. C
-    //
+    // 62 Incoterm. C
+    if (!factura.getIncoterm().isEmpty()) {
+      Element tagDeliveryTerms =
+          new Element("DeliveryTerms", cac)
+              .addContent(new Element("ID", cbc).setText(factura.getIncoterm()));
+      document.getRootElement().addContent(tagDeliveryTerms);
+    }
+
+    // 59 Número de la orden de compra. C
+    if (!factura.getOrdenCompra().isEmpty()) {
+      Element tagOrderReference =
+          new Element("OrderReference", cac)
+              .addContent(new Element("ID", cbc).setText(factura.getOrdenCompra()));
+      document.getRootElement().addContent(tagOrderReference);
+    }
+
     // 57 Leyendas. C
     if (factura.getLeyendas() != null) {
       for (Leyenda leyenda : factura.getLeyendas()) {
@@ -163,7 +177,7 @@ public class Invoice {
     document.getRootElement().addContent(tagDocumentCurrencyCode);
 
     // 59 Número de la orden de compra. C
-    if (!factura.getOrdenCompra().equals("")) {
+    if (!factura.getOrdenCompra().isEmpty()) {
       Element tagOrderReference =
           new Element("OrderReference", cac)
               .addContent(new Element("ID", cbc).setText(factura.getOrdenCompra()));
