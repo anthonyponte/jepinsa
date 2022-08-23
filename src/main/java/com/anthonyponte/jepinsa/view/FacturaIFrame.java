@@ -82,6 +82,9 @@ public class FacturaIFrame extends JInternalFrame {
         table = new JTable();
         tfDocumentoCorrelativo = new JTextField();
         tfDocumentoSerie = new JTextField();
+        jPanel1 = new JPanel();
+        btnAdquirienteRuc = new JButton();
+        tfAdquirienteRuc = new JTextField();
         separator = new JSeparator();
         btnNuevo = new JButton();
         btnGuardar = new JButton();
@@ -98,11 +101,11 @@ public class FacturaIFrame extends JInternalFrame {
         pnlEncabezado.setMaximumSize(null);
 
         lblFecha.setFont(lblFecha.getFont().deriveFont(lblFecha.getFont().getStyle() | Font.BOLD, lblFecha.getFont().getSize()-2));
-        lblFecha.setText("Fecha emision comunicacion baja");
+        lblFecha.setText("Fecha emision");
 
         dpFecha.setEditable(false);
         dpFecha.setEnabled(false);
-        dpFecha.setFormats(new SimpleDateFormat("d MMMM y"));
+        dpFecha.setFormats(new SimpleDateFormat("d MMMM y hh:mm:ss"));
         dpFecha.setMaximumSize(null);
         dpFecha.setMinimumSize(null);
         dpFecha.setPreferredSize(new Dimension(150, 30));
@@ -346,6 +349,37 @@ public class FacturaIFrame extends JInternalFrame {
 
         tabbed.addTab("Detalle", FontIcon.of(RemixiconAL.LIST_ORDERED, 16, Color.decode("#FFFFFF")), pnlDetalle, "");
 
+        btnAdquirienteRuc.setIcon(FontIcon.of(RemixiconMZ.SEARCH_2_LINE, 16, Color.decode("#FFFFFF")));
+        btnAdquirienteRuc.setText("RUC");
+        btnAdquirienteRuc.setPreferredSize(new Dimension(125, 30));
+
+        tfAdquirienteRuc.setMaximumSize(null);
+        tfAdquirienteRuc.setMinimumSize(null);
+        tfAdquirienteRuc.setPreferredSize(new Dimension(150, 30));
+
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAdquirienteRuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(tfAdquirienteRuc, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAdquirienteRuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfAdquirienteRuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(374, Short.MAX_VALUE))
+        );
+
+        tabbed.addTab("Adquiriente", jPanel1);
+
         separator.setMaximumSize(null);
         separator.setMinimumSize(null);
         separator.setPreferredSize(new Dimension(5, 5));
@@ -401,6 +435,7 @@ public class FacturaIFrame extends JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public JButton btnAdquirienteRuc;
     public JButton btnAgregar;
     public JButton btnEliminar;
     public JButton btnGuardar;
@@ -410,6 +445,7 @@ public class FacturaIFrame extends JInternalFrame {
     public JComboBox<String> cbxTipo;
     public JXDatePicker dpDocumentoFecha;
     public JXDatePicker dpFecha;
+    public JPanel jPanel1;
     public JLabel lblCorrelativo;
     public JLabel lblDocumentoFecha;
     public JLabel lblDocumentoMotivo;
@@ -425,6 +461,7 @@ public class FacturaIFrame extends JInternalFrame {
     public JScrollPane spane;
     public JTabbedPane tabbed;
     public JTable table;
+    public JTextField tfAdquirienteRuc;
     public JTextField tfCorrelativo;
     public JTextField tfDocumentoCorrelativo;
     public JTextField tfDocumentoMotivo;

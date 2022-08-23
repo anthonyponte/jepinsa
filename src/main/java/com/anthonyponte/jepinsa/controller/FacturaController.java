@@ -7,6 +7,8 @@ package com.anthonyponte.jepinsa.controller;
 
 import com.anthonyponte.jepinsa.view.FacturaIFrame;
 import com.anthonyponte.jepinsa.view.LoadingDialog;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author AnthonyPonte
@@ -22,7 +24,17 @@ public class FacturaController {
     initComponents();
   }
 
-  public void init() {}
+  public void init() {
+    iFrame.btnAdquirienteRuc.addActionListener(
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            throw new UnsupportedOperationException(
+                "Not supported yet."); // Generated from
+                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+          }
+        });
+  }
 
   private void initComponents() {
     iFrame.show();
