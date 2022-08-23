@@ -328,7 +328,7 @@ public class SummaryDocuments {
                         .setAttribute("currencyID", detalle.getMoneda().getCodigo())
                         .setText(
                             String.format(
-                                Locale.ROOT, "%.2f", detalle.getOtrosCargos().getTotal())));
+                                Locale.ROOT, "%.2f", detalle.getOtrosCargos().getMonto())));
         summaryDocumentsLine.addContent(allowanceCharge);
       }
 

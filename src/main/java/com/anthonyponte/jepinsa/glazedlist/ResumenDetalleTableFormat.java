@@ -146,7 +146,7 @@ public class ResumenDetalleTableFormat implements TableFormat<ResumenDiarioDetal
         if (detalle.getExportacion() != null) return detalle.getExportacion().getTotal();
         else return "";
       case 19:
-        if (detalle.getOtrosCargos() != null) return detalle.getOtrosCargos().getTotal();
+        if (detalle.getOtrosCargos() != null) return detalle.getOtrosCargos().getMonto();
         else return "";
       case 20:
         return detalle.getIgv().getMonto();

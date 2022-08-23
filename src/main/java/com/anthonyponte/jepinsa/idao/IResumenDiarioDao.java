@@ -188,7 +188,7 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
 
         if (get.getOtrosCargos() != null) {
           ps.setBoolean(40, get.getOtrosCargos().isIndicador());
-          ps.setDouble(41, get.getOtrosCargos().getTotal());
+          ps.setDouble(41, get.getOtrosCargos().getMonto());
         } else {
           ps.setNull(40, Types.BOOLEAN);
           ps.setNull(41, Types.DOUBLE);
@@ -469,7 +469,7 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
           if (!rs.wasNull()) {
             OtrosCargos otrosCargos = new OtrosCargos();
             otrosCargos.setIndicador(rs.getBoolean(40));
-            otrosCargos.setTotal(rs.getDouble(41));
+            otrosCargos.setMonto(rs.getDouble(41));
             resumenDiarioDetalle.setOtrosCargos(otrosCargos);
           }
 

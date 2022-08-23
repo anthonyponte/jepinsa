@@ -548,15 +548,15 @@ public class Invoice {
                       .setText(factura.getDescuentos().getCodigo()))
               .addContent(
                   new Element("MultiplierFactorNumeric", cbc)
-                      .setText(factura.getDescuentos().getPorcentaje()))
+                      .setText(String.valueOf(factura.getDescuentos().getFactor())))
               .addContent(
                   new Element("Amount", cbc)
                       .setAttribute("currencyID", factura.getMoneda().getCodigo())
-                      .setText(factura.getDescuentos().getMonto()))
+                      .setText(String.valueOf(factura.getDescuentos().getMonto())))
               .addContent(
                   new Element("BaseAmount", cbc)
                       .setAttribute("currencyID", factura.getMoneda().getCodigo())
-                      .setText(factura.getCuota().getMontoBase()));
+                      .setText(String.valueOf(factura.getDescuentos().getBase())));
       document.getRootElement().addContent(tagAllowanceCharge);
     }
 
@@ -626,13 +626,13 @@ public class Invoice {
     }
 
     // 43 Total valor de venta - operaciones exoneradas. C
-    if (factura.getExoneradas() != null) {
+    if (factura.getExoneradas() > 0.0) {
       tagTaxTotal.addContent(
           new Element("TaxSubtotal", cac)
               .addContent(
                   new Element("TaxableAmount", cbc)
                       .setAttribute("currencyID", factura.getMoneda().getCodigo())
-                      .setText(String.valueOf(factura.getExoneradas().getTotal())))
+                      .setText(String.valueOf(factura.getExoneradas())))
               .addContent(
                   new Element("TaxAmount", cbc)
                       .setAttribute("currencyID", factura.getMoneda().getCodigo())
@@ -710,17 +710,17 @@ public class Invoice {
                             .addContent(new Element("TaxTypeCode", cbc).setText("VAT")))));
 
     // 48 Sumatoria ISC. C
-    if (!total.getIsc().equals("0.00")) {
+    if (factura.getIsc() != null) {
       tagTaxTotal.addContent(
           new Element("TaxSubtotal", cac)
               .addContent(
                   new Element("TaxableAmount", cbc)
-                      .setAttribute("currencyID", encabezado.getMoneda())
-                      .setText(total.getMontoIsc()))
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                      .setText(String.valueOf(factura.getIsc().getBase())))
               .addContent(
                   new Element("TaxAmount", cbc)
-                      .setAttribute("currencyID", encabezado.getMoneda())
-                      .setText(total.getIsc()))
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                      .setText(String.valueOf(factura.getIsc().getMonto())))
               .addContent(
                   new Element("TaxCategory", cac)
                       .addContent(
@@ -738,17 +738,18 @@ public class Invoice {
     }
 
     // 49 Sumatoria Otros Tributos. C
-    if (!total.getOtrosTributos().equals("0.00")) {
+    // 49-A Sumatoria ICBPER. C
+    if (factura.getOtrosTributos() != null) {
       tagTaxTotal.addContent(
           new Element("TaxSubtotal", cac)
               .addContent(
                   new Element("TaxableAmount", cbc)
-                      .setAttribute("currencyID", encabezado.getMoneda())
-                      .setText(total.getMontoOtrosTributos()))
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                      .setText(String.valueOf(factura.getOtrosTributos().getBase())))
               .addContent(
                   new Element("TaxAmount", cbc)
-                      .setAttribute("currencyID", encabezado.getMoneda())
-                      .setText(total.getOtrosTributos()))
+                      .setAttribute("currencyID", factura.getMoneda().getCodigo())
+                      .setText(String.valueOf(factura.getOtrosTributos().getMonto())))
               .addContent(
                   new Element("TaxCategory", cac)
                       .addContent(
@@ -773,44 +774,44 @@ public class Invoice {
     // 54 Total Valor de Venta. C
     tagLegalMonetaryTotal.addContent(
         new Element("LineExtensionAmount", cbc)
-            .setAttribute("currencyID", encabezado.getMoneda())
-            .setText(total.getValorVenta()));
+            .setAttribute("currencyID", factura.getMoneda().getCodigo())
+            .setText(String.valueOf(factura.getTotalValorVenta())));
 
-    // 55 Total Precio de Venta. C
+    // 55 Total precio de venta (Subtotal de la factura). C
     tagLegalMonetaryTotal.addContent(
         new Element("TaxInclusiveAmount", cbc)
-            .setAttribute("currencyID", encabezado.getMoneda())
-            .setText(total.getPrecioVenta()));
+            .setAttribute("currencyID", factura.getMoneda().getCodigo())
+            .setText(String.valueOf(factura.getTotalPrecioVenta())));
 
-    // 51 Total Descuentos (Que no afectan la base). C
-    if (!total.getDescuentos().equals("0.00")) {
+    // 51 Sumatoria otros descuentos (que no afectan la base imponible del IGV). C
+    if (factura.getOtrosDescuentos() > 0.0) {
       tagLegalMonetaryTotal.addContent(
           new Element("AllowanceTotalAmount", cbc)
-              .setAttribute("currencyID", encabezado.getMoneda())
-              .setText(total.getDescuentos()));
+              .setAttribute("currencyID", factura.getMoneda().getCodigo())
+              .setText(String.valueOf(factura.getOtrosDescuentos())));
     }
 
-    // 52 Total otros Cargos (Que no afectan la base). C
-    if (!total.getOtrosCargos().equals("0.00")) {
+    // 52 Sumatoria otros cargos (que no afectan la base imponible del IGV). C
+    if (factura.getOtrosCargos() > 0.0) {
       tagLegalMonetaryTotal.addContent(
           new Element("ChargeTotalAmount", cbc)
-              .setAttribute("currencyID", encabezado.getMoneda())
-              .setText(total.getOtrosCargos()));
+              .setAttribute("currencyID", factura.getMoneda().getCodigo())
+              .setText(String.valueOf(factura.getOtrosCargos())));
     }
 
     // 56 Monto para Redondeo del Importe Total. C
-    if (!total.getTotalRedondeado().equals("0.00")) {
+    if (factura.getTotalRedondeado() > 0.0) {
       tagLegalMonetaryTotal.addContent(
           new Element("PayableRoundingAmount", cbc)
-              .setAttribute("currencyID", encabezado.getMoneda())
-              .setText(total.getTotalRedondeado()));
+              .setAttribute("currencyID", factura.getMoneda().getCodigo())
+              .setText(String.valueOf(factura.getTotalRedondeado())));
     }
 
     // 53 Importe total de la venta, cesión en uso o del servicio prestado. M
     tagLegalMonetaryTotal.addContent(
         new Element("PayableAmount", cbc)
-            .setAttribute("currencyID", encabezado.getMoneda())
-            .setText(total.getTotal()));
+            .setAttribute("currencyID", factura.getMoneda().getCodigo())
+            .setText(String.valueOf(factura.getTotal())));
 
     document.getRootElement().addContent(tagLegalMonetaryTotal);
 

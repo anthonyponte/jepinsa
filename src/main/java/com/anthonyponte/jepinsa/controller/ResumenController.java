@@ -501,7 +501,8 @@ public class ResumenController {
           }
         });
 
-    iFrame.btnAgregar.addActionListener((arg0) -> {
+    iFrame.btnAgregar.addActionListener(
+        (arg0) -> {
           try {
             ResumenDiarioDetalle detalle = new ResumenDiarioDetalle();
 
@@ -601,7 +602,7 @@ public class ResumenController {
             if (otrosCargos.doubleValue() > 0) {
               OtrosCargos operacionOtrosCargos = new OtrosCargos();
               operacionOtrosCargos.setIndicador(true);
-              operacionOtrosCargos.setTotal(otrosCargos.doubleValue());
+              operacionOtrosCargos.setMonto(otrosCargos.doubleValue());
               detalle.setOtrosCargos(operacionOtrosCargos);
             }
 
@@ -770,8 +771,7 @@ public class ResumenController {
     preferences = Preferences.userRoot().node(MainController.class.getPackageName());
     eventList = new BasicEventList<>();
 
-    tableModel =
-        eventTableModelWithThreadProxyList(eventList, new ResumenDetalleTableFormat());
+    tableModel = eventTableModelWithThreadProxyList(eventList, new ResumenDetalleTableFormat());
     selectionModel = new DefaultEventSelectionModel<>(eventList);
     iFrame.table.setSelectionModel(selectionModel);
     iFrame.table.setModel(tableModel);

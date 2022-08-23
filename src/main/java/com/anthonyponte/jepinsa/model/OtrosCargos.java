@@ -17,16 +17,32 @@
 
 package com.anthonyponte.jepinsa.model;
 
-/** @author AnthonyPonte */
+/**
+ * @author AnthonyPonte
+ */
 public class OtrosCargos {
   private boolean indicador;
-  private double total;
+  private double monto;
+  private double base;
+  private double factor;
+  private String codigo;
+  private String descripcion;
 
   public OtrosCargos() {}
 
-  public OtrosCargos(boolean indicador, double total) {
+  public OtrosCargos(
+      boolean indicador,
+      double monto,
+      double base,
+      double factor,
+      String codigo,
+      String descripcion) {
     this.indicador = indicador;
-    this.total = total;
+    this.monto = monto;
+    this.base = base;
+    this.factor = factor;
+    this.codigo = codigo;
+    this.descripcion = descripcion;
   }
 
   public boolean isIndicador() {
@@ -37,16 +53,61 @@ public class OtrosCargos {
     this.indicador = indicador;
   }
 
-  public double getTotal() {
-    return total;
+  public double getMonto() {
+    return monto;
   }
 
-  public void setTotal(double total) {
-    this.total = total;
+  public void setMonto(double monto) {
+    this.monto = monto;
+  }
+
+  public double getBase() {
+    return base;
+  }
+
+  public void setBase(double base) {
+    this.base = base;
+  }
+
+  public double getFactor() {
+    return factor;
+  }
+
+  public void setFactor(double factor) {
+    this.factor = factor;
+  }
+
+  public String getCodigo() {
+    return codigo;
+  }
+
+  public void setCodigo(String codigo) {
+    this.codigo = codigo;
+  }
+
+  public String getDescripcion() {
+    return descripcion;
+  }
+
+  public void setDescripcion(String descripcion) {
+    this.descripcion = descripcion;
   }
 
   @Override
   public String toString() {
-    return "OtrosCargos{" + "indicador=" + indicador + ", total=" + total + '}';
+    return "OtrosCargos{"
+        + "indicador="
+        + indicador
+        + ", monto="
+        + monto
+        + ", base="
+        + base
+        + ", factor="
+        + factor
+        + ", codigo="
+        + codigo
+        + ", descripcion="
+        + descripcion
+        + '}';
   }
 }
