@@ -66,4 +66,20 @@ public class Empresa {
   public void setCui(String cui) {
     this.cui = cui;
   }
+
+  @Override
+  public String toString() {
+    return "Empresa{"
+        + "dni="
+        + dni
+        + ", name="
+        + name
+        + ", firstName="
+        + firstName
+        + ", lastName="
+        + lastName
+        + ", cui="
+        + cui
+        + '}';
+  }
 }

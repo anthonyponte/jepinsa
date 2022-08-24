@@ -17,7 +17,15 @@
 
 package com.anthonyponte.jepinsa.retrofit;
 
+import com.anthonyponte.jepinsa.pojo.Empresa;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+
 /**
  * @author AnthonyPonte
  */
-public interface APIInterface {}
+public interface EmpresaService {
+  @GET("api/prod/company/{ruc}")
+  Call<Empresa> getEmpresa(@Path("ruc") String ruc);
+}
