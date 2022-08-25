@@ -43,7 +43,7 @@
                       <Component id="btnLimpiar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="separator" alignment="1" max="32767" attributes="0"/>
-                  <Component id="tabbed" alignment="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="tabbed" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -104,16 +104,16 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cbxTipo" alignment="0" pref="450" max="32767" attributes="0"/>
-                          <Component id="tfSerie" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cbxTipo" alignment="0" max="32767" attributes="0"/>
                           <Component id="tfCorrelativo" alignment="0" max="32767" attributes="0"/>
                           <Component id="dpFecha" alignment="1" max="32767" attributes="0"/>
                           <Component id="lblTipo" min="-2" max="-2" attributes="0"/>
                           <Component id="lblFecha" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblSerie" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblCorrelativo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblDocumentoFecha" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="dpDocumentoFecha" alignment="1" max="32767" attributes="0"/>
+                          <Component id="lblMoneda" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbxMoneda" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cbxSerie" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -127,21 +127,21 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="dpFecha" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lblDocumentoFecha" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="dpDocumentoFecha" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblTipo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cbxTipo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblSerie" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="tfSerie" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="cbxSerie" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="lblCorrelativo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="tfCorrelativo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lblMoneda" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cbxMoneda" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -179,36 +179,6 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="dpDocumentoFecha">
-              <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
-                <Property name="formats" type="[Ljava.text.DateFormat;" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new SimpleDateFormat(&quot;d MMMM y&quot;)" type="code"/>
-                </Property>
-                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="null"/>
-                </Property>
-                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="null"/>
-                </Property>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[150, 30]"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="dpDocumentoFecha.getEditor().setEditable(false);"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblDocumentoFecha">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-                  <FontInfo relative="true">
-                    <Font bold="true" component="lblDocumentoFecha" property="font" relativeSize="true" size="-2"/>
-                  </FontInfo>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Fecha emision documentos"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="lblTipo">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
@@ -225,7 +195,7 @@
             <Component class="javax.swing.JComboBox" name="cbxTipo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new DefaultComboBoxModel(new com.anthonyponte.jepinsa.model.Tipo[] {&#xd;&#xa;    new com.anthonyponte.jepinsa.model.Tipo(&quot;RA&quot;, &quot;Comunicaci&#xf3;n de baja&quot;),&#xd;&#xa;    new com.anthonyponte.jepinsa.model.Tipo(&quot;RR&quot;, &quot;Resumen de reversiones&quot;)&#xd;&#xa;})" type="code"/>
+                  <Connection code="new DefaultComboBoxModel(new com.anthonyponte.jepinsa.model.Tipo[] {&#xa;    new Tipo(&quot;01&quot;, &quot;Factura&quot;),&#xa;    new Tipo(&quot;03&quot;, &quot;Boleta de venta&quot;)&#xa;})" type="code"/>
                 </Property>
                 <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="-1" type="code"/>
@@ -238,7 +208,7 @@
                   <Dimension value="[150, 30]"/>
                 </Property>
                 <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new DefaultListCellRenderer(){&#xa;    @Override&#xa;    public Component getListCellRendererComponent(&#xa;        JList&lt;?&gt; list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);&#xa;        if (value instanceof com.anthonyponte.jepinsa.model.Tipo) {&#xa;            com.anthonyponte.jepinsa.model.Tipo tipoDocumento = (com.anthonyponte.jepinsa.model.Tipo) value;&#xa;            setText(tipoDocumento.getDescripcion());&#xa;        }&#xa;        return this;&#xa;    }&#xa;}" type="code"/>
+                  <Connection code="new DefaultListCellRenderer(){&#xa;    @Override&#xa;    public Component getListCellRendererComponent(&#xa;        JList&lt;?&gt; list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);&#xa;        if (value instanceof Tipo) {&#xa;            Tipo tipoDocumento = (Tipo) value;&#xa;            setText(tipoDocumento.getDescripcion());&#xa;        }&#xa;        return this;&#xa;    }&#xa;}" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -300,291 +270,53 @@
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfSerie">
+            <Component class="javax.swing.JComboBox" name="cbxMoneda">
               <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new DefaultComboBoxModel(new Moneda[] {&#xa;    new Moneda(&quot;PEN&quot;, &quot;Soles&quot;),&#xa;    new Moneda(&quot;USD&quot;, &quot;Dolares&quot;)})" type="code"/>
+                </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="null"/>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="null"/>
-                </Property>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[150, 30]"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tfSerie.setEditable(false);"/>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-              </AuxValues>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="pnlDetalle">
-          <Properties>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="null"/>
-            </Property>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Detalle" toolTip="">
-                <Property name="tabTitle" type="java.lang.String" value="Detalle"/>
-                <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="FontIcon.of(RemixiconAL.LIST_ORDERED, 16, Color.decode(&quot;#FFFFFF&quot;))" type="code"/>
-                </Property>
-                <Property name="tabToolTip" type="java.lang.String" value=""/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="spane" alignment="1" max="32767" attributes="0"/>
-                          <Component id="cbxDocumentoTipo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="tfDocumentoMotivo" alignment="1" pref="0" max="32767" attributes="0"/>
-                          <Component id="tfDocumentoCorrelativo" alignment="1" max="32767" attributes="0"/>
-                          <Component id="tfDocumentoSerie" alignment="1" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnAgregar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="lblDocumentoMotivo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblDocumentoNumero" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblDocumentoSerie" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblDocumentoTipo" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblDocumentoTipo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cbxDocumentoTipo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lblDocumentoSerie" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="tfDocumentoSerie" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lblDocumentoNumero" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="tfDocumentoCorrelativo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lblDocumentoMotivo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="tfDocumentoMotivo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnAgregar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="spane" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblDocumentoTipo">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-                  <FontInfo relative="true">
-                    <Font bold="true" component="lblDocumentoTipo" property="font" relativeSize="true" size="-2"/>
-                  </FontInfo>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Tipo documento"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="cbxDocumentoTipo">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new DefaultComboBoxModel(new com.anthonyponte.jepinsa.model.Tipo[] {&#xd;&#xa;    new com.anthonyponte.jepinsa.model.Tipo(&quot;01&quot;, &quot;Factura&quot;),&#xd;&#xa;    new com.anthonyponte.jepinsa.model.Tipo(&quot;07&quot;, &quot;Nota de cr&#xe9;dito&quot;),&#xd;&#xa;    new com.anthonyponte.jepinsa.model.Tipo(&quot;08&quot;, &quot;Nota de d&#xe9;bito&quot;)&#xd;&#xa;})" type="code"/>
-                </Property>
-                <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="-1" type="code"/>
-                </Property>
-                <Property name="enabled" type="boolean" value="false"/>
-                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="null"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[150, 30]"/>
                 </Property>
                 <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new DefaultListCellRenderer(){&#xa;    @Override&#xa;    public Component getListCellRendererComponent(&#xa;        JList&lt;?&gt; list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);&#xa;        if (value instanceof com.anthonyponte.jepinsa.model.Tipo) {&#xa;            com.anthonyponte.jepinsa.model.Tipo tipoDocumento = (com.anthonyponte.jepinsa.model.Tipo) value;&#xa;            setText(tipoDocumento.getDescripcion());&#xa;        }&#xa;        return this;&#xa;    }&#xa;}" type="code"/>
+                  <Connection code="new DefaultListCellRenderer(){&#xa;    @Override&#xa;    public Component getListCellRendererComponent(&#xa;        JList&lt;?&gt; list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);&#xa;        if (value instanceof Moneda) {&#xa;            Moneda moneda = (Moneda) value;&#xa;            setText(moneda.getDescripcion());&#xa;        }&#xa;        return this;&#xa;    }&#xa;}" type="code"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="cbxMoneda.setSelectedIndex(-1);"/>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblMoneda">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+                  <FontInfo relative="true">
+                    <Font bold="true" component="lblMoneda" property="font" relativeSize="true" size="-2"/>
+                  </FontInfo>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Moneda *"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbxSerie">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="null"/>
+                </Property>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[150, 30]"/>
                 </Property>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblDocumentoSerie">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-                  <FontInfo relative="true">
-                    <Font bold="true" component="lblDocumentoSerie" property="font" relativeSize="true" size="-2"/>
-                  </FontInfo>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Serie documento"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblDocumentoNumero">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-                  <FontInfo relative="true">
-                    <Font bold="true" component="lblDocumentoNumero" property="font" relativeSize="true" size="-2"/>
-                  </FontInfo>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Correlativo documento"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblDocumentoMotivo">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-                  <FontInfo relative="true">
-                    <Font bold="true" component="lblDocumentoMotivo" property="font" relativeSize="true" size="-2"/>
-                  </FontInfo>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Motivo baja"/>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JTextField" name="tfDocumentoMotivo">
-              <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
-                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="null"/>
-                </Property>
-                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="null"/>
-                </Property>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[150, 30]"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnAgregar">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="FontIcon.of(RemixiconAL.INSERT_ROW_BOTTOM, 16, Color.decode(&quot;#FFFFFF&quot;))" type="code"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Agregar"/>
-                <Property name="enabled" type="boolean" value="false"/>
-                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[150, 30]"/>
-                </Property>
-                <Property name="name" type="java.lang.String" value="" noResource="true"/>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[150, 30]"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnEliminar">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="FontIcon.of(RemixiconAL.DELETE_ROW, 16, Color.decode(&quot;#FFFFFF&quot;))" type="code"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Eliminar"/>
-                <Property name="enabled" type="boolean" value="false"/>
-                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[150, 30]"/>
-                </Property>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[150, 30]"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-              </AuxValues>
-            </Component>
-            <Container class="javax.swing.JScrollPane" name="spane">
-              <Properties>
-                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="null"/>
-                </Property>
-                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="null"/>
-                </Property>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[150, 150]"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTable" name="table">
-                  <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="0" rowCount="0"/>
-                    </Property>
-                    <Property name="autoResizeMode" type="int" value="0"/>
-                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                      <TableColumnModel selectionModel="1"/>
-                    </Property>
-                    <Property name="columnSelectionAllowed" type="boolean" value="true"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                    <Property name="name" type="java.lang.String" value="" noResource="true"/>
-                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                      <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-                  </AuxValues>
-                </Component>
-              </SubComponents>
-            </Container>
-            <Component class="javax.swing.JTextField" name="tfDocumentoCorrelativo">
-              <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
-                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="null"/>
-                </Property>
-                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="null"/>
-                </Property>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[150, 30]"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="AbstractDocument docRuc = (AbstractDocument) tfDocumentoCorrelativo.getDocument();&#xa;docRuc.setDocumentFilter(new IntegerFilter(8));"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JTextField" name="tfDocumentoSerie">
-              <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
-                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="null"/>
-                </Property>
-                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="null"/>
-                </Property>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[150, 30]"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="AbstractDocument docSerie = (AbstractDocument) tfDocumentoSerie.getDocument();&#xa;docSerie.setDocumentFilter(new SerieFilter(&apos;F&apos;));"/>
               </AuxValues>
             </Component>
           </SubComponents>
@@ -604,11 +336,12 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnAdquirienteRuc" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="tfAdquirienteRuc" alignment="0" pref="450" max="32767" attributes="0"/>
+                          <Component id="cbxAdquirienteTipoDocumentoIdentidad" alignment="0" max="32767" attributes="0"/>
+                          <Component id="tfAdquirienteDocumentoIdentidad" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblAdquirienteTipoDocumentoIdentidad" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAdquirienteDocumentoIdentidad" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfAdquirienteNombre" alignment="1" max="32767" attributes="0"/>
+                          <Component id="lblAdquirienteNombre" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -618,28 +351,38 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnAdquirienteRuc" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblAdquirienteTipoDocumentoIdentidad" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="tfAdquirienteRuc" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="374" max="32767" attributes="0"/>
+                      <Component id="cbxAdquirienteTipoDocumentoIdentidad" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnAdquirienteDocumentoIdentidad" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="tfAdquirienteDocumentoIdentidad" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lblAdquirienteNombre" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="tfAdquirienteNombre" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btnAdquirienteRuc">
+            <Component class="javax.swing.JButton" name="btnAdquirienteDocumentoIdentidad">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="FontIcon.of(RemixiconMZ.SEARCH_2_LINE, 16, Color.decode(&quot;#FFFFFF&quot;))" type="code"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="RUC"/>
+                <Property name="text" type="java.lang.String" value="Numero *"/>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[125, 30]"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfAdquirienteRuc">
+            <Component class="javax.swing.JTextField" name="tfAdquirienteDocumentoIdentidad">
               <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="null"/>
                 </Property>
@@ -649,6 +392,63 @@
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[150, 30]"/>
                 </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbxAdquirienteTipoDocumentoIdentidad">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new DefaultComboBoxModel(new Tipo[] {&#xa;    new Tipo(&quot;0&quot;, &quot;DOC.TRIB.NO.DOM.SIN.RUC&quot;),&#xa;    new Tipo(&quot;1&quot;, &quot;Documento Nacional de Identidad&quot;),&#xa;    new Tipo(&quot;4&quot;, &quot;Carnet de extranjer&#xed;a&quot;),&#xa;    new Tipo(&quot;6&quot;, &quot;Registro Unico de Contributentes&quot;)&#xa;})" type="code"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="null"/>
+                </Property>
+                <Property name="name" type="java.lang.String" value="" noResource="true"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[150, 30]"/>
+                </Property>
+                <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new DefaultListCellRenderer(){&#xa;    @Override&#xa;    public Component getListCellRendererComponent(&#xa;        JList&lt;?&gt; list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);&#xa;        if (value instanceof Tipo) {&#xa;            Tipo tipo = (Tipo) value;&#xa;            setText(tipo.getDescripcion());&#xa;        }&#xa;        return this;&#xa;    }&#xa;}" type="code"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="cbxAdquirienteTipoDocumentoIdentidad.setSelectedIndex(-1);"/>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblAdquirienteTipoDocumentoIdentidad">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+                  <FontInfo relative="true">
+                    <Font bold="true" component="lblAdquirienteTipoDocumentoIdentidad" property="font" relativeSize="true" size="-2"/>
+                  </FontInfo>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Documento identidad *"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="tfAdquirienteNombre">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="null"/>
+                </Property>
+                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="null"/>
+                </Property>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[150, 30]"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblAdquirienteNombre">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+                  <FontInfo relative="true">
+                    <Font bold="true" component="lblAdquirienteNombre" property="font" relativeSize="true" size="-2"/>
+                  </FontInfo>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Nombre *"/>
               </Properties>
             </Component>
           </SubComponents>

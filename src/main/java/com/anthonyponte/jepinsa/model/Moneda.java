@@ -20,36 +20,11 @@ package com.anthonyponte.jepinsa.model;
 /**
  * @author anthony
  */
-public class Moneda {
-
-  private String codigo;
-  private String descripcion;
+public class Moneda extends Tipo {
 
   public Moneda() {}
 
   public Moneda(String codigo, String descripcion) {
-    this.codigo = codigo;
-    this.descripcion = descripcion;
-  }
-
-  public String getCodigo() {
-    return codigo;
-  }
-
-  public void setCodigo(String codigo) {
-    this.codigo = codigo;
-  }
-
-  public String getDescripcion() {
-    return descripcion;
-  }
-
-  public void setDescripcion(String descripcion) {
-    this.descripcion = descripcion;
-  }
-
-  @Override
-  public String toString() {
-    return "Moneda{" + "codigo=" + codigo + ", descripcion=" + descripcion + '}';
+    super(codigo, descripcion);
   }
 }

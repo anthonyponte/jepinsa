@@ -15,24 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.anthonyponte.jepinsa.retrofit;
+package com.anthonyponte.jepinsa.dao;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import com.anthonyponte.jepinsa.model.Bill;
+import com.anthonyponte.jepinsa.model.Tipo;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author AnthonyPonte
  */
-public class APIClient {
-  private static Retrofit retrofit = null;
+public interface BillDao {
+  public int create(Bill bill) throws SQLException;
 
-  static Retrofit getClient() {
-    retrofit =
-        new Retrofit.Builder()
-            .baseUrl("https://dni.optimizeperu.com")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
+  public List<Bill> read() throws SQLException;
 
-    return retrofit;
-  }
+  public void update(int id, Bill bill) throws SQLException;
+
+  public void delete(int id) throws SQLException;
+
+  public int count(String serie, Tipo tipo) throws SQLException;
 }

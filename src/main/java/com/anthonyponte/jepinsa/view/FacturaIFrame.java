@@ -6,11 +6,14 @@ package com.anthonyponte.jepinsa.view;
 
 import com.anthonyponte.jepinsa.filter.IntegerFilter;
 import com.anthonyponte.jepinsa.filter.SerieFilter;
+import com.anthonyponte.jepinsa.model.Moneda;
 import com.anthonyponte.jepinsa.model.Tipo;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
@@ -61,30 +64,21 @@ public class FacturaIFrame extends JInternalFrame {
         pnlEncabezado = new JPanel();
         lblFecha = new JLabel();
         dpFecha = new JXDatePicker();
-        dpDocumentoFecha = new JXDatePicker();
-        lblDocumentoFecha = new JLabel();
         lblTipo = new JLabel();
         cbxTipo = new JComboBox<>();
         lblCorrelativo = new JLabel();
         tfCorrelativo = new JTextField();
         lblSerie = new JLabel();
-        tfSerie = new JTextField();
-        pnlDetalle = new JPanel();
-        lblDocumentoTipo = new JLabel();
-        cbxDocumentoTipo = new JComboBox<>();
-        lblDocumentoSerie = new JLabel();
-        lblDocumentoNumero = new JLabel();
-        lblDocumentoMotivo = new JLabel();
-        tfDocumentoMotivo = new JTextField();
-        btnAgregar = new JButton();
-        btnEliminar = new JButton();
-        spane = new JScrollPane();
-        table = new JTable();
-        tfDocumentoCorrelativo = new JTextField();
-        tfDocumentoSerie = new JTextField();
+        cbxMoneda = new JComboBox<>();
+        lblMoneda = new JLabel();
+        cbxSerie = new JComboBox<>();
         jPanel1 = new JPanel();
-        btnAdquirienteRuc = new JButton();
-        tfAdquirienteRuc = new JTextField();
+        btnAdquirienteDocumentoIdentidad = new JButton();
+        tfAdquirienteDocumentoIdentidad = new JTextField();
+        cbxAdquirienteTipoDocumentoIdentidad = new JComboBox<>();
+        lblAdquirienteTipoDocumentoIdentidad = new JLabel();
+        tfAdquirienteNombre = new JTextField();
+        lblAdquirienteNombre = new JLabel();
         separator = new JSeparator();
         btnNuevo = new JButton();
         btnGuardar = new JButton();
@@ -110,22 +104,12 @@ public class FacturaIFrame extends JInternalFrame {
         dpFecha.setMinimumSize(null);
         dpFecha.setPreferredSize(new Dimension(150, 30));
 
-        dpDocumentoFecha.setEnabled(false);
-        dpDocumentoFecha.setFormats(new SimpleDateFormat("d MMMM y"));
-        dpDocumentoFecha.setMaximumSize(null);
-        dpDocumentoFecha.setMinimumSize(null);
-        dpDocumentoFecha.setPreferredSize(new Dimension(150, 30));
-        dpDocumentoFecha.getEditor().setEditable(false);
-
-        lblDocumentoFecha.setFont(lblDocumentoFecha.getFont().deriveFont(lblDocumentoFecha.getFont().getStyle() | Font.BOLD, lblDocumentoFecha.getFont().getSize()-2));
-        lblDocumentoFecha.setText("Fecha emision documentos");
-
         lblTipo.setFont(lblTipo.getFont().deriveFont(lblTipo.getFont().getStyle() | Font.BOLD, lblTipo.getFont().getSize()-2));
         lblTipo.setText("Tipo");
 
         cbxTipo.setModel(new DefaultComboBoxModel(new Tipo[] {
-            new Tipo("RA", "Comunicación de baja"),
-            new Tipo("RR", "Resumen de reversiones")
+            new Tipo("01", "Factura"),
+            new Tipo("03", "Boleta de venta")
         }));
         cbxTipo.setSelectedIndex(-1);
         cbxTipo.setEnabled(false);
@@ -160,312 +144,236 @@ public class FacturaIFrame extends JInternalFrame {
         lblSerie.setMinimumSize(null);
         lblSerie.setPreferredSize(null);
 
-        tfSerie.setEnabled(false);
-        tfSerie.setMaximumSize(null);
-        tfSerie.setMinimumSize(null);
-        tfSerie.setPreferredSize(new Dimension(150, 30));
-        tfSerie.setEditable(false);
+        cbxMoneda.setModel(new DefaultComboBoxModel(new Moneda[] {
+            new Moneda("PEN", "Soles"),
+            new Moneda("USD", "Dolares")}));
+cbxMoneda.setEnabled(false);
+cbxMoneda.setMaximumSize(null);
+cbxMoneda.setMinimumSize(null);
+cbxMoneda.setPreferredSize(new Dimension(150, 30));
+cbxMoneda.setRenderer(new DefaultListCellRenderer(){
+    @Override
+    public Component getListCellRendererComponent(
+        JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        if (value instanceof Moneda) {
+            Moneda moneda = (Moneda) value;
+            setText(moneda.getDescripcion());
+        }
+        return this;
+    }
+    });
+
+    lblMoneda.setFont(lblMoneda.getFont().deriveFont(lblMoneda.getFont().getStyle() | Font.BOLD, lblMoneda.getFont().getSize()-2));
+    lblMoneda.setText("Moneda *");
+
+    cbxSerie.setEnabled(false);
+    cbxSerie.setMaximumSize(null);
+    cbxSerie.setPreferredSize(new Dimension(150, 30));
 
         GroupLayout pnlEncabezadoLayout = new GroupLayout(pnlEncabezado);
-        pnlEncabezado.setLayout(pnlEncabezadoLayout);
-        pnlEncabezadoLayout.setHorizontalGroup(pnlEncabezadoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(pnlEncabezadoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlEncabezadoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(cbxTipo, 0, 450, Short.MAX_VALUE)
-                    .addComponent(tfSerie, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfCorrelativo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dpFecha, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTipo)
-                    .addComponent(lblFecha)
-                    .addComponent(lblSerie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCorrelativo)
-                    .addComponent(lblDocumentoFecha)
-                    .addComponent(dpDocumentoFecha, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        pnlEncabezadoLayout.setVerticalGroup(pnlEncabezadoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(pnlEncabezadoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblFecha)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dpFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblDocumentoFecha)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dpDocumentoFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+    pnlEncabezado.setLayout(pnlEncabezadoLayout);
+    pnlEncabezadoLayout.setHorizontalGroup(pnlEncabezadoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(pnlEncabezadoLayout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(pnlEncabezadoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(cbxTipo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tfCorrelativo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(dpFecha, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTipo)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxTipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblFecha)
                 .addComponent(lblSerie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfSerie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblCorrelativo)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfCorrelativo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+                .addComponent(lblMoneda)
+                .addComponent(cbxMoneda, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cbxSerie, GroupLayout.Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap())
+    );
+    pnlEncabezadoLayout.setVerticalGroup(pnlEncabezadoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(pnlEncabezadoLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(lblFecha)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(dpFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(lblTipo)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(cbxTipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(lblSerie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(cbxSerie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addGap(12, 12, 12)
+            .addComponent(lblCorrelativo)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(tfCorrelativo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(lblMoneda)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(cbxMoneda, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addContainerGap())
+    );
 
-        tabbed.addTab("Encabezado", FontIcon.of(RemixiconAL.FILE_LIST_LINE, 16, Color.decode("#FFFFFF")), pnlEncabezado, "");
+    cbxMoneda.setSelectedIndex(-1);
 
-        pnlDetalle.setMaximumSize(null);
+    tabbed.addTab("Encabezado", FontIcon.of(RemixiconAL.FILE_LIST_LINE, 16, Color.decode("#FFFFFF")), pnlEncabezado, "");
 
-        lblDocumentoTipo.setFont(lblDocumentoTipo.getFont().deriveFont(lblDocumentoTipo.getFont().getStyle() | Font.BOLD, lblDocumentoTipo.getFont().getSize()-2));
-        lblDocumentoTipo.setText("Tipo documento");
+    btnAdquirienteDocumentoIdentidad.setIcon(FontIcon.of(RemixiconMZ.SEARCH_2_LINE, 16, Color.decode("#FFFFFF")));
+    btnAdquirienteDocumentoIdentidad.setText("Numero *");
+    btnAdquirienteDocumentoIdentidad.setEnabled(false);
+    btnAdquirienteDocumentoIdentidad.setPreferredSize(new Dimension(125, 30));
 
-        cbxDocumentoTipo.setModel(new DefaultComboBoxModel(new Tipo[] {
-            new Tipo("01", "Factura"),
-            new Tipo("07", "Nota de crédito"),
-            new Tipo("08", "Nota de débito")
-        }));
-        cbxDocumentoTipo.setSelectedIndex(-1);
-        cbxDocumentoTipo.setEnabled(false);
-        cbxDocumentoTipo.setMaximumSize(null);
-        cbxDocumentoTipo.setPreferredSize(new Dimension(150, 30));
-        cbxDocumentoTipo.setRenderer(new DefaultListCellRenderer(){
-            @Override
-            public Component getListCellRendererComponent(
-                JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (value instanceof Tipo) {
-                    Tipo tipoDocumento = (Tipo) value;
-                    setText(tipoDocumento.getDescripcion());
-                }
-                return this;
+    tfAdquirienteDocumentoIdentidad.setEnabled(false);
+    tfAdquirienteDocumentoIdentidad.setMaximumSize(null);
+    tfAdquirienteDocumentoIdentidad.setMinimumSize(null);
+    tfAdquirienteDocumentoIdentidad.setPreferredSize(new Dimension(150, 30));
+
+    cbxAdquirienteTipoDocumentoIdentidad.setModel(new DefaultComboBoxModel(new Tipo[] {
+        new Tipo("0", "DOC.TRIB.NO.DOM.SIN.RUC"),
+        new Tipo("1", "Documento Nacional de Identidad"),
+        new Tipo("4", "Carnet de extranjería"),
+        new Tipo("6", "Registro Unico de Contributentes")
+    }));
+    cbxAdquirienteTipoDocumentoIdentidad.setEnabled(false);
+    cbxAdquirienteTipoDocumentoIdentidad.setMaximumSize(null);
+    cbxAdquirienteTipoDocumentoIdentidad.setName(""); // NOI18N
+    cbxAdquirienteTipoDocumentoIdentidad.setPreferredSize(new Dimension(150, 30));
+    cbxAdquirienteTipoDocumentoIdentidad.setRenderer(new DefaultListCellRenderer(){
+        @Override
+        public Component getListCellRendererComponent(
+            JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof Tipo) {
+                Tipo tipo = (Tipo) value;
+                setText(tipo.getDescripcion());
             }
-        });
+            return this;
+        }
+    });
 
-        lblDocumentoSerie.setFont(lblDocumentoSerie.getFont().deriveFont(lblDocumentoSerie.getFont().getStyle() | Font.BOLD, lblDocumentoSerie.getFont().getSize()-2));
-        lblDocumentoSerie.setText("Serie documento");
+    lblAdquirienteTipoDocumentoIdentidad.setFont(lblAdquirienteTipoDocumentoIdentidad.getFont().deriveFont(lblAdquirienteTipoDocumentoIdentidad.getFont().getStyle() | Font.BOLD, lblAdquirienteTipoDocumentoIdentidad.getFont().getSize()-2));
+    lblAdquirienteTipoDocumentoIdentidad.setText("Documento identidad *");
 
-        lblDocumentoNumero.setFont(lblDocumentoNumero.getFont().deriveFont(lblDocumentoNumero.getFont().getStyle() | Font.BOLD, lblDocumentoNumero.getFont().getSize()-2));
-        lblDocumentoNumero.setText("Correlativo documento");
+    tfAdquirienteNombre.setEnabled(false);
+    tfAdquirienteNombre.setMaximumSize(null);
+    tfAdquirienteNombre.setMinimumSize(null);
+    tfAdquirienteNombre.setPreferredSize(new Dimension(150, 30));
 
-        lblDocumentoMotivo.setFont(lblDocumentoMotivo.getFont().deriveFont(lblDocumentoMotivo.getFont().getStyle() | Font.BOLD, lblDocumentoMotivo.getFont().getSize()-2));
-        lblDocumentoMotivo.setText("Motivo baja");
-
-        tfDocumentoMotivo.setEnabled(false);
-        tfDocumentoMotivo.setMaximumSize(null);
-        tfDocumentoMotivo.setMinimumSize(null);
-        tfDocumentoMotivo.setPreferredSize(new Dimension(150, 30));
-
-        btnAgregar.setIcon(FontIcon.of(RemixiconAL.INSERT_ROW_BOTTOM, 16, Color.decode("#FFFFFF")));
-        btnAgregar.setText("Agregar");
-        btnAgregar.setEnabled(false);
-        btnAgregar.setMinimumSize(new Dimension(150, 30));
-        btnAgregar.setName(""); // NOI18N
-        btnAgregar.setPreferredSize(new Dimension(150, 30));
-
-        btnEliminar.setIcon(FontIcon.of(RemixiconAL.DELETE_ROW, 16, Color.decode("#FFFFFF")));
-        btnEliminar.setText("Eliminar");
-        btnEliminar.setEnabled(false);
-        btnEliminar.setMinimumSize(new Dimension(150, 30));
-        btnEliminar.setPreferredSize(new Dimension(150, 30));
-
-        spane.setMaximumSize(null);
-        spane.setMinimumSize(null);
-        spane.setPreferredSize(new Dimension(150, 150));
-
-        table.setModel(new DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        table.setColumnSelectionAllowed(true);
-        table.setEnabled(false);
-        table.setName(""); // NOI18N
-        table.getTableHeader().setReorderingAllowed(false);
-        spane.setViewportView(table);
-        table.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        tfDocumentoCorrelativo.setEnabled(false);
-        tfDocumentoCorrelativo.setMaximumSize(null);
-        tfDocumentoCorrelativo.setMinimumSize(null);
-        tfDocumentoCorrelativo.setPreferredSize(new Dimension(150, 30));
-        AbstractDocument docRuc = (AbstractDocument) tfDocumentoCorrelativo.getDocument();
-        docRuc.setDocumentFilter(new IntegerFilter(8));
-
-        tfDocumentoSerie.setEnabled(false);
-        tfDocumentoSerie.setMaximumSize(null);
-        tfDocumentoSerie.setMinimumSize(null);
-        tfDocumentoSerie.setPreferredSize(new Dimension(150, 30));
-        AbstractDocument docSerie = (AbstractDocument) tfDocumentoSerie.getDocument();
-        docSerie.setDocumentFilter(new SerieFilter('F'));
-
-        GroupLayout pnlDetalleLayout = new GroupLayout(pnlDetalle);
-        pnlDetalle.setLayout(pnlDetalleLayout);
-        pnlDetalleLayout.setHorizontalGroup(pnlDetalleLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDetalleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlDetalleLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(spane, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbxDocumentoTipo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfDocumentoMotivo, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(tfDocumentoCorrelativo, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfDocumentoSerie, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlDetalleLayout.createSequentialGroup()
-                        .addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblDocumentoMotivo)
-                    .addComponent(lblDocumentoNumero)
-                    .addComponent(lblDocumentoSerie)
-                    .addComponent(lblDocumentoTipo))
-                .addContainerGap())
-        );
-        pnlDetalleLayout.setVerticalGroup(pnlDetalleLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDetalleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblDocumentoTipo)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxDocumentoTipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblDocumentoSerie)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfDocumentoSerie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblDocumentoNumero)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfDocumentoCorrelativo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblDocumentoMotivo)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfDocumentoMotivo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlDetalleLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        tabbed.addTab("Detalle", FontIcon.of(RemixiconAL.LIST_ORDERED, 16, Color.decode("#FFFFFF")), pnlDetalle, "");
-
-        btnAdquirienteRuc.setIcon(FontIcon.of(RemixiconMZ.SEARCH_2_LINE, 16, Color.decode("#FFFFFF")));
-        btnAdquirienteRuc.setText("RUC");
-        btnAdquirienteRuc.setPreferredSize(new Dimension(125, 30));
-
-        tfAdquirienteRuc.setMaximumSize(null);
-        tfAdquirienteRuc.setMinimumSize(null);
-        tfAdquirienteRuc.setPreferredSize(new Dimension(150, 30));
+    lblAdquirienteNombre.setFont(lblAdquirienteNombre.getFont().deriveFont(lblAdquirienteNombre.getFont().getStyle() | Font.BOLD, lblAdquirienteNombre.getFont().getSize()-2));
+    lblAdquirienteNombre.setText("Nombre *");
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAdquirienteRuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(tfAdquirienteRuc, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnAdquirienteRuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfAdquirienteRuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(374, Short.MAX_VALUE))
-        );
+    jPanel1.setLayout(jPanel1Layout);
+    jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel1Layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(cbxAdquirienteTipoDocumentoIdentidad, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tfAdquirienteDocumentoIdentidad, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblAdquirienteTipoDocumentoIdentidad)
+                .addComponent(btnAdquirienteDocumentoIdentidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfAdquirienteNombre, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblAdquirienteNombre))
+            .addContainerGap())
+    );
+    jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel1Layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(lblAdquirienteTipoDocumentoIdentidad)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(cbxAdquirienteTipoDocumentoIdentidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(btnAdquirienteDocumentoIdentidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(tfAdquirienteDocumentoIdentidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(lblAdquirienteNombre)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(tfAdquirienteNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addContainerGap())
+    );
 
-        tabbed.addTab("Adquiriente", jPanel1);
+    cbxAdquirienteTipoDocumentoIdentidad.setSelectedIndex(-1);
 
-        separator.setMaximumSize(null);
-        separator.setMinimumSize(null);
-        separator.setPreferredSize(new Dimension(5, 5));
+    tabbed.addTab("Adquiriente", jPanel1);
 
-        btnNuevo.setIcon(FontIcon.of(RemixiconAL.ADD_LINE, 16, Color.decode("#FFFFFF")));
-        btnNuevo.setText("Nuevo");
-        btnNuevo.setMinimumSize(new Dimension(150, 30));
-        btnNuevo.setPreferredSize(new Dimension(150, 30));
+    separator.setMaximumSize(null);
+    separator.setMinimumSize(null);
+    separator.setPreferredSize(new Dimension(5, 5));
 
-        btnGuardar.setIcon(FontIcon.of(RemixiconMZ.SAVE_LINE, 16, Color.decode("#FFFFFF")));
-        btnGuardar.setText("Guardar");
-        btnGuardar.setEnabled(false);
-        btnGuardar.setMinimumSize(new Dimension(150, 30));
-        btnGuardar.setPreferredSize(new Dimension(150, 30));
+    btnNuevo.setIcon(FontIcon.of(RemixiconAL.ADD_LINE, 16, Color.decode("#FFFFFF")));
+    btnNuevo.setText("Nuevo");
+    btnNuevo.setMinimumSize(new Dimension(150, 30));
+    btnNuevo.setPreferredSize(new Dimension(150, 30));
 
-        btnLimpiar.setIcon(FontIcon.of(RemixiconAL.ERASER_LINE, 16, Color.decode("#FFFFFF")));
-        btnLimpiar.setText("Limpiar");
-        btnLimpiar.setEnabled(false);
-        btnLimpiar.setMinimumSize(new Dimension(150, 30));
-        btnLimpiar.setPreferredSize(new Dimension(150, 30));
+    btnGuardar.setIcon(FontIcon.of(RemixiconMZ.SAVE_LINE, 16, Color.decode("#FFFFFF")));
+    btnGuardar.setText("Guardar");
+    btnGuardar.setEnabled(false);
+    btnGuardar.setMinimumSize(new Dimension(150, 30));
+    btnGuardar.setPreferredSize(new Dimension(150, 30));
+
+    btnLimpiar.setIcon(FontIcon.of(RemixiconAL.ERASER_LINE, 16, Color.decode("#FFFFFF")));
+    btnLimpiar.setText("Limpiar");
+    btnLimpiar.setEnabled(false);
+    btnLimpiar.setMinimumSize(new Dimension(150, 30));
+    btnLimpiar.setPreferredSize(new Dimension(150, 30));
 
         GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNuevo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGuardar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnLimpiar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addComponent(separator, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tabbed, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tabbed, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(btnNuevo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(btnGuardar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpiar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNuevo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnLimpiar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addComponent(separator, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tabbed, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap())
+    );
+    layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(tabbed, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addComponent(btnGuardar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLimpiar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnNuevo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+            .addContainerGap())
+    );
 
-        pack();
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public JButton btnAdquirienteRuc;
-    public JButton btnAgregar;
-    public JButton btnEliminar;
+    public JButton btnAdquirienteDocumentoIdentidad;
     public JButton btnGuardar;
     public JButton btnLimpiar;
     public JButton btnNuevo;
-    public JComboBox<String> cbxDocumentoTipo;
+    public JComboBox<String> cbxAdquirienteTipoDocumentoIdentidad;
+    public JComboBox<String> cbxMoneda;
+    public JComboBox<String> cbxSerie;
     public JComboBox<String> cbxTipo;
-    public JXDatePicker dpDocumentoFecha;
     public JXDatePicker dpFecha;
     public JPanel jPanel1;
+    public JLabel lblAdquirienteNombre;
+    public JLabel lblAdquirienteTipoDocumentoIdentidad;
     public JLabel lblCorrelativo;
-    public JLabel lblDocumentoFecha;
-    public JLabel lblDocumentoMotivo;
-    public JLabel lblDocumentoNumero;
-    public JLabel lblDocumentoSerie;
-    public JLabel lblDocumentoTipo;
     public JLabel lblFecha;
+    public JLabel lblMoneda;
     public JLabel lblSerie;
     public JLabel lblTipo;
-    public JPanel pnlDetalle;
     public JPanel pnlEncabezado;
     public JSeparator separator;
-    public JScrollPane spane;
     public JTabbedPane tabbed;
-    public JTable table;
-    public JTextField tfAdquirienteRuc;
+    public JTextField tfAdquirienteDocumentoIdentidad;
+    public JTextField tfAdquirienteNombre;
     public JTextField tfCorrelativo;
-    public JTextField tfDocumentoCorrelativo;
-    public JTextField tfDocumentoMotivo;
-    public JTextField tfDocumentoSerie;
-    public JTextField tfSerie;
     // End of variables declaration//GEN-END:variables
 }

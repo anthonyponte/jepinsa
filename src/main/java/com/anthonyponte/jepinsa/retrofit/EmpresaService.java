@@ -26,6 +26,6 @@ import retrofit2.http.Path;
  * @author AnthonyPonte
  */
 public interface EmpresaService {
-  @GET("api/prod/company/{ruc}")
+  @GET("/api/v1/ruc/{ruc}")
   Call<Empresa> getEmpresa(@Path("ruc") String ruc);
 }
