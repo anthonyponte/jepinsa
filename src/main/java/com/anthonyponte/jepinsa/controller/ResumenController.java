@@ -19,7 +19,6 @@ package com.anthonyponte.jepinsa.controller;
 
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
-import ca.odell.glazedlists.gui.TableFormat;
 import ca.odell.glazedlists.swing.AdvancedListSelectionModel;
 import ca.odell.glazedlists.swing.AdvancedTableModel;
 import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
@@ -40,7 +39,6 @@ import com.anthonyponte.jepinsa.model.DocumentoIdentidad;
 import com.anthonyponte.jepinsa.model.Empresa;
 import com.anthonyponte.jepinsa.model.Estado;
 import com.anthonyponte.jepinsa.model.Igv;
-import com.anthonyponte.jepinsa.model.Moneda;
 import com.anthonyponte.jepinsa.model.Operacion;
 import com.anthonyponte.jepinsa.model.OtrosCargos;
 import com.anthonyponte.jepinsa.model.Percepcion;
@@ -551,7 +549,7 @@ public class ResumenController {
             Number importeTotal = (Number) iFrame.tfImporteTotal.getValue();
             detalle.setImporteTotal(importeTotal.doubleValue());
 
-            detalle.setMoneda((Moneda) iFrame.cbxMoneda.getSelectedItem());
+            detalle.setMoneda((Tipo) iFrame.cbxMoneda.getSelectedItem());
 
             Number gravadas = (Number) iFrame.tfGravadas.getValue();
             if (gravadas.doubleValue() > 0) {

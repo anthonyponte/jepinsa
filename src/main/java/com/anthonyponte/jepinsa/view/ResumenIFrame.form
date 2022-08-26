@@ -918,7 +918,7 @@
                         <Component class="javax.swing.JComboBox" name="cbxMoneda">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new DefaultComboBoxModel(new Moneda[] {&#xa;    new Moneda(&quot;PEN&quot;, &quot;Soles&quot;),&#xa;    new Moneda(&quot;USD&quot;, &quot;Dolares&quot;)})" type="code"/>
+                              <Connection code="new DefaultComboBoxModel(new Tipo[] {&#xa;    new Tipo(&quot;PEN&quot;, &quot;Soles&quot;),&#xa;    new Tipo(&quot;USD&quot;, &quot;Dolares&quot;)})" type="code"/>
                             </Property>
                             <Property name="enabled" type="boolean" value="false"/>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -931,7 +931,7 @@
                               <Dimension value="[150, 30]"/>
                             </Property>
                             <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new DefaultListCellRenderer(){&#xa;    @Override&#xa;    public Component getListCellRendererComponent(&#xa;        JList&lt;?&gt; list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);&#xa;        if (value instanceof Moneda) {&#xa;            Moneda moneda = (Moneda) value;&#xa;            setText(moneda.getDescripcion());&#xa;        }&#xa;        return this;&#xa;    }&#xa;}" type="code"/>
+                              <Connection code="new DefaultListCellRenderer(){&#xa;    @Override&#xa;    public Component getListCellRendererComponent(&#xa;        JList&lt;?&gt; list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);&#xa;        if (value instanceof Tipo) {&#xa;            Tipo moneda = (Tipo) value;&#xa;            setText(moneda.getDescripcion());&#xa;        }&#xa;        return this;&#xa;    }&#xa;}" type="code"/>
                             </Property>
                           </Properties>
                           <AuxValues>

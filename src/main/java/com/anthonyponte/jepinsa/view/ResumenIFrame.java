@@ -7,7 +7,6 @@ package com.anthonyponte.jepinsa.view;
 import com.anthonyponte.jepinsa.filter.IntegerFilter;
 import com.anthonyponte.jepinsa.filter.SerieFilter;
 import com.anthonyponte.jepinsa.model.Estado;
-import com.anthonyponte.jepinsa.model.Moneda;
 import com.anthonyponte.jepinsa.model.Regimen;
 import com.anthonyponte.jepinsa.model.Tipo;
 import java.awt.Color;
@@ -522,9 +521,9 @@ public class ResumenIFrame extends JInternalFrame {
         lblMoneda.setFont(lblMoneda.getFont().deriveFont(lblMoneda.getFont().getStyle() | Font.BOLD, lblMoneda.getFont().getSize()-2));
         lblMoneda.setText("Moneda *");
 
-        cbxMoneda.setModel(new DefaultComboBoxModel(new Moneda[] {
-            new Moneda("PEN", "Soles"),
-            new Moneda("USD", "Dolares")}));
+        cbxMoneda.setModel(new DefaultComboBoxModel(new Tipo[] {
+            new Tipo("PEN", "Soles"),
+            new Tipo("USD", "Dolares")}));
 cbxMoneda.setEnabled(false);
 cbxMoneda.setMaximumSize(null);
 cbxMoneda.setMinimumSize(null);
@@ -534,8 +533,8 @@ cbxMoneda.setRenderer(new DefaultListCellRenderer(){
     public Component getListCellRendererComponent(
         JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        if (value instanceof Moneda) {
-            Moneda moneda = (Moneda) value;
+        if (value instanceof Tipo) {
+            Tipo moneda = (Tipo) value;
             setText(moneda.getDescripcion());
         }
         return this;

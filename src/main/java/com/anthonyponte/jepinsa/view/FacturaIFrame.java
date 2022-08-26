@@ -4,16 +4,13 @@
  */
 package com.anthonyponte.jepinsa.view;
 
-import com.anthonyponte.jepinsa.filter.IntegerFilter;
-import com.anthonyponte.jepinsa.filter.SerieFilter;
-import com.anthonyponte.jepinsa.model.Moneda;
 import com.anthonyponte.jepinsa.model.Tipo;
+import com.anthonyponte.jepinsa.model.TipoOperacion;
+import com.anthonyponte.jepinsa.model.UnidadMedida;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
@@ -24,15 +21,10 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.text.AbstractDocument;
 import org.jdesktop.swingx.JXDatePicker;
 import org.kordamp.ikonli.remixicon.RemixiconAL;
 import org.kordamp.ikonli.remixicon.RemixiconMZ;
@@ -72,13 +64,22 @@ public class FacturaIFrame extends JInternalFrame {
         cbxMoneda = new JComboBox<>();
         lblMoneda = new JLabel();
         cbxSerie = new JComboBox<>();
-        jPanel1 = new JPanel();
+        cbxTipoOperacion = new JComboBox<>();
+        lblTipoOperacion = new JLabel();
+        pnlAdquiriente = new JPanel();
         btnAdquirienteDocumentoIdentidad = new JButton();
         tfAdquirienteDocumentoIdentidad = new JTextField();
         cbxAdquirienteTipoDocumentoIdentidad = new JComboBox<>();
         lblAdquirienteTipoDocumentoIdentidad = new JLabel();
         tfAdquirienteNombre = new JTextField();
         lblAdquirienteNombre = new JLabel();
+        pnlDetalle = new JPanel();
+        lblUnidadMedida = new JLabel();
+        cbxUnidadMedida = new JComboBox<>();
+        lblCantidad = new JLabel();
+        tfCantidad = new JTextField();
+        lblDescripcion = new JLabel();
+        tfDescripcion = new JTextField();
         separator = new JSeparator();
         btnNuevo = new JButton();
         btnGuardar = new JButton();
@@ -95,7 +96,7 @@ public class FacturaIFrame extends JInternalFrame {
         pnlEncabezado.setMaximumSize(null);
 
         lblFecha.setFont(lblFecha.getFont().deriveFont(lblFecha.getFont().getStyle() | Font.BOLD, lblFecha.getFont().getSize()-2));
-        lblFecha.setText("Fecha emision");
+        lblFecha.setText("Fecha emision *");
 
         dpFecha.setEditable(false);
         dpFecha.setEnabled(false);
@@ -105,7 +106,7 @@ public class FacturaIFrame extends JInternalFrame {
         dpFecha.setPreferredSize(new Dimension(150, 30));
 
         lblTipo.setFont(lblTipo.getFont().deriveFont(lblTipo.getFont().getStyle() | Font.BOLD, lblTipo.getFont().getSize()-2));
-        lblTipo.setText("Tipo");
+        lblTipo.setText("Tipo *");
 
         cbxTipo.setModel(new DefaultComboBoxModel(new Tipo[] {
             new Tipo("01", "Factura"),
@@ -129,7 +130,7 @@ public class FacturaIFrame extends JInternalFrame {
         });
 
         lblCorrelativo.setFont(lblCorrelativo.getFont().deriveFont(lblCorrelativo.getFont().getStyle() | Font.BOLD, lblCorrelativo.getFont().getSize()-2));
-        lblCorrelativo.setText("Correlativo");
+        lblCorrelativo.setText("Correlativo *");
         lblCorrelativo.setName(""); // NOI18N
 
         tfCorrelativo.setEnabled(false);
@@ -139,14 +140,11 @@ public class FacturaIFrame extends JInternalFrame {
         tfCorrelativo.setEditable(false);
 
         lblSerie.setFont(lblSerie.getFont().deriveFont(lblSerie.getFont().getStyle() | Font.BOLD, lblSerie.getFont().getSize()-2));
-        lblSerie.setText("Serie");
-        lblSerie.setMaximumSize(null);
-        lblSerie.setMinimumSize(null);
-        lblSerie.setPreferredSize(null);
+        lblSerie.setText("Serie *");
 
-        cbxMoneda.setModel(new DefaultComboBoxModel(new Moneda[] {
-            new Moneda("PEN", "Soles"),
-            new Moneda("USD", "Dolares")}));
+        cbxMoneda.setModel(new DefaultComboBoxModel(new Tipo[] {
+            new Tipo("PEN", "Soles"),
+            new Tipo("USD", "Dolares")}));
 cbxMoneda.setEnabled(false);
 cbxMoneda.setMaximumSize(null);
 cbxMoneda.setMinimumSize(null);
@@ -156,8 +154,8 @@ cbxMoneda.setRenderer(new DefaultListCellRenderer(){
     public Component getListCellRendererComponent(
         JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        if (value instanceof Moneda) {
-            Moneda moneda = (Moneda) value;
+        if (value instanceof Tipo) {
+            Tipo moneda = (Tipo) value;
             setText(moneda.getDescripcion());
         }
         return this;
@@ -173,22 +171,47 @@ cbxMoneda.setRenderer(new DefaultListCellRenderer(){
     cbxSerie.setMaximumSize(null);
     cbxSerie.setPreferredSize(new Dimension(150, 30));
 
+    cbxTipoOperacion.setModel(new DefaultComboBoxModel(new Tipo[] {
+        new TipoOperacion("0101", "Venta interna"),
+        new TipoOperacion("0200", "Exportación de Bienes")}));
+cbxTipoOperacion.setEnabled(false);
+cbxTipoOperacion.setMaximumSize(null);
+cbxTipoOperacion.setMinimumSize(null);
+cbxTipoOperacion.setPreferredSize(new Dimension(150, 30));
+cbxTipoOperacion.setRenderer(new DefaultListCellRenderer(){
+@Override
+public Component getListCellRendererComponent(
+    JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+    super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+    if (value instanceof TipoOperacion) {
+        TipoOperacion tipoOperacion = (TipoOperacion) value;
+        setText(tipoOperacion.getDescripcion());
+    }
+    return this;
+    }
+    });
+
+    lblTipoOperacion.setFont(lblTipoOperacion.getFont().deriveFont(lblTipoOperacion.getFont().getStyle() | Font.BOLD, lblTipoOperacion.getFont().getSize()-2));
+    lblTipoOperacion.setText("Tipo Operacion *");
+
         GroupLayout pnlEncabezadoLayout = new GroupLayout(pnlEncabezado);
     pnlEncabezado.setLayout(pnlEncabezadoLayout);
     pnlEncabezadoLayout.setHorizontalGroup(pnlEncabezadoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
         .addGroup(pnlEncabezadoLayout.createSequentialGroup()
             .addContainerGap()
             .addGroup(pnlEncabezadoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(cbxTipo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cbxTipo, 0, 450, Short.MAX_VALUE)
                 .addComponent(tfCorrelativo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(dpFecha, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTipo)
                 .addComponent(lblFecha)
-                .addComponent(lblSerie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblSerie)
                 .addComponent(lblCorrelativo)
                 .addComponent(lblMoneda)
                 .addComponent(cbxMoneda, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cbxSerie, GroupLayout.Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(cbxSerie, GroupLayout.Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTipoOperacion)
+                .addComponent(cbxTipoOperacion, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addContainerGap())
     );
     pnlEncabezadoLayout.setVerticalGroup(pnlEncabezadoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -202,7 +225,7 @@ cbxMoneda.setRenderer(new DefaultListCellRenderer(){
             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(cbxTipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(lblSerie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblSerie)
             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(cbxSerie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
             .addGap(12, 12, 12)
@@ -213,9 +236,14 @@ cbxMoneda.setRenderer(new DefaultListCellRenderer(){
             .addComponent(lblMoneda)
             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(cbxMoneda, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(lblTipoOperacion)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(cbxTipoOperacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
             .addContainerGap())
     );
 
+    cbxMoneda.setSelectedIndex(-1);
     cbxMoneda.setSelectedIndex(-1);
 
     tabbed.addTab("Encabezado", FontIcon.of(RemixiconAL.FILE_LIST_LINE, 16, Color.decode("#FFFFFF")), pnlEncabezado, "");
@@ -264,12 +292,12 @@ cbxMoneda.setRenderer(new DefaultListCellRenderer(){
     lblAdquirienteNombre.setFont(lblAdquirienteNombre.getFont().deriveFont(lblAdquirienteNombre.getFont().getStyle() | Font.BOLD, lblAdquirienteNombre.getFont().getSize()-2));
     lblAdquirienteNombre.setText("Nombre *");
 
-        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-    jPanel1.setLayout(jPanel1Layout);
-    jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel1Layout.createSequentialGroup()
+        GroupLayout pnlAdquirienteLayout = new GroupLayout(pnlAdquiriente);
+    pnlAdquiriente.setLayout(pnlAdquirienteLayout);
+    pnlAdquirienteLayout.setHorizontalGroup(pnlAdquirienteLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(pnlAdquirienteLayout.createSequentialGroup()
             .addContainerGap()
-            .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAdquirienteLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addComponent(cbxAdquirienteTipoDocumentoIdentidad, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(tfAdquirienteDocumentoIdentidad, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblAdquirienteTipoDocumentoIdentidad)
@@ -278,8 +306,8 @@ cbxMoneda.setRenderer(new DefaultListCellRenderer(){
                 .addComponent(lblAdquirienteNombre))
             .addContainerGap())
     );
-    jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel1Layout.createSequentialGroup()
+    pnlAdquirienteLayout.setVerticalGroup(pnlAdquirienteLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(pnlAdquirienteLayout.createSequentialGroup()
             .addContainerGap()
             .addComponent(lblAdquirienteTipoDocumentoIdentidad)
             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -297,7 +325,83 @@ cbxMoneda.setRenderer(new DefaultListCellRenderer(){
 
     cbxAdquirienteTipoDocumentoIdentidad.setSelectedIndex(-1);
 
-    tabbed.addTab("Adquiriente", jPanel1);
+    tabbed.addTab("Adquiriente", FontIcon.of(RemixiconAL.BUILDING_LINE, 16, Color.decode("#FFFFFF")), pnlAdquiriente);
+
+    lblUnidadMedida.setFont(lblUnidadMedida.getFont().deriveFont(lblUnidadMedida.getFont().getStyle() | Font.BOLD, lblUnidadMedida.getFont().getSize()-2));
+    lblUnidadMedida.setText("Unidad medida *");
+
+    cbxUnidadMedida.setModel(new DefaultComboBoxModel(new UnidadMedida[] {
+        new UnidadMedida("NIU", "Unidades"),
+        new UnidadMedida("CA", "Lata"),
+        new UnidadMedida("BX", "Caja")
+    }));
+    cbxUnidadMedida.setSelectedIndex(-1);
+    cbxUnidadMedida.setEnabled(false);
+    cbxUnidadMedida.setMaximumSize(null);
+    cbxUnidadMedida.setPreferredSize(new Dimension(150, 30));
+    cbxUnidadMedida.setRenderer(new DefaultListCellRenderer(){
+        @Override
+        public Component getListCellRendererComponent(
+            JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof UnidadMedida) {
+                UnidadMedida unidadMedida = (UnidadMedida) value;
+                setText(unidadMedida.getDescripcion());
+            }
+            return this;
+        }
+    });
+
+    lblCantidad.setFont(lblCantidad.getFont().deriveFont(lblCantidad.getFont().getStyle() | Font.BOLD, lblCantidad.getFont().getSize()-2));
+    lblCantidad.setText("Cantidad *");
+    lblCantidad.setName(""); // NOI18N
+
+    tfCantidad.setEnabled(false);
+    tfCantidad.setMaximumSize(null);
+    tfCantidad.setMinimumSize(null);
+    tfCantidad.setPreferredSize(new Dimension(150, 30));
+
+    lblDescripcion.setFont(lblDescripcion.getFont().deriveFont(lblDescripcion.getFont().getStyle() | Font.BOLD, lblDescripcion.getFont().getSize()-2));
+    lblDescripcion.setText("Descripcion *");
+    lblDescripcion.setName(""); // NOI18N
+
+    tfDescripcion.setEnabled(false);
+    tfDescripcion.setMaximumSize(null);
+    tfDescripcion.setMinimumSize(null);
+    tfDescripcion.setPreferredSize(new Dimension(150, 30));
+
+        GroupLayout pnlDetalleLayout = new GroupLayout(pnlDetalle);
+    pnlDetalle.setLayout(pnlDetalleLayout);
+    pnlDetalleLayout.setHorizontalGroup(pnlDetalleLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(pnlDetalleLayout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(pnlDetalleLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(cbxUnidadMedida, 0, 450, Short.MAX_VALUE)
+                .addComponent(lblUnidadMedida)
+                .addComponent(tfCantidad, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblCantidad)
+                .addComponent(tfDescripcion, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblDescripcion))
+            .addContainerGap())
+    );
+    pnlDetalleLayout.setVerticalGroup(pnlDetalleLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(pnlDetalleLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(lblUnidadMedida)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(cbxUnidadMedida, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(lblCantidad)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(tfCantidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(lblDescripcion)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(tfDescripcion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(224, Short.MAX_VALUE))
+    );
+
+    tabbed.addTab("Detalle", pnlDetalle);
 
     separator.setMaximumSize(null);
     separator.setMinimumSize(null);
@@ -362,20 +466,29 @@ cbxMoneda.setRenderer(new DefaultListCellRenderer(){
     public JComboBox<String> cbxMoneda;
     public JComboBox<String> cbxSerie;
     public JComboBox<String> cbxTipo;
+    public JComboBox<String> cbxTipoOperacion;
+    public JComboBox<String> cbxUnidadMedida;
     public JXDatePicker dpFecha;
-    public JPanel jPanel1;
     public JLabel lblAdquirienteNombre;
     public JLabel lblAdquirienteTipoDocumentoIdentidad;
+    public JLabel lblCantidad;
     public JLabel lblCorrelativo;
+    public JLabel lblDescripcion;
     public JLabel lblFecha;
     public JLabel lblMoneda;
     public JLabel lblSerie;
     public JLabel lblTipo;
+    public JLabel lblTipoOperacion;
+    public JLabel lblUnidadMedida;
+    public JPanel pnlAdquiriente;
+    public JPanel pnlDetalle;
     public JPanel pnlEncabezado;
     public JSeparator separator;
     public JTabbedPane tabbed;
     public JTextField tfAdquirienteDocumentoIdentidad;
     public JTextField tfAdquirienteNombre;
+    public JTextField tfCantidad;
     public JTextField tfCorrelativo;
+    public JTextField tfDescripcion;
     // End of variables declaration//GEN-END:variables
 }

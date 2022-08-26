@@ -23,6 +23,12 @@ package com.anthonyponte.jepinsa.model;
 public class TipoOperacion extends Tipo {
   private String tipoComprobante;
 
+  public TipoOperacion() {}
+
+  public TipoOperacion(String codigo, String descripcion) {
+    super(codigo, descripcion);
+  }
+
   public TipoOperacion(String tipoComprobante) {
     this.tipoComprobante = tipoComprobante;
   }

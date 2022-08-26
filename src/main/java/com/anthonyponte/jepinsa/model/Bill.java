@@ -20,7 +20,7 @@ public class Bill {
   private Date fechaEmision;
   private Date horaEmision;
   private Tipo tipoDocumento;
-  private Moneda moneda;
+  private Tipo moneda;
   private Date fechaVencimiento;
   // Datos del Emisor
   private Empresa emisor;
@@ -96,7 +96,7 @@ public class Bill {
       Date fechaEmision,
       Date horaEmision,
       Tipo tipoDocumento,
-      Moneda moneda,
+      Tipo moneda,
       Date fechaVencimiento,
       Empresa emisor,
       Direccion direccionEntrega,
@@ -227,11 +227,11 @@ public class Bill {
     this.tipoDocumento = tipoDocumento;
   }
 
-  public Moneda getMoneda() {
+  public Tipo getMoneda() {
     return moneda;
   }
 
-  public void setMoneda(Moneda moneda) {
+  public void setMoneda(Tipo moneda) {
     this.moneda = moneda;
   }
 

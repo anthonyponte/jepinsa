@@ -30,7 +30,7 @@ public class ResumenDiarioDetalle {
   private Percepcion percepcion;
   private Estado estado;
   private double importeTotal;
-  private Moneda moneda;
+  private Tipo moneda;
   private Operacion gravadas;
   private Operacion exoneradas;
   private Operacion inafectas;
@@ -54,7 +54,7 @@ public class ResumenDiarioDetalle {
       Percepcion percepcion,
       Estado estado,
       double importeTotal,
-      Moneda moneda,
+      Tipo moneda,
       Operacion gravadas,
       Operacion exoneradas,
       Operacion inafectas,
@@ -159,11 +159,11 @@ public class ResumenDiarioDetalle {
     this.importeTotal = importeTotal;
   }
 
-  public Moneda getMoneda() {
+  public Tipo getMoneda() {
     return moneda;
   }
 
-  public void setMoneda(Moneda moneda) {
+  public void setMoneda(Tipo moneda) {
     this.moneda = moneda;
   }
 

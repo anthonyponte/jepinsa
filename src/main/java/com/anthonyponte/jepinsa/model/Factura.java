@@ -29,7 +29,7 @@ public class Factura extends Bill {
       Date fechaEmision,
       Date horaEmision,
       Tipo tipoDocumento,
-      Moneda moneda,
+      Tipo moneda,
       Date fechaVencimiento,
       Empresa emisor,
       Direccion direccionEntrega,

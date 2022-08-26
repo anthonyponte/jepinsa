@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Anthony Ponte
+ * Copyright (C) 2022 AnthonyPonte
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,37 +18,37 @@
 package com.anthonyponte.jepinsa.model;
 
 /**
- * @author Anthony Ponte
+ * @author AnthonyPonte
  */
-public class UnidadMedida {
-  private String codigo;
-  private String descripcion;
+public class UnidadMedida extends Tipo {
+
+  private String nombre;
 
   public UnidadMedida() {}
 
   public UnidadMedida(String codigo, String descripcion) {
-    this.codigo = codigo;
-    this.descripcion = descripcion;
+    super(codigo, descripcion);
   }
 
-  public String getCodigo() {
-    return codigo;
+  public UnidadMedida(String nombre) {
+    this.nombre = nombre;
   }
 
-  public void setCodigo(String codigo) {
-    this.codigo = codigo;
+  public UnidadMedida(String nombre, String codigo, String descripcion) {
+    super(codigo, descripcion);
+    this.nombre = nombre;
   }
 
-  public String getDescripcion() {
-    return descripcion;
+  public String getNombre() {
+    return nombre;
   }
 
-  public void setDescripcion(String descripcion) {
-    this.descripcion = descripcion;
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
   }
 
   @Override
   public String toString() {
-    return "UnidadMedida{" + "codigo=" + codigo + ", descripcion=" + descripcion + '}';
+    return "UnidadMedida{" + "nombre=" + nombre + '}';
   }
 }

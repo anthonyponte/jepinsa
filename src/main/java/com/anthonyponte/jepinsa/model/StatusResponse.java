@@ -9,7 +9,6 @@ package com.anthonyponte.jepinsa.model;
  * @author AnthonyPonte
  */
 public class StatusResponse {
-
   private byte[] content;
   private String contentMessage;
   private String statusCode;

@@ -25,7 +25,6 @@ import com.anthonyponte.jepinsa.model.DocumentoIdentidad;
 import com.anthonyponte.jepinsa.model.Empresa;
 import com.anthonyponte.jepinsa.model.Estado;
 import com.anthonyponte.jepinsa.model.Igv;
-import com.anthonyponte.jepinsa.model.Moneda;
 import com.anthonyponte.jepinsa.model.Operacion;
 import com.anthonyponte.jepinsa.model.OtrosCargos;
 import com.anthonyponte.jepinsa.model.Percepcion;
@@ -415,7 +414,7 @@ public class IResumenDiarioDao implements ResumenDiarioDao {
 
           resumenDiarioDetalle.setImporteTotal(rs.getDouble(22));
 
-          Moneda moneda = new Moneda();
+          Tipo moneda = new Tipo();
           moneda.setCodigo(rs.getString(23));
           moneda.setDescripcion(rs.getString(24));
           resumenDiarioDetalle.setMoneda(moneda);
