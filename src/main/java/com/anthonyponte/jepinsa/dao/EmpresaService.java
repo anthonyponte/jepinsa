@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.anthonyponte.jepinsa.retrofit;
+package com.anthonyponte.jepinsa.dao;
 
 import com.anthonyponte.jepinsa.pojo.Empresa;
 import retrofit2.Call;

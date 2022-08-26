@@ -167,6 +167,8 @@ cbxMoneda.setRenderer(new DefaultListCellRenderer(){
     lblMoneda.setFont(lblMoneda.getFont().deriveFont(lblMoneda.getFont().getStyle() | Font.BOLD, lblMoneda.getFont().getSize()-2));
     lblMoneda.setText("Moneda *");
 
+    cbxSerie.setModel(new DefaultComboBoxModel<>(new String[] { "FEP1", "FEP2", "FEF1", "FEF2", "FEX1", "FEX2" }));
+    cbxSerie.setSelectedIndex(-1);
     cbxSerie.setEnabled(false);
     cbxSerie.setMaximumSize(null);
     cbxSerie.setPreferredSize(new Dimension(150, 30));

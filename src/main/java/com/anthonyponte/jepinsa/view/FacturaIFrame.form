@@ -306,6 +306,17 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="cbxSerie">
               <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="6">
+                    <StringItem index="0" value="FEP1"/>
+                    <StringItem index="1" value="FEP2"/>
+                    <StringItem index="2" value="FEF1"/>
+                    <StringItem index="3" value="FEF2"/>
+                    <StringItem index="4" value="FEX1"/>
+                    <StringItem index="5" value="FEX2"/>
+                  </StringArray>
+                </Property>
+                <Property name="selectedIndex" type="int" value="-1"/>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="null"/>

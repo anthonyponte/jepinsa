@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import com.anthonyponte.jepinsa.retrofit.EmpresaService;
+import com.anthonyponte.jepinsa.dao.EmpresaService;
 import java.awt.event.ItemEvent;
 import java.sql.SQLException;
 import java.util.concurrent.ExecutionException;
@@ -61,7 +61,10 @@ public class FacturaController {
 
     iFrame.cbxSerie.addItemListener(
         (ItemEvent ie) -> {
+          System.out.println("com.anthonyponte.jepinsa.controller.FacturaController.init()");
+
           if (ie.getStateChange() == ItemEvent.SELECTED) {
+            System.out.println("com.anthonyponte.jepinsa.controller.FacturaController.init()");
             dialog.setVisible(true);
             dialog.setLocationRelativeTo(iFrame);
 
@@ -115,10 +118,21 @@ public class FacturaController {
           iFrame.cbxSerie.setEnabled(true);
           iFrame.cbxSerie.setSelectedIndex(0);
 
+          iFrame.cbxMoneda.setEnabled(true);
+          iFrame.cbxMoneda.setSelectedIndex(0);
+
           iFrame.cbxAdquirienteTipoDocumentoIdentidad.setEnabled(true);
           iFrame.cbxAdquirienteTipoDocumentoIdentidad.setSelectedIndex(0);
+          
           iFrame.btnAdquirienteDocumentoIdentidad.setEnabled(true);
+          
           iFrame.tfAdquirienteDocumentoIdentidad.setEnabled(true);
+
+          iFrame.btnNuevo.setEnabled(false);
+
+          iFrame.btnGuardar.setEnabled(false);
+
+          iFrame.btnLimpiar.setEnabled(true);
         });
 
     iFrame.btnAdquirienteDocumentoIdentidad.addActionListener(
