@@ -21,10 +21,13 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.JXDatePicker;
 import org.kordamp.ikonli.remixicon.RemixiconAL;
 import org.kordamp.ikonli.remixicon.RemixiconMZ;
@@ -80,6 +83,14 @@ public class FacturaIFrame extends JInternalFrame {
         tfCantidad = new JTextField();
         lblDescripcion = new JLabel();
         tfDescripcion = new JTextField();
+        tfCantidad1 = new JTextField();
+        lblCantidad1 = new JLabel();
+        tfCantidad2 = new JTextField();
+        lblCantidad2 = new JLabel();
+        spane = new JScrollPane();
+        table = new JTable();
+        btnEliminar = new JButton();
+        btnAgregar = new JButton();
         separator = new JSeparator();
         btnNuevo = new JButton();
         btnGuardar = new JButton();
@@ -328,7 +339,7 @@ public Component getListCellRendererComponent(
     tabbed.addTab("Adquiriente", FontIcon.of(RemixiconAL.BUILDING_LINE, 16, Color.decode("#FFFFFF")), pnlAdquiriente);
 
     lblUnidadMedida.setFont(lblUnidadMedida.getFont().deriveFont(lblUnidadMedida.getFont().getStyle() | Font.BOLD, lblUnidadMedida.getFont().getSize()-2));
-    lblUnidadMedida.setText("Unidad medida *");
+    lblUnidadMedida.setText("Unidad Medida *");
 
     cbxUnidadMedida.setModel(new DefaultComboBoxModel(new UnidadMedida[] {
         new UnidadMedida("NIU", "Unidades"),
@@ -370,6 +381,56 @@ public Component getListCellRendererComponent(
     tfDescripcion.setMinimumSize(null);
     tfDescripcion.setPreferredSize(new Dimension(150, 30));
 
+    tfCantidad1.setEnabled(false);
+    tfCantidad1.setMaximumSize(null);
+    tfCantidad1.setMinimumSize(null);
+    tfCantidad1.setPreferredSize(new Dimension(150, 30));
+
+    lblCantidad1.setFont(lblCantidad1.getFont().deriveFont(lblCantidad1.getFont().getStyle() | Font.BOLD, lblCantidad1.getFont().getSize()-2));
+    lblCantidad1.setText("Valor Unitario *");
+    lblCantidad1.setName(""); // NOI18N
+
+    tfCantidad2.setEnabled(false);
+    tfCantidad2.setMaximumSize(null);
+    tfCantidad2.setMinimumSize(null);
+    tfCantidad2.setPreferredSize(new Dimension(150, 30));
+
+    lblCantidad2.setFont(lblCantidad2.getFont().deriveFont(lblCantidad2.getFont().getStyle() | Font.BOLD, lblCantidad2.getFont().getSize()-2));
+    lblCantidad2.setText("Precio Venta Unitario *");
+    lblCantidad2.setName(""); // NOI18N
+
+    spane.setMaximumSize(null);
+    spane.setMinimumSize(null);
+    spane.setPreferredSize(new Dimension(150, 150));
+
+    table.setModel(new DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+
+        }
+    ));
+    table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    table.setColumnSelectionAllowed(true);
+    table.setEnabled(false);
+    table.setName(""); // NOI18N
+    table.getTableHeader().setReorderingAllowed(false);
+    spane.setViewportView(table);
+
+    btnEliminar.setIcon(FontIcon.of(RemixiconAL.DELETE_ROW, 16, Color.decode("#FFFFFF")));
+    btnEliminar.setText("Eliminar");
+    btnEliminar.setEnabled(false);
+    btnEliminar.setMinimumSize(new Dimension(150, 30));
+    btnEliminar.setPreferredSize(new Dimension(150, 30));
+
+    btnAgregar.setIcon(FontIcon.of(RemixiconAL.INSERT_ROW_BOTTOM, 16, Color.decode("#FFFFFF")));
+    btnAgregar.setText("Agregar");
+    btnAgregar.setEnabled(false);
+    btnAgregar.setMinimumSize(new Dimension(150, 30));
+    btnAgregar.setName(""); // NOI18N
+    btnAgregar.setPreferredSize(new Dimension(150, 30));
+
         GroupLayout pnlDetalleLayout = new GroupLayout(pnlDetalle);
     pnlDetalle.setLayout(pnlDetalleLayout);
     pnlDetalleLayout.setHorizontalGroup(pnlDetalleLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -381,7 +442,16 @@ public Component getListCellRendererComponent(
                 .addComponent(tfCantidad, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblCantidad)
                 .addComponent(tfDescripcion, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblDescripcion))
+                .addComponent(lblDescripcion)
+                .addComponent(tfCantidad1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblCantidad1)
+                .addComponent(tfCantidad2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblCantidad2)
+                .addComponent(spane, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlDetalleLayout.createSequentialGroup()
+                    .addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
             .addContainerGap())
     );
     pnlDetalleLayout.setVerticalGroup(pnlDetalleLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -398,7 +468,21 @@ public Component getListCellRendererComponent(
             .addComponent(lblDescripcion)
             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(tfDescripcion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(224, Short.MAX_VALUE))
+            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(lblCantidad1)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(tfCantidad1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(lblCantidad2)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(tfCantidad2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(pnlDetalleLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(spane, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+            .addContainerGap())
     );
 
     tabbed.addTab("Detalle", pnlDetalle);
@@ -459,6 +543,8 @@ public Component getListCellRendererComponent(
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public JButton btnAdquirienteDocumentoIdentidad;
+    public JButton btnAgregar;
+    public JButton btnEliminar;
     public JButton btnGuardar;
     public JButton btnLimpiar;
     public JButton btnNuevo;
@@ -472,6 +558,8 @@ public Component getListCellRendererComponent(
     public JLabel lblAdquirienteNombre;
     public JLabel lblAdquirienteTipoDocumentoIdentidad;
     public JLabel lblCantidad;
+    public JLabel lblCantidad1;
+    public JLabel lblCantidad2;
     public JLabel lblCorrelativo;
     public JLabel lblDescripcion;
     public JLabel lblFecha;
@@ -484,10 +572,14 @@ public Component getListCellRendererComponent(
     public JPanel pnlDetalle;
     public JPanel pnlEncabezado;
     public JSeparator separator;
+    public JScrollPane spane;
     public JTabbedPane tabbed;
+    public JTable table;
     public JTextField tfAdquirienteDocumentoIdentidad;
     public JTextField tfAdquirienteNombre;
     public JTextField tfCantidad;
+    public JTextField tfCantidad1;
+    public JTextField tfCantidad2;
     public JTextField tfCorrelativo;
     public JTextField tfDescripcion;
     // End of variables declaration//GEN-END:variables
