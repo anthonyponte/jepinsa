@@ -126,7 +126,7 @@ public class UsuarioController {
             frame.menuBillConsultService.setEnabled(true);
 
             frame.miFactura.setEnabled(true);
-            
+
             frame.miComunicacion.setEnabled(true);
 
             frame.miResumen.setEnabled(true);
@@ -135,10 +135,12 @@ public class UsuarioController {
 
             frame.miResumenTable.setEnabled(true);
 
+            frame.miFirmar.setEnabled(true);
+
             frame.miSendSummaryTable.setEnabled(true);
-            
+
             frame.miSendSummary.setEnabled(true);
-            
+
             frame.miSendBill.setEnabled(true);
 
             frame.miBillConsultServiceTable.setEnabled(true);

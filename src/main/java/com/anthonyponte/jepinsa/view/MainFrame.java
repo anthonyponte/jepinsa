@@ -58,6 +58,7 @@ public class MainFrame extends JFrame {
         menuVer = new JMenu();
         miComunicacionTable = new JMenuItem();
         miResumenTable = new JMenuItem();
+        miFirmar = new JMenuItem();
         menuWebService = new JMenu();
         menuBillService = new JMenu();
         miSendBill = new JMenuItem();
@@ -118,6 +119,10 @@ public class MainFrame extends JFrame {
         menuVer.add(miResumenTable);
 
         menuMain.add(menuVer);
+
+        miFirmar.setText("Firmar");
+        miFirmar.setEnabled(false);
+        menuMain.add(miFirmar);
 
         menuWebService.setText("WebService");
         menuWebService.setEnabled(false);
@@ -197,6 +202,7 @@ public class MainFrame extends JFrame {
     public JMenuItem miComunicacion;
     public JMenuItem miComunicacionTable;
     public JMenuItem miFactura;
+    public JMenuItem miFirmar;
     public JMenuItem miResumen;
     public JMenuItem miResumenTable;
     public JMenuItem miSendBill;

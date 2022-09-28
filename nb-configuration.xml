@@ -26,5 +26,11 @@ Any value defined here will override the pom.xml file value but is only applicab
         <de-funfried-netbeans-plugins-externalcodeformatter.useProjectSettings>true</de-funfried-netbeans-plugins-externalcodeformatter.useProjectSettings>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
         <org-netbeans-modules-javascript2-requirejs.enabled>true</org-netbeans-modules-javascript2-requirejs.enabled>
+        <de-funfried-netbeans-plugins-externalcodeformatter.linefeed/>
+        <de-funfried-netbeans-plugins-externalcodeformatter.eclipseFormatterActiveProfile/>
+        <de-funfried-netbeans-plugins-externalcodeformatter.enabledFormatter>google-java-formatter</de-funfried-netbeans-plugins-externalcodeformatter.enabledFormatter>
+        <de-funfried-netbeans-plugins-externalcodeformatter.useProjectPref>true</de-funfried-netbeans-plugins-externalcodeformatter.useProjectPref>
+        <de-funfried-netbeans-plugins-externalcodeformatter.eclipseFormatterLocation/>
+        <de-funfried-netbeans-plugins-externalcodeformatter.sourcelevel/>
     </properties>
 </project-shared-configuration>
