@@ -34,7 +34,7 @@ public class ResumenDiario extends Summary {
       int id,
       String ubl,
       String version,
-      TipoDocumento tipoDocumento,
+      Tipo tipoDocumento,
       String serie,
       int correlativo,
       Date fechaEmision,

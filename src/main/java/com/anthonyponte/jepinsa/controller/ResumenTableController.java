@@ -36,7 +36,7 @@ import com.anthonyponte.jepinsa.dao.ResumenDiarioDao;
 import com.anthonyponte.jepinsa.idao.IResumenDiarioDao;
 import com.anthonyponte.jepinsa.model.ResumenDiario;
 import com.anthonyponte.jepinsa.model.ResumenDiarioDetalle;
-import com.anthonyponte.jepinsa.glazedlist.ResumenDiarioDetalleTableFormat;
+import com.anthonyponte.jepinsa.glazedlist.ResumenDetalleTableFormat;
 import com.anthonyponte.jepinsa.view.LoadingDialog;
 import com.anthonyponte.jepinsa.view.TableIFrame;
 import java.awt.event.ActionEvent;
@@ -249,7 +249,7 @@ public class ResumenTableController {
         iFrame.tblEncabezado, sortedList, TableComparatorChooser.SINGLE_COLUMN);
 
     AdvancedTableModel<ResumenDiarioDetalle> tmDetalle =
-        eventTableModelWithThreadProxyList(elDetalle, new ResumenDiarioDetalleTableFormat());
+        eventTableModelWithThreadProxyList(elDetalle, new ResumenDetalleTableFormat());
     iFrame.tblDetalle.setModel(tmDetalle);
 
     iFrame.show();

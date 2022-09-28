@@ -5,27 +5,25 @@
 
 package com.anthonyponte.jepinsa.model;
 
-
 /**
  * @author AnthonyPonte
  */
 public class DocumentoIdentidad {
-
-  private TipoDocumentoIdentidad tipo;
+  private Tipo tipo;
   private String numero;
 
   public DocumentoIdentidad() {}
 
-  public DocumentoIdentidad(TipoDocumentoIdentidad tipo, String numero) {
+  public DocumentoIdentidad(Tipo tipo, String numero) {
     this.tipo = tipo;
     this.numero = numero;
   }
 
-  public TipoDocumentoIdentidad getTipo() {
+  public Tipo getTipo() {
     return tipo;
   }
 
-  public void setTipo(TipoDocumentoIdentidad tipo) {
+  public void setTipo(Tipo tipo) {
     this.tipo = tipo;
   }
 

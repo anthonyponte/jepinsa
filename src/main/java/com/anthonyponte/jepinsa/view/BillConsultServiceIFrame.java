@@ -6,7 +6,7 @@ package com.anthonyponte.jepinsa.view;
 
 import com.anthonyponte.jepinsa.filter.IntegerFilter;
 import com.anthonyponte.jepinsa.filter.SerieFilter;
-import com.anthonyponte.jepinsa.model.TipoDocumento;
+import com.anthonyponte.jepinsa.model.Tipo;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -78,11 +78,11 @@ public class BillConsultServiceIFrame extends JInternalFrame {
         lblTipo.setFont(lblTipo.getFont().deriveFont(lblTipo.getFont().getStyle() | Font.BOLD, lblTipo.getFont().getSize()-2));
         lblTipo.setText("Tipo");
 
-        cbxTipo.setModel(new DefaultComboBoxModel(new TipoDocumento[] {
-            new TipoDocumento("01", "Factura"),
-            new TipoDocumento("03", "Boleta de venta"),
-            new TipoDocumento("07", "Nota de crédito"),
-            new TipoDocumento("08", "Nota de débito")
+        cbxTipo.setModel(new DefaultComboBoxModel(new Tipo[] {
+            new Tipo("01", "Factura"),
+            new Tipo("03", "Boleta de venta"),
+            new Tipo("07", "Nota de crédito"),
+            new Tipo("08", "Nota de débito")
         }));
         cbxTipo.setSelectedIndex(0);
         cbxTipo.setMaximumSize(null);
@@ -92,8 +92,8 @@ public class BillConsultServiceIFrame extends JInternalFrame {
             public Component getListCellRendererComponent(
                 JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (value instanceof TipoDocumento) {
-                    TipoDocumento tipoDocumento = (TipoDocumento) value;
+                if (value instanceof Tipo) {
+                    Tipo tipoDocumento = (Tipo) value;
                     setText(tipoDocumento.getDescripcion());
                 }
                 return this;

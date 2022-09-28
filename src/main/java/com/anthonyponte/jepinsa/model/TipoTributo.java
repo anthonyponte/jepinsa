@@ -20,53 +20,21 @@ package com.anthonyponte.jepinsa.model;
 /**
  * @author AnthonyPonte
  */
-public class Operacion {
-  private double total;
-  private String codigo;
-  private String descripcion;
+public class TipoTributo extends Tipo {
   private String codigoInternacional;
   private String nombre;
-  private double tributo;
 
-  public Operacion() {}
+  public TipoTributo() {}
 
-  public Operacion(
-      double total,
-      String codigo,
-      String descripcion,
-      String codigoInternacional,
-      String nombre,
-      double tributo) {
-    this.total = total;
-    this.codigo = codigo;
-    this.descripcion = descripcion;
+  public TipoTributo(String codigoInternacional, String nombre) {
     this.codigoInternacional = codigoInternacional;
     this.nombre = nombre;
-    this.tributo = tributo;
   }
 
-  public double getTotal() {
-    return total;
-  }
-
-  public void setTotal(double total) {
-    this.total = total;
-  }
-
-  public String getCodigo() {
-    return codigo;
-  }
-
-  public void setCodigo(String codigo) {
-    this.codigo = codigo;
-  }
-
-  public String getDescripcion() {
-    return descripcion;
-  }
-
-  public void setDescripcion(String descripcion) {
-    this.descripcion = descripcion;
+  public TipoTributo(String codigoInternacional, String nombre, String codigo, String descripcion) {
+    super(codigo, descripcion);
+    this.codigoInternacional = codigoInternacional;
+    this.nombre = nombre;
   }
 
   public String getCodigoInternacional() {
@@ -85,29 +53,13 @@ public class Operacion {
     this.nombre = nombre;
   }
 
-  public double getTributo() {
-    return tributo;
-  }
-
-  public void setTributo(double tributo) {
-    this.tributo = tributo;
-  }
-
   @Override
   public String toString() {
-    return "Operacion{"
-        + "total="
-        + total
-        + ", codigo="
-        + codigo
-        + ", descripcion="
-        + descripcion
-        + ", codigoInternacional="
+    return "TipoTributo{"
+        + "codigoInternacional="
         + codigoInternacional
         + ", nombre="
         + nombre
-        + ", tributo="
-        + tributo
         + '}';
   }
 }

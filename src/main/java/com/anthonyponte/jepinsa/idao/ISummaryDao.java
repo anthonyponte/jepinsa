@@ -23,7 +23,7 @@ import com.anthonyponte.jepinsa.model.Archivo;
 import com.anthonyponte.jepinsa.model.DocumentoIdentidad;
 import com.anthonyponte.jepinsa.model.Empresa;
 import com.anthonyponte.jepinsa.model.Summary;
-import com.anthonyponte.jepinsa.model.TipoDocumento;
+import com.anthonyponte.jepinsa.model.Tipo;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -112,7 +112,7 @@ public class ISummaryDao implements SummaryDao {
           emisor.setDocumentoIdentidad(documentoIdentidad);
           summary.setEmisor(emisor);
 
-          TipoDocumento tipoDocumento = new TipoDocumento();
+          Tipo tipoDocumento = new Tipo();
           tipoDocumento.setCodigo(rs.getString(4));
           tipoDocumento.setDescripcion(rs.getString(5));
           summary.setTipoDocumento(tipoDocumento);
@@ -172,7 +172,7 @@ public class ISummaryDao implements SummaryDao {
   }
 
   @Override
-  public int count(TipoDocumento tipoDocumento, java.util.Date fechaEmision) throws SQLException {
+  public int count(Tipo tipoDocumento, java.util.Date fechaEmision) throws SQLException {
     int count = 0;
 
     database.connect();

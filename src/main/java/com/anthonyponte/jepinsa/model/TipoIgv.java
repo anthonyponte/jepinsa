@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 anthony
+ * Copyright (C) 2022 AnthonyPonte
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,38 +18,32 @@
 package com.anthonyponte.jepinsa.model;
 
 /**
- * @author anthony
+ * @author AnthonyPonte
  */
-public class TipoDocumento {
+public class TipoIgv extends Tipo {
+  private String codigoTributo;
 
-  private String codigo;
-  private String descripcion;
+  public TipoIgv() {}
 
-  public TipoDocumento() {}
-
-  public TipoDocumento(String codigo, String descripcion) {
-    this.codigo = codigo;
-    this.descripcion = descripcion;
+  public TipoIgv(String codigoTributo) {
+    this.codigoTributo = codigoTributo;
   }
 
-  public String getCodigo() {
-    return codigo;
+  public TipoIgv(String codigoTributo, String codigo, String descripcion) {
+    super(codigo, descripcion);
+    this.codigoTributo = codigoTributo;
   }
 
-  public void setCodigo(String codigo) {
-    this.codigo = codigo;
+  public String getCodigoTributo() {
+    return codigoTributo;
   }
 
-  public String getDescripcion() {
-    return descripcion;
-  }
-
-  public void setDescripcion(String descripcion) {
-    this.descripcion = descripcion;
+  public void setCodigoTributo(String codigoTributo) {
+    this.codigoTributo = codigoTributo;
   }
 
   @Override
   public String toString() {
-    return "TipoDocumento{" + "codigo=" + codigo + ", descripcion=" + descripcion + '}';
+    return "TipoIgv{" + "codigoTributo=" + codigoTributo + '}';
   }
 }

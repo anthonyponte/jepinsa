@@ -20,37 +20,37 @@ package com.anthonyponte.jepinsa.model;
 /**
  * @author AnthonyPonte
  */
-public class Operacion {
-  private double total;
+public class Descuento {
+  private boolean indicador;
   private String codigo;
   private String descripcion;
-  private String codigoInternacional;
-  private String nombre;
-  private double tributo;
+  private double factor;
+  private double monto;
+  private double base;
 
-  public Operacion() {}
+  public Descuento() {}
 
-  public Operacion(
-      double total,
+  public Descuento(
+      boolean indicador,
       String codigo,
       String descripcion,
-      String codigoInternacional,
-      String nombre,
-      double tributo) {
-    this.total = total;
+      double factor,
+      double monto,
+      double base) {
+    this.indicador = indicador;
     this.codigo = codigo;
     this.descripcion = descripcion;
-    this.codigoInternacional = codigoInternacional;
-    this.nombre = nombre;
-    this.tributo = tributo;
+    this.factor = factor;
+    this.monto = monto;
+    this.base = base;
   }
 
-  public double getTotal() {
-    return total;
+  public boolean isIndicador() {
+    return indicador;
   }
 
-  public void setTotal(double total) {
-    this.total = total;
+  public void setIndicador(boolean indicador) {
+    this.indicador = indicador;
   }
 
   public String getCodigo() {
@@ -69,45 +69,45 @@ public class Operacion {
     this.descripcion = descripcion;
   }
 
-  public String getCodigoInternacional() {
-    return codigoInternacional;
+  public double getFactor() {
+    return factor;
   }
 
-  public void setCodigoInternacional(String codigoInternacional) {
-    this.codigoInternacional = codigoInternacional;
+  public void setFactor(double factor) {
+    this.factor = factor;
   }
 
-  public String getNombre() {
-    return nombre;
+  public double getMonto() {
+    return monto;
   }
 
-  public void setNombre(String nombre) {
-    this.nombre = nombre;
+  public void setMonto(double monto) {
+    this.monto = monto;
   }
 
-  public double getTributo() {
-    return tributo;
+  public double getBase() {
+    return base;
   }
 
-  public void setTributo(double tributo) {
-    this.tributo = tributo;
+  public void setBase(double base) {
+    this.base = base;
   }
 
   @Override
   public String toString() {
-    return "Operacion{"
-        + "total="
-        + total
+    return "Descuento{"
+        + "indicador="
+        + indicador
         + ", codigo="
         + codigo
         + ", descripcion="
         + descripcion
-        + ", codigoInternacional="
-        + codigoInternacional
-        + ", nombre="
-        + nombre
-        + ", tributo="
-        + tributo
+        + ", factor="
+        + factor
+        + ", monto="
+        + monto
+        + ", base="
+        + base
         + '}';
   }
 }

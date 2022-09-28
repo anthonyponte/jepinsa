@@ -9,7 +9,7 @@ import billconsultservice.sunat.gob.pe.BillService;
 import billconsultservice.sunat.gob.pe.StatusResponse;
 import com.anthonyponte.jepinsa.filter.SerieFilter;
 import com.anthonyponte.jepinsa.idao.IBillConsultService;
-import com.anthonyponte.jepinsa.model.TipoDocumento;
+import com.anthonyponte.jepinsa.model.Tipo;
 import com.anthonyponte.jepinsa.view.LoadingDialog;
 import com.anthonyponte.jepinsa.view.BillConsultServiceIFrame;
 import java.awt.Color;
@@ -78,7 +78,7 @@ public class BillConsultServiceController {
                 @Override
                 protected StatusResponse doInBackground() throws Exception {
                   String ruc = iFrame.tfRuc.getText();
-                  TipoDocumento tipoDocumento = (TipoDocumento) iFrame.cbxTipo.getSelectedItem();
+                  Tipo tipoDocumento = (Tipo) iFrame.cbxTipo.getSelectedItem();
                   String serie = iFrame.tfSerie.getText();
                   int correlativo = Integer.parseInt(iFrame.tfCorrelativo.getText());
 
@@ -146,7 +146,7 @@ public class BillConsultServiceController {
                 @Override
                 protected StatusResponse doInBackground() throws Exception {
                   String ruc = iFrame.tfRuc.getText();
-                  TipoDocumento tipoDocumento = (TipoDocumento) iFrame.cbxTipo.getSelectedItem();
+                  Tipo tipoDocumento = (Tipo) iFrame.cbxTipo.getSelectedItem();
                   String serie = iFrame.tfSerie.getText();
                   int correlativo = Integer.parseInt(iFrame.tfCorrelativo.getText());
 
@@ -165,8 +165,8 @@ public class BillConsultServiceController {
 
                     if (get.getStatusCode().equals("0004")) {
                       String ruc = iFrame.tfRuc.getText();
-                      TipoDocumento tipoDocumento =
-                          (TipoDocumento) iFrame.cbxTipo.getSelectedItem();
+                      Tipo tipoDocumento =
+                          (Tipo) iFrame.cbxTipo.getSelectedItem();
                       String serie = iFrame.tfSerie.getText();
                       int correlativo = Integer.parseInt(iFrame.tfCorrelativo.getText());
 

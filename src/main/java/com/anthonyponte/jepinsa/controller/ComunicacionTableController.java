@@ -38,7 +38,7 @@ import javax.swing.JFileChooser;
 import javax.swing.SwingWorker;
 import org.joda.time.DateTime;
 import com.anthonyponte.jepinsa.dao.ComunicacionBajaDao;
-import com.anthonyponte.jepinsa.glazedlist.ComunicacionBajaDetalleTableFormat;
+import com.anthonyponte.jepinsa.glazedlist.ComunicacionDetalleTableFormat;
 import com.anthonyponte.jepinsa.view.LoadingDialog;
 import com.anthonyponte.jepinsa.view.TableIFrame;
 import javax.swing.JOptionPane;
@@ -258,7 +258,7 @@ public class ComunicacionTableController {
         iFrame.tblEncabezado, sortedList, TableComparatorChooser.SINGLE_COLUMN);
 
     AdvancedTableModel<ComunicacionBajaDetalle> tmDetalle =
-        eventTableModelWithThreadProxyList(elDetalle, new ComunicacionBajaDetalleTableFormat());
+        eventTableModelWithThreadProxyList(elDetalle, new ComunicacionDetalleTableFormat());
     iFrame.tblDetalle.setModel(tmDetalle);
 
     iFrame.show();

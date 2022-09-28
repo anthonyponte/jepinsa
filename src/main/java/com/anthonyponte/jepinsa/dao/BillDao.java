@@ -17,21 +17,22 @@
 
 package com.anthonyponte.jepinsa.dao;
 
-import com.anthonyponte.jepinsa.model.Summary;
+import com.anthonyponte.jepinsa.model.Bill;
 import com.anthonyponte.jepinsa.model.Tipo;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
-/** @author AnthonyPonte */
-public interface SummaryDao {
-  public int create(Summary summary) throws SQLException;
+/**
+ * @author AnthonyPonte
+ */
+public interface BillDao {
+  public int create(Bill bill) throws SQLException;
 
-  public List<Summary> read() throws SQLException;
+  public List<Bill> read() throws SQLException;
 
-  public void update(int id, Summary summary) throws SQLException;
+  public void update(int id, Bill bill) throws SQLException;
 
   public void delete(int id) throws SQLException;
 
-  public int count(Tipo tipoDocumento, Date fechaEmision) throws SQLException;
+  public int count(String serie, Tipo tipo) throws SQLException;
 }

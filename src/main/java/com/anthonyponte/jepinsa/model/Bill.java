@@ -12,32 +12,40 @@ import java.util.List;
  * @author anthony
  */
 public class Bill {
-
+  // Datos de la Factura electrónica
   private String ubl;
   private String version;
   private String serie;
   private int correlativo;
   private Date fechaEmision;
   private Date horaEmision;
-  private TipoDocumento tipoDocumento;
-  private Moneda moneda;
+  private Tipo tipoDocumento;
+  private Tipo moneda;
   private Date fechaVencimiento;
+  // Datos del Emisor
   private Empresa emisor;
+  private Direccion direccionEntrega;
+  // Datos del adquirente o usuario
   private Empresa adquiriente;
+  private Empresa participante;
+  // Información adicional - Datos del sujeto que realiza la operación por cuenta del adquirente o
+  // usuario
   private DocumentoIdentidad sujeto;
-  private Documento guia;
+  // Información adicional - Documentos relacionados
+  private List<Documento> guias;
   private List<Documento> documentosRelacionados;
+  // Totales de la Factura
   private double totalTributos;
-  private Operacion totalExportacion;
-  private Operacion totalInafectas;
-  private Operacion totalExoneradas;
-  private Operacion totalGratuitas;
-  private Impuesto tributosGratuitas;
-  private Operacion totalGravadas;
-  private Impuesto igv;
-  private Impuesto isc;
-  private Impuesto otrosTributos;
-  private Impuesto icbper;
+  private double exportacion;
+  private double inafectas;
+  private double exoneradas;
+  private Operacion gratuitas;
+  private Igv tributosGratuitas;
+  private Operacion gravadas;
+  private Igv igv;
+  private Isc isc;
+  private Igv otrosTributos;
+  private Igv icbper;
   private OtrosCargos descuentos;
   private double otrosDescuentos;
   private double otrosCargos;
@@ -45,13 +53,39 @@ public class Bill {
   private double totalValorVenta;
   private double totalPrecioVenta;
   private double totalRedondeado;
+  // Información adicional
   private List<Leyenda> leyendas;
-  private String tipoOperacion;
+  private TipoOperacion tipoOperacion;
   private String ordenCompra;
-  private String fise;
-  private String derechosArancelarios;
   private String incoterm;
-
+  // Información adicional - percepciones
+  // Información adicional  - anticipos
+  // Información adicional - sustento de traslado de mercaderias
+  // a) Para el caso de la factura electrónica remitente
+  // b) Para el caso de la factura electrónica tranportista
+  // Información adicional  - transporte terrestre de pasajeros
+  // Información adicional  - detracciones
+  // Información adicional - detracciones - recursos hidrobiológicos
+  // Información adicional - detracciones - servicio de transporte de carga
+  // Información adicional - detracciones - servicio de transporte de carga - detalle de tramos
+  // Información adicional - detracciones - servicio de transporte de carga - detalle de el(los)
+  // vehículo(s)
+  // Información adicional  - exportación de servicios de hospedaje
+  // Información adicional  - beneficio de hospedaje - paquete turístico
+  // Información adicional - ventas al sector público
+  // Información adicional - migración de documentos autorizados - Carta Porte Aéreo
+  // Información adicional - migración de documentos autorizados - BVME para transporte ferroviario
+  // de pasajeros
+  // Información adicional a nivel de ítem
+  // Información adicional a nivel de ítem - comprobante emitido por empresas del sistema financiero
+  // y cooperativas de ahorro y crédito no autorizadas a captar recursos del público
+  // Información adicional  a nivel de ítem - comprobante emitido por empresas de seguros
+  // Información adicional - Forma de pago al contado
+  // Información adicional - Forma de pago al crédito
+  private FormaPago contado;
+  private List<FormaPago> credito;
+  // Información adicional - Retenciones de IGV
+  // Información adicional - Retenciones de Renta de segunda categoría
   public Bill() {}
 
   public Bill(
@@ -61,25 +95,27 @@ public class Bill {
       int correlativo,
       Date fechaEmision,
       Date horaEmision,
-      TipoDocumento tipoDocumento,
-      Moneda moneda,
+      Tipo tipoDocumento,
+      Tipo moneda,
       Date fechaVencimiento,
       Empresa emisor,
+      Direccion direccionEntrega,
       Empresa adquiriente,
+      Empresa participante,
       DocumentoIdentidad sujeto,
-      Documento guia,
+      List<Documento> guias,
       List<Documento> documentosRelacionados,
       double totalTributos,
-      Operacion totalExportacion,
-      Operacion totalInafectas,
-      Operacion totalExoneradas,
-      Operacion totalGratuitas,
-      Impuesto tributosGratuitas,
-      Operacion totalGravadas,
-      Impuesto igv,
-      Impuesto isc,
-      Impuesto otrosTributos,
-      Impuesto icbper,
+      double exportacion,
+      double inafectas,
+      double exoneradas,
+      Operacion gratuitas,
+      Igv tributosGratuitas,
+      Operacion gravadas,
+      Igv igv,
+      Isc isc,
+      Igv otrosTributos,
+      Igv icbper,
       OtrosCargos descuentos,
       double otrosDescuentos,
       double otrosCargos,
@@ -88,11 +124,11 @@ public class Bill {
       double totalPrecioVenta,
       double totalRedondeado,
       List<Leyenda> leyendas,
-      String tipoOperacion,
+      TipoOperacion tipoOperacion,
       String ordenCompra,
-      String fise,
-      String derechosArancelarios,
-      String incoterm) {
+      String incoterm,
+      FormaPago contado,
+      List<FormaPago> credito) {
     this.ubl = ubl;
     this.version = version;
     this.serie = serie;
@@ -103,17 +139,19 @@ public class Bill {
     this.moneda = moneda;
     this.fechaVencimiento = fechaVencimiento;
     this.emisor = emisor;
+    this.direccionEntrega = direccionEntrega;
     this.adquiriente = adquiriente;
+    this.participante = participante;
     this.sujeto = sujeto;
-    this.guia = guia;
+    this.guias = guias;
     this.documentosRelacionados = documentosRelacionados;
     this.totalTributos = totalTributos;
-    this.totalExportacion = totalExportacion;
-    this.totalInafectas = totalInafectas;
-    this.totalExoneradas = totalExoneradas;
-    this.totalGratuitas = totalGratuitas;
+    this.exportacion = exportacion;
+    this.inafectas = inafectas;
+    this.exoneradas = exoneradas;
+    this.gratuitas = gratuitas;
     this.tributosGratuitas = tributosGratuitas;
-    this.totalGravadas = totalGravadas;
+    this.gravadas = gravadas;
     this.igv = igv;
     this.isc = isc;
     this.otrosTributos = otrosTributos;
@@ -128,9 +166,9 @@ public class Bill {
     this.leyendas = leyendas;
     this.tipoOperacion = tipoOperacion;
     this.ordenCompra = ordenCompra;
-    this.fise = fise;
-    this.derechosArancelarios = derechosArancelarios;
     this.incoterm = incoterm;
+    this.contado = contado;
+    this.credito = credito;
   }
 
   public String getUbl() {
@@ -181,19 +219,19 @@ public class Bill {
     this.horaEmision = horaEmision;
   }
 
-  public TipoDocumento getTipoDocumento() {
+  public Tipo getTipoDocumento() {
     return tipoDocumento;
   }
 
-  public void setTipoDocumento(TipoDocumento tipoDocumento) {
+  public void setTipoDocumento(Tipo tipoDocumento) {
     this.tipoDocumento = tipoDocumento;
   }
 
-  public Moneda getMoneda() {
+  public Tipo getMoneda() {
     return moneda;
   }
 
-  public void setMoneda(Moneda moneda) {
+  public void setMoneda(Tipo moneda) {
     this.moneda = moneda;
   }
 
@@ -213,12 +251,28 @@ public class Bill {
     this.emisor = emisor;
   }
 
+  public Direccion getDireccionEntrega() {
+    return direccionEntrega;
+  }
+
+  public void setDireccionEntrega(Direccion direccionEntrega) {
+    this.direccionEntrega = direccionEntrega;
+  }
+
   public Empresa getAdquiriente() {
     return adquiriente;
   }
 
   public void setAdquiriente(Empresa adquiriente) {
     this.adquiriente = adquiriente;
+  }
+
+  public Empresa getParticipante() {
+    return participante;
+  }
+
+  public void setParticipante(Empresa participante) {
+    this.participante = participante;
   }
 
   public DocumentoIdentidad getSujeto() {
@@ -229,12 +283,12 @@ public class Bill {
     this.sujeto = sujeto;
   }
 
-  public Documento getGuia() {
-    return guia;
+  public List<Documento> getGuias() {
+    return guias;
   }
 
-  public void setGuia(Documento guia) {
-    this.guia = guia;
+  public void setGuias(List<Documento> guias) {
+    this.guias = guias;
   }
 
   public List<Documento> getDocumentosRelacionados() {
@@ -253,83 +307,83 @@ public class Bill {
     this.totalTributos = totalTributos;
   }
 
-  public Operacion getTotalExportacion() {
-    return totalExportacion;
+  public double getExportacion() {
+    return exportacion;
   }
 
-  public void setTotalExportacion(Operacion totalExportacion) {
-    this.totalExportacion = totalExportacion;
+  public void setExportacion(double exportacion) {
+    this.exportacion = exportacion;
   }
 
-  public Operacion getTotalInafectas() {
-    return totalInafectas;
+  public double getInafectas() {
+    return inafectas;
   }
 
-  public void setTotalInafectas(Operacion totalInafectas) {
-    this.totalInafectas = totalInafectas;
+  public void setInafectas(double inafectas) {
+    this.inafectas = inafectas;
   }
 
-  public Operacion getTotalExoneradas() {
-    return totalExoneradas;
+  public double getExoneradas() {
+    return exoneradas;
   }
 
-  public void setTotalExoneradas(Operacion totalExoneradas) {
-    this.totalExoneradas = totalExoneradas;
+  public void setExoneradas(double exoneradas) {
+    this.exoneradas = exoneradas;
   }
 
-  public Operacion getTotalGratuitas() {
-    return totalGratuitas;
+  public Operacion getGratuitas() {
+    return gratuitas;
   }
 
-  public void setTotalGratuitas(Operacion totalGratuitas) {
-    this.totalGratuitas = totalGratuitas;
+  public void setGratuitas(Operacion gratuitas) {
+    this.gratuitas = gratuitas;
   }
 
-  public Impuesto getTributosGratuitas() {
+  public Igv getTributosGratuitas() {
     return tributosGratuitas;
   }
 
-  public void setTributosGratuitas(Impuesto tributosGratuitas) {
+  public void setTributosGratuitas(Igv tributosGratuitas) {
     this.tributosGratuitas = tributosGratuitas;
   }
 
-  public Operacion getTotalGravadas() {
-    return totalGravadas;
+  public Operacion getGravadas() {
+    return gravadas;
   }
 
-  public void setTotalGravadas(Operacion totalGravadas) {
-    this.totalGravadas = totalGravadas;
+  public void setGravadas(Operacion gravadas) {
+    this.gravadas = gravadas;
   }
 
-  public Impuesto getIgv() {
+  public Igv getIgv() {
     return igv;
   }
 
-  public void setIgv(Impuesto igv) {
+  public void setIgv(Igv igv) {
     this.igv = igv;
   }
 
-  public Impuesto getIsc() {
+  public Isc getIsc() {
     return isc;
   }
 
-  public void setIsc(Impuesto isc) {
+  public void setIsc(Isc isc) {
     this.isc = isc;
   }
 
-  public Impuesto getOtrosTributos() {
+  public Igv getOtrosTributos() {
     return otrosTributos;
   }
 
-  public void setOtrosTributos(Impuesto otrosTributos) {
+  public void setOtrosTributos(Igv otrosTributos) {
     this.otrosTributos = otrosTributos;
   }
 
-  public Impuesto getIcbper() {
+  public Igv getIcbper() {
     return icbper;
   }
 
-  public void setIcbper(Impuesto icbper) {
+  public void setIcbper(Igv icbper) {
     this.icbper = icbper;
   }
 
@@ -397,11 +451,11 @@ public class Bill {
     this.leyendas = leyendas;
   }
 
-  public String getTipoOperacion() {
+  public TipoOperacion getTipoOperacion() {
     return tipoOperacion;
   }
 
-  public void setTipoOperacion(String tipoOperacion) {
+  public void setTipoOperacion(TipoOperacion tipoOperacion) {
     this.tipoOperacion = tipoOperacion;
   }
 
@@ -413,28 +467,28 @@ public class Bill {
     this.ordenCompra = ordenCompra;
   }
 
-  public String getFise() {
-    return fise;
-  }
-
-  public void setFise(String fise) {
-    this.fise = fise;
-  }
-
-  public String getDerechosArancelarios() {
-    return derechosArancelarios;
-  }
-
-  public void setDerechosArancelarios(String derechosArancelarios) {
-    this.derechosArancelarios = derechosArancelarios;
-  }
-
   public String getIncoterm() {
     return incoterm;
   }
 
   public void setIncoterm(String incoterm) {
     this.incoterm = incoterm;
+  }
+
+  public FormaPago getContado() {
+    return contado;
+  }
+
+  public void setContado(FormaPago contado) {
+    this.contado = contado;
+  }
+
+  public List<FormaPago> getCredito() {
+    return credito;
+  }
+
+  public void setCredito(List<FormaPago> credito) {
+    this.credito = credito;
   }
 
   @Override
@@ -460,28 +514,32 @@ public class Bill {
         + fechaVencimiento
         + ", emisor="
         + emisor
+        + ", direccionEntrega="
+        + direccionEntrega
         + ", adquiriente="
         + adquiriente
+        + ", participante="
+        + participante
         + ", sujeto="
         + sujeto
-        + ", guia="
-        + guia
+        + ", guias="
+        + guias
         + ", documentosRelacionados="
         + documentosRelacionados
         + ", totalTributos="
         + totalTributos
-        + ", totalExportacion="
-        + totalExportacion
-        + ", totalInafectas="
-        + totalInafectas
-        + ", totalExoneradas="
-        + totalExoneradas
-        + ", totalGratuitas="
-        + totalGratuitas
+        + ", exportacion="
+        + exportacion
+        + ", inafectas="
+        + inafectas
+        + ", exoneradas="
+        + exoneradas
+        + ", gratuitas="
+        + gratuitas
         + ", tributosGratuitas="
         + tributosGratuitas
-        + ", totalGravadas="
-        + totalGravadas
+        + ", gravadas="
+        + gravadas
         + ", igv="
         + igv
         + ", isc="
@@ -510,12 +568,12 @@ public class Bill {
         + tipoOperacion
         + ", ordenCompra="
         + ordenCompra
-        + ", fise="
-        + fise
-        + ", derechosArancelarios="
-        + derechosArancelarios
         + ", incoterm="
         + incoterm
+        + ", contado="
+        + contado
+        + ", credito="
+        + credito
         + '}';
   }
 }

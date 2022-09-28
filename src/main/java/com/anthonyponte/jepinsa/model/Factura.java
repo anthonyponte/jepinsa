@@ -13,9 +13,8 @@ import java.util.List;
  */
 public class Factura extends Bill {
 
+  // Datos del detalle o Ítem de la Factura
   private List<FacturaDetalle> facturaDetalles;
-
-  public Factura() {}
 
   public Factura(List<FacturaDetalle> facturaDetalles) {
     this.facturaDetalles = facturaDetalles;
@@ -29,25 +28,27 @@ public class Factura extends Bill {
       int correlativo,
       Date fechaEmision,
       Date horaEmision,
-      TipoDocumento tipoDocumento,
-      Moneda moneda,
+      Tipo tipoDocumento,
+      Tipo moneda,
       Date fechaVencimiento,
       Empresa emisor,
+      Direccion direccionEntrega,
       Empresa adquiriente,
+      Empresa participante,
       DocumentoIdentidad sujeto,
-      Documento guia,
+      List<Documento> guias,
       List<Documento> documentosRelacionados,
       double totalTributos,
-      Operacion totalExportacion,
-      Operacion totalInafectas,
-      Operacion totalExoneradas,
-      Operacion totalGratuitas,
-      Impuesto tributosGratuitas,
-      Operacion totalGravadas,
-      Impuesto igv,
-      Impuesto isc,
-      Impuesto otrosTributos,
-      Impuesto icbper,
+      double exportacion,
+      double inafectas,
+      double exoneradas,
+      Operacion gratuitas,
+      Igv tributosGratuitas,
+      Operacion gravadas,
+      Igv igv,
+      Isc isc,
+      Igv otrosTributos,
+      Igv icbper,
       OtrosCargos descuentos,
       double otrosDescuentos,
       double otrosCargos,
@@ -56,11 +57,11 @@ public class Factura extends Bill {
       double totalPrecioVenta,
       double totalRedondeado,
       List<Leyenda> leyendas,
-      String tipoOperacion,
+      TipoOperacion tipoOperacion,
       String ordenCompra,
-      String fise,
-      String derechosArancelarios,
-      String incoterm) {
+      String incoterm,
+      FormaPago contado,
+      List<FormaPago> credito) {
     super(
         ubl,
         version,
@@ -72,17 +73,19 @@ public class Factura extends Bill {
         moneda,
         fechaVencimiento,
         emisor,
+        direccionEntrega,
         adquiriente,
+        participante,
         sujeto,
-        guia,
+        guias,
         documentosRelacionados,
         totalTributos,
-        totalExportacion,
-        totalInafectas,
-        totalExoneradas,
-        totalGratuitas,
+        exportacion,
+        inafectas,
+        exoneradas,
+        gratuitas,
         tributosGratuitas,
-        totalGravadas,
+        gravadas,
         igv,
         isc,
         otrosTributos,
@@ -97,9 +100,9 @@ public class Factura extends Bill {
         leyendas,
         tipoOperacion,
         ordenCompra,
-        fise,
-        derechosArancelarios,
-        incoterm);
+        incoterm,
+        contado,
+        credito);
     this.facturaDetalles = facturaDetalles;
   }
 

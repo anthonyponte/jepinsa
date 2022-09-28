@@ -40,9 +40,8 @@ import com.anthonyponte.jepinsa.model.Archivo;
 import com.anthonyponte.jepinsa.model.ComunicacionBaja;
 import com.anthonyponte.jepinsa.model.DocumentoIdentidad;
 import com.anthonyponte.jepinsa.model.Empresa;
-import com.anthonyponte.jepinsa.model.TipoDocumento;
-import com.anthonyponte.jepinsa.model.TipoDocumentoIdentidad;
-import com.anthonyponte.jepinsa.glazedlist.ComunicacionBajaDetalleTableFormat;
+import com.anthonyponte.jepinsa.model.Tipo;
+import com.anthonyponte.jepinsa.glazedlist.ComunicacionDetalleTableFormat;
 import com.anthonyponte.jepinsa.view.LoadingDialog;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
@@ -94,8 +93,8 @@ public class ComunicacionController {
                   protected Integer doInBackground() throws Exception {
                     int count = 0;
                     try {
-                      TipoDocumento tipoDocumento =
-                          (TipoDocumento) iFrame.cbxTipo.getSelectedItem();
+                      Tipo tipoDocumento =
+                          (Tipo) iFrame.cbxTipo.getSelectedItem();
 
                       Date fechaGeneracion = iFrame.dpFecha.getDate();
 
@@ -127,12 +126,11 @@ public class ComunicacionController {
 
                       if (iFrame.cbxTipo.getSelectedIndex() == 0) {
                         iFrame.cbxDocumentoTipo.setEnabled(true);
-                        iFrame.cbxDocumentoTipo.setModel(
-                            new DefaultComboBoxModel(
-                                new TipoDocumento[] {
-                                  new TipoDocumento("01", "Factura"),
-                                  new TipoDocumento("07", "Nota de crédito"),
-                                  new TipoDocumento("08", "Nota de débito")
+                        iFrame.cbxDocumentoTipo.setModel(new DefaultComboBoxModel(
+                                new Tipo[] {
+                                  new Tipo("01", "Factura"),
+                                  new Tipo("07", "Nota de crédito"),
+                                  new Tipo("08", "Nota de débito")
                                 }));
 
                         AbstractDocument docSerie =
@@ -140,10 +138,9 @@ public class ComunicacionController {
                         docSerie.setDocumentFilter(new SerieFilter('F'));
                       } else if (iFrame.cbxTipo.getSelectedIndex() == 1) {
                         iFrame.cbxDocumentoTipo.setEnabled(false);
-                        iFrame.cbxDocumentoTipo.setModel(
-                            new DefaultComboBoxModel(
-                                new TipoDocumento[] {
-                                  new TipoDocumento("20", "Comprobante de retención")
+                        iFrame.cbxDocumentoTipo.setModel(new DefaultComboBoxModel(
+                                new Tipo[] {
+                                  new Tipo("20", "Comprobante de retención")
                                 }));
 
                         AbstractDocument docSerie =
@@ -165,7 +162,7 @@ public class ComunicacionController {
     iFrame.btnAgregar.addActionListener((arg0) -> {
           try {
             Bill documento = new Bill();
-            documento.setTipoDocumento((TipoDocumento) iFrame.cbxDocumentoTipo.getSelectedItem());
+            documento.setTipoDocumento((Tipo) iFrame.cbxDocumentoTipo.getSelectedItem());
             documento.setSerie(iFrame.tfDocumentoSerie.getText());
             documento.setCorrelativo(Integer.parseInt(iFrame.tfDocumentoCorrelativo.getText()));
 
@@ -255,7 +252,7 @@ public class ComunicacionController {
     iFrame.btnGuardar.addActionListener((arg0) -> {
           File jks = new File(preferences.get(UsuarioController.FIRMA_JKS, ""));
           if (jks.exists()) {
-            TipoDocumento tipoDocumento = (TipoDocumento) iFrame.cbxTipo.getSelectedItem();
+            Tipo tipoDocumento = (Tipo) iFrame.cbxTipo.getSelectedItem();
 
             int input =
                 JOptionPane.showOptionDialog(
@@ -278,8 +275,7 @@ public class ComunicacionController {
                       ComunicacionBaja comunicacionBaja = new ComunicacionBaja();
                       comunicacionBaja.setUbl("2.0");
                       comunicacionBaja.setVersion("1.0");
-                      comunicacionBaja.setTipoDocumento(
-                          (TipoDocumento) iFrame.cbxTipo.getSelectedItem());
+                      comunicacionBaja.setTipoDocumento((Tipo) iFrame.cbxTipo.getSelectedItem());
                       comunicacionBaja.setSerie(MyDateFormat.yyyyMMdd(iFrame.dpFecha.getDate()));
                       comunicacionBaja.setCorrelativo(
                           Integer.valueOf(iFrame.tfCorrelativo.getText()));
@@ -287,12 +283,12 @@ public class ComunicacionController {
                       comunicacionBaja.setFechaEmision(iFrame.dpFecha.getDate());
                       comunicacionBaja.setFechaReferencia(iFrame.dpDocumentoFecha.getDate());
 
-                      TipoDocumentoIdentidad tipoDocumentoIdentidad = new TipoDocumentoIdentidad();
-                      tipoDocumentoIdentidad.setCodigo(
+                      Tipo tipo = new Tipo();
+                      tipo.setCodigo(
                           preferences.get(UsuarioController.RUC_TIPO, ""));
 
                       DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
-                      documentoIdentidad.setTipo(tipoDocumentoIdentidad);
+                      documentoIdentidad.setTipo(tipo);
                       documentoIdentidad.setNumero(preferences.get(UsuarioController.RUC, ""));
 
                       Empresa emisor = new Empresa();
@@ -430,7 +426,7 @@ public class ComunicacionController {
     preferences = Preferences.userRoot().node(MainController.class.getPackageName());
     eventList = new BasicEventList<>();
     tableModel =
-        eventTableModelWithThreadProxyList(eventList, new ComunicacionBajaDetalleTableFormat());
+        eventTableModelWithThreadProxyList(eventList, new ComunicacionDetalleTableFormat());
     selectionModel = new DefaultEventSelectionModel<>(eventList);
 
     iFrame.table.setModel(tableModel);

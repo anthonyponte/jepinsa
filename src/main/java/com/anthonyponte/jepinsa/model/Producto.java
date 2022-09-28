@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 anthony
+ * Copyright (C) 2022 Anthony Ponte
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,18 +18,23 @@
 package com.anthonyponte.jepinsa.model;
 
 /**
- * @author anthony
+ * @author Anthony Ponte
  */
-public class Moneda {
-
+public class Producto {
   private String codigo;
   private String descripcion;
+  private String sunat;
+  private Gtin gtin;
+  private Placa placa;
 
-  public Moneda() {}
+  public Producto() {}
 
-  public Moneda(String codigo, String descripcion) {
+  public Producto(String codigo, String descripcion, String sunat, Gtin gtin, Placa placa) {
     this.codigo = codigo;
     this.descripcion = descripcion;
+    this.sunat = sunat;
+    this.gtin = gtin;
+    this.placa = placa;
   }
 
   public String getCodigo() {
@@ -48,8 +53,43 @@ public class Moneda {
     this.descripcion = descripcion;
   }
 
+  public String getSunat() {
+    return sunat;
+  }
+
+  public void setSunat(String sunat) {
+    this.sunat = sunat;
+  }
+
+  public Gtin getGtin() {
+    return gtin;
+  }
+
+  public void setGtin(Gtin gtin) {
+    this.gtin = gtin;
+  }
+
+  public Placa getPlaca() {
+    return placa;
+  }
+
+  public void setPlaca(Placa placa) {
+    this.placa = placa;
+  }
+
   @Override
   public String toString() {
-    return "Moneda{" + "codigo=" + codigo + ", descripcion=" + descripcion + '}';
+    return "Producto{"
+        + "codigo="
+        + codigo
+        + ", descripcion="
+        + descripcion
+        + ", sunat="
+        + sunat
+        + ", gtin="
+        + gtin
+        + ", placa="
+        + placa
+        + '}';
   }
 }

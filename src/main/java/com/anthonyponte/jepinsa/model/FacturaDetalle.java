@@ -13,22 +13,18 @@ public class FacturaDetalle {
   private int id;
   private Factura factura;
   private int numero;
-  private String unidadMedida;
+  private UnidadMedida unidadMedida;
   private double cantidad;
-  private String codigoProducto;
-  private int codigoProductoSUNAT;
-  private String codigoProductoGTIN;
-  private String placa;
-  private String descripcion;
+  private Producto producto;
   private double valorUnitario;
   private double precioVentaUnitario;
   private double valorReferencialUnitario;
   private double totalTributos;
-  private double igv;
-  private double isc;
-  private double impuestoBolsas;
+  private Igv igv;
+  private Isc isc;
+  private Bolsas bolsas;
   private double valorVenta;
-  private double descuento;
+  private Descuento descuento;
 
   public FacturaDetalle() {}
 
@@ -36,39 +32,31 @@ public class FacturaDetalle {
       int id,
       Factura factura,
       int numero,
-      String unidadMedida,
+      UnidadMedida unidadMedida,
       double cantidad,
-      String codigoProducto,
-      int codigoProductoSUNAT,
-      String codigoProductoGTIN,
-      String placa,
-      String descripcion,
+      Producto producto,
       double valorUnitario,
       double precioVentaUnitario,
       double valorReferencialUnitario,
       double totalTributos,
-      double igv,
-      double isc,
-      double impuestoBolsas,
+      Igv igv,
+      Isc isc,
+      Bolsas bolsas,
       double valorVenta,
-      double descuento) {
+      Descuento descuento) {
     this.id = id;
     this.factura = factura;
     this.numero = numero;
     this.unidadMedida = unidadMedida;
     this.cantidad = cantidad;
-    this.codigoProducto = codigoProducto;
-    this.codigoProductoSUNAT = codigoProductoSUNAT;
-    this.codigoProductoGTIN = codigoProductoGTIN;
-    this.placa = placa;
-    this.descripcion = descripcion;
+    this.producto = producto;
     this.valorUnitario = valorUnitario;
     this.precioVentaUnitario = precioVentaUnitario;
     this.valorReferencialUnitario = valorReferencialUnitario;
     this.totalTributos = totalTributos;
     this.igv = igv;
     this.isc = isc;
-    this.impuestoBolsas = impuestoBolsas;
+    this.bolsas = bolsas;
     this.valorVenta = valorVenta;
     this.descuento = descuento;
   }
@@ -97,11 +85,11 @@ public class FacturaDetalle {
     this.numero = numero;
   }
 
-  public String getUnidadMedida() {
+  public UnidadMedida getUnidadMedida() {
     return unidadMedida;
   }
 
-  public void setUnidadMedida(String unidadMedida) {
+  public void setUnidadMedida(UnidadMedida unidadMedida) {
     this.unidadMedida = unidadMedida;
   }
 
@@ -113,44 +101,12 @@ public class FacturaDetalle {
     this.cantidad = cantidad;
   }
 
-  public String getCodigoProducto() {
-    return codigoProducto;
+  public Producto getProducto() {
+    return producto;
   }
 
-  public void setCodigoProducto(String codigoProducto) {
-    this.codigoProducto = codigoProducto;
-  }
-
-  public int getCodigoProductoSUNAT() {
-    return codigoProductoSUNAT;
-  }
-
-  public void setCodigoProductoSUNAT(int codigoProductoSUNAT) {
-    this.codigoProductoSUNAT = codigoProductoSUNAT;
-  }
-
-  public String getCodigoProductoGTIN() {
-    return codigoProductoGTIN;
-  }
-
-  public void setCodigoProductoGTIN(String codigoProductoGTIN) {
-    this.codigoProductoGTIN = codigoProductoGTIN;
-  }
-
-  public String getPlaca() {
-    return placa;
-  }
-
-  public void setPlaca(String placa) {
-    this.placa = placa;
-  }
-
-  public String getDescripcion() {
-    return descripcion;
-  }
-
-  public void setDescripcion(String descripcion) {
-    this.descripcion = descripcion;
+  public void setProducto(Producto producto) {
+    this.producto = producto;
   }
 
   public double getValorUnitario() {
@@ -185,28 +141,28 @@ public class FacturaDetalle {
     this.totalTributos = totalTributos;
   }
 
-  public double getIgv() {
+  public Igv getIgv() {
     return igv;
   }
 
-  public void setIgv(double igv) {
+  public void setIgv(Igv igv) {
     this.igv = igv;
   }
 
-  public double getIsc() {
+  public Isc getIsc() {
     return isc;
   }
 
-  public void setIsc(double isc) {
+  public void setIsc(Isc isc) {
     this.isc = isc;
   }
 
-  public double getImpuestoBolsas() {
-    return impuestoBolsas;
+  public Bolsas getBolsas() {
+    return bolsas;
   }
 
-  public void setImpuestoBolsas(double impuestoBolsas) {
-    this.impuestoBolsas = impuestoBolsas;
+  public void setBolsas(Bolsas bolsas) {
+    this.bolsas = bolsas;
   }
 
   public double getValorVenta() {
@@ -217,11 +173,11 @@ public class FacturaDetalle {
     this.valorVenta = valorVenta;
   }
 
-  public double getDescuento() {
+  public Descuento getDescuento() {
     return descuento;
   }
 
-  public void setDescuento(double descuento) {
+  public void setDescuento(Descuento descuento) {
     this.descuento = descuento;
   }
 
@@ -238,16 +194,8 @@ public class FacturaDetalle {
         + unidadMedida
         + ", cantidad="
         + cantidad
-        + ", codigoProducto="
-        + codigoProducto
-        + ", codigoProductoSUNAT="
-        + codigoProductoSUNAT
-        + ", codigoProductoGTIN="
-        + codigoProductoGTIN
-        + ", placa="
-        + placa
-        + ", descripcion="
-        + descripcion
+        + ", producto="
+        + producto
         + ", valorUnitario="
         + valorUnitario
         + ", precioVentaUnitario="
@@ -260,8 +208,8 @@ public class FacturaDetalle {
         + igv
         + ", isc="
         + isc
-        + ", impuestoBolsas="
-        + impuestoBolsas
+        + ", bolsas="
+        + bolsas
         + ", valorVenta="
         + valorVenta
         + ", descuento="

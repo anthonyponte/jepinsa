@@ -17,21 +17,15 @@
 
 package com.anthonyponte.jepinsa.dao;
 
-import com.anthonyponte.jepinsa.model.Summary;
-import com.anthonyponte.jepinsa.model.Tipo;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
+import com.anthonyponte.jepinsa.pojo.Empresa;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 
-/** @author AnthonyPonte */
-public interface SummaryDao {
-  public int create(Summary summary) throws SQLException;
-
-  public List<Summary> read() throws SQLException;
-
-  public void update(int id, Summary summary) throws SQLException;
-
-  public void delete(int id) throws SQLException;
-
-  public int count(Tipo tipoDocumento, Date fechaEmision) throws SQLException;
+/**
+ * @author AnthonyPonte
+ */
+public interface EmpresaService {
+  @GET("/api/v1/ruc/{ruc}")
+  Call<Empresa> getEmpresa(@Path("ruc") String ruc);
 }

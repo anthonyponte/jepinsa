@@ -328,7 +328,7 @@ public class SummaryDocuments {
                         .setAttribute("currencyID", detalle.getMoneda().getCodigo())
                         .setText(
                             String.format(
-                                Locale.ROOT, "%.2f", detalle.getOtrosCargos().getTotal())));
+                                Locale.ROOT, "%.2f", detalle.getOtrosCargos().getMonto())));
         summaryDocumentsLine.addContent(allowanceCharge);
       }
 
@@ -337,28 +337,33 @@ public class SummaryDocuments {
               .addContent(
                   new Element("TaxAmount", cbc)
                       .setAttribute("currencyID", detalle.getMoneda().getCodigo())
-                      .setText(String.format(Locale.ROOT, "%.2f", detalle.getIgv().getTotal())))
+                      .setText(String.format(Locale.ROOT, "%.2f", detalle.getIgv().getMonto())))
               .addContent(
                   new Element("TaxSubtotal", cac)
                       .addContent(
                           new Element("TaxAmount", cbc)
                               .setAttribute("currencyID", detalle.getMoneda().getCodigo())
                               .setText(
-                                  String.format(Locale.ROOT, "%.2f", detalle.getIgv().getTotal())))
+                                  String.format(Locale.ROOT, "%.2f", detalle.getIgv().getMonto())))
                       .addContent(
                           new Element("TaxCategory", cac)
                               .addContent(
                                   new Element("TaxScheme", cac)
                                       .addContent(
                                           new Element("ID", cbc)
-                                              .setText(detalle.getIgv().getCodigo()))
+                                              .setText(
+                                                  detalle.getIgv().getTipoTributo().getCodigo()))
                                       .addContent(
                                           new Element("Name", cbc)
-                                              .setText(detalle.getIgv().getDescripcion()))
+                                              .setText(
+                                                  detalle.getIgv().getTipoTributo().getCodigo()))
                                       .addContent(
                                           new Element("TaxTypeCode", cbc)
                                               .setText(
-                                                  detalle.getIgv().getCodigoInternacional())))));
+                                                  detalle
+                                                      .getIgv()
+                                                      .getTipoTributo()
+                                                      .getCodigoInternacional())))));
       summaryDocumentsLine.addContent(taxTotal);
 
       if (detalle.getIsc() != null) {
@@ -367,7 +372,7 @@ public class SummaryDocuments {
                 .addContent(
                     new Element("TaxAmount", cbc)
                         .setAttribute("currencyID", detalle.getMoneda().getCodigo())
-                        .setText(String.format(Locale.ROOT, "%.2f", detalle.getIsc().getTotal())))
+                        .setText(String.format(Locale.ROOT, "%.2f", detalle.getIsc().getMonto())))
                 .addContent(
                     new Element("TaxSubtotal", cac)
                         .addContent(
@@ -375,21 +380,29 @@ public class SummaryDocuments {
                                 .setAttribute("currencyID", detalle.getMoneda().getCodigo())
                                 .setText(
                                     String.format(
-                                        Locale.ROOT, "%.2f", detalle.getIsc().getTotal())))
+                                        Locale.ROOT, "%.2f", detalle.getIsc().getMonto())))
                         .addContent(
                             new Element("TaxCategory", cac)
                                 .addContent(
                                     new Element("TaxScheme", cac)
                                         .addContent(
                                             new Element("ID", cbc)
-                                                .setText(detalle.getIsc().getCodigo()))
+                                                .setText(
+                                                    detalle.getIsc().getTipoTributo().getCodigo()))
                                         .addContent(
                                             new Element("Name", cbc)
-                                                .setText(detalle.getIsc().getDescripcion()))
+                                                .setText(
+                                                    detalle
+                                                        .getIsc()
+                                                        .getTipoTributo()
+                                                        .getDescripcion()))
                                         .addContent(
                                             new Element("TaxTypeCode", cbc)
                                                 .setText(
-                                                    detalle.getIsc().getCodigoInternacional())))));
+                                                    detalle
+                                                        .getIsc()
+                                                        .getTipoTributo()
+                                                        .getCodigoInternacional())))));
         summaryDocumentsLine.addContent(taxTotal);
       }
 
@@ -401,7 +414,7 @@ public class SummaryDocuments {
                         .setAttribute("currencyID", detalle.getMoneda().getCodigo())
                         .setText(
                             String.format(
-                                Locale.ROOT, "%.2f", detalle.getOtrosTributos().getTotal())))
+                                Locale.ROOT, "%.2f", detalle.getOtrosTributos().getMonto())))
                 .addContent(
                     new Element("TaxSubtotal", cac)
                         .addContent(
@@ -411,23 +424,31 @@ public class SummaryDocuments {
                                     String.format(
                                         Locale.ROOT,
                                         "%.2f",
-                                        detalle.getOtrosTributos().getTotal())))
+                                        detalle.getOtrosTributos().getMonto())))
                         .addContent(
                             new Element("TaxCategory", cac)
                                 .addContent(
                                     new Element("TaxScheme", cac)
                                         .addContent(
                                             new Element("ID", cbc)
-                                                .setText(detalle.getOtrosTributos().getCodigo()))
+                                                .setText(
+                                                    detalle
+                                                        .getOtrosTributos()
+                                                        .getTipoTributo()
+                                                        .getCodigo()))
                                         .addContent(
                                             new Element("Name", cbc)
                                                 .setText(
-                                                    detalle.getOtrosTributos().getDescripcion()))
+                                                    detalle
+                                                        .getOtrosTributos()
+                                                        .getTipoTributo()
+                                                        .getDescripcion()))
                                         .addContent(
                                             new Element("TaxTypeCode", cbc)
                                                 .setText(
                                                     detalle
                                                         .getOtrosTributos()
+                                                        .getTipoTributo()
                                                         .getCodigoInternacional())))));
         summaryDocumentsLine.addContent(taxTotal);
       }
@@ -440,7 +461,7 @@ public class SummaryDocuments {
                         .setAttribute("currencyID", detalle.getMoneda().getCodigo())
                         .setText(
                             String.format(
-                                Locale.ROOT, "%.2f", detalle.getImpuestoBolsa().getTotal())))
+                                Locale.ROOT, "%.2f", detalle.getImpuestoBolsa().getMonto())))
                 .addContent(
                     new Element("TaxSubtotal", cac)
                         .addContent(
@@ -450,23 +471,31 @@ public class SummaryDocuments {
                                     String.format(
                                         Locale.ROOT,
                                         "%.2f",
-                                        detalle.getImpuestoBolsa().getTotal())))
+                                        detalle.getImpuestoBolsa().getMonto())))
                         .addContent(
                             new Element("TaxCategory", cac)
                                 .addContent(
                                     new Element("TaxScheme", cac)
                                         .addContent(
                                             new Element("ID", cbc)
-                                                .setText(detalle.getImpuestoBolsa().getCodigo()))
+                                                .setText(
+                                                    detalle
+                                                        .getImpuestoBolsa()
+                                                        .getTipoTributo()
+                                                        .getCodigo()))
                                         .addContent(
                                             new Element("Name", cbc)
                                                 .setText(
-                                                    detalle.getImpuestoBolsa().getDescripcion()))
+                                                    detalle
+                                                        .getImpuestoBolsa()
+                                                        .getTipoTributo()
+                                                        .getDescripcion()))
                                         .addContent(
                                             new Element("TaxTypeCode", cbc)
                                                 .setText(
                                                     detalle
                                                         .getImpuestoBolsa()
+                                                        .getTipoTributo()
                                                         .getCodigoInternacional())))));
         summaryDocumentsLine.addContent(taxTotal);
       }

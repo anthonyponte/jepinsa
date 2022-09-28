@@ -19,7 +19,7 @@ import org.joda.time.DateTime;
 import com.anthonyponte.jepinsa.dao.ComunicacionBajaDao;
 import com.anthonyponte.jepinsa.model.Archivo;
 import com.anthonyponte.jepinsa.model.DocumentoIdentidad;
-import com.anthonyponte.jepinsa.model.TipoDocumento;
+import com.anthonyponte.jepinsa.model.Tipo;
 
 /**
  * @author anthony
@@ -89,7 +89,7 @@ public class IComunicacionBajaDao implements ComunicacionBajaDao {
           ComunicacionBaja comunicacionBaja = new ComunicacionBaja();
           comunicacionBaja.setId(rs.getInt(1));
 
-          TipoDocumento tipoDocumento = new TipoDocumento();
+          Tipo tipoDocumento = new Tipo();
           tipoDocumento.setCodigo(rs.getString(2));
           tipoDocumento.setDescripcion(rs.getString(3));
           comunicacionBaja.setTipoDocumento(tipoDocumento);
@@ -159,7 +159,7 @@ public class IComunicacionBajaDao implements ComunicacionBajaDao {
 
           Bill documento = new Bill();
 
-          TipoDocumento tipoDocumento = new TipoDocumento();
+          Tipo tipoDocumento = new Tipo();
           tipoDocumento.setCodigo(rs.getString(3));
           tipoDocumento.setDescripcion(rs.getString(4));
           documento.setTipoDocumento(tipoDocumento);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 anthony
+ * Copyright (C) 2022 Anthony Ponte
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,19 +18,17 @@
 package com.anthonyponte.jepinsa.model;
 
 /**
- * @author anthony
+ * @author Anthony Ponte
  */
-public class Regimen {
+public class Gtin {
   private String codigo;
-  private String descripcion;
-  private double porcentaje;
+  private String tipo;
 
-  public Regimen() {}
+  public Gtin() {}
 
-  public Regimen(String codigo, String descripcion, double porcentaje) {
+  public Gtin(String codigo, String tipo) {
     this.codigo = codigo;
-    this.descripcion = descripcion;
-    this.porcentaje = porcentaje;
+    this.tipo = tipo;
   }
 
   public String getCodigo() {
@@ -41,31 +39,16 @@ public class Regimen {
     this.codigo = codigo;
   }
 
-  public String getDescripcion() {
-    return descripcion;
+  public String getTipo() {
+    return tipo;
   }
 
-  public void setDescripcion(String descripcion) {
-    this.descripcion = descripcion;
-  }
-
-  public double getPorcentaje() {
-    return porcentaje;
-  }
-
-  public void setPorcentaje(double porcentaje) {
-    this.porcentaje = porcentaje;
+  public void setTipo(String tipo) {
+    this.tipo = tipo;
   }
 
   @Override
   public String toString() {
-    return "RegimenPercepcion{"
-        + "codigo="
-        + codigo
-        + ", descripcion="
-        + descripcion
-        + ", porcentaje="
-        + porcentaje
-        + '}';
+    return "Gtin{" + "codigo=" + codigo + ", tipo=" + tipo + '}';
   }
 }

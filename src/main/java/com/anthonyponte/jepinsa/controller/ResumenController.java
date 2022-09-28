@@ -19,7 +19,6 @@ package com.anthonyponte.jepinsa.controller;
 
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
-import ca.odell.glazedlists.gui.TableFormat;
 import ca.odell.glazedlists.swing.AdvancedListSelectionModel;
 import ca.odell.glazedlists.swing.AdvancedTableModel;
 import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
@@ -30,24 +29,24 @@ import com.anthonyponte.jepinsa.custom.MyTableResize;
 import com.anthonyponte.jepinsa.dao.ResumenDiarioDao;
 import com.anthonyponte.jepinsa.dao.SummaryDao;
 import com.anthonyponte.jepinsa.filter.IntegerFilter;
+import com.anthonyponte.jepinsa.glazedlist.ResumenDetalleTableFormat;
 import com.anthonyponte.jepinsa.idao.IResumenDiarioDao;
 import com.anthonyponte.jepinsa.idao.ISummaryDao;
 import com.anthonyponte.jepinsa.maindoc.SummaryDocuments;
 import com.anthonyponte.jepinsa.model.Archivo;
 import com.anthonyponte.jepinsa.model.Bill;
 import com.anthonyponte.jepinsa.model.DocumentoIdentidad;
-import com.anthonyponte.jepinsa.model.TipoDocumentoIdentidad;
 import com.anthonyponte.jepinsa.model.Empresa;
 import com.anthonyponte.jepinsa.model.Estado;
-import com.anthonyponte.jepinsa.model.Impuesto;
-import com.anthonyponte.jepinsa.model.Moneda;
+import com.anthonyponte.jepinsa.model.Igv;
 import com.anthonyponte.jepinsa.model.Operacion;
 import com.anthonyponte.jepinsa.model.OtrosCargos;
 import com.anthonyponte.jepinsa.model.Percepcion;
 import com.anthonyponte.jepinsa.model.Regimen;
 import com.anthonyponte.jepinsa.model.ResumenDiario;
 import com.anthonyponte.jepinsa.model.ResumenDiarioDetalle;
-import com.anthonyponte.jepinsa.model.TipoDocumento;
+import com.anthonyponte.jepinsa.model.Tipo;
+import com.anthonyponte.jepinsa.model.TipoTributo;
 import com.anthonyponte.jepinsa.view.LoadingDialog;
 import com.anthonyponte.jepinsa.view.ResumenIFrame;
 import java.awt.event.ActionEvent;
@@ -98,7 +97,8 @@ public class ResumenController {
   }
 
   void init() {
-    iFrame.btnNuevo.addActionListener((ActionEvent arg0) -> {
+    iFrame.btnNuevo.addActionListener(
+        (ActionEvent arg0) -> {
           iFrame.cbxTipo.setSelectedIndex(0);
           iFrame.dpFechaGeneracion.setDate(new Date());
 
@@ -111,12 +111,13 @@ public class ResumenController {
                 protected Integer doInBackground() throws Exception {
                   int count = 0;
                   try {
-                    TipoDocumento tipoDocumento = (TipoDocumento) iFrame.cbxTipo.getSelectedItem();
+                    Tipo tipoDocumento = (Tipo) iFrame.cbxTipo.getSelectedItem();
                     Date fechaGeneracion = iFrame.dpFechaGeneracion.getDate();
 
                     count = summaryDao.count(tipoDocumento, fechaGeneracion);
                   } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null,
+                    JOptionPane.showMessageDialog(
+                        null,
                         ex.getMessage(),
                         ResumenController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
@@ -194,7 +195,8 @@ public class ResumenController {
 
                     iFrame.btnLimpiar.setEnabled(true);
                   } catch (InterruptedException | ExecutionException ex) {
-                    JOptionPane.showMessageDialog(null,
+                    JOptionPane.showMessageDialog(
+                        null,
                         ex.getMessage(),
                         ResumenController.class.getSimpleName(),
                         JOptionPane.ERROR_MESSAGE);
@@ -205,10 +207,11 @@ public class ResumenController {
           worker.execute();
         });
 
-    iFrame.btnGuardar.addActionListener((ActionEvent arg0) -> {
+    iFrame.btnGuardar.addActionListener(
+        (ActionEvent arg0) -> {
           File jks = new File(preferences.get(UsuarioController.FIRMA_JKS, ""));
           if (jks.exists()) {
-            TipoDocumento tipoDocumento = (TipoDocumento) iFrame.cbxTipo.getSelectedItem();
+            Tipo tipoDocumento = (Tipo) iFrame.cbxTipo.getSelectedItem();
             int input =
                 JOptionPane.showOptionDialog(
                     iFrame,
@@ -235,8 +238,7 @@ public class ResumenController {
                         resumenDiario.setUbl("2.0");
                         resumenDiario.setVersion("1.1");
 
-                        resumenDiario.setTipoDocumento(
-                            (TipoDocumento) iFrame.cbxTipo.getSelectedItem());
+                        resumenDiario.setTipoDocumento((Tipo) iFrame.cbxTipo.getSelectedItem());
                         resumenDiario.setSerie(
                             MyDateFormat.yyyyMMdd(iFrame.dpFechaGeneracion.getDate()));
                         resumenDiario.setCorrelativo(
@@ -245,13 +247,11 @@ public class ResumenController {
                         resumenDiario.setFechaEmision(iFrame.dpFechaGeneracion.getDate());
                         resumenDiario.setFechaReferencia(iFrame.dpFechaEmision.getDate());
 
-                        TipoDocumentoIdentidad tipoDocumentoIdentidad =
-                            new TipoDocumentoIdentidad();
-                        tipoDocumentoIdentidad.setCodigo(
-                            preferences.get(UsuarioController.RUC_TIPO, ""));
+                        Tipo tipo = new Tipo();
+                        tipo.setCodigo(preferences.get(UsuarioController.RUC_TIPO, ""));
 
                         DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
-                        documentoIdentidad.setTipo(tipoDocumentoIdentidad);
+                        documentoIdentidad.setTipo(tipo);
                         documentoIdentidad.setNumero(preferences.get(UsuarioController.RUC, ""));
 
                         Empresa emisor = new Empresa();
@@ -311,7 +311,8 @@ public class ResumenController {
                           | SQLException ex) {
                         cancel(true);
 
-                        JOptionPane.showMessageDialog(null,
+                        JOptionPane.showMessageDialog(
+                            null,
                             ex.getMessage(),
                             ResumenController.class.getSimpleName(),
                             JOptionPane.ERROR_MESSAGE);
@@ -336,7 +337,8 @@ public class ResumenController {
                               "Guardado",
                               JOptionPane.INFORMATION_MESSAGE);
                         } catch (InterruptedException | ExecutionException ex) {
-                          JOptionPane.showMessageDialog(null,
+                          JOptionPane.showMessageDialog(
+                              null,
                               ex.getMessage(),
                               ResumenController.class.getSimpleName(),
                               JOptionPane.ERROR_MESSAGE);
@@ -349,7 +351,8 @@ public class ResumenController {
             }
 
           } else {
-            JOptionPane.showMessageDialog(iFrame,
+            JOptionPane.showMessageDialog(
+                iFrame,
                 "No se encuentra el archivo JKS en la ruta "
                     + preferences.get(UsuarioController.FIRMA_JKS, ""),
                 ResumenController.class.getSimpleName(),
@@ -362,7 +365,8 @@ public class ResumenController {
           start();
         });
 
-    iFrame.cbxDocumentoTipo.addItemListener((ItemEvent ie) -> {
+    iFrame.cbxDocumentoTipo.addItemListener(
+        (ItemEvent ie) -> {
           if (ie.getStateChange() == ItemEvent.SELECTED) {
             if (iFrame.cbxDocumentoTipo.getSelectedIndex() == 0) {
               try {
@@ -385,7 +389,8 @@ public class ResumenController {
 
                 enabled();
               } catch (BadLocationException ex) {
-                JOptionPane.showMessageDialog(null,
+                JOptionPane.showMessageDialog(
+                    null,
                     ex.getMessage(),
                     ResumenController.class.getSimpleName(),
                     JOptionPane.ERROR_MESSAGE);
@@ -411,7 +416,8 @@ public class ResumenController {
 
                 enabled();
               } catch (BadLocationException ex) {
-                JOptionPane.showMessageDialog(null,
+                JOptionPane.showMessageDialog(
+                    null,
                     ex.getMessage(),
                     ResumenController.class.getSimpleName(),
                     JOptionPane.ERROR_MESSAGE);
@@ -420,7 +426,8 @@ public class ResumenController {
           }
         });
 
-    iFrame.cbxDocumentoIdentidadTipo.addItemListener((ItemEvent ie) -> {
+    iFrame.cbxDocumentoIdentidadTipo.addItemListener(
+        (ItemEvent ie) -> {
           if (ie.getStateChange() == ItemEvent.SELECTED) {
             try {
               AbstractDocument adtfDocumentoIdentidadNumero =
@@ -438,7 +445,8 @@ public class ResumenController {
 
               iFrame.tfDocumentoIdentidadNumero.requestFocus();
             } catch (BadLocationException ex) {
-              JOptionPane.showMessageDialog(null,
+              JOptionPane.showMessageDialog(
+                  null,
                   ex.getMessage(),
                   ResumenController.class.getSimpleName(),
                   JOptionPane.ERROR_MESSAGE);
@@ -483,29 +491,29 @@ public class ResumenController {
           }
         });
 
-    iFrame.cbxPercepcionRegimen.addItemListener((ItemEvent ie) -> {
+    iFrame.cbxPercepcionRegimen.addItemListener(
+        (ItemEvent ie) -> {
           if (ie.getStateChange() == ItemEvent.SELECTED) {
-            Regimen regimenPercepcion =
-                (Regimen) iFrame.cbxPercepcionRegimen.getSelectedItem();
+            Regimen regimenPercepcion = (Regimen) iFrame.cbxPercepcionRegimen.getSelectedItem();
             iFrame.tfPercepcionTasa.setText(String.valueOf(regimenPercepcion.getPorcentaje()));
           }
         });
 
-    iFrame.btnAgregar.addActionListener((arg0) -> {
+    iFrame.btnAgregar.addActionListener(
+        (arg0) -> {
           try {
             ResumenDiarioDetalle detalle = new ResumenDiarioDetalle();
 
             Bill documento = new Bill();
             documento.setSerie(iFrame.tfDocumentoSerie.getText());
             documento.setCorrelativo(Integer.valueOf(iFrame.tfDocumentoCorrelativo.getText()));
-            documento.setTipoDocumento((TipoDocumento) iFrame.cbxDocumentoTipo.getSelectedItem());
+            documento.setTipoDocumento((Tipo) iFrame.cbxDocumentoTipo.getSelectedItem());
             detalle.setDocumento(documento);
 
             if (iFrame.cbxDocumentoIdentidadTipo.getSelectedIndex() >= 0
                 && !iFrame.tfDocumentoIdentidadNumero.getText().isEmpty()) {
               DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
-              documentoIdentidad.setTipo(
-                  (TipoDocumentoIdentidad) iFrame.cbxDocumentoIdentidadTipo.getSelectedItem());
+              documentoIdentidad.setTipo((Tipo) iFrame.cbxDocumentoIdentidadTipo.getSelectedItem());
               documentoIdentidad.setNumero(iFrame.tfDocumentoIdentidadNumero.getText());
 
               Empresa adquiriente = new Empresa();
@@ -522,7 +530,7 @@ public class ResumenController {
               documentoReferencia.setCorrelativo(
                   Integer.valueOf(iFrame.tfDocumentoReferenciaCorrelativo.getText()));
               documentoReferencia.setTipoDocumento(
-                  (TipoDocumento) iFrame.cbxDocumentoReferenciaTipo.getSelectedItem());
+                  (Tipo) iFrame.cbxDocumentoReferenciaTipo.getSelectedItem());
               detalle.setDocumentoReferencia(documentoReferencia);
             }
 
@@ -541,7 +549,7 @@ public class ResumenController {
             Number importeTotal = (Number) iFrame.tfImporteTotal.getValue();
             detalle.setImporteTotal(importeTotal.doubleValue());
 
-            detalle.setMoneda((Moneda) iFrame.cbxMoneda.getSelectedItem());
+            detalle.setMoneda((Tipo) iFrame.cbxMoneda.getSelectedItem());
 
             Number gravadas = (Number) iFrame.tfGravadas.getValue();
             if (gravadas.doubleValue() > 0) {
@@ -592,45 +600,61 @@ public class ResumenController {
             if (otrosCargos.doubleValue() > 0) {
               OtrosCargos operacionOtrosCargos = new OtrosCargos();
               operacionOtrosCargos.setIndicador(true);
-              operacionOtrosCargos.setTotal(otrosCargos.doubleValue());
+              operacionOtrosCargos.setMonto(otrosCargos.doubleValue());
               detalle.setOtrosCargos(operacionOtrosCargos);
             }
 
             Number igv = (Number) iFrame.tfIgv.getValue();
-            Impuesto impuestoIgv = new Impuesto();
-            impuestoIgv.setTotal(igv.doubleValue());
-            impuestoIgv.setCodigo("1000");
-            impuestoIgv.setDescripcion("IGV");
-            impuestoIgv.setCodigoInternacional("VAT");
+            Igv impuestoIgv = new Igv();
+            impuestoIgv.setMonto(igv.doubleValue());
+
+            TipoTributo tipoTributo = new TipoTributo();
+            tipoTributo.setCodigo("1000");
+            tipoTributo.setDescripcion("IGV");
+            tipoTributo.setCodigoInternacional("VAT");
+            impuestoIgv.setTipoTributo(tipoTributo);
+
             detalle.setIgv(impuestoIgv);
 
             Number isc = (Number) iFrame.tfIsc.getValue();
             if (isc.doubleValue() > 0) {
-              Impuesto impuestoIsc = new Impuesto();
-              impuestoIsc.setTotal(isc.doubleValue());
-              impuestoIsc.setCodigo("2000");
-              impuestoIsc.setDescripcion("ISC");
-              impuestoIsc.setCodigoInternacional("EXC");
+              Igv impuestoIsc = new Igv();
+              impuestoIsc.setMonto(isc.doubleValue());
+
+              tipoTributo = new TipoTributo();
+              tipoTributo.setCodigo("2000");
+              tipoTributo.setDescripcion("ISC");
+              tipoTributo.setCodigoInternacional("EXC");
+              impuestoIsc.setTipoTributo(tipoTributo);
+
               detalle.setIsc(impuestoIsc);
             }
 
             Number otrosTributos = (Number) iFrame.tfOtrosTributos.getValue();
             if (otrosTributos.doubleValue() > 0) {
-              Impuesto impuestoOtrosTributos = new Impuesto();
-              impuestoOtrosTributos.setTotal(otrosTributos.doubleValue());
-              impuestoOtrosTributos.setCodigo("9999");
-              impuestoOtrosTributos.setDescripcion("Otros tributos");
-              impuestoOtrosTributos.setCodigoInternacional("OTH");
+              Igv impuestoOtrosTributos = new Igv();
+              impuestoOtrosTributos.setMonto(otrosTributos.doubleValue());
+
+              tipoTributo = new TipoTributo();
+              tipoTributo.setCodigo("9999");
+              tipoTributo.setDescripcion("Otros tributos");
+              tipoTributo.setCodigoInternacional("OTH");
+              impuestoOtrosTributos.setTipoTributo(tipoTributo);
+
               detalle.setOtrosTributos(impuestoOtrosTributos);
             }
 
             Number bolsas = (Number) iFrame.tfBolsasPlasticas.getValue();
             if (bolsas.doubleValue() > 0) {
-              Impuesto impuestoBolsas = new Impuesto();
-              impuestoBolsas.setTotal(bolsas.doubleValue());
-              impuestoBolsas.setCodigo("7152");
-              impuestoBolsas.setDescripcion("Impuesto a la bolsa plastica");
-              impuestoBolsas.setCodigoInternacional("OTH");
+              Igv impuestoBolsas = new Igv();
+              impuestoBolsas.setMonto(bolsas.doubleValue());
+
+              tipoTributo = new TipoTributo();
+              tipoTributo.setCodigo("7152");
+              tipoTributo.setDescripcion("Impuesto a la bolsa plastica");
+              tipoTributo.setCodigoInternacional("OTH");
+              impuestoBolsas.setTipoTributo(tipoTributo);
+
               detalle.setImpuestoBolsa(impuestoBolsas);
             }
 
@@ -695,7 +719,8 @@ public class ResumenController {
 
             iFrame.btnGuardar.setEnabled(true);
           } catch (BadLocationException ex) {
-            JOptionPane.showMessageDialog(null,
+            JOptionPane.showMessageDialog(
+                null,
                 ex.getMessage(),
                 ResumenController.class.getSimpleName(),
                 JOptionPane.ERROR_MESSAGE);
@@ -744,150 +769,7 @@ public class ResumenController {
     preferences = Preferences.userRoot().node(MainController.class.getPackageName());
     eventList = new BasicEventList<>();
 
-    TableFormat<ResumenDiarioDetalle> tableFormat =
-        new TableFormat<ResumenDiarioDetalle>() {
-          @Override
-          public int getColumnCount() {
-            return 24;
-          }
-
-          @Override
-          public String getColumnName(int column) {
-            switch (column) {
-              case 0:
-                return "Serie";
-              case 1:
-                return "Correlativo";
-              case 2:
-                return "Tipo";
-              case 3:
-                return "Adquiriente";
-              case 4:
-                return "Referencia Serie";
-              case 5:
-                return "Referencia Correlativo";
-              case 6:
-                return "Referencia Tipo";
-              case 7:
-                return "Percepcion Descripcion";
-              case 8:
-                return "Percepcion Tasa";
-              case 9:
-                return "Percepcion Monto";
-              case 10:
-                return "Percepcion Monto Totsl";
-              case 11:
-                return "Estado";
-              case 12:
-                return "Importe Total";
-              case 13:
-                return "Moneda";
-              case 14:
-                return "Gravadas";
-              case 15:
-                return "Exoneradas";
-              case 16:
-                return "Inafectas";
-              case 17:
-                return "Gratuitas";
-              case 18:
-                return "Exportacion";
-              case 19:
-                return "Otros Cargos";
-              case 20:
-                return "IGV";
-              case 21:
-                return "ISC";
-              case 22:
-                return "Otros Tributos";
-              case 23:
-                return "Bolsas";
-            }
-            throw new IllegalStateException("Unexpected column: " + column);
-          }
-
-          @Override
-          public Object getColumnValue(ResumenDiarioDetalle detalle, int column) {
-            switch (column) {
-              case 0:
-                return detalle.getDocumento().getSerie();
-              case 1:
-                return detalle.getDocumento().getCorrelativo();
-              case 2:
-                return detalle.getDocumento().getTipoDocumento().getDescripcion();
-              case 3:
-                if (detalle.getAdquiriente() != null)
-                  return detalle.getAdquiriente().getDocumentoIdentidad().getNumero();
-                else return "";
-              case 4:
-                if (detalle.getDocumentoReferencia() != null)
-                  return detalle.getDocumentoReferencia().getSerie();
-                else return "";
-              case 5:
-                if (detalle.getDocumentoReferencia() != null)
-                  return detalle.getDocumentoReferencia().getCorrelativo();
-                else return "";
-              case 6:
-                if (detalle.getDocumentoReferencia() != null)
-                  return detalle.getDocumentoReferencia().getTipoDocumento().getDescripcion();
-                else return "";
-              case 7:
-                if (detalle.getPercepcion() != null)
-                  return detalle.getPercepcion().getRegimen().getDescripcion();
-                else return "";
-              case 8:
-                if (detalle.getPercepcion() != null)
-                  return detalle.getPercepcion().getRegimen().getPorcentaje();
-                else return "";
-              case 9:
-                if (detalle.getPercepcion() != null) return detalle.getPercepcion().getMonto();
-                else return "";
-              case 10:
-                if (detalle.getPercepcion() != null) return detalle.getPercepcion().getMontoTotal();
-                else return "";
-              case 11:
-                return detalle.getEstado().getDescripcion();
-              case 12:
-                return detalle.getImporteTotal();
-              case 13:
-                return detalle.getMoneda().getDescripcion();
-              case 14:
-                if (detalle.getGravadas() != null) return detalle.getGravadas().getTotal();
-                else return "";
-              case 15:
-                if (detalle.getExoneradas() != null) return detalle.getExoneradas().getTotal();
-                else return "";
-              case 16:
-                if (detalle.getInafectas() != null) return detalle.getInafectas().getTotal();
-                else return "";
-              case 17:
-                if (detalle.getGratuitas() != null) return detalle.getGratuitas().getTotal();
-                else return "";
-              case 18:
-                if (detalle.getExportacion() != null) return detalle.getExportacion().getTotal();
-                else return "";
-              case 19:
-                if (detalle.getOtrosCargos() != null) return detalle.getOtrosCargos().getTotal();
-                else return "";
-              case 20:
-                return detalle.getIgv().getTotal();
-              case 21:
-                if (detalle.getIsc() != null) return detalle.getIsc().getTotal();
-                else return "";
-              case 22:
-                if (detalle.getOtrosTributos() != null)
-                  return detalle.getOtrosTributos().getTotal();
-                else return "";
-              case 23:
-                if (detalle.getImpuestoBolsa() != null)
-                  return detalle.getImpuestoBolsa().getTotal();
-                else return "";
-            }
-            throw new IllegalStateException("Unexpected column: " + column);
-          }
-        };
-
-    tableModel = eventTableModelWithThreadProxyList(eventList, tableFormat);
+    tableModel = eventTableModelWithThreadProxyList(eventList, new ResumenDetalleTableFormat());
     selectionModel = new DefaultEventSelectionModel<>(eventList);
     iFrame.table.setSelectionModel(selectionModel);
     iFrame.table.setModel(tableModel);
@@ -1025,7 +907,8 @@ public class ResumenController {
 
       iFrame.btnLimpiar.setEnabled(false);
     } catch (BadLocationException ex) {
-      JOptionPane.showMessageDialog(null,
+      JOptionPane.showMessageDialog(
+          null,
           ex.getMessage(),
           ResumenController.class.getSimpleName(),
           JOptionPane.ERROR_MESSAGE);
@@ -1202,7 +1085,8 @@ public class ResumenController {
 
         enabled();
       } catch (BadLocationException ex) {
-        JOptionPane.showMessageDialog(null,
+        JOptionPane.showMessageDialog(
+            null,
             ex.getMessage(),
             ResumenController.class.getSimpleName(),
             JOptionPane.ERROR_MESSAGE);
