@@ -88,7 +88,7 @@ public class MyFileCreator {
     return xml;
   }
 
-  public static File sign(String tipo, String serie, int correlativo, File file)
+  public static File sign(File file)
       throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, KeyStoreException,
           FileNotFoundException, IOException, CertificateException, UnrecoverableEntryException,
           ParserConfigurationException, MarshalException, XMLSignatureException, SAXException,

@@ -77,9 +77,7 @@ import javax.xml.transform.TransformerException;
 import org.jdom2.Document;
 import org.xml.sax.SAXException;
 
-/**
- * @author anthony
- */
+/** @author anthony */
 public class ResumenController {
   private final ResumenIFrame iFrame;
   private final LoadingDialog dialog;
@@ -242,7 +240,7 @@ public class ResumenController {
                         resumenDiario.setSerie(
                             MyDateFormat.yyyyMMdd(iFrame.dpFechaGeneracion.getDate()));
                         resumenDiario.setCorrelativo(
-                            Integer.valueOf(iFrame.tfCorrelativo.getText()));
+                            Integer.parseInt(iFrame.tfCorrelativo.getText()));
 
                         resumenDiario.setFechaEmision(iFrame.dpFechaGeneracion.getDate());
                         resumenDiario.setFechaReferencia(iFrame.dpFechaEmision.getDate());
@@ -271,12 +269,7 @@ public class ResumenController {
                                 resumenDiario.getCorrelativo(),
                                 document);
 
-                        File sign =
-                            MyFileCreator.sign(
-                                resumenDiario.getTipoDocumento().getCodigo(),
-                                resumenDiario.getSerie(),
-                                resumenDiario.getCorrelativo(),
-                                xml);
+                        File sign = MyFileCreator.sign(xml);
 
                         File zip =
                             MyFileCreator.compress(

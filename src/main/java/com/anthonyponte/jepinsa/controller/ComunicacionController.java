@@ -61,9 +61,7 @@ import javax.xml.transform.TransformerException;
 import org.jdom2.Document;
 import org.xml.sax.SAXException;
 
-/**
- * @author anthony
- */
+/** @author anthony */
 public class ComunicacionController {
 
   private final ComunicacionIFrame iFrame;
@@ -82,7 +80,8 @@ public class ComunicacionController {
   }
 
   public void init() {
-    iFrame.cbxTipo.addItemListener((ItemEvent ie) -> {
+    iFrame.cbxTipo.addItemListener(
+        (ItemEvent ie) -> {
           if (ie.getStateChange() == ItemEvent.SELECTED) {
             dialog.setVisible(true);
             dialog.setLocationRelativeTo(iFrame);
@@ -93,14 +92,14 @@ public class ComunicacionController {
                   protected Integer doInBackground() throws Exception {
                     int count = 0;
                     try {
-                      Tipo tipoDocumento =
-                          (Tipo) iFrame.cbxTipo.getSelectedItem();
+                      Tipo tipoDocumento = (Tipo) iFrame.cbxTipo.getSelectedItem();
 
                       Date fechaGeneracion = iFrame.dpFecha.getDate();
 
                       count = summaryDao.count(tipoDocumento, fechaGeneracion);
                     } catch (SQLException ex) {
-                      JOptionPane.showMessageDialog(null,
+                      JOptionPane.showMessageDialog(
+                          null,
                           ex.getMessage(),
                           ComunicacionController.class.getSimpleName(),
                           JOptionPane.ERROR_MESSAGE);
@@ -126,7 +125,8 @@ public class ComunicacionController {
 
                       if (iFrame.cbxTipo.getSelectedIndex() == 0) {
                         iFrame.cbxDocumentoTipo.setEnabled(true);
-                        iFrame.cbxDocumentoTipo.setModel(new DefaultComboBoxModel(
+                        iFrame.cbxDocumentoTipo.setModel(
+                            new DefaultComboBoxModel(
                                 new Tipo[] {
                                   new Tipo("01", "Factura"),
                                   new Tipo("07", "Nota de crédito"),
@@ -138,17 +138,17 @@ public class ComunicacionController {
                         docSerie.setDocumentFilter(new SerieFilter('F'));
                       } else if (iFrame.cbxTipo.getSelectedIndex() == 1) {
                         iFrame.cbxDocumentoTipo.setEnabled(false);
-                        iFrame.cbxDocumentoTipo.setModel(new DefaultComboBoxModel(
-                                new Tipo[] {
-                                  new Tipo("20", "Comprobante de retención")
-                                }));
+                        iFrame.cbxDocumentoTipo.setModel(
+                            new DefaultComboBoxModel(
+                                new Tipo[] {new Tipo("20", "Comprobante de retención")}));
 
                         AbstractDocument docSerie =
                             (AbstractDocument) iFrame.tfDocumentoSerie.getDocument();
                         docSerie.setDocumentFilter(new SerieFilter('R'));
                       }
                     } catch (BadLocationException | InterruptedException | ExecutionException ex) {
-                      JOptionPane.showMessageDialog(null,
+                      JOptionPane.showMessageDialog(
+                          null,
                           ex.getMessage(),
                           ComunicacionController.class.getSimpleName(),
                           JOptionPane.ERROR_MESSAGE);
@@ -159,7 +159,8 @@ public class ComunicacionController {
           }
         });
 
-    iFrame.btnAgregar.addActionListener((arg0) -> {
+    iFrame.btnAgregar.addActionListener(
+        (arg0) -> {
           try {
             Bill documento = new Bill();
             documento.setTipoDocumento((Tipo) iFrame.cbxDocumentoTipo.getSelectedItem());
@@ -190,7 +191,8 @@ public class ComunicacionController {
 
             iFrame.btnGuardar.setEnabled(true);
           } catch (BadLocationException ex) {
-            JOptionPane.showMessageDialog(null,
+            JOptionPane.showMessageDialog(
+                null,
                 ex.getMessage(),
                 ComunicacionController.class.getSimpleName(),
                 JOptionPane.ERROR_MESSAGE);
@@ -249,7 +251,8 @@ public class ComunicacionController {
           iFrame.btnLimpiar.setEnabled(true);
         });
 
-    iFrame.btnGuardar.addActionListener((arg0) -> {
+    iFrame.btnGuardar.addActionListener(
+        (var arg0) -> {
           File jks = new File(preferences.get(UsuarioController.FIRMA_JKS, ""));
           if (jks.exists()) {
             Tipo tipoDocumento = (Tipo) iFrame.cbxTipo.getSelectedItem();
@@ -278,14 +281,13 @@ public class ComunicacionController {
                       comunicacionBaja.setTipoDocumento((Tipo) iFrame.cbxTipo.getSelectedItem());
                       comunicacionBaja.setSerie(MyDateFormat.yyyyMMdd(iFrame.dpFecha.getDate()));
                       comunicacionBaja.setCorrelativo(
-                          Integer.valueOf(iFrame.tfCorrelativo.getText()));
+                          Integer.parseInt(iFrame.tfCorrelativo.getText()));
 
                       comunicacionBaja.setFechaEmision(iFrame.dpFecha.getDate());
                       comunicacionBaja.setFechaReferencia(iFrame.dpDocumentoFecha.getDate());
 
                       Tipo tipo = new Tipo();
-                      tipo.setCodigo(
-                          preferences.get(UsuarioController.RUC_TIPO, ""));
+                      tipo.setCodigo(preferences.get(UsuarioController.RUC_TIPO, ""));
 
                       DocumentoIdentidad documentoIdentidad = new DocumentoIdentidad();
                       documentoIdentidad.setTipo(tipo);
@@ -309,12 +311,7 @@ public class ComunicacionController {
                                 comunicacionBaja.getCorrelativo(),
                                 document);
 
-                        File sign =
-                            MyFileCreator.sign(
-                                comunicacionBaja.getTipoDocumento().getCodigo(),
-                                comunicacionBaja.getSerie(),
-                                comunicacionBaja.getCorrelativo(),
-                                xml);
+                        File sign = MyFileCreator.sign(xml);
 
                         File zip =
                             MyFileCreator.compress(
@@ -349,7 +346,8 @@ public class ComunicacionController {
                           | SQLException ex) {
                         cancel(true);
 
-                        JOptionPane.showMessageDialog(null,
+                        JOptionPane.showMessageDialog(
+                            null,
                             ex.getMessage(),
                             ComunicacionController.class.getSimpleName(),
                             JOptionPane.ERROR_MESSAGE);
@@ -376,7 +374,8 @@ public class ComunicacionController {
                               "Guardado",
                               JOptionPane.INFORMATION_MESSAGE);
                         } catch (InterruptedException | ExecutionException ex) {
-                          JOptionPane.showMessageDialog(null,
+                          JOptionPane.showMessageDialog(
+                              null,
                               ex.getMessage(),
                               ComunicacionController.class.getSimpleName(),
                               JOptionPane.ERROR_MESSAGE);
@@ -389,7 +388,8 @@ public class ComunicacionController {
             }
 
           } else {
-            JOptionPane.showMessageDialog(iFrame,
+            JOptionPane.showMessageDialog(
+                iFrame,
                 "No se encuentra el archivo JKS en la ruta "
                     + preferences.get(UsuarioController.FIRMA_JKS, ""),
                 ComunicacionController.class.getSimpleName(),
@@ -489,7 +489,8 @@ public class ComunicacionController {
     } catch (BadLocationException ex) {
       Logger.getLogger(ComunicacionController.class.getSimpleName()).log(Level.SEVERE, null, ex);
 
-      JOptionPane.showMessageDialog(null,
+      JOptionPane.showMessageDialog(
+          null,
           ex.getMessage(),
           ComunicacionController.class.getSimpleName(),
           JOptionPane.ERROR_MESSAGE);

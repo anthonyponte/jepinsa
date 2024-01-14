@@ -75,6 +75,12 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+            <MenuItem class="javax.swing.JMenuItem" name="miFirmar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Firmar"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </MenuItem>
             <Menu class="javax.swing.JMenu" name="menuWebService">
               <Properties>
                 <Property name="text" type="java.lang.String" value="WebService"/>

@@ -16,6 +16,7 @@ import com.anthonyponte.jepinsa.view.TableIFrame;
 import com.anthonyponte.jepinsa.view.BillConsultServiceIFrame;
 import com.anthonyponte.jepinsa.view.SendBillIFrame;
 import com.anthonyponte.jepinsa.view.SendSummaryIFrame;
+import com.anthonyponte.jepinsa.view.SignIFrame;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -29,9 +30,7 @@ import org.hsqldb.Server;
 import org.hsqldb.persist.HsqlProperties;
 import org.hsqldb.server.ServerAcl;
 
-/**
- * @author anthony
- */
+/** @author anthony */
 public class MainController {
 
   private final MainFrame frame;
@@ -43,6 +42,7 @@ public class MainController {
   private ResumenIFrame resumenIFrame;
   private TableIFrame comunicacionTableIFrame;
   private TableIFrame resumenTableIFrame;
+  private SignIFrame signIFrame;
   private SendBillIFrame sendBillIFrame;
   private SendSummaryIFrame sendSummaryIFrame;
   private SendTableIFrame sendSummaryTableIFrame;
@@ -152,6 +152,20 @@ public class MainController {
             new SendSummaryTableController(sendSummaryTableIFrame, dialog).init();
           } else {
             iframeClosed(sendSummaryTableIFrame);
+          }
+        });
+
+    frame.miFirmar.addActionListener(
+        (ActionEvent arg0) -> {
+          if (isIframeClosed(signIFrame)) {
+            signIFrame = new SignIFrame();
+            signIFrame.setTitle(frame.miFirmar.getText());
+
+            frame.dpane.add(signIFrame);
+            signIFrame.setLocation(centerIFrame(signIFrame));
+            new SignController(signIFrame, dialog).init();
+          } else {
+            iframeClosed(signIFrame);
           }
         });
 
